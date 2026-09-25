@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+
+    {% if home %}
+        {{ home|localized:"titulo" }}
+        | VVswinss
+    {% else %}
+        VVswinss
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<section>
+
+    {% if home %}
+
+        <h1>
+            {{ home|localized:"titulo" }}
+        </h1>
+
+        <p>
+            {{ home|localized:"subtitulo" }}
+        </p>
+
+        {% if home.imagen_hero %}
+
+            <img
+                src="{{ home.imagen_hero.url }}"
+                alt="{{ home|localized:'titulo' }}"
+                style="max-width: 100%;"
+            >
+
+        {% endif %}
+
+    {% else %}
+
+        <h1>
+            VVswinss
+        </h1>
+
+        <p>
+            Isolation · Façades · Rénovation
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<section>
+
+    <h2>
+        Solutions
+    </h2>
+
+    {% for servicio in servicios_destacados %}
+
+        <article>
+
+            <h3>
+                {{ servicio|localized:"nombre" }}
+            </h3>
+
+            <p>
+                {{ servicio|localized:"resumen" }}
+            </p>
+
+        </article>
+
+    {% empty %}
+
+        <p>
+            Les services seront bientôt disponibles.
+        </p>
+
+    {% endfor %}
+
+</section>
+
+
+<section>
+
+    <h2>
+        Réalisations
+    </h2>
+
+    {% for proyecto in proyectos_destacados %}
+
+        <article>
+
+            <h3>
+                {{ proyecto|localized:"titulo" }}
+            </h3>
+
+            <p>
+                {{ proyecto|localized:"resumen" }}
+            </p>
+
+            {% if proyecto.imagen_principal %}
+
+                <img
+                    src="{{ proyecto.imagen_principal.url }}"
+                    alt="{{ proyecto|localized:'titulo' }}"
+                    style="max-width: 300px;"
+                >
+
+            {% endif %}
+
+        </article>
+
+    {% empty %}
+
+        <p>
+            Les réalisations seront bientôt disponibles.
+        </p>
+
+    {% endfor %}
+
+</section>
+
+
+{% if pasos %}
+
+<section>
+
+    <h2>
+        Notre méthode
+    </h2>
+
+    {% for paso in pasos %}
+
+        <article>
+
+            <strong>
+                {{ paso.numero }}
+            </strong>
+
+            <h3>
+                {{ paso|localized:"titulo" }}
+            </h3>
+
+            <p>
+                {{ paso|localized:"descripcion" }}
+            </p>
+
+        </article>
+
+    {% endfor %}
+
+</section>
+
+{% endif %}
+
+
+{% if testimonios %}
+
+<section>
+
+    <h2>
+        Témoignages
+    </h2>
+
+    {% for testimonial in testimonios %}
+
+        <blockquote>
+
+            {{ testimonial|localized:"texto" }}
+
+            <footer>
+                {{ testimonial.nombre }}
+            </footer>
+
+        </blockquote>
+
+    {% endfor %}
+
+</section>
+
+{% endif %}
+
+
+{% if faqs %}
+
+<section>
+
+    <h2>
+        Questions fréquentes
+    </h2>
+
+    {% for faq in faqs %}
+
+        <details>
+
+            <summary>
+                {{ faq|localized:"pregunta" }}
+            </summary>
+
+            <p>
+                {{ faq|localized:"respuesta" }}
+            </p>
+
+        </details>
+
+    {% endfor %}
+
+</section>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            {% if site_configuration %}
+                {{ site_configuration.nombre_empresa }}
+            {% else %}
+                VVswinss
+            {% endif %}
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/site.css' %}"
+    >
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<header>
+
+    <div>
+
+        <a href="/{{ LANGUAGE_CODE }}/">
+
+            {% if site_configuration.logo %}
+
+                <img
+                    src="{{ site_configuration.logo.url }}"
+                    alt="{{ site_configuration.nombre_empresa }}"
+                    style="max-height: 60px;"
+                >
+
+            {% else %}
+
+                <strong>
+                    VVswinss
+                </strong>
+
+            {% endif %}
+
+        </a>
+
+    </div>
+
+
+    <nav>
+
+        <a href="/fr/">
+            FR
+        </a>
+
+        <a href="/es/">
+            ES
+        </a>
+
+        <a href="/en/">
+            EN
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<footer>
+
+    {% if site_configuration %}
+
+        <p>
+            {{ site_configuration.nombre_empresa }}
+        </p>
+
+        {% if site_configuration.telefono %}
+            <p>
+                {{ site_configuration.telefono }}
+            </p>
+        {% endif %}
+
+        {% if site_configuration.email %}
+            <p>
+                {{ site_configuration.email }}
+            </p>
+        {% endif %}
+
+    {% else %}
+
+        <p>
+            VVswinss
+        </p>
+
+    {% endif %}
+
+</footer>
+
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+
+</html>

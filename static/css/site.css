@@ -1,0 +1,43 @@
+/*
+============================================================
+VVswinss
+CSS provisional
+Se reemplazará progresivamente durante la integración de Antra.
+============================================================
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header,
+main,
+footer {
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+img {
+    height: auto;
+}
