@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Merci | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<section>
+
+    <h1>
+        Merci pour votre demande
+    </h1>
+
+    <p>
+        Votre demande a bien été enregistrée.
+    </p>
+
+    <a href="{% url 'core:home' %}">
+        Retour à l'accueil
+    </a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+Actualités & Conseils | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<section>
+
+    <h1>
+        Actualités & Conseils
+    </h1>
+
+    {% for post in posts %}
+
+        <article>
+
+            {% if post.imagen_principal %}
+
+                <img
+                    src="{{ post.imagen_principal.url }}"
+                    alt="{{ post|localized:'titulo' }}"
+                    style="max-width:300px;"
+                >
+
+            {% endif %}
+
+            <h2>
+                {{ post|localized:"titulo" }}
+            </h2>
+
+            <p>
+                {{ post|localized:"extracto" }}
+            </p>
+
+            <a
+                href="{% url 'blog:detail' post|localized:'slug' %}"
+            >
+                Lire l'article
+            </a>
+
+        </article>
+
+    {% empty %}
+
+        <p>
+            Aucun article publié.
+        </p>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

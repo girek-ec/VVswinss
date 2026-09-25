@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+{{ post|localized:"titulo" }} | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<article>
+
+    <h1>
+        {{ post|localized:"titulo" }}
+    </h1>
+
+    <p>
+        {{ post.fecha_publicacion|date:"d/m/Y" }}
+    </p>
+
+    {% if post.imagen_principal %}
+
+        <img
+            src="{{ post.imagen_principal.url }}"
+            alt="{{ post|localized:'titulo' }}"
+            style="max-width:100%;"
+        >
+
+    {% endif %}
+
+    <div>
+        {{ post|localized:"contenido"|linebreaks }}
+    </div>
+
+</article>
+
+{% endblock %}

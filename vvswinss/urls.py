@@ -19,9 +19,30 @@ urlpatterns = [
 
 
 urlpatterns += i18n_patterns(
+
     path(
         "",
         include("core.urls"),
+    ),
+
+    path(
+        "services/",
+        include("services.urls"),
+    ),
+
+    path(
+        "projects/",
+        include("projects.urls"),
+    ),
+
+    path(
+        "blog/",
+        include("blog.urls"),
+    ),
+
+    path(
+        "contact/",
+        include("contact.urls"),
     ),
 
     prefix_default_language=True,
@@ -29,6 +50,7 @@ urlpatterns += i18n_patterns(
 
 
 if settings.DEBUG:
+
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT,

@@ -63,21 +63,45 @@
     </div>
 
 
-    <nav>
+   <nav>
 
-        <a href="/fr/">
-            FR
-        </a>
+    <a href="{% url 'core:home' %}">
+        Accueil
+    </a>
 
-        <a href="/es/">
-            ES
-        </a>
+    <a href="{% url 'services:list' %}">
+        Solutions
+    </a>
 
-        <a href="/en/">
-            EN
-        </a>
+    <a href="{% url 'projects:list' %}">
+        Réalisations
+    </a>
 
-    </nav>
+    <a href="{% url 'blog:list' %}">
+        Actualités
+    </a>
+
+    <a href="{% url 'contact:contact' %}">
+        Contact
+    </a>
+
+    <span>
+        |
+    </span>
+
+    <a href="/fr/">
+        FR
+    </a>
+
+    <a href="/es/">
+        ES
+    </a>
+
+    <a href="/en/">
+        EN
+    </a>
+
+</nav>
 
 </header>
 

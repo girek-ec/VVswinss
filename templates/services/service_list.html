@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+Solutions | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<section>
+
+    <h1>
+        Solutions
+    </h1>
+
+    {% for servicio in servicios %}
+
+        <article>
+
+            {% if servicio.imagen_principal %}
+
+                <img
+                    src="{{ servicio.imagen_principal.url }}"
+                    alt="{{ servicio|localized:'nombre' }}"
+                    style="max-width:300px;"
+                >
+
+            {% endif %}
+
+            <h2>
+                {{ servicio|localized:"nombre" }}
+            </h2>
+
+            <p>
+                {{ servicio|localized:"resumen" }}
+            </p>
+
+            <a
+                href="{% url 'services:detail' servicio|localized:'slug' %}"
+            >
+                Voir le service
+            </a>
+
+        </article>
+
+    {% empty %}
+
+        <p>
+            Aucun service disponible.
+        </p>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}

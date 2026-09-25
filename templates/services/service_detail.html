@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+{{ servicio|localized:"nombre" }} | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<article>
+
+    <h1>
+        {{ servicio|localized:"nombre" }}
+    </h1>
+
+    {% if servicio.imagen_principal %}
+
+        <img
+            src="{{ servicio.imagen_principal.url }}"
+            alt="{{ servicio|localized:'nombre' }}"
+            style="max-width:100%;"
+        >
+
+    {% endif %}
+
+    <div>
+        {{ servicio|localized:"contenido"|linebreaks }}
+    </div>
+
+
+    {% if servicio.beneficios.all %}
+
+        <h2>
+            Avantages
+        </h2>
+
+        {% for beneficio in servicio.beneficios.all %}
+
+            <section>
+
+                <h3>
+                    {{ beneficio|localized:"titulo" }}
+                </h3>
+
+                <p>
+                    {{ beneficio|localized:"descripcion" }}
+                </p>
+
+            </section>
+
+        {% endfor %}
+
+    {% endif %}
+
+</article>
+
+{% endblock %}

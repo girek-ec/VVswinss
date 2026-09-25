@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+{{ proyecto|localized:"titulo" }} | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<article>
+
+    <h1>
+        {{ proyecto|localized:"titulo" }}
+    </h1>
+
+    <p>
+        {{ proyecto.ubicacion }}
+    </p>
+
+    {% if proyecto.imagen_principal %}
+
+        <img
+            src="{{ proyecto.imagen_principal.url }}"
+            alt="{{ proyecto|localized:'titulo' }}"
+            style="max-width:100%;"
+        >
+
+    {% endif %}
+
+    <div>
+        {{ proyecto|localized:"contenido"|linebreaks }}
+    </div>
+
+
+    {% for intervencion in proyecto.intervenciones.all %}
+
+        <section>
+
+            <h2>
+                {{ intervencion|localized:"titulo" }}
+            </h2>
+
+            <p>
+                {{ intervencion|localized:"descripcion" }}
+            </p>
+
+        </section>
+
+    {% endfor %}
+
+
+    {% for comparacion in proyecto.antes_despues.all %}
+
+        <section>
+
+            <h2>
+                {{ comparacion|localized:"titulo" }}
+            </h2>
+
+            <img
+                src="{{ comparacion.imagen_antes.url }}"
+                alt="Avant"
+                style="max-width:45%;"
+            >
+
+            <img
+                src="{{ comparacion.imagen_despues.url }}"
+                alt="Après"
+                style="max-width:45%;"
+            >
+
+        </section>
+
+    {% endfor %}
+
+</article>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n_fields %}
+
+
+{% block title %}
+Réalisations | VVswinss
+{% endblock %}
+
+
+{% block content %}
+
+<section>
+
+    <h1>
+        Réalisations
+    </h1>
+
+    {% for proyecto in proyectos %}
+
+        <article>
+
+            {% if proyecto.imagen_principal %}
+
+                <img
+                    src="{{ proyecto.imagen_principal.url }}"
+                    alt="{{ proyecto|localized:'titulo' }}"
+                    style="max-width:300px;"
+                >
+
+            {% endif %}
+
+            <h2>
+                {{ proyecto|localized:"titulo" }}
+            </h2>
+
+            <p>
+                {{ proyecto.ubicacion }}
+            </p>
+
+            <p>
+                {{ proyecto|localized:"resumen" }}
+            </p>
+
+            <a
+                href="{% url 'projects:detail' proyecto|localized:'slug' %}"
+            >
+                Voir le projet
+            </a>
+
+        </article>
+
+    {% empty %}
+
+        <p>
+            Aucun projet publié.
+        </p>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
