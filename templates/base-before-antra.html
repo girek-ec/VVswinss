@@ -1,0 +1,279 @@
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+
+{% get_current_language as CURRENT_LANGUAGE %}
+
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANGUAGE|default:'fr' }}">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+
+            {% if site_configuration %}
+                {{ site_configuration.company_name }}
+            {% else %}
+                VVswinss
+            {% endif %}
+
+        {% endblock %}
+    </title>
+
+
+    <meta
+        name="description"
+        content="{% block meta_description %}VVswinss{% endblock %}"
+    >
+
+
+    {% if site_configuration.favicon %}
+
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="{{ site_configuration.favicon.url }}"
+        >
+
+    {% endif %}
+
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/site.css' %}"
+    >
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <!-- =====================================================
+         LOGO
+    ====================================================== -->
+
+    <div>
+
+        <a href="/{{ CURRENT_LANGUAGE }}/">
+
+            {% if site_configuration and site_configuration.logo %}
+
+                <img
+                    src="{{ site_configuration.logo.url }}"
+                    alt="{{ site_configuration.company_name }}"
+                    style="max-height: 60px;"
+                >
+
+            {% else %}
+
+                <strong>
+                    VVswinss
+                </strong>
+
+            {% endif %}
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN NAVIGATION
+    ====================================================== -->
+
+    <nav>
+
+        <a href="{% url 'core:home' %}">
+            {% trans "Home" %}
+        </a>
+
+        <a href="{% url 'services:list' %}">
+            {% trans "Services" %}
+        </a>
+
+        <a href="{% url 'projects:list' %}">
+            {% trans "Projects" %}
+        </a>
+
+        <a href="{% url 'blog:list' %}">
+            {% trans "News & Advice" %}
+        </a>
+
+        <a href="{% url 'contact:contact' %}">
+            {% trans "Contact" %}
+        </a>
+
+
+        <span>
+            |
+        </span>
+
+
+        <!-- =================================================
+             LANGUAGE SELECTOR
+        ================================================== -->
+
+        <a
+            href="/fr/"
+            {% if CURRENT_LANGUAGE == "fr" %}
+                aria-current="page"
+            {% endif %}
+        >
+            FR
+        </a>
+
+        <a
+            href="/de/"
+            {% if CURRENT_LANGUAGE == "de" %}
+                aria-current="page"
+            {% endif %}
+        >
+            DE
+        </a>
+
+        <a
+            href="/it/"
+            {% if CURRENT_LANGUAGE == "it" %}
+                aria-current="page"
+            {% endif %}
+        >
+            IT
+        </a>
+
+        <a
+            href="/en/"
+            {% if CURRENT_LANGUAGE == "en" %}
+                aria-current="page"
+            {% endif %}
+        >
+            EN
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    {% if site_configuration %}
+
+        <p>
+            {{ site_configuration.company_name }}
+        </p>
+
+
+        {% if site_configuration.address %}
+
+            <p>
+                {{ site_configuration.address }}
+
+                {% if site_configuration.city %}
+                    - {{ site_configuration.city }}
+                {% endif %}
+            </p>
+
+        {% endif %}
+
+
+        {% if site_configuration.phone %}
+
+            <p>
+                <a href="tel:{{ site_configuration.phone }}">
+                    {{ site_configuration.phone }}
+                </a>
+            </p>
+
+        {% endif %}
+
+
+        {% if site_configuration.email %}
+
+            <p>
+                <a href="mailto:{{ site_configuration.email }}">
+                    {{ site_configuration.email }}
+                </a>
+            </p>
+
+        {% endif %}
+
+
+        {% if social_links %}
+
+            <div>
+
+                {% for social_link in social_links %}
+
+                    <a
+                        href="{{ social_link.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {{ social_link.name }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% else %}
+
+        <p>
+            VVswinss
+        </p>
+
+    {% endif %}
+
+
+    <p>
+        &copy; {% now "Y" %}
+        {% if site_configuration %}
+            {{ site_configuration.company_name }}
+        {% else %}
+            VVswinss
+        {% endif %}
+    </p>
+
+</footer>
+
+
+{% block extra_js %}
+{% endblock %}
+
+
+</body>
+
+</html>

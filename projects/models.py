@@ -1,183 +1,669 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.utils.text import slugify
 
-from core.models import MultilingualSEOModel, TimeStampedModel
+from core.models import (
+    MultilingualSEOModel,
+    TimeStampedModel,
+)
 from services.models import Service
 
 
-class ProjectType(TimeStampedModel):
-    nombre_fr = models.CharField(max_length=120)
-    nombre_es = models.CharField(max_length=120, blank=True)
-    nombre_en = models.CharField(max_length=120, blank=True)
+# ============================================================
+# PROJECT TYPE
+# ============================================================
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+class ProjectType(TimeStampedModel):
+
+    # ========================================================
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    name_es = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # FRANÇAIS · PRINCIPAL
+    # ========================================================
+
+    name_fr = models.CharField(
+        max_length=120,
+    )
+
+    # ========================================================
+    # DEUTSCH
+    # ========================================================
+
+    name_de = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # ITALIANO
+    # ========================================================
+
+    name_it = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # ENGLISH
+    # ========================================================
+
+    name_en = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # SETTINGS
+    # ========================================================
+
+    order = models.PositiveIntegerField(
+        default=0,
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+    )
 
     class Meta:
-        ordering = ["orden", "nombre_fr"]
+        ordering = [
+            "order",
+            "name_fr",
+        ]
+
+        verbose_name = "Project type"
+        verbose_name_plural = "Project types"
 
     def __str__(self):
-        return self.nombre_fr
+        return self.name_fr
 
+
+# ============================================================
+# BUILDING TYPE
+# ============================================================
 
 class BuildingType(TimeStampedModel):
-    nombre_fr = models.CharField(max_length=120)
-    nombre_es = models.CharField(max_length=120, blank=True)
-    nombre_en = models.CharField(max_length=120, blank=True)
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    # ========================================================
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    name_es = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # FRANÇAIS · PRINCIPAL
+    # ========================================================
+
+    name_fr = models.CharField(
+        max_length=120,
+    )
+
+    # ========================================================
+    # DEUTSCH
+    # ========================================================
+
+    name_de = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # ITALIANO
+    # ========================================================
+
+    name_it = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # ENGLISH
+    # ========================================================
+
+    name_en = models.CharField(
+        max_length=120,
+        blank=True,
+    )
+
+    # ========================================================
+    # SETTINGS
+    # ========================================================
+
+    order = models.PositiveIntegerField(
+        default=0,
+    )
+
+    is_active = models.BooleanField(
+        default=True,
+    )
 
     class Meta:
-        ordering = ["orden", "nombre_fr"]
+        ordering = [
+            "order",
+            "name_fr",
+        ]
+
+        verbose_name = "Building type"
+        verbose_name_plural = "Building types"
 
     def __str__(self):
-        return self.nombre_fr
+        return self.name_fr
 
+
+# ============================================================
+# PROJECT
+# ============================================================
 
 class Project(
     MultilingualSEOModel,
     TimeStampedModel,
 ):
-    titulo_fr = models.CharField(max_length=200)
-    titulo_es = models.CharField(max_length=200, blank=True)
-    titulo_en = models.CharField(max_length=200, blank=True)
 
-    slug_fr = models.SlugField(max_length=220, unique=True)
-    slug_es = models.SlugField(max_length=220, blank=True, null=True, unique=True)
-    slug_en = models.SlugField(max_length=220, blank=True, null=True, unique=True)
+    # ========================================================
+    # TITLE
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
 
-    tipo = models.ForeignKey(
+    title_es = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    # ========================================================
+    # TITLE · PUBLIC LANGUAGES
+    # ========================================================
+
+    title_fr = models.CharField(
+        max_length=200,
+    )
+
+    title_de = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    title_it = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    title_en = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    # ========================================================
+    # SLUGS
+    #
+    # IMPORTANTE:
+    # No existe slug_es porque el español no es público.
+    # ========================================================
+
+    slug_fr = models.SlugField(
+        max_length=220,
+        unique=True,
+    )
+
+    slug_de = models.SlugField(
+        max_length=220,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    slug_it = models.SlugField(
+        max_length=220,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    slug_en = models.SlugField(
+        max_length=220,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    # ========================================================
+    # CLASSIFICATION
+    # ========================================================
+
+    project_type = models.ForeignKey(
         ProjectType,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="proyectos",
+        related_name="projects",
     )
 
-    tipo_edificio = models.ForeignKey(
+    building_type = models.ForeignKey(
         BuildingType,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="proyectos",
+        related_name="projects",
     )
 
-    servicios = models.ManyToManyField(
+    # ========================================================
+    # RELATED SERVICES
+    # ========================================================
+
+    services = models.ManyToManyField(
         Service,
-        related_name="proyectos",
+        related_name="projects",
         blank=True,
     )
 
-    ubicacion = models.CharField(max_length=160, blank=True)
-    cliente = models.CharField(max_length=160, blank=True)
+    # ========================================================
+    # PROJECT INFORMATION
+    # ========================================================
 
-    fecha_inicio = models.DateField(blank=True, null=True)
-    fecha_fin = models.DateField(blank=True, null=True)
+    location = models.CharField(
+        max_length=160,
+        blank=True,
+    )
 
-    resumen_fr = models.TextField(blank=True)
-    resumen_es = models.TextField(blank=True)
-    resumen_en = models.TextField(blank=True)
+    client = models.CharField(
+        max_length=160,
+        blank=True,
+    )
 
-    contenido_fr = models.TextField()
-    contenido_es = models.TextField(blank=True)
-    contenido_en = models.TextField(blank=True)
+    start_date = models.DateField(
+        blank=True,
+        null=True,
+    )
 
-    imagen_principal = models.ImageField(
+    end_date = models.DateField(
+        blank=True,
+        null=True,
+    )
+
+    # ========================================================
+    # SUMMARY
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    summary_es = models.TextField(
+        blank=True,
+    )
+
+    # ========================================================
+    # SUMMARY · PUBLIC LANGUAGES
+    # ========================================================
+
+    summary_fr = models.TextField(
+        blank=True,
+    )
+
+    summary_de = models.TextField(
+        blank=True,
+    )
+
+    summary_it = models.TextField(
+        blank=True,
+    )
+
+    summary_en = models.TextField(
+        blank=True,
+    )
+
+    # ========================================================
+    # CONTENT
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    content_es = models.TextField(
+        blank=True,
+    )
+
+    # ========================================================
+    # CONTENT · PUBLIC LANGUAGES
+    # ========================================================
+
+    content_fr = models.TextField()
+
+    content_de = models.TextField(
+        blank=True,
+    )
+
+    content_it = models.TextField(
+        blank=True,
+    )
+
+    content_en = models.TextField(
+        blank=True,
+    )
+
+    # ========================================================
+    # MAIN IMAGE
+    # ========================================================
+
+    main_image = models.ImageField(
         upload_to="projects/main/",
         blank=True,
         null=True,
     )
 
-    destacado = models.BooleanField(default=False)
-    publicado = models.BooleanField(default=True)
+    # ========================================================
+    # PUBLICATION
+    # ========================================================
+
+    is_featured = models.BooleanField(
+        default=False,
+    )
+
+    is_published = models.BooleanField(
+        default=True,
+    )
 
     class Meta:
-        ordering = ["-fecha_fin", "-created_at"]
+
+        ordering = [
+            "-end_date",
+            "-created_at",
+        ]
+
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"
 
     def __str__(self):
-        return self.titulo_fr
+        return self.title_fr
+
+    # ========================================================
+    # SAVE
+    # ========================================================
 
     def save(self, *args, **kwargs):
+
+        # ====================================================
+        # FRANÇAIS
+        # ====================================================
+
         if not self.slug_fr:
-            self.slug_fr = slugify(self.titulo_fr)
 
-        if self.titulo_es and not self.slug_es:
-            self.slug_es = slugify(self.titulo_es)
+            self.slug_fr = slugify(
+                self.title_fr
+            )
 
-        if self.titulo_en and not self.slug_en:
-            self.slug_en = slugify(self.titulo_en)
+        # ====================================================
+        # DEUTSCH
+        # ====================================================
 
-        super().save(*args, **kwargs)
+        if self.title_de and not self.slug_de:
 
+            self.slug_de = slugify(
+                self.title_de
+            )
+
+        if not self.title_de:
+            self.slug_de = None
+
+        # ====================================================
+        # ITALIANO
+        # ====================================================
+
+        if self.title_it and not self.slug_it:
+
+            self.slug_it = slugify(
+                self.title_it
+            )
+
+        if not self.title_it:
+            self.slug_it = None
+
+        # ====================================================
+        # ENGLISH
+        # ====================================================
+
+        if self.title_en and not self.slug_en:
+
+            self.slug_en = slugify(
+                self.title_en
+            )
+
+        if not self.title_en:
+            self.slug_en = None
+
+        super().save(
+            *args,
+            **kwargs,
+        )
+
+
+# ============================================================
+# PROJECT IMAGE
+# ============================================================
 
 class ProjectImage(TimeStampedModel):
-    proyecto = models.ForeignKey(
+
+    project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name="imagenes",
+        related_name="images",
     )
 
-    imagen = models.ImageField(upload_to="projects/gallery/")
+    image = models.ImageField(
+        upload_to="projects/gallery/",
+    )
 
-    alt_fr = models.CharField(max_length=180, blank=True)
-    alt_es = models.CharField(max_length=180, blank=True)
-    alt_en = models.CharField(max_length=180, blank=True)
+    # ========================================================
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
 
-    orden = models.PositiveIntegerField(default=0)
+    alt_es = models.CharField(
+        max_length=180,
+        blank=True,
+    )
+
+    # ========================================================
+    # PUBLIC LANGUAGES
+    # ========================================================
+
+    alt_fr = models.CharField(
+        max_length=180,
+        blank=True,
+    )
+
+    alt_de = models.CharField(
+        max_length=180,
+        blank=True,
+    )
+
+    alt_it = models.CharField(
+        max_length=180,
+        blank=True,
+    )
+
+    alt_en = models.CharField(
+        max_length=180,
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+    )
 
     class Meta:
-        ordering = ["orden"]
+
+        ordering = [
+            "order",
+        ]
+
+        verbose_name = "Project image"
+        verbose_name_plural = "Project images"
 
     def __str__(self):
-        return f"Imagen - {self.proyecto}"
+        return f"Image - {self.project}"
 
+
+# ============================================================
+# BEFORE / AFTER
+# ============================================================
 
 class BeforeAfter(TimeStampedModel):
-    proyecto = models.ForeignKey(
+
+    project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name="antes_despues",
+        related_name="before_after",
     )
 
-    imagen_antes = models.ImageField(upload_to="projects/before-after/")
-    imagen_despues = models.ImageField(upload_to="projects/before-after/")
+    before_image = models.ImageField(
+        upload_to="projects/before-after/",
+    )
 
-    titulo_fr = models.CharField(max_length=160, blank=True)
-    titulo_es = models.CharField(max_length=160, blank=True)
-    titulo_en = models.CharField(max_length=160, blank=True)
+    after_image = models.ImageField(
+        upload_to="projects/before-after/",
+    )
 
-    orden = models.PositiveIntegerField(default=0)
+    # ========================================================
+    # ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    title_es = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    # ========================================================
+    # PUBLIC LANGUAGES
+    # ========================================================
+
+    title_fr = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    title_de = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    title_it = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    title_en = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+    )
 
     class Meta:
-        ordering = ["orden"]
+
+        ordering = [
+            "order",
+        ]
+
+        verbose_name = "Before and after"
+        verbose_name_plural = "Before and after"
 
     def __str__(self):
-        return f"Antes / Después - {self.proyecto}"
 
+        return (
+            self.title_fr
+            or self.title_es
+            or f"Before / After - {self.project}"
+        )
+
+
+# ============================================================
+# INTERVENTION
+# ============================================================
 
 class Intervention(TimeStampedModel):
-    proyecto = models.ForeignKey(
+
+    project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name="intervenciones",
+        related_name="interventions",
     )
 
-    titulo_fr = models.CharField(max_length=160)
-    titulo_es = models.CharField(max_length=160, blank=True)
-    titulo_en = models.CharField(max_length=160, blank=True)
+    # ========================================================
+    # TITLE · ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
 
-    descripcion_fr = models.TextField(blank=True)
-    descripcion_es = models.TextField(blank=True)
-    descripcion_en = models.TextField(blank=True)
+    title_es = models.CharField(
+        max_length=160,
+        blank=True,
+    )
 
-    orden = models.PositiveIntegerField(default=0)
+    # ========================================================
+    # TITLE · PUBLIC LANGUAGES
+    # ========================================================
+
+    title_fr = models.CharField(
+        max_length=160,
+    )
+
+    title_de = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    title_it = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    title_en = models.CharField(
+        max_length=160,
+        blank=True,
+    )
+
+    # ========================================================
+    # DESCRIPTION · ESPAÑOL · REFERENCIA INTERNA
+    # ========================================================
+
+    description_es = models.TextField(
+        blank=True,
+    )
+
+    # ========================================================
+    # DESCRIPTION · PUBLIC LANGUAGES
+    # ========================================================
+
+    description_fr = models.TextField(
+        blank=True,
+    )
+
+    description_de = models.TextField(
+        blank=True,
+    )
+
+    description_it = models.TextField(
+        blank=True,
+    )
+
+    description_en = models.TextField(
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField(
+        default=0,
+    )
 
     class Meta:
-        ordering = ["orden"]
+
+        ordering = [
+            "order",
+        ]
+
+        verbose_name = "Intervention"
+        verbose_name_plural = "Interventions"
 
     def __str__(self):
-        return self.titulo_fr
+        return self.title_fr or self.title_es

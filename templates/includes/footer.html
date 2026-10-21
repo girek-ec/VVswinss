@@ -1,0 +1,282 @@
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+<footer class="footer-section overflow-hidden">
+
+    <!-- =========================================================
+         FOOTER BACKGROUND
+    ========================================================= -->
+    <div class="footer-bg" data-background="{% static 'antra/assets/img/bg-img/footer-bg.png' %}"></div>
+    <div class="footer-shade"></div>
+
+    <div class="container container-2">
+        <div class="row footer-wrap">
+
+            <!-- =========================================================
+                 COMPANY · LOGO / SLOGAN / ADDRESS
+            ========================================================= -->
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+
+                    <div class="widget-header">
+                        <div class="footer-logo">
+                            <a href="{% url 'core:home' %}">
+
+                                {% if site_configuration and site_configuration.white_logo %}
+                                    <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}">
+
+                                {% elif site_configuration and site_configuration.logo %}
+                                    <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}">
+
+                                {% else %}
+                                    <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services">
+                                {% endif %}
+
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if site_configuration %}
+
+                        {% if site_configuration|localized:"slogan" %}
+                            <p class="mb-10">{{ site_configuration|localized:"slogan" }}</p>
+                        {% endif %}
+
+                        {% if site_configuration.address or site_configuration.city %}
+                            <p class="mb-0">
+                                {% if site_configuration.address %}
+                                    {{ site_configuration.address }}<br>
+                                {% endif %}
+
+                                {% if site_configuration.postal_code %}
+                                    {{ site_configuration.postal_code }}
+                                {% endif %}
+
+                                {% if site_configuration.city %}
+                                    {{ site_configuration.city }}
+                                {% endif %}
+
+                                {% if site_configuration.canton %}
+                                    · {{ site_configuration.canton }}
+                                {% endif %}
+
+                                {% if site_configuration.country %}
+                                    <br>{{ site_configuration.country }}
+                                {% endif %}
+                            </p>
+                        {% endif %}
+
+                    {% else %}
+
+                        <p class="mb-10">{% trans "Solutions pour l’isolation, les façades et la rénovation." %}</p>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 NAVIGATION
+            ========================================================= -->
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget footer-col-2">
+
+                    <ul class="footer-list">
+                        <li><a href="{% url 'core:home' %}">{% trans "Accueil" %}</a></li>
+                        <li><a href="{% url 'services:list' %}">{% trans "Solutions" %}</a></li>
+                        <li><a href="{% url 'projects:list' %}">{% trans "Réalisations" %}</a></li>
+                        <li><a href="{% url 'core:home' %}#about">{% trans "Entreprise" %}</a></li>
+                        <li><a href="{% url 'core:home' %}#process">{% trans "Notre méthode" %}</a></li>
+                        <li><a href="{% url 'blog:list' %}">{% trans "Actualités & conseils" %}</a></li>
+                        <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 SERVICE AREAS / BUSINESS HOURS / FALLBACK SERVICES
+            ========================================================= -->
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget footer-col-2 pl-0">
+
+                    {% if service_areas %}
+
+                        <ul class="footer-list">
+                            {% for area in service_areas|slice:":5" %}
+                                <li><span>{{ area.name }}</span></li>
+                            {% endfor %}
+                        </ul>
+
+                    {% elif business_hours %}
+
+                        <ul class="footer-list">
+                            {% for business_hour in business_hours %}
+                                <li><span>{{ business_hour|localized:"day" }} — {{ business_hour.hours }}</span></li>
+                            {% endfor %}
+                        </ul>
+
+                    {% else %}
+
+                        <ul class="footer-list">
+                            <li><span>{% trans "Isolation thermique" %}</span></li>
+                            <li><span>{% trans "Façades" %}</span></li>
+                            <li><span>{% trans "Rénovation" %}</span></li>
+                        </ul>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                 CONTACT / SOCIAL / LANGUAGES
+            ========================================================= -->
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+
+                    <div class="footer-address">
+
+                        {% if site_configuration %}
+
+                            {% if site_configuration.phone %}
+                                <a class="number" href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
+                            {% endif %}
+
+                            {% if site_configuration.email %}
+                                <a class="mail" href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
+                            {% endif %}
+
+                        {% endif %}
+
+
+                        {% if social_links %}
+
+                            <ul class="social-list">
+                                {% for social_link in social_links %}
+                                    <li>
+                                        <a href="{{ social_link.url }}" target="_blank" rel="noopener noreferrer">{{ social_link.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        {% endif %}
+
+
+                        <!-- =========================================================
+                             FOOTER LANGUAGES
+                        ========================================================= -->
+                       <div class="mt-20 footer-language-list">
+    <a href="/fr/">FR</a>
+    <span> · </span>
+    <a href="/de/">DE</a>
+    <span> · </span>
+    <a href="/it/">IT</a>
+    <span> · </span>
+    <a href="/en/">EN</a>
+</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         COPYRIGHT / LEGAL
+    ========================================================= -->
+    <div class="copyright-area">
+        <div class="container">
+
+            <div class="copyright-content d-flex align-items-center justify-content-between flex-wrap gap-3">
+
+                <p class="mb-0">
+                    © {% now "Y" %}
+                    {% if site_configuration %}
+                        {{ site_configuration.company_name }}
+                    {% else %}
+                        V&V Swiss Services
+                    {% endif %}.
+                    {% trans "Tous droits réservés." %}
+                </p>
+
+                <ul class="footer-legal-list d-flex align-items-center flex-wrap gap-3 mb-0">
+                    <li>
+                        <a href="{% url 'core:mentions_legales' %}">{% trans "Mentions légales" %}</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'core:protection_donnees' %}">{% trans "Protection des données" %}</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER BRAND TEXT
+    ========================================================= -->
+    <div class="footer-text">
+        <span>
+            {% if site_configuration %}
+                {{ site_configuration.company_name }}
+            {% else %}
+                V&V Swiss Services
+            {% endif %}
+        </span>
+    </div>
+
+</footer>
+<style>
+/* =========================================================
+   FOOTER · LEGAL LINKS
+========================================================= */
+
+.footer-section .footer-legal-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-section .footer-legal-list li a {
+    color: var(--tl-color-common-white) !important;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer-section .footer-legal-list li a:hover {
+    color: var(--tl-color-theme-primary) !important;
+}
+
+
+/* =========================================================
+   FOOTER · LANGUAGES
+========================================================= */
+
+.footer-section .footer-language-list,
+.footer-section .footer-language-list span {
+    color: var(--tl-color-common-white) !important;
+}
+
+.footer-section .footer-language-list a {
+    color: var(--tl-color-common-white) !important;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer-section .footer-language-list a:hover {
+    color: var(--tl-color-theme-primary) !important;
+}
+</style>

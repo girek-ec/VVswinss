@@ -1,0 +1,172 @@
+{% load i18n %}
+
+<form action="{% url 'contact:contact' %}" method="post" enctype="multipart/form-data" id="vv-contact-form" class="form-horizontal" novalidate>
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <div class="alert alert-danger mb-30" role="alert">
+        <strong>{% trans "Veuillez vérifier les informations du formulaire." %}</strong>
+        <ul class="mt-15 mb-0">
+            {% for field in form %}
+                {% for error in field.errors %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.name.label }} *</h4>
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.company.label }}</h4>
+                {{ form.company }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.email.label }} *</h4>
+                {{ form.email }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.phone.label }} *</h4>
+                {{ form.phone }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.service.label }} *</h4>
+                {{ form.service }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.project_location.label }}</h4>
+                {{ form.project_location }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item message-item">
+                <h4 class="form-title">{{ form.message.label }} *</h4>
+                {{ form.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.photos.label }}</h4>
+                {{ form.photos }}
+                <small class="d-block mt-10">{% trans "Vous pouvez joindre jusqu’à 8 photos au format JPG, PNG ou WebP. Chaque photo peut peser jusqu’à 8 Mo." %}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item">
+                <div class="form-check">
+                    {{ form.request_visit }}
+                    <label class="form-check-label" for="{{ form.request_visit.id_for_label }}">{{ form.request_visit.label }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row" id="technical-visit-fields">
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.preferred_date.label }}</h4>
+                {{ form.preferred_date }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-item">
+                <h4 class="form-title">{{ form.preferred_time.label }}</h4>
+                {{ form.preferred_time }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <small class="d-block mt-10">{% trans "La date et l’heure demandées sont indicatives. Notre équipe vous contactera pour confirmer la visite." %}</small>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-12">
+            <div class="form-item">
+                <div class="form-check">
+                    {{ form.privacy_accepted }}
+                    <label class="form-check-label" for="{{ form.privacy_accepted.id_for_label }}">{{ form.privacy_accepted.label }} *</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-btn">
+        <button id="submit-contact" class="tl-primary-btn" type="submit">{% trans "Demander mon devis" %} <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></button>
+    </div>
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const visitCheckbox = document.getElementById("{{ form.request_visit.id_for_label }}");
+    const visitFields = document.getElementById("technical-visit-fields");
+
+    if (visitCheckbox && visitFields) {
+        function updateTechnicalVisitFields() {
+            visitFields.style.display = visitCheckbox.checked ? "" : "none";
+        }
+
+        updateTechnicalVisitFields();
+        visitCheckbox.addEventListener("change", updateTechnicalVisitFields);
+    }
+
+    const serviceSelect = document.getElementById("id_service");
+
+    if (serviceSelect) {
+        serviceSelect.style.display = "block";
+        serviceSelect.style.width = "100%";
+
+        const nextElement = serviceSelect.nextElementSibling;
+
+        if (nextElement && (nextElement.classList.contains("nice-select") || nextElement.classList.contains("select2-container"))) {
+            nextElement.remove();
+        }
+
+        if (typeof window.jQuery !== "undefined" && typeof jQuery.fn.niceSelect === "function") {
+            try {
+                jQuery("#id_service").niceSelect("destroy");
+            } catch (error) {
+                // Le select natif reste visible.
+            }
+        }
+
+        serviceSelect.style.display = "block";
+        serviceSelect.style.width = "100%";
+    }
+});
+</script>

@@ -1,58 +1,448 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
 {% load i18n_fields %}
 
+{% block title %}{% trans "Conseils & actualités" %} | V&V Swiss Services{% endblock %}
 
-{% block title %}
-Actualités & Conseils | VVswinss
-{% endblock %}
-
+{% block meta_description %}{% trans "Découvrez les conseils, recommandations et actualités de V&V Swiss Services sur la rénovation, l’isolation, la peinture, les finitions et les travaux du bâtiment en Suisse romande." %}{% endblock %}
 
 {% block content %}
 
-<section>
+<!-- ============================================================
+     PAGE HEADER
+============================================================ -->
 
-    <h1>
-        Actualités & Conseils
-    </h1>
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
 
-    {% for post in posts %}
+    <div class="container">
+        <div class="page-header-content">
 
-        <article>
+            <h1 class="title">
+                {% trans "Conseils & actualités" %}
+            </h1>
 
-            {% if post.imagen_principal %}
+            <h4 class="sub-title">
 
-                <img
-                    src="{{ post.imagen_principal.url }}"
-                    alt="{{ post|localized:'titulo' }}"
-                    style="max-width:300px;"
-                >
+                <a class="home" href="{% url 'core:home' %}">
+                    {% trans "Accueil" %}
+                </a>
+
+                <span class="icon">-</span>
+
+                <a class="inner-page" href="{% url 'blog:list' %}">
+                    {% trans "Blog" %}
+                </a>
+
+            </h4>
+
+        </div>
+    </div>
+</section>
+
+<!-- ./ page-header -->
+
+
+<!-- ============================================================
+     BLOG GRID
+============================================================ -->
+
+<section class="blog-section pt-150 pb-150 fade-wrapper">
+
+    <div class="container container-2">
+
+
+        <!-- ========================================================
+             ACTIVE SEARCH / FILTER INFORMATION
+        ========================================================= -->
+
+        {% if search_query or active_category or active_tag %}
+
+        <div class="row mb-50">
+
+            <div class="col-12">
+
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+                    <div>
+
+                        {% if search_query %}
+
+                        <h4 class="mb-10">
+                            {% trans "Résultats pour" %}
+                            <strong>“{{ search_query }}”</strong>
+                        </h4>
+
+                        {% elif active_category %}
+
+                        <h4 class="mb-10">
+                            {% trans "Catégorie" %}:
+                            <strong>{{ active_category|localized:"name" }}</strong>
+                        </h4>
+
+                        {% elif active_tag %}
+
+                        <h4 class="mb-10">
+                            {% trans "Tag" %}:
+                            <strong>{{ active_tag|localized:"name" }}</strong>
+                        </h4>
+
+                        {% endif %}
+
+                        <p class="mb-0">
+                            {{ page_obj.paginator.count }}
+                            {% trans "article(s) trouvé(s)" %}
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <a href="{% url 'blog:list' %}" class="tl-primary-btn">
+
+                            {% trans "Voir tous les articles" %}
+
+                            <span class="icon">
+                                    <i class="fa-regular fa-arrow-right"></i>
+                                </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ========================================================
+             POSTS
+        ========================================================= -->
+
+        <div class="row gy-5 fade-wrapper">
+
+            {% for post in page_obj %}
+
+            {% with post_slug=post|localized:"slug" %}
+
+            <div class="col-lg-4 col-md-6 fade-top">
+
+                <div class="post-card">
+
+
+                    <!-- =================================================
+                         POST IMAGE
+                    ================================================== -->
+
+                    <div class="post-thumb">
+
+                        {% if post_slug %}
+
+                        <a href="{% url 'blog:detail' post_slug %}">
+
+                            {% if post.main_image %}
+
+                            <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}">
+
+                            {% else %}
+
+                            <img src="{% static 'antra/assets/img/blog/post-1.jpg' %}"
+                                 alt="{{ post|localized:'title' }}">
+
+                            {% endif %}
+
+                        </a>
+
+                        {% else %}
+
+                        {% if post.main_image %}
+
+                        <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}">
+
+                        {% else %}
+
+                        <img src="{% static 'antra/assets/img/blog/post-1.jpg' %}" alt="{{ post|localized:'title' }}">
+
+                        {% endif %}
+
+                        {% endif %}
+
+
+                        <!-- CATEGORY -->
+
+                        {% if post.category %}
+
+                        {% with category_slug=post.category|localized:"slug" %}
+
+                        {% if category_slug %}
+
+                        <a href="{% url 'blog:list' %}?category={{ category_slug|urlencode }}" class="category">
+                            {{ post.category|localized:"name" }}
+                        </a>
+
+                        {% else %}
+
+                        <span class="category">
+                                                {{ post.category|localized:"name" }}
+                                            </span>
+
+                        {% endif %}
+
+                        {% endwith %}
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =================================================
+                         POST CONTENT
+                    ================================================== -->
+
+                    <div class="post-content">
+
+
+                        <!-- POST META -->
+
+                        <ul class="post-meta">
+
+                            {% if post.published_at %}
+
+                            <li>
+                                {{ post.published_at|date:"d M Y" }}
+                            </li>
+
+                            {% endif %}
+
+
+                            <li>
+
+                                {% trans "Par" %}
+
+                                <span>
+
+                                            {% if post.author %}
+
+                                                {% if post.author.get_full_name %}
+
+                                                    {{ post.author.get_full_name }}
+
+                                                {% else %}
+
+                                                    {{ post.author.username }}
+
+                                                {% endif %}
+
+                                            {% else %}
+
+                                                V&V Swiss Services
+
+                                            {% endif %}
+
+                                        </span>
+
+                            </li>
+
+                        </ul>
+
+
+                        <!-- POST TITLE -->
+
+                        <h3 class="title">
+
+                            {% if post_slug %}
+
+                            <a href="{% url 'blog:detail' post_slug %}">
+                                {{ post|localized:"title" }}
+                            </a>
+
+                            {% else %}
+
+                            {{ post|localized:"title" }}
+
+                            {% endif %}
+
+                        </h3>
+
+
+                        <!-- POST EXCERPT -->
+
+                        {% if post|localized:"excerpt" %}
+
+                        <p>
+                            {{ post|localized:"excerpt"|striptags|truncatechars:170 }}
+                        </p>
+
+                        {% else %}
+
+                        <p>
+                            {{ post|localized:"content"|striptags|truncatechars:170 }}
+                        </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endwith %}
+
+
+            {% empty %}
+
+
+            <!-- =================================================
+                 NO RESULTS
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="post-card">
+
+                    <div class="post-content">
+
+                        <h3 class="title">
+
+                            {% if search_query %}
+
+                            {% trans "Aucun résultat pour" %}
+                            “{{ search_query }}”
+
+                            {% elif active_category %}
+
+                            {% trans "Aucun article disponible dans cette catégorie." %}
+
+                            {% elif active_tag %}
+
+                            {% trans "Aucun article disponible avec ce tag." %}
+
+                            {% else %}
+
+                            {% trans "Aucun article disponible pour le moment." %}
+
+                            {% endif %}
+
+                        </h3>
+
+
+                        <p>
+                            {% trans "Essayez une autre recherche ou consultez tous nos articles." %}
+                        </p>
+
+
+                        <a href="{% url 'blog:list' %}" class="tl-primary-btn">
+
+                            {% trans "Voir tous les articles" %}
+
+                            <span class="icon">
+                                    <i class="fa-regular fa-arrow-right"></i>
+                                </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ========================================================
+             PAGINATION
+        ========================================================= -->
+
+        {% if page_obj.paginator.num_pages > 1 %}
+
+        <ul class="pagination-wrap mt-50 justify-content-center">
+
+
+            <!-- PREVIOUS -->
+
+            {% if page_obj.has_previous %}
+
+            <li>
+
+                <a href="?{% if preserved_query %}{{ preserved_query }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                   aria-label="{% trans 'Page précédente' %}">
+
+                    <i class="fa-regular fa-arrow-left"></i>
+
+                </a>
+
+            </li>
 
             {% endif %}
 
-            <h2>
-                {{ post|localized:"titulo" }}
-            </h2>
 
-            <p>
-                {{ post|localized:"extracto" }}
-            </p>
+            <!-- PAGE NUMBERS -->
 
-            <a
-                href="{% url 'blog:detail' post|localized:'slug' %}"
-            >
-                Lire l'article
-            </a>
+            {% for page_number in page_obj.paginator.page_range %}
 
-        </article>
+            {% if page_number == page_obj.number %}
 
-    {% empty %}
+            <li>
 
-        <p>
-            Aucun article publié.
-        </p>
+                <a href="?{% if preserved_query %}{{ preserved_query }}&{% endif %}page={{ page_number }}"
+                   class="active">
+                    {{ page_number }}
+                </a>
 
-    {% endfor %}
+            </li>
+
+            {% elif page_number >= page_obj.number|add:"-2" and page_number <= page_obj.number|add:"2" %}
+
+            <li>
+
+                <a href="?{% if preserved_query %}{{ preserved_query }}&{% endif %}page={{ page_number }}">
+                    {{ page_number }}
+                </a>
+
+            </li>
+
+            {% endif %}
+
+            {% endfor %}
+
+
+            <!-- NEXT -->
+
+            {% if page_obj.has_next %}
+
+            <li>
+
+                <a href="?{% if preserved_query %}{{ preserved_query }}&{% endif %}page={{ page_obj.next_page_number }}"
+                   aria-label="{% trans 'Page suivante' %}">
+
+                    <i class="fa-regular fa-arrow-right"></i>
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+        {% endif %}
+
+    </div>
 
 </section>
+
+<!-- ./ blog-section -->
 
 {% endblock %}

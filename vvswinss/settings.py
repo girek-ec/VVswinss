@@ -4,11 +4,9 @@ Django settings for VVswinss.
 Configuración base para desarrollo y producción.
 Django 5.2 LTS.
 """
-
 from pathlib import Path
-
+import os
 import environ
-
 
 # ============================================================
 # BASE
@@ -133,6 +131,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "services.context_processors.services_menu",
 
                 # VVswinss
                 "core.context_processors.global_site",
@@ -140,6 +139,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 
 # ============================================================
@@ -160,6 +160,51 @@ DATABASES = {
     }
 }
 
+
+
+# ============================================================
+# EMAIL
+# ============================================================
+
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.smtp.EmailBackend",
+)
+
+EMAIL_HOST = env(
+    "EMAIL_HOST",
+    default="",
+)
+
+EMAIL_PORT = env.int(
+    "EMAIL_PORT",
+    default=2525,
+)
+
+EMAIL_USE_TLS = env.bool(
+    "EMAIL_USE_TLS",
+    default=True,
+)
+
+EMAIL_HOST_USER = env(
+    "EMAIL_HOST_USER",
+    default="",
+)
+
+EMAIL_HOST_PASSWORD = env(
+    "EMAIL_HOST_PASSWORD",
+    default="",
+)
+
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="V&V Swiss Services <contact@tudominio.ch>",
+)
+
+EMAIL_TIMEOUT = env.int(
+    "EMAIL_TIMEOUT",
+    default=10,
+)
 
 # ============================================================
 # PASSWORD VALIDATION
@@ -193,6 +238,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # ============================================================
 # INTERNATIONALIZATION
 # ============================================================
@@ -206,7 +252,8 @@ LANGUAGE_CODE = DEFAULT_LANGUAGE
 
 LANGUAGES = [
     ("fr", "Français"),
-    ("es", "Español"),
+    ("de", "Deutsch"),
+    ("it", "Italiano"),
     ("en", "English"),
 ]
 
@@ -217,7 +264,6 @@ LOCALE_PATHS = [
 TIME_ZONE = "Europe/Zurich"
 
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -246,45 +292,28 @@ MEDIA_ROOT = BASE_DIR / "media"
 # EMAIL
 # ============================================================
 
-EMAIL_BACKEND = env(
+EMAIL_BACKEND = os.getenv(
     "EMAIL_BACKEND",
-    default="django.core.mail.backends.console.EmailBackend",
+    "django.core.mail.backends.smtp.EmailBackend"
 )
 
-EMAIL_HOST = env(
-    "EMAIL_HOST",
-    default="",
-)
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 2525))
 
-EMAIL_PORT = env.int(
-    "EMAIL_PORT",
-    default=587,
-)
-
-EMAIL_HOST_USER = env(
-    "EMAIL_HOST_USER",
-    default="",
-)
-
-EMAIL_HOST_PASSWORD = env(
-    "EMAIL_HOST_PASSWORD",
-    default="",
-)
-
-EMAIL_USE_TLS = env.bool(
+EMAIL_USE_TLS = os.getenv(
     "EMAIL_USE_TLS",
-    default=True,
-)
+    "True"
+).lower() == "true"
 
-DEFAULT_FROM_EMAIL = env(
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+DEFAULT_FROM_EMAIL = os.getenv(
     "DEFAULT_FROM_EMAIL",
-    default="webmaster@localhost",
+    "V&V Swiss Services <contact@tudominio.ch>"
 )
 
-CONTACT_EMAIL = env(
-    "CONTACT_EMAIL",
-    default="",
-)
+EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", 10))
 
 
 # ============================================================
@@ -302,3 +331,4 @@ SITE_URL = env(
 # ============================================================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+X_FRAME_OPTIONS = "SAMEORIGIN"

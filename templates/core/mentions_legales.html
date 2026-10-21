@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+
+<!-- ============================================================
+     SEO · PAGE TITLE
+============================================================ -->
+{% block title %}
+    {% if page %}
+        {% with seo_title=page|localized:"seo_title" %}
+            {% if seo_title %}
+                {{ seo_title }}
+            {% else %}
+                {{ page|localized:"title" }} | V&V Swiss Services
+            {% endif %}
+        {% endwith %}
+    {% else %}
+        {% trans "Mentions légales" %} | V&V Swiss Services
+    {% endif %}
+{% endblock %}
+
+<!-- ============================================================
+     SEO · META DESCRIPTION
+============================================================ -->
+{% block meta_description %}
+    {% if page %}
+        {% with meta_description=page|localized:"meta_description" %}
+            {% if meta_description %}
+                {{ meta_description }}
+            {% else %}
+                {% trans "Consultez les mentions légales et les informations juridiques de V&V Swiss Services en Suisse." %}
+            {% endif %}
+        {% endwith %}
+    {% else %}
+        {% trans "Consultez les mentions légales et les informations juridiques de V&V Swiss Services en Suisse." %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     SECTION 01 · PAGE HEADER
+============================================================ -->
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <h1 class="title">
+                {% if page %}
+                    {{ page|localized:"title" }}
+                {% else %}
+                    {% trans "Mentions légales" %}
+                {% endif %}
+            </h1>
+
+            <h4 class="sub-title">
+                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <span class="icon">-</span>
+                <span class="inner-page">
+                    {% if page %}
+                        {{ page|localized:"title" }}
+                    {% else %}
+                        {% trans "Mentions légales" %}
+                    {% endif %}
+                </span>
+            </h4>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 02 · LEGAL PAGE WRAPPER
+============================================================ -->
+<div id="antra-smooth-wrapper">
+    <div id="antra-smooth-content">
+
+        <!-- =====================================================
+             SECTION 02A · HERO
+        ====================================================== -->
+        <section class="hero-section-8 overflow-hidden tl-bg-color">
+            <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/hero-shape-2.png' %}"></div>
+
+            <div class="container">
+                <div class="hero-wrap-8 pt-130">
+                    <div class="hero-content-8 white-content">
+
+                        <div class="section-heading mb-0 slide-anim" data-delay="2.3" data-offset="100" data-direction="left">
+                            <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Informations légales" %}</h4>
+
+                            <h1 class="section-title cursor-effect">
+                                {% if page %}
+                                    {{ page|localized:"title" }}
+                                {% else %}
+                                    {% trans "Mentions légales" %}
+                                {% endif %}
+                            </h1>
+                        </div>
+
+                        <div class="hero-content-left slide-anim" data-delay="2.3" data-offset="100" data-direction="right">
+                            <p>{% trans "Informations juridiques et réglementaires relatives au site internet de V&V Swiss Services." %}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             SECTION 02B · CONTENU LÉGAL
+        ====================================================== -->
+        <section class="content-section pt-130 pb-130 tl-bg-color">
+            <div class="shape-1">
+                <img src="{% static 'antra/assets/img/shapes/content-shape-1.png' %}" alt="">
+            </div>
+
+            <div class="container container-2">
+                <div class="row">
+
+                    <!-- =================================================
+                         LEFT COLUMN
+                    ================================================== -->
+                    <div class="col-lg-4">
+                        <div class="content-info slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
+                            <div class="section-heading mb-30">
+                                <h4 class="sub-heading">{{ site_configuration.company_name|default:"V&V Swiss Services" }}</h4>
+
+                                <h2 class="section-title cursor-effect title-2">
+                                    {% if page %}
+                                        {{ page|localized:"title" }}
+                                    {% else %}
+                                        {% trans "Mentions légales" %}
+                                    {% endif %}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- =================================================
+                         RIGHT COLUMN
+                    ================================================== -->
+                    <div class="col-lg-8">
+                        <div class="legal-content slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+
+                            <!-- =========================================
+                                 IDENTITÉ DE L'ENTREPRISE
+                            ========================================== -->
+                            <h2>{% trans "Éditeur du site" %}</h2>
+
+                            {% if site_configuration %}
+
+                                <p>
+                                    <strong>{% trans "Entreprise :" %}</strong>
+                                    {{ site_configuration.legal_name|default:site_configuration.company_name }}
+                                </p>
+
+                                {% if site_configuration.legal_form %}
+                                    <p><strong>{% trans "Forme juridique :" %}</strong> {{ site_configuration.legal_form }}</p>
+                                {% endif %}
+
+                                {% if site_configuration.address or site_configuration.city %}
+                                    <p>
+                                        <strong>{% trans "Adresse :" %}</strong><br>
+                                        {% if site_configuration.address %}{{ site_configuration.address }}<br>{% endif %}
+                                        {% if site_configuration.postal_code %}{{ site_configuration.postal_code }} {% endif %}{{ site_configuration.city }}
+                                        {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
+                                        {% if site_configuration.country %}<br>{{ site_configuration.country }}{% endif %}
+                                    </p>
+                                {% endif %}
+
+                                {% if site_configuration.phone %}
+                                    <p><strong>{% trans "Téléphone :" %}</strong> <a href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a></p>
+                                {% endif %}
+
+                                {% if site_configuration.email %}
+                                    <p><strong>{% trans "E-mail :" %}</strong> <a href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a></p>
+                                {% endif %}
+
+                                {% if site_configuration.uid_number %}
+                                    <p><strong>{% trans "Numéro IDE / UID :" %}</strong> {{ site_configuration.uid_number }}</p>
+                                {% endif %}
+
+                                {% if site_configuration.vat_number %}
+                                    <p><strong>{% trans "Numéro TVA :" %}</strong> {{ site_configuration.vat_number }}</p>
+                                {% endif %}
+
+                                {% if site_configuration.commercial_register %}
+                                    <p><strong>{% trans "Registre du commerce :" %}</strong> {{ site_configuration.commercial_register }}</p>
+                                {% endif %}
+
+                                {% if site_configuration.legal_representative %}
+                                    <p><strong>{% trans "Représentant légal :" %}</strong> {{ site_configuration.legal_representative }}</p>
+                                {% endif %}
+
+                                {% if site_configuration.insurance_info %}
+                                    <p><strong>{% trans "Assurance professionnelle :" %}</strong> {{ site_configuration.insurance_info }}</p>
+                                {% endif %}
+
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 HÉBERGEMENT
+                            ========================================== -->
+                            {% if site_configuration.hosting_provider %}
+                                <h2>{% trans "Hébergement du site" %}</h2>
+
+                                <p>
+                                    <strong>{{ site_configuration.hosting_provider }}</strong>
+
+                                    {% if site_configuration.hosting_address %}
+                                        <br>{{ site_configuration.hosting_address }}
+                                    {% endif %}
+
+                                    {% if site_configuration.hosting_country %}
+                                        <br>{{ site_configuration.hosting_country }}
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 CONTENU JURIDIQUE MULTILINGUE
+                            ========================================== -->
+                            {% if page and page|localized:"content" %}
+                                {{ page|localized:"content"|safe }}
+                            {% endif %}
+
+
+                            <!-- =========================================
+                                 UPDATE
+                            ========================================== -->
+                            {% if page %}
+                                <div class="legal-update mt-50">
+                                    <p class="mb-0"><strong>{% trans "Dernière mise à jour :" %}</strong> {{ page.updated_at|date:"d.m.Y" }}</p>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+
+<!-- ============================================================
+     STYLES · LEGAL CONTENT
+============================================================ -->
+<style>
+.legal-content {
+    max-width: 900px;
+}
+
+.legal-content h2 {
+    margin-top: 45px;
+    margin-bottom: 18px;
+    font-size: 32px;
+    line-height: 1.25;
+}
+
+.legal-content h2:first-child {
+    margin-top: 0;
+}
+
+.legal-content h3 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.legal-content p {
+    margin-bottom: 18px;
+    line-height: 1.8;
+}
+
+.legal-content ul,
+.legal-content ol {
+    margin: 0 0 25px 20px;
+    padding: 0;
+}
+
+.legal-content li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.legal-content a {
+    text-decoration: underline;
+}
+
+.legal-update {
+    padding-top: 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+</style>
+
+{% endblock %}

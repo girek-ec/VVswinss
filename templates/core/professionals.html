@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+<!-- =========================================================
+     SEO · PAGE TITLE
+========================================================= -->
+{% block title %}{% trans "Professionnels" %} | V&V Swiss Services{% endblock %}
+<!-- =========================================================
+     SEO · META DESCRIPTION
+========================================================= -->
+{% block meta_description %}{% trans "Solutions de rénovation, entretien et remise en état pour régies immobilières, administrateurs de PPE, entreprises et professionnels dans le canton de Vaud." %}{% endblock %}
+{% block content %}
+<!-- =========================================================
+     SECTION 01 · PAGE HEADER
+========================================================= -->
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <h1 class="title">{% trans "Professionnels" %}</h1>
+            <h4 class="sub-title">
+                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <span class="icon">-</span>
+                <span class="inner-page">{% trans "Professionnels" %}</span>
+            </h4>
+        </div>
+    </div>
+</section>
+<!-- =========================================================
+     SECTION 02 · PROFESSIONAL SOLUTIONS INTRODUCTION
+========================================================= -->
+<section class="pt-150 pb-150">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="section-heading text-center">
+                    <h4 class="sub-heading">{% trans "Solutions pour professionnels" %}</h4>
+                    <h2 class="section-title">{% trans "Un partenaire pour vos biens immobiliers et vos projets" %}</h2>
+                    <p>{% trans "V&V Swiss Services accompagne les régies immobilières, administrateurs de PPE, propriétaires, entreprises générales, constructeurs et autres professionnels pour leurs besoins d’entretien, de réparation et de rénovation." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Design System | V&V Swiss Services{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/design-system.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="ds">
+  <section class="ds-hero">
+    <div class="container container-2">
+      <span class="ds-kicker">V&V SWISS SERVICES · VISUAL LIBRARY</span>
+      <h1>Design <span>System</span></h1>
+      <p>Guide visuel des fondations, composants, compositions et comportements graphiques du projet.</p>
+      <nav class="ds-nav">
+        <a href="#foundations">Fondations</a><a href="#typography">Typographie</a><a href="#media">Images</a><a href="#services">Services</a>
+        <a href="#projects">Projets</a><a href="#sections">Sections</a><a href="#patterns">Pages</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- 01 · FONDATIONS / FONDATIONS -->
+  <section class="ds-section" id="foundations"><div class="container container-2">
+    <div class="ds-head"><span>01</span><div><h2>Fondations</h2><p>Identité visuelle de base réellement chargée par le projet.</p></div></div>
+    <h3 class="ds-subtitle">Couleurs</h3>
+    <div class="ds-swatches">
+      <div><i style="background:#0a4c03"></i><b>Primary</b><code>#0A4C03</code></div>
+      <div><i style="background:#191919"></i><b>Heading</b><code>#191919</code></div>
+      <div><i style="background:#4D4D52"></i><b>Body</b><code>#4D4D52</code></div>
+      <div><i style="background:#1C1C1D"></i><b>Dark</b><code>#1C1C1D</code></div>
+      <div><i style="background:#E3E3E8"></i><b>Border</b><code>#E3E3E8</code></div>
+      <div><i style="background:#F6F6F6"></i><b>Page</b><code>#F6F6F6</code></div>
+    </div>
+    <h3 class="ds-subtitle ds-mt">Typographie</h3>
+    <div class="ds-fonts"><div><small>BODY</small><strong style="font-family:var(--tl-ff-body)">Golos Text</strong><code>--tl-ff-body</code></div><div><small>HEADING</small><strong style="font-family:var(--tl-ff-heading)">Cal Sans</strong><code>--tl-ff-heading</code></div></div>
+    <div class="ds-type-scale">
+      <div><code>H1 · 80px</code><h1>Construire mieux</h1></div><div><code>H2 · 60px</code><h2>Nos services</h2></div>
+      <div><code>H3 · 50px</code><h3>Votre projet</h3></div><div><code>H4 · 40px</code><h4>Notre savoir-faire</h4></div>
+      <div><code>H5 · 30px</code><h5>Qualité et précision</h5></div><div><code>H6 · 20px</code><h6>V&V Swiss Services</h6></div>
+    </div>
+    <div class="ds-live-box"><div class="section-heading"><h4 class="sub-heading">NOS SERVICES</h4><h2 class="section-title">Des solutions adaptées <span>à tous vos projets</span></h2></div></div>
+    <div class="ds-actions"><a href="#" onclick="return false" class="tl-primary-btn">Découvrir nos services <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a><code>.tl-primary-btn</code></div>
+  </div></section>
+
+  <!-- TYPOGRAPHIE CONTEXTUELLE / TIPOGRAFÍA CONTEXTUAL -->
+  <section class="ds-section" id="typography"><div class="container container-2">
+    <div class="ds-head"><span>T</span><div><h2>Typographie contextuelle</h2><p>Une même classe comme <code>.title</code> change selon le composant. Cette galerie montre le contexte réel du sélecteur CSS.</p></div></div>
+
+    <h3 class="ds-subtitle">Titres de section</h3>
+    <div class="ds-type-context-grid">
+      <article class="ds-type-context ds-type-context-wide"><div class="ds-type-preview"><div class="section-heading"><h4 class="sub-heading">NOS SERVICES</h4><h2 class="section-title">Des solutions adaptées <span>à vos projets</span></h2></div></div><div class="ds-type-meta"><b>Section heading</b><code>.section-heading .sub-heading</code><code>.section-heading .section-title</code><p>Sub-heading: 12px · Section title: 80px → 60px → 42px → 36px</p></div></article>
+      <article class="ds-type-context ds-type-context-wide"><div class="ds-type-preview"><div class="section-heading"><h2 class="section-title title-2">Une variante plus compacte</h2></div></div><div class="ds-type-meta"><b>Section title · variante 2</b><code>.section-title.title-2</code><p>60px desktop · 50px · 42px · 36px responsive</p></div></article>
+    </div>
+
+    <h3 class="ds-subtitle ds-mt-small">La classe <code>.title</code> selon son contexte</h3>
+    <div class="ds-type-context-grid">
+      <article class="ds-type-context"><div class="ds-type-preview"><div class="service-item"><div class="service-top"><h3 class="title">Rénovation complète</h3></div></div></div><div class="ds-type-meta"><b>Service Item</b><code>.service-item .service-top .title</code><p>30px · 400</p></div></article>
+      <article class="ds-type-context"><div class="ds-type-preview"><div class="project-item"><div class="project-content"><h3 class="title">Villa contemporaine</h3></div></div></div><div class="ds-type-meta"><b>Project Item</b><code>.project-item .project-content .title</code><p>30px · 400 · line-height 1</p></div></article>
+      <article class="ds-type-context ds-dark-preview"><div class="ds-type-preview"><div class="service-item-2"><div class="service-content"><h3 class="title">Maçonnerie générale</h3></div></div></div><div class="ds-type-meta"><b>Service Item 2</b><code>.service-item-2 .service-content .title</code><p>28px · 400 · line-height 1</p></div></article>
+      <article class="ds-type-context ds-image-preview"><div class="ds-type-preview"><div class="project-item-2"><div class="project-content"><h3 class="title">Transformation intérieure</h3><p>Genève · Suisse</p></div></div></div><div class="ds-type-meta"><b>Project Item 2</b><code>.project-item-2 .project-content .title</code><p>40px · 400 · blanc</p></div></article>
+      <article class="ds-type-context ds-dark-preview"><div class="ds-type-preview"><div class="service-item-3"><div class="service-content"><h3 class="title">Peinture & finitions</h3><p>Une finition précise et durable.</p></div></div></div><div class="ds-type-meta"><b>Service Item 3</b><code>.service-item-3 .service-content .title</code><p>28px · 400 · blanc</p></div></article>
+      <article class="ds-type-context ds-image-preview"><div class="ds-type-preview"><div class="project-item-3"><div class="project-content"><h3 class="title">Rénovation premium</h3><span>Projet résidentiel</span></div></div></div><div class="ds-type-meta"><b>Project Item 3</b><code>.project-item-3 .project-content .title</code><p>36px · 400 · line-height 1 · blanc</p></div></article>
+    </div>
+
+    <h3 class="ds-subtitle ds-mt-small"><code>.title</code> + <code>.sub-title</code></h3>
+    <div class="ds-type-context-grid">
+      <article class="ds-type-context"><div class="ds-type-preview"><div class="counter-item"><h3 class="title">20+</h3><h4 class="sub-title">Années d’expérience</h4><p>Un exemple réel de hiérarchie statistique.</p></div></div><div class="ds-type-meta"><b>Counter</b><code>.counter-item .title</code><code>.counter-item .sub-title</code><p>Title: 60px → 40px mobile · Sub-title: 24px</p></div></article>
+      <article class="ds-type-context ds-pageheader-preview"><div class="ds-type-preview"><div class="page-header"><div class="page-header-content"><h1 class="title">Nos services</h1><div class="sub-title">Accueil <span class="icon">/</span> <span class="inner-page">Services</span></div></div></div></div><div class="ds-type-meta"><b>Page Header</b><code>.page-header .page-header-content .title</code><code>.page-header .page-header-content .sub-title</code><p>Title: 80px · Sub-title: 13px uppercase</p></div></article>
+    </div>
+
+    <h3 class="ds-subtitle ds-mt-small">Titres de contenu / détails</h3>
+    <div class="ds-type-context-grid">
+      <article class="ds-type-context"><div class="ds-type-preview"><div class="service-details-content"><h2 class="details-title">Une expertise complète</h2><p>Texte d’introduction du détail d’un service.</p></div></div><div class="ds-type-meta"><b>Service Details</b><code>.service-details-content .details-title</code><p>40px · 400</p></div></article>
+      <article class="ds-type-context"><div class="ds-type-preview"><div class="service-details-content"><div class="service-details-items ds-details-reset"><div class="service-details-item"><div class="content"><h3 class="title">Qualité d’exécution</h3><p>Un titre interne plus compact.</p></div></div></div></div></div><div class="ds-type-meta"><b>Service detail item</b><code>.service-details-item .content .title</code><p>26px · 400</p></div></article>
+    </div>
+
+    <div class="ds-note"><b>Important :</b> le projet utilise principalement <code>.sub-title</code> avec un tiret. <code>.subtitle</code> n’est pas la classe de composant à utiliser pour ces exemples.</div>
+  </div></section>
+
+  <!-- 02 · ICONOGRAPHIE / ICONOGRAPHIE -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>02</span><div><h2>Iconographie</h2><p>Familles Font Awesome déjà chargées par le thème.</p></div></div>
+    <div class="ds-icons">
+      <div><i class="fa-regular fa-arrow-right"></i><code>fa-arrow-right</code></div><div><i class="fa-regular fa-envelope"></i><code>fa-envelope</code></div>
+      <div><i class="fa-regular fa-phone"></i><code>fa-phone</code></div><div><i class="fa-brands fa-whatsapp"></i><code>fa-whatsapp</code></div>
+      <div><i class="fa-solid fa-star"></i><code>fa-star</code></div><div><i class="fa-solid fa-paint-roller"></i><code>fa-paint-roller</code></div>
+      <div><i class="fa-solid fa-building"></i><code>fa-building</code></div><div><i class="fa-solid fa-broom"></i><code>fa-broom</code></div>
+    </div>
+  </div></section>
+
+  <!-- 03 · LAYOUT / MISE EN PAGE -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>03</span><div><h2>Layout & Grid</h2><p>Compositions Bootstrap utilisées pour structurer les pages.</p></div></div>
+    <div class="ds-grid-demo"><div class="g4">4</div><div class="g8">8</div></div>
+    <div class="ds-grid-demo"><div class="g5">5</div><div class="g7">7</div></div>
+    <div class="ds-grid-demo"><div class="g6">6</div><div class="g6">6</div></div>
+    <div class="ds-grid-demo"><div class="g3">3</div><div class="g3">3</div><div class="g3">3</div><div class="g3">3</div></div>
+    <div class="ds-note"><b>Référence cartes:</b> <code>col-xl-3 col-lg-4 col-md-6 col-sm-12</code></div>
+  </div></section>
+
+  <!-- 04 · IMAGES / IMAGES -->
+  <section class="ds-section" id="media"><div class="container container-2">
+    <div class="ds-head"><span>04</span><div><h2>Images & Media</h2><p>Formats recommandés pour juger cadrage, densité et recadrage.</p></div></div>
+    <div class="ds-media-grid">
+      <figure><div class="ds-ratio r11"><img src="{% static 'antra/assets/img/service/service-img-1.png' %}" alt=""></div><figcaption><b>1:1 · Carré</b><code>aspect-ratio: 1 / 1</code></figcaption></figure>
+      <figure><div class="ds-ratio r43"><img src="{% static 'antra/assets/img/project/project-img-1.png' %}" alt=""></div><figcaption><b>4:3 · Projet</b><code>aspect-ratio: 4 / 3</code></figcaption></figure>
+      <figure><div class="ds-ratio r169"><img src="{% static 'antra/assets/img/project/project-big-1.png' %}" alt=""></div><figcaption><b>16:9 · Panoramique</b><code>aspect-ratio: 16 / 9</code></figcaption></figure>
+      <figure><div class="ds-ratio r34"><img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}" alt=""></div><figcaption><b>3:4 · Vertical</b><code>aspect-ratio: 3 / 4</code></figcaption></figure>
+    </div>
+    <div class="ds-hero-media"><img src="{% static 'antra/assets/img/project/project-big-2.png' %}" alt=""><span>IMAGE LARGE / HERO</span></div>
+  </div></section>
+
+  <!-- 05 · SERVICES / SERVICES -->
+  <section class="ds-section" id="services"><div class="container container-2">
+    <div class="ds-head"><span>05</span><div><h2>Services</h2><p>Deux traitements visuels réels disponibles dans le thème.</p></div></div>
+    <h3 class="ds-subtitle">Service Item 3</h3>
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6"><div class="service-item-3"><div class="service-thumb"><img src="{% static 'antra/assets/img/service/service-img-1.png' %}" alt=""><span class="number">01</span></div><div class="service-content"><h5 class="title"><a href="#" onclick="return false">Rénovation</a></h5><p>Exemple de carte avec image, numéro, titre et description.</p></div></div></div>
+      <div class="col-lg-4 col-md-6"><div class="service-item-3"><div class="service-thumb"><img src="{% static 'antra/assets/img/service/service-img-2.png' %}" alt=""><span class="number">02</span></div><div class="service-content"><h5 class="title"><a href="#" onclick="return false">Peinture</a></h5><p>Le hover et le traitement d'image proviennent du CSS Antra.</p></div></div></div>
+      <div class="col-lg-4 col-md-6"><div class="service-item-3"><div class="service-thumb"><img src="{% static 'antra/assets/img/service/service-img-3.png' %}" alt=""><span class="number">03</span></div><div class="service-content"><h5 class="title"><a href="#" onclick="return false">Entretien</a></h5><p>Utiliser cette variante quand la description doit rester visible.</p></div></div></div>
+    </div>
+    <h3 class="ds-subtitle ds-mt">Project Item utilisé comme service</h3>
+    <div class="row gy-5">
+      <div class="col-xl-3 col-lg-4 col-md-6"><div class="project-item antra-hover-view"><div class="project-img"><a href="#" onclick="return false"><img src="{% static 'antra/assets/img/project/project-img-1.png' %}" alt=""></a></div><div class="project-content"><h4 class="title"><a href="#" onclick="return false">Maçonnerie</a></h4></div></div></div>
+      <div class="col-xl-3 col-lg-4 col-md-6"><div class="project-item antra-hover-view"><div class="project-img"><a href="#" onclick="return false"><img src="{% static 'antra/assets/img/project/project-img-2.png' %}" alt=""></a></div><div class="project-content"><h4 class="title"><a href="#" onclick="return false">Isolation</a></h4></div></div></div>
+      <div class="col-xl-3 col-lg-4 col-md-6"><div class="project-item antra-hover-view"><div class="project-img"><a href="#" onclick="return false"><img src="{% static 'antra/assets/img/project/project-img-3.png' %}" alt=""></a></div><div class="project-content"><h4 class="title"><a href="#" onclick="return false">Revêtements</a></h4></div></div></div>
+      <div class="col-xl-3 col-lg-4 col-md-6"><div class="project-item antra-hover-view"><div class="project-img"><a href="#" onclick="return false"><img src="{% static 'antra/assets/img/project/project-img-4.png' %}" alt=""></a></div><div class="project-content"><h4 class="title"><a href="#" onclick="return false">Nettoyage</a></h4></div></div></div>
+    </div>
+  </div></section>
+
+  <!-- 06 · PROJECTS / PROJETS -->
+  <section class="ds-section" id="projects"><div class="container container-2">
+    <div class="ds-head"><span>06</span><div><h2>Projects / Portfolio</h2><p>Traitements graphiques de projets présents dans main.css.</p></div></div>
+    <div class="row gy-4">
+      <div class="col-lg-6"><div class="project-item-2"><div class="project-thumb"><img src="{% static 'antra/assets/img/project/project-1.png' %}" alt=""></div><div class="project-content"><h3 class="title">Rénovation intérieure</h3><p>Genève · Rénovation</p></div></div></div>
+      <div class="col-lg-6"><div class="project-item-2"><div class="project-thumb"><img src="{% static 'antra/assets/img/project/project-2.png' %}" alt=""></div><div class="project-content"><h3 class="title">Transformation complète</h3><p>Vaud · Construction</p></div></div></div>
+    </div>
+  </div></section>
+
+  <!-- 07 · BLOG / BLOG -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>07</span><div><h2>Blog Cards</h2><p>Carte éditoriale réelle <code>.post-card</code>.</p></div></div>
+    <div class="row gy-4">
+      <div class="col-lg-4"><div class="post-card"><div class="post-thumb"><img src="{% static 'antra/assets/img/blog/post-1.jpg' %}" alt=""><span class="category">Conseils</span></div><div class="post-content"><h3 class="title"><a href="#" onclick="return false">Préparer un projet de rénovation</a></h3><p>Exemple de résumé éditorial pour visualiser la densité de contenu.</p></div></div></div>
+      <div class="col-lg-4"><div class="post-card"><div class="post-thumb"><img src="{% static 'antra/assets/img/blog/post-2.png' %}" alt=""><span class="category">Travaux</span></div><div class="post-content"><h3 class="title"><a href="#" onclick="return false">Choisir les bons matériaux</a></h3><p>La carte conserve le hover et la typographie originale du thème.</p></div></div></div>
+      <div class="col-lg-4"><div class="post-card"><div class="post-thumb"><img src="{% static 'antra/assets/img/blog/post-3.png' %}" alt=""><span class="category">Inspiration</span></div><div class="post-content"><h3 class="title"><a href="#" onclick="return false">Optimiser les espaces</a></h3><p>Référence visuelle pour les listes d'articles et contenus associés.</p></div></div></div>
+    </div>
+  </div></section>
+
+  <!-- 08 · TESTIMONIALS / TÉMOIGNAGES -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>08</span><div><h2>Testimonials</h2><p>Composant <code>.testi-item</code> utilisé sur HOME.</p></div></div>
+    <div class="ds-dark"><div class="testi-item"><p>“Une équipe disponible, précise et attentive à chaque étape du projet.”</p><div class="testi-author"><div class="author-img"><img src="{% static 'antra/assets/img/testi/testi-author-1.png' %}" alt=""></div><h4 class="name">Client V&V <span>Genève</span></h4></div></div></div>
+  </div></section>
+
+  <!-- 09 · COUNTERS / INDICATEURS -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>09</span><div><h2>Counters & Stats</h2><p>Référence visuelle du composant <code>.counter-item</code>.</p></div></div>
+    <div class="row gy-4"><div class="col-md-3 col-6"><div class="counter-item"><h3 class="title">15+</h3><span class="sub-title">Années</span></div></div><div class="col-md-3 col-6"><div class="counter-item"><h3 class="title">250+</h3><span class="sub-title">Projets</span></div></div><div class="col-md-3 col-6"><div class="counter-item"><h3 class="title">98%</h3><span class="sub-title">Satisfaction</span></div></div><div class="col-md-3 col-6"><div class="counter-item"><h3 class="title">4</h3><span class="sub-title">Langues</span></div></div></div>
+  </div></section>
+
+  <!-- 10 · FAQ / FAQ -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>10</span><div><h2>Accordion / FAQ</h2><p>Structure Bootstrap avec le traitement <code>.faq-accordion</code>.</p></div></div>
+    <div class="faq-content"><div class="faq-accordion"><div class="accordion" id="dsFaq">
+      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dsFaq1">Comment démarrer un projet ?</button></h2><div id="dsFaq1" class="accordion-collapse collapse show" data-bs-parent="#dsFaq"><div class="accordion-body">Premier exemple de contenu pour visualiser l'état ouvert.</div></div></div>
+      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dsFaq2">Quels services sont disponibles ?</button></h2><div id="dsFaq2" class="accordion-collapse collapse" data-bs-parent="#dsFaq"><div class="accordion-body">Deuxième exemple pour tester l'interaction et l'état fermé.</div></div></div>
+    </div></div></div>
+  </div></section>
+
+  <!-- 11 · BEFORE AFTER / AVANT APRÈS -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>11</span><div><h2>Before / After</h2><p>Référence graphique pour les transformations de projet.</p></div></div>
+    <div class="ds-before-after"><figure><span>AVANT</span><img src="{% static 'antra/assets/img/project/project-1.png' %}" alt=""></figure><figure><span>APRÈS</span><img src="{% static 'antra/assets/img/project/project-2.png' %}" alt=""></figure></div>
+  </div></section>
+
+  <!-- 12 · SECTION STYLES / COMPOSITIONS -->
+  <section class="ds-section" id="sections"><div class="container container-2">
+    <div class="ds-head"><span>12</span><div><h2>Section Styles</h2><p>Bibliothèque graphique pour choisir une composition avant de coder.</p></div></div>
+    <div class="ds-compositions">
+      <article><header><b>STYLE 01</b><code>6 + 6</code></header><div class="ds-mini two"><i class="photo"></i><i class="text"></i></div><p>Image / Texte</p></article>
+      <article><header><b>STYLE 02</b><code>6 + 6</code></header><div class="ds-mini two"><i class="text"></i><i class="photo"></i></div><p>Texte / Image</p></article>
+      <article><header><b>STYLE 03</b><code>4 + 8</code></header><div class="ds-mini four-eight"><i class="label"></i><i class="text"></i></div><p>Introduction / Contenu</p></article>
+      <article><header><b>STYLE 04</b><code>5 + 7</code></header><div class="ds-mini five-seven"><i class="text"></i><i class="photo"></i></div><p>Contenu / Visuel dominant</p></article>
+      <article><header><b>STYLE 05</b><code>FULL</code></header><div class="ds-mini full"><i class="photo"></i><i class="overlay"></i></div><p>Hero / Image pleine largeur</p></article>
+      <article><header><b>STYLE 06</b><code>CENTER</code></header><div class="ds-mini centered"><i></i><i></i><i></i></div><p>Titre centré / CTA</p></article>
+    </div>
+  </div></section>
+
+  <!-- 13 · FORMS / FORMULAIRES -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>13</span><div><h2>Forms & UI</h2><p>Référence visuelle simple pour champs et actions.</p></div></div>
+    <div class="ds-form"><div class="row gy-3"><div class="col-md-6"><label>Nom</label><input type="text" placeholder="Votre nom"></div><div class="col-md-6"><label>E-mail</label><input type="email" placeholder="nom@exemple.ch"></div><div class="col-12"><label>Service</label><select><option>Choisir un service</option><option>Rénovation</option><option>Peinture</option></select></div><div class="col-12"><label>Message</label><textarea rows="5" placeholder="Parlez-nous de votre projet"></textarea></div><div class="col-12"><button type="button" class="tl-primary-btn">Envoyer <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></button></div></div></div>
+  </div></section>
+
+  <!-- 14 · EFFECTS / EFFETS -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>14</span><div><h2>Visual Effects</h2><p>Passez la souris sur les exemples pour observer les traitements du projet.</p></div></div>
+    <div class="row gy-4"><div class="col-md-6"><div class="ds-effect-card"><div class="project-item"><div class="project-img"><a href="#" onclick="return false"><img src="{% static 'antra/assets/img/project/project-img-5.png' %}" alt=""></a></div></div><b>Project image hover</b><code>.project-item:hover</code></div></div><div class="col-md-6"><div class="ds-effect-card"><div class="service-item-3"><div class="service-thumb"><img src="{% static 'antra/assets/img/service/service-img-5.png' %}" alt=""><span class="number">01</span></div></div><b>Service image hover</b><code>.service-item-3:hover</code></div></div></div>
+  </div></section>
+
+  <!-- 15 · GLOBAL / GLOBAL -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>15</span><div><h2>Header & Footer</h2><p>Les éléments globaux sont déjà visibles sur cette page car le Design System étend <code>base.html</code>.</p></div></div>
+    <div class="ds-note"><b>Header réel:</b> visible en haut de cette page. &nbsp; <b>Footer réel:</b> visible après le Design System. Cela évite de dupliquer un composant global.</div>
+  </div></section>
+
+  <!-- 16 · PAGE PATTERNS / MODÈLES DE PAGE -->
+  <section class="ds-section" id="patterns"><div class="container container-2">
+    <div class="ds-head"><span>16</span><div><h2>Page Patterns</h2><p>Miniatures conceptuelles pour choisir la structure générale d'une page.</p></div></div>
+    <div class="ds-patterns">
+      <article><div class="ds-page-mini"><i class="hero"></i><div class="split"><i></i><i></i></div><div class="cards"><i></i><i></i><i></i></div><i class="cta"></i></div><h4>Home</h4><p>Hero → Services → Projets → CTA</p></article>
+      <article><div class="ds-page-mini"><i class="hero small"></i><div class="split"><i></i><i></i></div><i class="wide"></i><i class="cta"></i></div><h4>Service Detail</h4><p>Hero → Contenu → Galerie → CTA</p></article>
+      <article><div class="ds-page-mini"><i class="hero small"></i><div class="cards"><i></i><i></i><i></i></div><div class="cards"><i></i><i></i><i></i></div></div><h4>Projects</h4><p>Introduction → Grille de projets</p></article>
+      <article><div class="ds-page-mini"><i class="hero small"></i><div class="split"><i></i><i></i></div><i class="wide"></i><i class="cta"></i></div><h4>Contact</h4><p>Intro → Formulaire / Info → Carte</p></article>
+    </div>
+  </div></section>
+
+  <!-- 17 · RESPONSIVE / RESPONSIVE -->
+  <section class="ds-section"><div class="container container-2">
+    <div class="ds-head"><span>17</span><div><h2>Responsive Visual Reference</h2><p>La même composition à trois largeurs de référence.</p></div></div>
+    <div class="ds-devices"><div class="desktop"><b>DESKTOP</b><div><i></i><i></i><i></i><i></i></div></div><div class="tablet"><b>TABLET</b><div><i></i><i></i><i></i><i></i></div></div><div class="mobile"><b>MOBILE</b><div><i></i><i></i><i></i><i></i></div></div></div>
+  </div></section>
+
+  <!-- 18 · QUICK REFERENCE / RÉFÉRENCE RAPIDE -->
+  <section class="ds-section ds-final"><div class="container container-2">
+    <div class="ds-head"><span>18</span><div><h2>Quick Reference</h2><p>Classes à retenir pour construire rapidement de nouvelles pages.</p></div></div>
+    <div class="ds-reference"><code>.container container-2</code><code>.section-heading</code><code>.sub-heading</code><code>.section-title</code><code>.tl-primary-btn</code><code>.service-item-3</code><code>.project-item</code><code>.project-item-2</code><code>.post-card</code><code>.testi-item</code><code>.counter-item</code><code>.faq-accordion</code><code>pt-130 pb-130</code><code>col-xl-3 col-lg-4 col-md-6</code></div>
+  </div></section>
+</main>
+{% endblock %}

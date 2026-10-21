@@ -1,27 +1,48 @@
 {% extends "base.html" %}
-
-
-{% block title %}
-Merci | VVswinss
-{% endblock %}
-
-
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Demande envoyée" %} | V&V Swiss Services{% endblock %}
+{% block meta_description %}{% trans "Votre demande a été envoyée avec succès à V&V Swiss Services." %}{% endblock %}
 {% block content %}
-
-<section>
-
-    <h1>
-        Merci pour votre demande
-    </h1>
-
-    <p>
-        Votre demande a bien été enregistrée.
-    </p>
-
-    <a href="{% url 'core:home' %}">
-        Retour à l'accueil
-    </a>
-
+<!-- ============================================================
+     PAGE HEADER
+============================================================ -->
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <h1 class="title">{% trans "Demande envoyée" %}</h1>
+            <h4 class="sub-title">
+                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <span class="icon">-</span>
+                <span class="inner-page">{% trans "Confirmation" %}</span>
+            </h4>
+        </div>
+    </div>
 </section>
-
+<!-- ============================================================
+     SUCCESS
+============================================================ -->
+<section class="contact-section pt-150 pb-150">
+    <div class="container container-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-heading text-center mb-40">
+                    <h4 class="sub-heading">{% trans "Merci pour votre demande" %}</h4>
+                    <h2 class="section-title title-2">{% trans "Votre projet a bien été" %} <span>{% trans "transmis à notre équipe" %}</span>
+                    </h2>
+                    <p>{% trans "Nous avons bien reçu votre demande. Notre équipe examinera les informations et les   photos transmises et vous contactera dans les meilleurs délais." %}</p>
+                </div>
+                <div class="text-center">
+                    <a href="{% url 'core:home' %}" class="tl-primary-btn">{% trans "Retour à l’accueil" %}<span
+                            class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                    &nbsp;
+                    <a href="{% url 'contact:contact' %}" class="tl-primary-btn">{% trans "Nouvelle demande" %}<span
+                            class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

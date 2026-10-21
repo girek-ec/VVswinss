@@ -1,0 +1,711 @@
+/* ==========================================================
+   V&V SWISS SERVICES
+   HEADER RESPONSIVE - VERSIÓN DEFINITIVA
+   ==========================================================
+
+   LÓGICA DE VISIBILIDAD
+
+   1600px o más
+   ✓ Logo
+   ✓ Menú principal
+   ✓ Teléfono
+   ✓ Idiomas
+   ✓ Buscador
+   ✓ Botón lateral
+
+   1400px - 1599px
+   ✓ Logo
+   ✓ Menú principal
+   ✗ Teléfono
+   ✓ Idiomas
+   ✓ Buscador
+   ✓ Botón lateral
+
+   1200px - 1399px
+   ✓ Logo
+   ✓ Menú principal
+   ✗ Teléfono
+   ✓ Idiomas
+   ✓ Buscador
+   ✓ Botón lateral
+
+   768px - 1199px
+   ✓ Logo
+   ✗ Menú principal
+   ✗ Teléfono
+   ✓ Idiomas móvil
+   ✓ Buscador
+   ✓ Botón lateral
+
+   Menos de 768px
+   ✓ Logo
+   ✗ Menú principal
+   ✗ Teléfono
+   ✓ Idiomas móvil
+   ✗ Buscador
+   ✓ Botón lateral
+
+   PRINCIPIO:
+   Un elemento no desaparece para volver a aparecer después.
+
+========================================================== */
+
+
+/* ==========================================================
+   01. ESTRUCTURA GENERAL
+========================================================== */
+
+.header-4 .primary-header-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+
+/* ==========================================================
+   02. ZONA IZQUIERDA
+   Logo + menú principal
+========================================================== */
+
+.header-4 .header-left-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+
+/* ==========================================================
+   03. LOGO
+
+   Siempre visible.
+   Nunca debe comprimirse.
+========================================================== */
+
+.header-4 .header-logo {
+    display: block !important;
+    flex: 0 0 auto;
+}
+
+
+/* ==========================================================
+   04. CONTENEDOR DEL MENÚ PRINCIPAL
+========================================================== */
+
+.header-4 .header-menu-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+
+/* ==========================================================
+   05. MENÚ PRINCIPAL
+
+   Mientras esté visible:
+   - una sola fila
+   - textos sin saltos
+========================================================== */
+
+.header-4 .mobile-menu-items > ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.header-4 .mobile-menu-items > ul > li {
+    flex: 0 0 auto;
+}
+
+.header-4 .mobile-menu-items > ul > li > a {
+    white-space: nowrap;
+}
+
+
+/* ==========================================================
+   06. ZONA DERECHA
+
+   Contiene:
+   - Teléfono
+   - Idiomas desktop
+   - Idiomas móvil
+   - Buscador
+   - Botón lateral
+========================================================== */
+
+.header-4 .header-right-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    flex: 0 0 auto;
+}
+
+
+/* ==========================================================
+   07. ESTADO BASE DE LOS IDIOMAS MÓVILES
+
+   Ocultos por defecto.
+   Se activan únicamente debajo de 1200px.
+========================================================== */
+
+.header-4 .header-language-mobile {
+    display: none !important;
+}
+
+
+/* ==========================================================
+   08. DESKTOP GRANDE
+   1600px EN ADELANTE
+
+   VISIBLE:
+   ✓ Logo
+   ✓ Menú
+   ✓ Teléfono
+   ✓ Idiomas desktop
+   ✓ Buscador
+   ✓ Botón lateral
+
+   OCULTO:
+   ✗ Idiomas móvil
+========================================================== */
+
+@media (min-width: 1600px) {
+
+    .header-4 .header-menu-wrap {
+        display: block !important;
+    }
+
+    .header-4 .header-contact {
+        display: flex !important;
+    }
+
+    .header-4 .header-language {
+        display: flex !important;
+    }
+
+    .header-4 .header-language-mobile {
+        display: none !important;
+    }
+
+    .header-4 .search-icon {
+        display: flex !important;
+    }
+
+    .header-4 .sidebar-icon {
+        display: flex !important;
+    }
+
+}
+
+
+/* ==========================================================
+   09. DESKTOP NORMAL
+   1400px - 1599px
+
+   VISIBLE:
+   ✓ Logo
+   ✓ Menú
+   ✓ Idiomas desktop
+   ✓ Buscador
+   ✓ Botón lateral
+
+   OCULTO:
+   ✗ Teléfono
+   ✗ Idiomas móvil
+========================================================== */
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+
+    .header-4 .header-menu-wrap {
+        display: block !important;
+    }
+
+    .header-4 .header-contact {
+        display: none !important;
+    }
+
+    .header-4 .header-language {
+        display: flex !important;
+    }
+
+    .header-4 .header-language-mobile {
+        display: none !important;
+    }
+
+    .header-4 .search-icon {
+        display: flex !important;
+    }
+
+    .header-4 .sidebar-icon {
+        display: flex !important;
+    }
+
+}
+
+
+/* ==========================================================
+   10. LAPTOP / DESKTOP PEQUEÑO
+   1200px - 1399px
+
+   VISIBLE:
+   ✓ Logo
+   ✓ Menú
+   ✓ Idiomas desktop
+   ✓ Buscador
+   ✓ Botón lateral
+
+   OCULTO:
+   ✗ Teléfono
+   ✗ Idiomas móvil
+
+   IMPORTANTE:
+   Los idiomas YA NO desaparecen en este rango.
+========================================================== */
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+    /* MENÚ PRINCIPAL */
+
+    .header-4 .header-menu-wrap {
+        display: block !important;
+    }
+
+
+    /* TELÉFONO */
+
+    .header-4 .header-contact {
+        display: none !important;
+    }
+
+
+    /* IDIOMAS DESKTOP */
+
+    .header-4 .header-language {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+
+    /* IDIOMAS MÓVIL */
+
+    .header-4 .header-language-mobile {
+        display: none !important;
+    }
+
+
+    /* BUSCADOR */
+
+    .header-4 .search-icon {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+
+    /* BOTÓN LATERAL */
+
+    .header-4 .sidebar-icon {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+
+    /* REDUCIMOS EL MENÚ PARA RECUPERAR ESPACIO */
+
+    .header-4 .mobile-menu-items > ul {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0;
+    }
+
+    .header-4 .mobile-menu-items > ul > li {
+        flex: 0 0 auto;
+
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .header-4 .mobile-menu-items > ul > li > a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+}
+
+
+/* ==========================================================
+   11. TABLET / LAPTOP PEQUEÑO
+   768px - 1199px
+
+   CAMBIO A MODO MÓVIL
+
+   VISIBLE:
+   ✓ Logo
+   ✓ Idiomas móvil
+   ✓ Buscador
+   ✓ Botón lateral
+
+   OCULTO:
+   ✗ Menú horizontal
+   ✗ Teléfono
+   ✗ Idiomas desktop
+========================================================== */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+
+    /* MENÚ PRINCIPAL */
+
+    .header-4 .header-menu-wrap {
+        display: none !important;
+    }
+
+
+    /* TELÉFONO */
+
+    .header-4 .header-contact {
+        display: none !important;
+    }
+
+
+    /* IDIOMAS DESKTOP */
+
+    .header-4 .header-language {
+        display: none !important;
+    }
+
+
+    /* IDIOMAS MÓVIL */
+
+    .header-4 .header-language-mobile {
+        display: flex !important;
+
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        flex: 0 0 auto !important;
+
+        width: auto !important;
+        min-width: max-content !important;
+
+        margin: 0 12px 0 auto !important;
+        padding: 0 !important;
+
+        gap: 5px !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    /* BUSCADOR */
+
+    .header-4 .search-icon {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+
+    /* BOTÓN LATERAL */
+
+    .header-4 .sidebar-icon {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+}
+
+
+/* ==========================================================
+   12. TELÉFONOS
+   0px - 767px
+
+   VISIBLE:
+   ✓ Logo
+   ✓ Idiomas móvil
+   ✓ Botón lateral
+
+   OCULTO:
+   ✗ Menú horizontal
+   ✗ Teléfono
+   ✗ Idiomas desktop
+   ✗ Buscador
+
+   El buscador se elimina aquí para ganar espacio.
+========================================================== */
+
+@media (max-width: 767px) {
+
+    /* MENÚ PRINCIPAL */
+
+    .header-4 .header-menu-wrap {
+        display: none !important;
+    }
+
+
+    /* TELÉFONO */
+
+    .header-4 .header-contact {
+        display: none !important;
+    }
+
+
+    /* IDIOMAS DESKTOP */
+
+    .header-4 .header-language {
+        display: none !important;
+    }
+
+
+    /* IDIOMAS MÓVIL */
+
+    .header-4 .header-language-mobile {
+        display: flex !important;
+
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        flex: 0 0 auto !important;
+
+        width: auto !important;
+        min-width: max-content !important;
+
+        margin: 0 10px 0 auto !important;
+        padding: 0 !important;
+
+        gap: 3px !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    /* BUSCADOR
+       Oculto en teléfono para recuperar espacio */
+
+    .header-4 .search-icon {
+        display: none !important;
+    }
+
+
+    /* BOTÓN LATERAL
+       Siempre visible */
+
+    .header-4 .sidebar-icon {
+        display: flex !important;
+        flex: 0 0 auto;
+    }
+
+}
+
+
+/* ==========================================================
+   13. FORMULARIOS DE IDIOMAS MÓVILES
+
+   Estas reglas aplican siempre que
+   .header-language-mobile esté visible.
+
+   Evitan que FR / DE / IT / EN
+   aparezcan uno debajo del otro.
+========================================================== */
+
+.header-4 .header-language-mobile > form {
+    display: inline-flex !important;
+
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* ==========================================================
+   14. BOTONES DE IDIOMAS MÓVILES
+========================================================== */
+
+.header-4 .header-language-mobile > form > button {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 2px !important;
+
+    border: 0 !important;
+    outline: 0 !important;
+
+    background: transparent !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer;
+}
+
+
+/* ==========================================================
+   15. SEPARADORES DE IDIOMAS
+
+   FR / DE / IT / EN
+========================================================== */
+
+.header-4 .header-language-mobile > span {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 13px !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+
+    opacity: 0.5;
+}
+
+
+/* ==========================================================
+   16. IDIOMA ACTIVO
+========================================================== */
+
+.header-4 .header-language-mobile > form > button.active {
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+
+/* ==========================================================
+   17. TELÉFONOS MUY PEQUEÑOS
+   MENOS DE 480px
+
+   Conservamos:
+
+   LOGO       FR/DE/IT/EN       BOTÓN
+
+   Solamente reducimos espacios.
+========================================================== */
+
+@media (max-width: 479px) {
+
+    .header-4 .header-language-mobile {
+        gap: 2px !important;
+
+        margin-left: auto !important;
+        margin-right: 7px !important;
+    }
+
+    .header-4 .header-language-mobile > form > button {
+        font-size: 13px !important;
+        padding: 1px !important;
+    }
+
+    .header-4 .header-language-mobile > span {
+        font-size: 12px !important;
+    }
+
+}
+
+
+/* ==========================================================
+   FIN
+   V&V SWISS SERVICES
+   HEADER RESPONSIVE
+========================================================== */
+
+
+/* ==========================================================
+   SERVICIOS HOME · IMÁGENES CUADRADAS 1:1
+   SERVICES HOME · IMAGES CARRÉES 1:1
+========================================================== */
+
+/* El contenedor define físicamente el cuadrado */
+.project-section-inner .project-item .project-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+
+/* El enlace ocupa exactamente el cuadrado */
+.project-section-inner .project-item .project-img > a {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+/* La imagen llena el cuadrado sin deformarse */
+.project-section-inner .project-item .project-img .service-square-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+
+
+/* ==========================================================
+   SERVICIOS HOME · IMÁGENES CUADRADAS 1:1
+   SERVICES HOME · IMAGES CARRÉES 1:1
+========================================================== */
+
+.services-home-grid .project-item .project-img {
+    height: auto;
+    aspect-ratio: 1 / 1;
+}
+
+.services-home-grid .project-item .project-img a {
+    width: 100%;
+    height: 100%;
+}
+
+.services-home-grid .project-item .project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}

@@ -1,38 +1,680 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
 {% load i18n_fields %}
 
+{% block title %}{{ post|localized:"title" }} | V&V Swiss Services{% endblock %}
 
-{% block title %}
-{{ post|localized:"titulo" }} | VVswinss
+{% block meta_description %}
+{% if post|localized:"excerpt" %}{{ post|localized:"excerpt"|striptags|truncatechars:160 }}{% else %}{% trans "Conseils, recommandations et actualités de V&V Swiss Services sur la rénovation et les travaux du bâtiment." %}{% endif %}
 {% endblock %}
 
 
+{% block metas %}
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="V&V Swiss Services">
+<meta property="og:title" content="{{ post|localized:'title' }}">
+<meta property="og:description" content="{{ post|localized:'excerpt'|striptags|truncatechars:200 }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% if post.main_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.main_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ post.main_image.url }}">
+<meta property="og:image:alt" content="{{ post|localized:'title' }}">
+{% endif %}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post|localized:'title' }}">
+<meta name="twitter:description" content="{{ post|localized:'excerpt'|striptags|truncatechars:200 }}">
+
+{% if post.main_image %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.main_image.url }}">
+{% endif %}
+
+{% endblock %}
+
 {% block content %}
 
-<article>
+<!-- ============================================================
+     PAGE HEADER
+============================================================ -->
 
-    <h1>
-        {{ post|localized:"titulo" }}
-    </h1>
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <h1 class="title">{{ post|localized:"title" }}</h1>
+            <h4 class="sub-title">
+                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <span class="icon">-</span>
+                <a class="inner-page" href="{% url 'blog:list' %}">{% trans "Conseils & actualités" %}</a>
+            </h4>
+        </div>
+    </div>
+</section>
 
-    <p>
-        {{ post.fecha_publicacion|date:"d/m/Y" }}
-    </p>
+<!-- ./ page-header -->
 
-    {% if post.imagen_principal %}
 
-        <img
-            src="{{ post.imagen_principal.url }}"
-            alt="{{ post|localized:'titulo' }}"
-            style="max-width:100%;"
-        >
+<!-- ============================================================
+     BLOG DETAILS
+============================================================ -->
 
-    {% endif %}
+<section class="blog-details pt-150 pb-150 overflow-hidden">
+    <div class="container container-2">
+        <div class="row gy-5">
 
-    <div>
-        {{ post|localized:"contenido"|linebreaks }}
+            <!-- ====================================================
+                 ARTICLE
+            ===================================================== -->
+
+            <div class="col-lg-8 col-md-12">
+                <div class="blog-details-wrap">
+
+                    <div class="post-card post-card-2 inner-post">
+                        <div class="post-content">
+                            <ul class="post-meta">
+                                {% if post.category %}
+                                    {% with category_slug=post.category|localized:"slug" %}
+                                        <li class="category">
+                                            {% if category_slug %}
+                                                <a href="{% url 'blog:list' %}?category={{ category_slug|urlencode }}">{{ post.category|localized:"name" }}</a>
+                                            {% else %}
+                                                {{ post.category|localized:"name" }}
+                                            {% endif %}
+                                        </li>
+                                    {% endwith %}
+                                {% endif %}
+
+                                {% if post.published_at %}
+                                    <li>{{ post.published_at|date:"d M Y" }}</li>
+                                {% endif %}
+
+                                {% if post.author %}
+                                    <li>
+                                        {% trans "Par" %}
+                                        <span>
+                                            {% if post.author.get_full_name %}
+                                                {{ post.author.get_full_name }}
+                                            {% else %}
+                                                {{ post.author.username }}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                {% else %}
+                                    <li>{% trans "Par" %} <span>V&V Swiss Services</span></li>
+                                {% endif %}
+                            </ul>
+
+                            <h3 class="title">{{ post|localized:"title" }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="blog-details-img mb-30">
+                        {% if post.main_image %}
+                            <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}">
+                        {% else %}
+                            <img src="{% static 'antra/assets/img/blog/blog-details-img.png' %}" alt="{{ post|localized:'title' }}">
+                        {% endif %}
+                    </div>
+
+                    <div class="blog-details-content">
+
+                        {% if post|localized:"content" %}
+                            <p class="mb-30">{{ post|localized:"content"|linebreaksbr }}</p>
+                        {% endif %}
+
+                        <!-- =================================================
+                             DYNAMIC ARTICLE SECTIONS
+                        ================================================== -->
+
+                        {% for section in post.sections.all %}
+                            {% if section.is_active %}
+
+                                {% if section.section_type == "text" %}
+
+                                    {% if section|localized:"title" %}
+                                        <h3 class="details-title-2">{{ section|localized:"title" }}</h3>
+                                    {% endif %}
+
+                                    {% if section|localized:"content" %}
+                                        <p class="mb-40">{{ section|localized:"content"|linebreaksbr }}</p>
+                                    {% endif %}
+
+                                {% elif section.section_type == "image" %}
+
+                                    {% if section|localized:"title" %}
+                                        <h3 class="details-title-2">{{ section|localized:"title" }}</h3>
+                                    {% endif %}
+
+                                    {% if section|localized:"content" %}
+                                        <p class="mb-40">{{ section|localized:"content"|linebreaksbr }}</p>
+                                    {% endif %}
+
+                                    {% if section.image_1 %}
+                                        <div class="details-img-wrap mt-40 mb-40">
+                                            <img src="{{ section.image_1.url }}" alt="{% if section|localized:'image_1_alt' %}{{ section|localized:'image_1_alt' }}{% else %}{{ post|localized:'title' }}{% endif %}">
+                                        </div>
+                                    {% endif %}
+
+                                {% elif section.section_type == "image_pair" %}
+
+                                    {% if section|localized:"title" %}
+                                        <h3 class="details-title-2">{{ section|localized:"title" }}</h3>
+                                    {% endif %}
+
+                                    {% if section|localized:"content" %}
+                                        <p class="mb-40">{{ section|localized:"content"|linebreaksbr }}</p>
+                                    {% endif %}
+
+                                    {% if section.image_1 or section.image_2 %}
+                                        <div class="details-img-wrap mt-40 mb-40">
+                                            {% if section.image_1 %}
+                                                <img src="{{ section.image_1.url }}" alt="{% if section|localized:'image_1_alt' %}{{ section|localized:'image_1_alt' }}{% else %}{{ post|localized:'title' }}{% endif %}">
+                                            {% endif %}
+                                            {% if section.image_2 %}
+                                                <img src="{{ section.image_2.url }}" alt="{% if section|localized:'image_2_alt' %}{{ section|localized:'image_2_alt' }}{% else %}{{ post|localized:'title' }}{% endif %}">
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+
+                                {% elif section.section_type == "quote" %}
+
+                                    {% if section|localized:"title" %}
+                                        <h3 class="details-title-2">{{ section|localized:"title" }}</h3>
+                                    {% endif %}
+
+                                    {% if section|localized:"content" %}
+                                        <p class="mb-40">{{ section|localized:"content"|linebreaksbr }}</p>
+                                    {% endif %}
+
+                                    {% if section|localized:"quote" %}
+                                        <blockquote class="mb-40">
+                                            <div class="shape">
+                                                <img src="{% static 'antra/assets/img/icon/blog-details-1.png' %}" alt="">
+                                            </div>
+                                            <div class="icon">
+                                                {% if section.quote_icon %}
+                                                    <img src="{{ section.quote_icon.url }}" alt="{% trans 'Citation' %}">
+                                                {% else %}
+                                                    <img src="{% static 'antra/assets/img/icon/quote-2.png' %}" alt="{% trans 'Citation' %}">
+                                                {% endif %}
+                                            </div>
+                                            <div class="content">
+                                                <p>{{ section|localized:"quote"|linebreaksbr }}</p>
+                                                {% if section.quote_author %}
+                                                    <h4 class="author">{{ section.quote_author }}</h4>
+                                                {% endif %}
+                                            </div>
+                                        </blockquote>
+                                    {% endif %}
+
+                                {% elif section.section_type == "text_image" %}
+
+                                    {% if section|localized:"title" %}
+                                        <h3 class="details-title-2">{{ section|localized:"title" }}</h3>
+                                    {% endif %}
+
+                                    {% if section|localized:"content" %}
+                                        <p class="mb-40">{{ section|localized:"content"|linebreaksbr }}</p>
+                                    {% endif %}
+
+                                    {% if section.image_1 %}
+                                        <div class="details-img-wrap mt-40 mb-40">
+                                            <img src="{{ section.image_1.url }}" alt="{% if section|localized:'image_1_alt' %}{{ section|localized:'image_1_alt' }}{% else %}{{ post|localized:'title' }}{% endif %}">
+                                        </div>
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- =================================================
+                         TAGS
+                    ================================================== -->
+
+                    {% if post.tags.all %}
+                        <div class="tags">
+                            <ul class="tag-list">
+                                {% for tag in post.tags.all %}
+                                    {% if tag.is_active %}
+                                        {% with tag_slug=tag|localized:"slug" %}
+                                            <li>
+                                                {% if tag_slug %}
+                                                    <a href="{% url 'blog:list' %}?tag={{ tag_slug|urlencode }}">{{ tag|localized:"name" }}</a>
+                                                {% else %}
+                                                    <a href="{% url 'blog:list' %}">{{ tag|localized:"name" }}</a>
+                                                {% endif %}
+                                            </li>
+                                        {% endwith %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+
+                    <!-- =================================================
+     SHARE ARTICLE
+================================================== -->
+
+{% with share_url=request.build_absolute_uri share_title=post|localized:"title" %}
+
+<div class="blog-share mt-40 mb-40">
+
+    <h4 class="mb-20">
+        {% trans "Partager cet article" %}
+    </h4>
+
+    <div class="d-flex flex-wrap gap-2">
+
+        <!-- WHATSAPP -->
+
+        <a href="https://wa.me/?text={{ share_title|urlencode }}%20{{ share_url|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="project-contact-btn"
+           aria-label="{% trans 'Partager sur WhatsApp' %}">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <span>
+                WhatsApp
+            </span>
+
+        </a>
+
+
+        <!-- FACEBOOK -->
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="project-contact-btn"
+           aria-label="{% trans 'Partager sur Facebook' %}">
+
+            <i class="fa-brands fa-facebook-f"></i>
+
+            <span>
+                Facebook
+            </span>
+
+        </a>
+
+
+        <!-- X / TWITTER -->
+
+        <a href="https://twitter.com/intent/tweet?text={{ share_title|urlencode }}&url={{ share_url|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="project-contact-btn"
+           aria-label="{% trans 'Partager sur X' %}">
+
+            <i class="fa-brands fa-x-twitter"></i>
+
+            <span>
+                X
+            </span>
+
+        </a>
+
+
+        <!-- LINKEDIN -->
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="project-contact-btn"
+           aria-label="{% trans 'Partager sur LinkedIn' %}">
+
+            <i class="fa-brands fa-linkedin-in"></i>
+
+            <span>
+                LinkedIn
+            </span>
+
+        </a>
+
+
+        <!-- EMAIL -->
+
+        <a href="mailto:?subject={{ share_title|urlencode }}&body={{ share_title|urlencode }}%0A%0A{{ share_url|urlencode }}"
+           class="project-contact-btn"
+           aria-label="{% trans 'Partager par e-mail' %}">
+
+            <i class="fa-regular fa-envelope"></i>
+
+            <span>
+                {% trans "E-mail" %}
+            </span>
+
+        </a>
+
+
+        <!-- COPY LINK -->
+
+        <button type="button"
+                class="project-contact-btn js-copy-post-link"
+                data-url="{{ share_url }}"
+                data-label="{% trans 'Copier le lien' %}"
+                data-copied="{% trans 'Lien copié' %}">
+
+            <i class="fa-regular fa-link"></i>
+
+            <span>
+                {% trans "Copier le lien" %}
+            </span>
+
+        </button>
+
     </div>
 
-</article>
+</div>
+
+{% endwith %}
+
+
+                    <!-- =================================================
+                         COMMENTS
+                         Se conserva la estructura visual original.
+                         Solo se muestra si el proyecto dispone de comentarios.
+                    ================================================== -->
+
+                    {% if post_comments %}
+                        <div class="comments-area">
+                            <div class="section-heading">
+                                <h2 class="section-title">{% trans "Commentaires" %}</h2>
+                            </div>
+
+                            {% for comment in post_comments %}
+                                <div class="comment-item{% if comment.parent_id %} item-2{% endif %}">
+                                    <div class="comment-thumb">
+                                        {% if comment.image %}
+                                            <img src="{{ comment.image.url }}" alt="{{ comment.author }}">
+                                        {% else %}
+                                            <img src="{% static 'antra/assets/img/blog/comment-thumb-1.png' %}" alt="{{ comment.author }}">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="comment-info">
+                                        <div class="comment-top">
+                                            <h3 class="author">{{ comment.author }}</h3>
+                                            <div class="comments-meta">
+                                                {% if comment.created_at %}
+                                                    <span>{{ comment.created_at|date:"d M Y" }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <p>{{ comment.content|linebreaksbr }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
+                    <!-- =================================================
+                         COMMENT FORM
+                         Se conserva la estructura original.
+                         Solo se muestra si existe comment_form en contexto.
+                    ================================================== -->
+
+                    {% if comment_form %}
+                        <div class="form-wrap pt-70">
+                            <div class="blog-contact-form">
+                                <h2 class="title">{% trans "Publier un commentaire" %}</h2>
+
+                                <div class="request-form">
+                                    <form action="" method="post" class="form-horizontal">
+                                        {% csrf_token %}
+
+                                        <div class="form-group row">
+                                            <div class="col-md-4">
+                                                <div class="form-item">
+                                                    {{ comment_form.name }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-item">
+                                                    {{ comment_form.email }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-item">
+                                                    {{ comment_form.website }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <div class="form-item message-item">
+                                                    {{ comment_form.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="submit-btn">
+                                            <button class="tl-primary-btn" type="submit">
+                                                {% trans "Publier le commentaire" %}
+                                                <span class="icon">
+                                                    <i class="fa-regular fa-arrow-right"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <!-- ====================================================
+                 SIDEBAR WIDGETS
+            ===================================================== -->
+
+            <div class="col-lg-4">
+
+                <!-- =================================================
+                     SEARCH
+                ================================================== -->
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">{% trans "Rechercher" %}</h3>
+                    <div class="search-box">
+                        <form action="{% url 'blog:list' %}" method="get" class="search-form">
+                            <input type="text" name="q" class="form-control" placeholder="{% trans 'Rechercher un article...' %}" value="{{ request.GET.q|default:'' }}">
+                            <button class="search-btn" type="submit" aria-label="{% trans 'Rechercher' %}">
+                                <i class="fa-regular fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- =================================================
+                     CATEGORIES
+                ================================================== -->
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">{% trans "Catégories" %}</h3>
+                    <ul class="category-list">
+                        {% for category in categories %}
+                            {% with category_slug=category|localized:"slug" %}
+                                <li>
+                                    {% if category_slug %}
+                                        <a href="{% url 'blog:list' %}?category={{ category_slug|urlencode }}">{{ category|localized:"name" }}</a>
+                                    {% else %}
+                                        <a href="{% url 'blog:list' %}">{{ category|localized:"name" }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endwith %}
+                        {% empty %}
+                            <li><a href="{% url 'blog:list' %}">{% trans "Tous les articles" %}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
+                <!-- =================================================
+                     RECENT POSTS
+                ================================================== -->
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">{% trans "Articles récents" %}</h3>
+
+                    {% for related_post in related_posts %}
+                        {% with related_slug=related_post|localized:"slug" %}
+                            <div class="sidebar-post">
+
+                                {% if related_post.main_image %}
+                                    {% if related_slug %}
+                                        <a href="{% url 'blog:detail' related_slug %}">
+                                            <img src="{{ related_post.main_image.url }}" alt="{{ related_post|localized:'title' }}">
+                                        </a>
+                                    {% else %}
+                                        <img src="{{ related_post.main_image.url }}" alt="{{ related_post|localized:'title' }}">
+                                    {% endif %}
+                                {% else %}
+                                    <img src="{% static 'antra/assets/img/blog/sidebar-post-1.png' %}" alt="{{ related_post|localized:'title' }}">
+                                {% endif %}
+
+                                <div class="post-content">
+                                    <ul class="post-meta">
+                                        {% if related_post.published_at %}
+                                            <li>{{ related_post.published_at|date:"d M Y" }}</li>
+                                        {% endif %}
+                                    </ul>
+
+                                    <h3 class="title">
+                                        {% if related_slug %}
+                                            <a href="{% url 'blog:detail' related_slug %}">{{ related_post|localized:"title" }}</a>
+                                        {% else %}
+                                            {{ related_post|localized:"title" }}
+                                        {% endif %}
+                                    </h3>
+                                </div>
+
+                            </div>
+                        {% endwith %}
+                    {% empty %}
+                        <p>{% trans "Aucun autre article disponible pour le moment." %}</p>
+                    {% endfor %}
+                </div>
+
+
+                <!-- =================================================
+                     TAGS
+                ================================================== -->
+
+                <div class="sidebar-widget sticky-widget">
+                    <h3 class="widget-title">{% trans "Tags" %}</h3>
+                    <ul class="tags">
+                        {% for tag in all_tags %}
+                            {% with tag_slug=tag|localized:"slug" %}
+                                <li>
+                                    {% if tag_slug %}
+                                        <a href="{% url 'blog:list' %}?tag={{ tag_slug|urlencode }}">{{ tag|localized:"name" }}</a>
+                                    {% else %}
+                                        <a href="{% url 'blog:list' %}">{{ tag|localized:"name" }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endwith %}
+                        {% empty %}
+                            {% for tag in post.tags.all %}
+                                {% if tag.is_active %}
+                                    <li><a href="{% url 'blog:list' %}">{{ tag|localized:"name" }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ./ Blog Details -->
+
+{% endblock %}
+{% block extra_js %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const copyButton = document.querySelector(".js-copy-post-link");
+
+        if (!copyButton) {
+            return;
+        }
+
+        copyButton.addEventListener("click", async function () {
+
+            const url = this.dataset.url;
+            const label = this.dataset.label;
+            const copied = this.dataset.copied;
+            const textElement = this.querySelector("span");
+
+            try {
+
+                await navigator.clipboard.writeText(url);
+
+                if (textElement) {
+                    textElement.textContent = copied;
+                }
+
+                setTimeout(function () {
+
+                    if (textElement) {
+                        textElement.textContent = label;
+                    }
+
+                }, 2000);
+
+            } catch (error) {
+
+                const temporaryInput = document.createElement("input");
+
+                temporaryInput.value = url;
+
+                document.body.appendChild(temporaryInput);
+
+                temporaryInput.select();
+
+                document.execCommand("copy");
+
+                temporaryInput.remove();
+
+                if (textElement) {
+                    textElement.textContent = copied;
+                }
+
+                setTimeout(function () {
+
+                    if (textElement) {
+                        textElement.textContent = label;
+                    }
+
+                }, 2000);
+
+            }
+
+        });
+
+    });
+</script>
 
 {% endblock %}

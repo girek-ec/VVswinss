@@ -1,0 +1,674 @@
+# VVswinss German translations
+# Copyright (C) 2026 VVswinss
+# This file is distributed under the same license as the VVswinss package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VVswinss 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-01 19:24-0500\n"
+"PO-Revision-Date: 2026-09-27 11:00-0500\n"
+"Last-Translator: VVswinss\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\base-before-antra.html:102 .\templates\includes\footer.html:121
+msgid "Home"
+msgstr "Startseite"
+
+#: .\templates\base-before-antra.html:106 .\templates\includes\header.html:108
+#: .\templates\services\service_detail.html:6
+#: .\templates\services\service_list.html:6
+msgid "Services"
+msgstr "Dienstleistungen"
+
+#: .\templates\base-before-antra.html:110 .\templates\includes\footer.html:133
+#: .\templates\projects\project_list.html:6
+msgid "Projects"
+msgstr "Projekte"
+
+#: .\templates\base-before-antra.html:114 .\templates\includes\footer.html:151
+msgid "News & Advice"
+msgstr "News & Ratgeber"
+
+#: .\templates\base-before-antra.html:118 .\templates\contact\contact.html:6
+#: .\templates\contact\contact.html:26 .\templates\contact\contact.html:34
+#: .\templates\contact\contact.html:125 .\templates\includes\footer.html:157
+#: .\templates\includes\header.html:192 .\templates\includes\header.html:689
+msgid "Contact"
+msgstr "Kontakt"
+
+#: .\templates\contact\contact.html:8
+msgid ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+msgstr ""
+
+#: .\templates\contact\contact.html:30 .\templates\core\about.html:33
+#: .\templates\core\professionals.html:26 .\templates\includes\header.html:95
+#: .\templates\projects\project_detail.html:30
+#: .\templates\projects\project_list.html:29
+msgid "Accueil"
+msgstr "Startseite"
+
+#: .\templates\contact\contact.html:65
+#, fuzzy
+#| msgid "Contact"
+msgid "Contactez-nous"
+msgstr "Kontakt"
+
+#: .\templates\contact\contact.html:75
+msgid "Vous avez un projet ?"
+msgstr "Haben Sie ein Projekt?"
+
+#: .\templates\contact\contact.html:75
+#, fuzzy
+#| msgid "Parlons-en"
+msgid "Parlons-en ensemble"
+msgstr "Lassen Sie uns darüber sprechen"
+
+#: .\templates\contact\contact.html:100
+msgid "Adresse"
+msgstr ""
+
+#: .\templates\contact\contact.html:144
+msgid "V&V Swiss Services - Rénovation et construction"
+msgstr ""
+
+#: .\templates\contact\contact.html:172
+msgid "Nom complet"
+msgstr ""
+
+#: .\templates\contact\contact.html:174
+msgid "Votre nom et prénom"
+msgstr ""
+
+#: .\templates\contact\contact.html:185
+msgid "Téléphone"
+msgstr ""
+
+#: .\templates\contact\contact.html:187
+msgid "Votre numéro de téléphone"
+msgstr ""
+
+#: .\templates\contact\contact.html:202
+msgid "Adresse e-mail"
+msgstr ""
+
+#: .\templates\contact\contact.html:204
+msgid "Votre adresse e-mail"
+msgstr ""
+
+#: .\templates\contact\contact.html:215
+#, fuzzy
+#| msgid "Services"
+msgid "Service souhaité"
+msgstr "Leistungen"
+
+#: .\templates\contact\contact.html:219
+msgid "Sélectionnez un service"
+msgstr ""
+
+#: .\templates\contact\contact.html:242
+#, fuzzy
+#| msgid "Parler de votre projet"
+msgid "Décrivez votre projet"
+msgstr "Über Ihr Projekt sprechen"
+
+#: .\templates\contact\contact.html:244
+msgid "Décrivez brièvement les travaux que vous souhaitez réaliser..."
+msgstr ""
+
+#: .\templates\contact\contact.html:257
+msgid "Envoyer ma demande"
+msgstr ""
+
+#: .\templates\contact\contact_success.html:5
+msgid "Thank you"
+msgstr "Vielen Dank"
+
+#: .\templates\contact\contact_success.html:13
+msgid "Thank you for your request"
+msgstr "Vielen Dank für Ihre Anfrage"
+
+#: .\templates\contact\contact_success.html:17
+msgid "Your request has been successfully received."
+msgstr "Ihre Anfrage wurde erfolgreich übermittelt."
+
+#: .\templates\contact\contact_success.html:21
+msgid "Back to home"
+msgstr "Zurück zur Startseite"
+
+#: .\templates\core\about.html:6 .\templates\core\about.html:35
+#: .\templates\core\about.html:108
+msgid "Entreprise"
+msgstr "Unternehmen"
+
+#: .\templates\core\about.html:8
+msgid ""
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
+"et des travaux du bâtiment en Suisse romande."
+msgstr ""
+
+#: .\templates\core\about.html:28
+msgid "Notre entreprise"
+msgstr "Unser Unternehmen"
+
+#: .\templates\core\about.html:69
+msgid "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+msgstr ""
+
+#: .\templates\core\about.html:201 .\templates\core\about.html:203
+#: .\templates\core\about.html:232
+msgid "Notre mission"
+msgstr ""
+
+#: .\templates\core\about.html:242
+msgid "Qualité suisse"
+msgstr ""
+
+#: .\templates\core\about.html:244
+msgid "Des travaux soignés et des finitions réalisées avec exigence."
+msgstr ""
+
+#: .\templates\core\about.html:250
+msgid "Proximité et confiance"
+msgstr ""
+
+#: .\templates\core\about.html:252
+msgid "Un accompagnement clair, personnalisé et adapté à chaque projet."
+msgstr ""
+
+#: .\templates\core\about.html:302
+msgid "Notre vision"
+msgstr ""
+
+#: .\templates\core\about.html:331 .\templates\core\about.html:333
+msgid "Suisse romande"
+msgstr ""
+
+#: .\templates\core\about.html:342
+msgid "Une présence en Suisse romande"
+msgstr ""
+
+#: .\templates\core\about.html:344
+msgid ""
+"Développer une présence reconnue dans la rénovation et l’isolation en Suisse "
+"romande."
+msgstr ""
+
+#: .\templates\core\about.html:359 .\templates\core\about.html:361
+msgid "Qualité des finitions"
+msgstr ""
+
+#: .\templates\core\about.html:370
+msgid "La qualité des finitions"
+msgstr ""
+
+#: .\templates\core\about.html:372
+msgid ""
+"Être reconnus pour des réalisations soignées, durables et conformes aux "
+"exigences de qualité suisses."
+msgstr ""
+
+#: .\templates\core\about.html:387 .\templates\core\about.html:389
+msgid "Confiance"
+msgstr ""
+
+#: .\templates\core\about.html:398
+msgid "La confiance de nos clients"
+msgstr "Das Vertrauen unserer Kunden"
+
+#: .\templates\core\about.html:400
+msgid ""
+"Construire des relations durables grâce à la proximité, à la transparence et "
+"au respect de nos engagements."
+msgstr ""
+
+#: .\templates\core\about.html:447
+msgid " valeurs"
+msgstr ""
+
+#: .\templates\core\about.html:449
+msgid "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+msgstr ""
+
+#: .\templates\core\about.html:550 .\templates\projects\project_list.html:25
+msgid "Nos réalisations"
+msgstr "Unsere Projekte"
+
+#: .\templates\core\about.html:552
+msgid "Projets"
+msgstr "Projekte"
+
+#: .\templates\core\about.html:552
+msgid "réalisés"
+msgstr "realisiert"
+
+#: .\templates\core\about.html:554
+#, fuzzy
+#| msgid ""
+#| "Découvrez une sélection de projets d’isolation, de façades et de "
+#| "rénovation."
+msgid ""
+"Découvrez une sélection de projets de rénovation, d’isolation, de façades et "
+"de travaux intérieurs réalisés par V&V Swiss Services."
+msgstr ""
+"Entdecken Sie eine Auswahl an Projekten aus den Bereichen Dämmung, Fassaden "
+"und Sanierung."
+
+#: .\templates\core\about.html:635
+#, fuzzy
+#| msgid "votre bâtiment"
+msgid "Notre positionnement"
+msgstr "Ihres Gebäudes"
+
+#: .\templates\core\about.html:637
+msgid "Plus de 20 ans d’expérience"
+msgstr ""
+
+#: .\templates\core\about.html:637
+msgid "dans le bâtiment en Suisse"
+msgstr ""
+
+#: .\templates\core\about.html:639
+msgid ""
+"Nous associons le savoir-faire technique d’une grande entreprise à la "
+"proximité, la réactivité et la flexibilité d’un spécialiste local."
+msgstr ""
+
+#: .\templates\core\about.html:645 .\templates\core\home.html:503
+msgid "Parler de votre projet"
+msgstr "Über Ihr Projekt sprechen"
+
+#: .\templates\core\home.html:55
+msgid "Building solutions in Switzerland"
+msgstr "Baulösungen in der Schweiz"
+
+#: .\templates\core\home.html:72
+msgid "Insulation, façades and renovation"
+msgstr "Dämmung, Fassaden und Sanierung"
+
+#: .\templates\core\home.html:121
+msgid "Request a quote"
+msgstr "Offerte anfragen"
+
+#: .\templates\core\home.html:208
+msgid "Energy efficiency and protection"
+msgstr "Energieeffizienz und Schutz"
+
+#: .\templates\core\home.html:218
+msgid "Solutions designed for your building"
+msgstr "Lösungen für Ihr Gebäude"
+
+#: .\templates\core\home.html:253
+msgid "Discover our solutions"
+msgstr "Unsere Lösungen entdecken"
+
+#: .\templates\core\home.html:405
+msgid "À propos de VVswinss"
+msgstr "Über VVswinss"
+
+#: .\templates\core\home.html:412
+msgid "Des solutions durables"
+msgstr "Nachhaltige Lösungen"
+
+#: .\templates\core\home.html:417
+msgid "pour votre bâtiment"
+msgstr "für Ihr Gebäude"
+
+#: .\templates\core\home.html:435
+msgid "Solutions adaptées à chaque bâtiment"
+msgstr "Lösungen für jedes Gebäude"
+
+#: .\templates\core\home.html:446
+msgid "Amélioration du confort thermique"
+msgstr "Verbesserung des Wärmekomforts"
+
+#: .\templates\core\home.html:457
+msgid "Protection durable des façades"
+msgstr "Dauerhafter Schutz der Fassaden"
+
+#: .\templates\core\home.html:468
+msgid "Accompagnement personnalisé"
+msgstr "Persönliche Betreuung"
+
+#: .\templates\core\home.html:582
+msgid "Notre expertise"
+msgstr "Unsere Expertise"
+
+#: .\templates\core\home.html:597
+msgid "Des solutions techniques"
+msgstr "Technische Lösungen"
+
+#: .\templates\core\home.html:600
+msgid "pour protéger et améliorer votre bâtiment"
+msgstr "zum Schutz und zur Verbesserung Ihres Gebäudes"
+
+#: .\templates\core\home.html:739
+msgid "Nos domaines d’intervention seront bientôt disponibles."
+msgstr "Unsere Leistungsbereiche werden in Kürze verfügbar sein."
+
+#: .\templates\core\professionals.html:6 .\templates\core\professionals.html:22
+#: .\templates\core\professionals.html:32 .\templates\includes\header.html:179
+msgid "Professionnels"
+msgstr "Geschäftskunden"
+
+#: .\templates\core\professionals.html:8
+msgid ""
+"Solutions de rénovation, entretien et remise en état pour régies "
+"immobilières, administrateurs de PPE, entreprises et professionnels dans le "
+"canton de Vaud."
+msgstr ""
+
+#: .\templates\core\professionals.html:53
+msgid "Solutions pour professionnels"
+msgstr ""
+
+#: .\templates\core\professionals.html:57
+msgid "Un partenaire pour vos biens immobiliers et vos projets"
+msgstr ""
+
+#: .\templates\core\professionals.html:61
+msgid ""
+"V&V Swiss Services accompagne les régies immobilières, administrateurs de "
+"PPE, propriétaires, entreprises générales, constructeurs et autres "
+"professionnels pour leurs besoins d’entretien, de réparation et de "
+"rénovation."
+msgstr ""
+
+#: .\templates\includes\footer.html:101
+msgid "Solutions for insulation, façades and renovation."
+msgstr "Lösungen für Dämmung, Fassaden und Sanierung."
+
+#: .\templates\includes\footer.html:127
+msgid "Solutions"
+msgstr "Lösungen"
+
+#: .\templates\includes\footer.html:139
+msgid "Company"
+msgstr "Unternehmen"
+
+#: .\templates\includes\footer.html:145
+msgid "Our Method"
+msgstr "Unsere Methode"
+
+#: .\templates\includes\footer.html:214
+msgid "Thermal insulation"
+msgstr "Wärmedämmung"
+
+#: .\templates\includes\footer.html:220
+msgid "Façades"
+msgstr "Fassaden"
+
+#: .\templates\includes\footer.html:226
+msgid "Renovation"
+msgstr "Sanierung"
+
+#: .\templates\includes\footer.html:344
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten."
+
+#: .\templates\includes\header.html:117
+msgid "Tous les services"
+msgstr "Alle Dienstleistungen"
+
+#: .\templates\includes\header.html:153
+#: .\templates\projects\project_detail.html:34
+#: .\templates\projects\project_list.html:31
+msgid "Réalisations"
+msgstr "Projekte"
+
+#: .\templates\includes\header.html:166
+#, fuzzy
+#| msgid "À propos de VVswinss"
+msgid "À propos"
+msgstr "Über uns"
+
+#: .\templates\includes\header.html:229
+msgid "Appelez-nous"
+msgstr "Rufen Sie uns an"
+
+#: .\templates\includes\header.html:250 .\templates\includes\header.html:876
+#: .\templates\projects\project_detail.html:331
+msgid "Demander un devis"
+msgstr "Offerte anfragen"
+
+#: .\templates\includes\header.html:355
+msgid "Ouvrir le menu"
+msgstr ""
+
+#: .\templates\includes\header.html:395
+msgid "Rechercher..."
+msgstr ""
+
+#: .\templates\includes\header.html:416 .\templates\includes\header.html:662
+msgid "Fermer le menu"
+msgstr ""
+
+#: .\templates\includes\header.html:480
+msgid ""
+"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+msgstr ""
+
+#: .\templates\includes\header.html:576
+msgid "Contactez-nous sur WhatsApp"
+msgstr ""
+
+#: .\templates\projects\project_detail.html:26
+msgid "Détails du projet"
+msgstr "Projektdetails"
+
+#: .\templates\projects\project_detail.html:77
+msgid "Avant et après"
+msgstr "Vorher und nachher"
+
+#: .\templates\projects\project_detail.html:90
+msgid "Avant"
+msgstr "Vorher"
+
+#: .\templates\projects\project_detail.html:91
+msgid "Après"
+msgstr "Nachher"
+
+#: .\templates\projects\project_detail.html:112
+msgid "Type de projet"
+msgstr "Projekttyp"
+
+#: .\templates\projects\project_detail.html:124
+msgid "Type de bâtiment"
+msgstr "Gebäudetyp"
+
+#: .\templates\projects\project_detail.html:138
+msgid "Service"
+msgstr "Leistung"
+
+#: .\templates\projects\project_detail.html:160
+msgid "Lieu"
+msgstr "Ort"
+
+#: .\templates\projects\project_detail.html:172
+msgid "Client"
+msgstr "Kunde"
+
+#: .\templates\projects\project_detail.html:184
+#: .\templates\projects\project_detail.html:194
+msgid "Date"
+msgstr "Datum"
+
+#: .\templates\projects\project_detail.html:226
+msgid "Le projet"
+msgstr "Das Projekt"
+
+#: .\templates\projects\project_detail.html:252
+msgid "Travaux réalisés"
+msgstr "Ausgeführte Arbeiten"
+
+#: .\templates\projects\project_detail.html:292
+msgid "Galerie du projet"
+msgstr "Projektgalerie"
+
+#: .\templates\projects\project_detail.html:324
+msgid "Vous avez un projet similaire ?"
+msgstr "Haben Sie ein ähnliches Projekt?"
+
+#: .\templates\projects\project_detail.html:326
+msgid ""
+"Contactez VVswinss pour discuter de votre projet et identifier la solution "
+"adaptée à votre bâtiment."
+msgstr ""
+"Kontaktieren Sie VVswinss, um Ihr Projekt zu besprechen und die passende "
+"Lösung für Ihr Gebäude zu finden."
+
+#: .\templates\projects\project_list.html:8
+msgid ""
+"Discover VVswinss projects in insulation, façades and building renovation."
+msgstr ""
+"Entdecken Sie die Projekte von VVswinss in den Bereichen Dämmung, Fassaden "
+"und Gebäudesanierung."
+
+#: .\templates\projects\project_list.html:181
+msgid "Nos projets seront bientôt disponibles."
+msgstr "Unsere Projekte werden in Kürze verfügbar sein."
+
+#: .\templates\services\service_detail.html:8
+#: .\templates\services\service_list.html:8
+#, fuzzy
+#| msgid ""
+#| "Découvrez une sélection de projets d’isolation, de façades et de "
+#| "rénovation."
+msgid ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+msgstr ""
+"Entdecken Sie eine Auswahl an Projekten aus den Bereichen Dämmung, Fassaden "
+"und Sanierung."
+
+msgid "Search..."
+msgstr "Suchen..."
+
+#~ msgid "Send request"
+#~ msgstr "Anfrage senden"
+
+#, fuzzy
+#~| msgid "Demander un devis"
+#~ msgid "Demander des informations"
+#~ msgstr "Offerte anfragen"
+
+#, fuzzy
+#~| msgid "Certifications et références"
+#~ msgid "Devenir une référence"
+#~ msgstr "Zertifizierungen und Referenzen"
+
+#~ msgid "Certifications"
+#~ msgstr "Zertifizierungen"
+
+#~ msgid "Des références qui soutiennent"
+#~ msgstr "Referenzen, die"
+
+#~ msgid "notre engagement"
+#~ msgstr "unser Engagement unterstreichen"
+
+#~ msgid "Nos clients témoignent"
+#~ msgstr "Das sagen unsere Kunden"
+
+#~ msgid "au cœur de notre travail"
+#~ msgstr "im Mittelpunkt unserer Arbeit"
+
+#~ msgid "Votre projet"
+#~ msgstr "Ihr Projekt"
+
+#~ msgid "Parlons de votre"
+#~ msgstr "Sprechen wir über Ihr"
+
+#~ msgid "projet de rénovation"
+#~ msgstr "Sanierungsprojekt"
+
+#, fuzzy
+#~| msgid "Demander un devis"
+#~ msgid "Demander un devis gratuit"
+#~ msgstr "Offerte anfragen"
+
+#~ msgid "Call us"
+#~ msgstr "Rufen Sie uns an"
+
+#~ msgid "Search..."
+#~ msgstr "Suchen..."
+
+#~ msgid "Building solutions for insulation, façades and renovation."
+#~ msgstr "Baulösungen für Dämmung, Fassaden und Sanierung."
+
+#~ msgid ""
+#~ "Discover VVswinss and our approach to insulation, façades and building "
+#~ "renovation."
+#~ msgstr ""
+#~ "Entdecken Sie VVswinss und unseren Ansatz für Dämmung, Fassaden und "
+#~ "Gebäudesanierung."
+
+#~ msgid "pour protéger et améliorer"
+#~ msgstr "zum Schutz und zur Verbesserung"
+
+#~ msgid ""
+#~ "VVswinss propose des solutions dans les domaines de l’isolation, des "
+#~ "façades et de la rénovation des bâtiments, avec une approche orientée "
+#~ "vers la protection, le confort et la performance énergétique."
+#~ msgstr ""
+#~ "VVswinss bietet Lösungen in den Bereichen Dämmung, Fassaden und "
+#~ "Gebäudesanierung mit einem Ansatz, der auf Schutz, Komfort und "
+#~ "Energieeffizienz ausgerichtet ist."
+
+#~ msgid "Notre méthode"
+#~ msgstr "Unsere Methode"
+
+#~ msgid "Un accompagnement"
+#~ msgstr "Eine Begleitung"
+
+#~ msgid "structuré à chaque étape"
+#~ msgstr "strukturiert in jeder Phase"
+
+#~ msgid ""
+#~ "Chaque projet est étudié selon les caractéristiques du bâtiment, les "
+#~ "besoins du client et les solutions techniques adaptées."
+#~ msgstr ""
+#~ "Jedes Projekt wird anhand der Eigenschaften des Gebäudes, der Bedürfnisse "
+#~ "des Kunden und der passenden technischen Lösungen geprüft."
+
+#~ msgid ""
+#~ "Contactez VVswinss pour discuter de vos besoins en isolation, façades ou "
+#~ "rénovation et obtenir une première orientation pour votre projet."
+#~ msgstr ""
+#~ "Kontaktieren Sie VVswinss, um Ihre Anforderungen an Dämmung, Fassaden "
+#~ "oder Sanierung zu besprechen und eine erste Beratung für Ihr Projekt zu "
+#~ "erhalten."
+
+msgid "Demande envoyée"
+msgstr "Anfrage gesendet"
+
+msgid "Votre demande a été envoyée avec succès à V&V Swiss Services."
+msgstr "Ihre Anfrage wurde erfolgreich an V&V Swiss Services übermittelt."
+
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+msgid "Merci pour votre demande"
+msgstr "Vielen Dank für Ihre Anfrage"
+
+msgid "Votre projet a bien été"
+msgstr "Ihr Projekt wurde erfolgreich"
+
+msgid "transmis à notre équipe"
+msgstr "an unser Team übermittelt"
+
+msgid "Nous avons bien reçu votre demande. Notre équipe examinera les informations et les photos transmises et vous contactera dans les meilleurs délais."
+msgstr "Wir haben Ihre Anfrage erhalten. Unser Team prüft die übermittelten Informationen und Fotos und wird sich so schnell wie möglich mit Ihnen in Verbindung setzen."
+
+msgid "Retour à l’accueil"
+msgstr "Zurück zur Startseite"
+
+msgid "Nouvelle demande"
+msgstr "Neue Anfrage"

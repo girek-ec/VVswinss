@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}
+{% trans "Accès interne" %} | V&V Swiss Services
+{% endblock %}
+
+
+{% block content %}
+
+<section class="vv-inbox-section">
+
+    <div class="container">
+
+        <div
+            class="row justify-content-center"
+        >
+
+            <div
+                class="col-lg-5 col-md-7"
+            >
+
+                <div class="vv-panel-card">
+
+
+                    <!-- =========================================
+                         HEADER
+                    ========================================== -->
+
+                    <div class="vv-panel-head">
+
+                        <div>
+
+                            <span class="vv-panel-kicker">
+                                V&V Swiss Services
+                            </span>
+
+                            <h1
+                                class="vv-panel-title"
+                                style="font-size: 28px !important;"
+                            >
+                                {% trans "Accès interne" %}
+                            </h1>
+
+                        </div>
+
+                        <i
+                            class="fa-regular fa-lock-keyhole vv-panel-icon"
+                        ></i>
+
+                    </div>
+
+
+                    <p class="mb-25">
+
+                        {% trans "Connectez-vous pour accéder à la boîte de réception des demandes." %}
+
+                    </p>
+
+
+                    <!-- =========================================
+                         ERROR
+                    ========================================== -->
+
+                    {% if error %}
+
+                        <div
+                            class="alert alert-danger"
+                            role="alert"
+                        >
+                            {{ error }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =========================================
+                         LOGIN
+                    ========================================== -->
+
+                    <form
+                        method="post"
+                        action=""
+                        class="vv-management-form"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <div
+                            class="vv-management-field"
+                        >
+
+                            <label
+                                for="username"
+                                class="vv-field-label"
+                            >
+                                {% trans "Utilisateur" %}
+                            </label>
+
+                            <input
+                                id="username"
+                                name="username"
+                                type="text"
+                                class="form-control"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="vv-management-field"
+                        >
+
+                            <label
+                                for="password"
+                                class="vv-field-label"
+                            >
+                                {% trans "Mot de passe" %}
+                            </label>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="tl-primary-btn vv-save-button"
+                        >
+
+                            {% trans "Se connecter" %}
+
+                            <span class="icon">
+                                <i class="fa-regular fa-arrow-right"></i>
+                            </span>
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

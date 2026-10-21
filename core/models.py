@@ -1,9 +1,11 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.utils.text import slugify
+from django.utils.translation import get_language
 
+
+# ============================================================
+# BASE · TIMESTAMPS
+# ============================================================
 
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -13,41 +15,123 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
+# ============================================================
+# BASE · SEO MULTILINGÜE
+# ============================================================
+
 class MultilingualSEOModel(models.Model):
-    seo_titulo_fr = models.CharField(max_length=160, blank=True)
-    seo_titulo_es = models.CharField(max_length=160, blank=True)
-    seo_titulo_en = models.CharField(max_length=160, blank=True)
+    seo_title_es = models.CharField(max_length=160, blank=True)
+    seo_title_fr = models.CharField(max_length=160, blank=True)
+    seo_title_de = models.CharField(max_length=160, blank=True)
+    seo_title_it = models.CharField(max_length=160, blank=True)
+    seo_title_en = models.CharField(max_length=160, blank=True)
 
-    meta_descripcion_fr = models.CharField(max_length=320, blank=True)
-    meta_descripcion_es = models.CharField(max_length=320, blank=True)
-    meta_descripcion_en = models.CharField(max_length=320, blank=True)
+    meta_description_es = models.CharField(max_length=320, blank=True)
+    meta_description_fr = models.CharField(max_length=320, blank=True)
+    meta_description_de = models.CharField(max_length=320, blank=True)
+    meta_description_it = models.CharField(max_length=320, blank=True)
+    meta_description_en = models.CharField(max_length=320, blank=True)
 
-    og_imagen = models.ImageField(upload_to="seo/", blank=True, null=True)
-    indexar = models.BooleanField(default=True)
+    og_image = models.ImageField(
+        upload_to="seo/",
+        blank=True,
+        null=True,
+    )
+
+    is_indexable = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
 
 
-class SiteConfiguration(TimeStampedModel):
-    nombre_empresa = models.CharField(max_length=150)
+# ============================================================
+# SITE CONFIGURATION
+# Configuración general, contacto y datos legales
+# ============================================================
 
-    slogan_fr = models.CharField(max_length=255, blank=True)
+class SiteConfiguration(TimeStampedModel):
+
+    # ========================================================
+    # EMPRESA
+    # ========================================================
+
+    company_name = models.CharField(max_length=150)
+
     slogan_es = models.CharField(max_length=255, blank=True)
+    slogan_fr = models.CharField(max_length=255, blank=True)
+    slogan_de = models.CharField(max_length=255, blank=True)
+    slogan_it = models.CharField(max_length=255, blank=True)
     slogan_en = models.CharField(max_length=255, blank=True)
 
+    # ========================================================
+    # IDENTIDAD VISUAL
+    # ========================================================
+
     logo = models.ImageField(upload_to="site/")
-    logo_blanco = models.ImageField(upload_to="site/", blank=True, null=True)
-    favicon = models.ImageField(upload_to="site/", blank=True, null=True)
 
-    telefono = models.CharField(max_length=50, blank=True)
-    whatsapp = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(blank=True)
+    white_logo = models.ImageField(
+        upload_to="site/",
+        blank=True,
+        null=True,
+    )
 
-    direccion = models.CharField(max_length=255, blank=True)
-    ciudad = models.CharField(max_length=100, blank=True)
-    canton = models.CharField(max_length=100, blank=True)
-    pais = models.CharField(max_length=100, default="Suisse")
+    favicon = models.ImageField(
+        upload_to="site/",
+        blank=True,
+        null=True,
+    )
+
+    # ========================================================
+    # CONTACTO
+    # ========================================================
+
+    phone = models.CharField(
+        max_length=50,
+        blank=True,
+    )
+
+    whatsapp = models.CharField(
+        max_length=50,
+        blank=True,
+    )
+
+    email = models.EmailField(
+        blank=True,
+    )
+
+    # ========================================================
+    # DIRECCIÓN
+    # ========================================================
+
+    address = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+
+    postal_code = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="NPA / code postal.",
+    )
+
+    city = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    canton = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    country = models.CharField(
+        max_length=100,
+        default="Switzerland",
+    )
+
+    # ========================================================
+    # GEOLOCALIZACIÓN
+    # ========================================================
 
     latitude = models.DecimalField(
         max_digits=9,
@@ -55,6 +139,7 @@ class SiteConfiguration(TimeStampedModel):
         blank=True,
         null=True,
     )
+
     longitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,
@@ -62,274 +147,762 @@ class SiteConfiguration(TimeStampedModel):
         null=True,
     )
 
-    activo = models.BooleanField(default=True)
+    # ========================================================
+    # DATOS LEGALES
+    # Mentions légales / Impressum
+    # ========================================================
 
-    class Meta:
-        verbose_name = "Configuración del sitio"
-        verbose_name_plural = "Configuración del sitio"
+    legal_name = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Raison sociale ou nom juridique officiel de l'entreprise.",
+    )
 
-    def __str__(self):
-        return self.nombre_empresa
-
-
-class SocialLink(TimeStampedModel):
-    nombre = models.CharField(max_length=50)
-    url = models.URLField()
-    icono = models.CharField(
+    legal_form = models.CharField(
         max_length=100,
         blank=True,
-        help_text="Clase CSS del icono, por ejemplo bi bi-facebook",
+        help_text="Ex. entreprise individuelle, Sàrl, SA.",
     )
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+
+    uid_number = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="Numéro IDE / UID / CHE.",
+    )
+
+    vat_number = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="Numéro TVA, si applicable.",
+    )
+
+    commercial_register = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Informations relatives au registre du commerce, si applicable.",
+    )
+
+    legal_representative = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Responsable ou représentant légal de l'entreprise.",
+    )
+
+    insurance_info = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+
+    # ========================================================
+    # PROTECTION DES DONNÉES · nLPD
+    # ========================================================
+
+    privacy_email = models.EmailField(
+        blank=True,
+        help_text=(
+            "Adresse e-mail utilisée pour les demandes relatives "
+            "à la protection des données. Si vide, l'e-mail principal "
+            "du site peut être utilisé."
+        ),
+    )
+
+    # ========================================================
+    # HÉBERGEMENT
+    # Informations utiles pour les mentions légales
+    # et la politique de confidentialité
+    # ========================================================
+
+    hosting_provider = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Nom du prestataire d'hébergement du site web.",
+    )
+
+    hosting_address = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Adresse du prestataire d'hébergement, si connue.",
+    )
+
+    hosting_country = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Pays dans lequel le site ou les données sont hébergés.",
+    )
+
+    # ========================================================
+    # CONFIGURATION
+    # ========================================================
+
+    is_active = models.BooleanField(
+        default=True,
+    )
 
     class Meta:
-        ordering = ["orden", "nombre"]
-        verbose_name = "Red social"
-        verbose_name_plural = "Redes sociales"
+        verbose_name = "Site configuration"
+        verbose_name_plural = "Site configuration"
 
     def __str__(self):
-        return self.nombre
+        return self.company_name
 
+
+# ============================================================
+# SOCIAL LINKS
+# ============================================================
+
+class SocialLink(TimeStampedModel):
+    name = models.CharField(max_length=50)
+    url = models.URLField()
+
+    icon = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order", "name"]
+        verbose_name = "Social link"
+        verbose_name_plural = "Social links"
+
+    def __str__(self):
+        return self.name
+
+
+# ============================================================
+# BUSINESS HOURS
+# ============================================================
 
 class BusinessHour(TimeStampedModel):
-    dia_fr = models.CharField(max_length=30)
-    dia_es = models.CharField(max_length=30, blank=True)
-    dia_en = models.CharField(max_length=30, blank=True)
+    day_fr = models.CharField(max_length=30)
+    day_de = models.CharField(max_length=30, blank=True)
+    day_it = models.CharField(max_length=30, blank=True)
+    day_en = models.CharField(max_length=30, blank=True)
 
-    horario = models.CharField(max_length=100)
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    hours = models.CharField(max_length=100)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden"]
-        verbose_name = "Horario"
-        verbose_name_plural = "Horarios"
+        ordering = ["order"]
+        verbose_name = "Business hour"
+        verbose_name_plural = "Business hours"
 
     def __str__(self):
-        return f"{self.dia_fr}: {self.horario}"
+        return f"{self.day_fr}: {self.hours}"
 
+
+# ============================================================
+# ABOUT CONTENT
+# ============================================================
+
+class AboutContent(TimeStampedModel):
+    intro_title_es = models.CharField(max_length=255, blank=True)
+    intro_title_fr = models.CharField(max_length=255)
+    intro_title_de = models.CharField(max_length=255, blank=True)
+    intro_title_it = models.CharField(max_length=255, blank=True)
+    intro_title_en = models.CharField(max_length=255, blank=True)
+
+    intro_text_es = models.TextField(blank=True)
+    intro_text_fr = models.TextField()
+    intro_text_de = models.TextField(blank=True)
+    intro_text_it = models.TextField(blank=True)
+    intro_text_en = models.TextField(blank=True)
+
+    mission_es = models.TextField(blank=True)
+    mission_fr = models.TextField()
+    mission_de = models.TextField(blank=True)
+    mission_it = models.TextField(blank=True)
+    mission_en = models.TextField(blank=True)
+
+    vision_es = models.TextField(blank=True)
+    vision_fr = models.TextField()
+    vision_de = models.TextField(blank=True)
+    vision_it = models.TextField(blank=True)
+    vision_en = models.TextField(blank=True)
+
+    history_es = models.TextField(blank=True)
+    history_fr = models.TextField(blank=True)
+    history_de = models.TextField(blank=True)
+    history_it = models.TextField(blank=True)
+    history_en = models.TextField(blank=True)
+
+    image = models.ImageField(
+        upload_to="about/",
+        blank=True,
+        null=True,
+    )
+
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "About content"
+        verbose_name_plural = "About content"
+
+    def __str__(self):
+        return self.intro_title_fr or "About V&V Swiss Services"
+
+
+# ============================================================
+# SERVICE AREA
+# ============================================================
 
 class ServiceArea(TimeStampedModel):
-    nombre = models.CharField(max_length=120)
+    name = models.CharField(max_length=120)
     canton = models.CharField(max_length=120, blank=True)
-    descripcion = models.CharField(max_length=255, blank=True)
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+
+    description_es = models.CharField(max_length=255, blank=True)
+    description_fr = models.CharField(max_length=255, blank=True)
+    description_de = models.CharField(max_length=255, blank=True)
+    description_it = models.CharField(max_length=255, blank=True)
+    description_en = models.CharField(max_length=255, blank=True)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden", "nombre"]
-        verbose_name = "Zona de servicio"
-        verbose_name_plural = "Zonas de servicio"
+        ordering = ["order", "name"]
+        verbose_name = "Service area"
+        verbose_name_plural = "Service areas"
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
+
+# ============================================================
+# PROCESS STEP
+# ============================================================
 
 class ProcessStep(TimeStampedModel):
-    numero = models.PositiveIntegerField()
+    number = models.PositiveIntegerField()
 
-    titulo_fr = models.CharField(max_length=150)
-    titulo_es = models.CharField(max_length=150, blank=True)
-    titulo_en = models.CharField(max_length=150, blank=True)
+    title_es = models.CharField(max_length=150, blank=True)
+    title_fr = models.CharField(max_length=150)
+    title_de = models.CharField(max_length=150, blank=True)
+    title_it = models.CharField(max_length=150, blank=True)
+    title_en = models.CharField(max_length=150, blank=True)
 
-    descripcion_fr = models.TextField()
-    descripcion_es = models.TextField(blank=True)
-    descripcion_en = models.TextField(blank=True)
+    description_es = models.TextField(blank=True)
+    description_fr = models.TextField()
+    description_de = models.TextField(blank=True)
+    description_it = models.TextField(blank=True)
+    description_en = models.TextField(blank=True)
 
-    icono = models.CharField(max_length=100, blank=True)
-    activo = models.BooleanField(default=True)
+    icon = models.CharField(max_length=100, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["numero"]
-        verbose_name = "Etapa del proceso"
-        verbose_name_plural = "Etapas del proceso"
+        ordering = ["number"]
+        verbose_name = "Process step"
+        verbose_name_plural = "Process steps"
 
     def __str__(self):
-        return f"{self.numero}. {self.titulo_fr}"
+        return f"{self.number}. {self.title_fr}"
 
+
+# ============================================================
+# TEAM MEMBER
+# ============================================================
 
 class TeamMember(TimeStampedModel):
-    nombre = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
 
-    cargo_fr = models.CharField(max_length=150)
-    cargo_es = models.CharField(max_length=150, blank=True)
-    cargo_en = models.CharField(max_length=150, blank=True)
+    position_fr = models.CharField(max_length=150)
+    position_de = models.CharField(max_length=150, blank=True)
+    position_it = models.CharField(max_length=150, blank=True)
+    position_en = models.CharField(max_length=150, blank=True)
 
-    biografia_fr = models.TextField(blank=True)
-    biografia_es = models.TextField(blank=True)
-    biografia_en = models.TextField(blank=True)
+    biography_fr = models.TextField(blank=True)
+    biography_de = models.TextField(blank=True)
+    biography_it = models.TextField(blank=True)
+    biography_en = models.TextField(blank=True)
 
-    foto = models.ImageField(upload_to="team/", blank=True, null=True)
+    photo = models.ImageField(
+        upload_to="team/",
+        blank=True,
+        null=True,
+    )
+
     email = models.EmailField(blank=True)
-    telefono = models.CharField(max_length=50, blank=True)
+    phone = models.CharField(max_length=50, blank=True)
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden", "nombre"]
-        verbose_name = "Miembro del equipo"
-        verbose_name_plural = "Equipo"
+        ordering = ["order", "name"]
+        verbose_name = "Team member"
+        verbose_name_plural = "Team members"
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
+
+# ============================================================
+# INSURANCE
+# ============================================================
+
+class Insurance(TimeStampedModel):
+    name_es = models.CharField(
+        "Nombre · referencia ES",
+        max_length=150,
+        blank=True,
+    )
+
+    name_fr = models.CharField(
+        "Nom · FR",
+        max_length=150,
+    )
+
+    name_de = models.CharField(
+        "Name · DE",
+        max_length=150,
+        blank=True,
+    )
+
+    name_it = models.CharField(
+        "Nome · IT",
+        max_length=150,
+        blank=True,
+    )
+
+    name_en = models.CharField(
+        "Name · EN",
+        max_length=150,
+        blank=True,
+    )
+
+    description_es = models.TextField(
+        "Descripción · referencia ES",
+        blank=True,
+    )
+
+    description_fr = models.TextField(
+        "Description · FR",
+        blank=True,
+    )
+
+    description_de = models.TextField(
+        "Beschreibung · DE",
+        blank=True,
+    )
+
+    description_it = models.TextField(
+        "Descrizione · IT",
+        blank=True,
+    )
+
+    description_en = models.TextField(
+        "Description · EN",
+        blank=True,
+    )
+
+    image = models.ImageField(
+        upload_to="insurances/",
+        blank=True,
+        null=True,
+    )
+
+    pdf = models.FileField(
+        upload_to="insurances/documents/",
+        blank=True,
+        null=True,
+    )
+
+    url = models.URLField(blank=True)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order", "name_fr"]
+        verbose_name = "Insurance"
+        verbose_name_plural = "Insurances"
+
+    def __str__(self):
+        return self.name_fr
+
+
+# ============================================================
+# CERTIFICATION
+# ============================================================
 
 class Certification(TimeStampedModel):
-    nombre = models.CharField(max_length=150)
-    entidad = models.CharField(max_length=150, blank=True)
-    imagen = models.ImageField(upload_to="certifications/", blank=True, null=True)
+    name = models.CharField(max_length=150)
+
+    issuer = models.CharField(
+        max_length=150,
+        blank=True,
+    )
+
+    image = models.ImageField(
+        upload_to="certifications/",
+        blank=True,
+        null=True,
+    )
+
+    pdf = models.FileField(
+        upload_to="certifications/documents/",
+        blank=True,
+        null=True,
+    )
+
     url = models.URLField(blank=True)
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden", "nombre"]
+        ordering = ["order", "name"]
+        verbose_name = "Certification"
+        verbose_name_plural = "Certifications"
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
+
+# ============================================================
+# COMPANY VALUE
+# ============================================================
+
+class CompanyValue(TimeStampedModel):
+    title_es = models.CharField(max_length=150, blank=True)
+    title_fr = models.CharField(max_length=150)
+    title_de = models.CharField(max_length=150, blank=True)
+    title_it = models.CharField(max_length=150, blank=True)
+    title_en = models.CharField(max_length=150, blank=True)
+
+    description_es = models.TextField(blank=True)
+    description_fr = models.TextField()
+    description_de = models.TextField(blank=True)
+    description_it = models.TextField(blank=True)
+    description_en = models.TextField(blank=True)
+
+    image = models.ImageField(
+        upload_to="company-values/",
+        blank=True,
+        null=True,
+    )
+
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Company value"
+        verbose_name_plural = "Company values"
+
+    def __str__(self):
+        return self.title_fr
+
+
+# ============================================================
+# STATISTIC
+# ============================================================
 
 class Statistic(TimeStampedModel):
-    valor = models.CharField(max_length=30)
+    value = models.CharField(max_length=30)
 
-    titulo_fr = models.CharField(max_length=100)
-    titulo_es = models.CharField(max_length=100, blank=True)
-    titulo_en = models.CharField(max_length=100, blank=True)
+    title_es = models.CharField(max_length=100, blank=True)
+    title_fr = models.CharField(max_length=100)
+    title_de = models.CharField(max_length=100, blank=True)
+    title_it = models.CharField(max_length=100, blank=True)
+    title_en = models.CharField(max_length=100, blank=True)
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden"]
+        ordering = ["order"]
 
     def __str__(self):
-        return f"{self.valor} - {self.titulo_fr}"
+        return f"{self.value} - {self.title_fr}"
 
+
+# ============================================================
+# TESTIMONIAL
+# ============================================================
 
 class Testimonial(TimeStampedModel):
-    nombre = models.CharField(max_length=150)
-    empresa = models.CharField(max_length=150, blank=True)
+    name = models.CharField(max_length=150)
 
-    texto_fr = models.TextField()
-    texto_es = models.TextField(blank=True)
-    texto_en = models.TextField(blank=True)
+    company = models.CharField(
+        max_length=150,
+        blank=True,
+    )
 
-    foto = models.ImageField(upload_to="testimonials/", blank=True, null=True)
-    valoracion = models.PositiveSmallIntegerField(default=5)
-    activo = models.BooleanField(default=True)
-    orden = models.PositiveIntegerField(default=0)
+    text_es = models.TextField(blank=True)
+    text_fr = models.TextField()
+    text_de = models.TextField(blank=True)
+    text_it = models.TextField(blank=True)
+    text_en = models.TextField(blank=True)
+
+    photo = models.ImageField(
+        upload_to="testimonials/",
+        blank=True,
+        null=True,
+    )
+
+    rating = models.PositiveSmallIntegerField(default=5)
+
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ["orden", "-created_at"]
+        ordering = ["order", "-created_at"]
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
+
+# ============================================================
+# FAQ CATEGORY
+# ============================================================
 
 class FAQCategory(TimeStampedModel):
-    nombre_fr = models.CharField(max_length=120)
-    nombre_es = models.CharField(max_length=120, blank=True)
-    nombre_en = models.CharField(max_length=120, blank=True)
+    name_es = models.CharField(max_length=120, blank=True)
+    name_fr = models.CharField(max_length=120)
+    name_de = models.CharField(max_length=120, blank=True)
+    name_it = models.CharField(max_length=120, blank=True)
+    name_en = models.CharField(max_length=120, blank=True)
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden", "nombre_fr"]
-        verbose_name = "Categoría FAQ"
-        verbose_name_plural = "Categorías FAQ"
+        ordering = ["order", "name_fr"]
+        verbose_name = "FAQ category"
+        verbose_name_plural = "FAQ categories"
 
     def __str__(self):
-        return self.nombre_fr
+        return self.name_fr
 
+
+# ============================================================
+# FAQ
+# ============================================================
 
 class FAQ(TimeStampedModel):
-    categoria = models.ForeignKey(
+    category = models.ForeignKey(
         FAQCategory,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name="preguntas",
+        related_name="questions",
     )
 
-    pregunta_fr = models.CharField(max_length=255)
-    pregunta_es = models.CharField(max_length=255, blank=True)
-    pregunta_en = models.CharField(max_length=255, blank=True)
+    question_fr = models.CharField(max_length=255)
+    question_de = models.CharField(max_length=255, blank=True)
+    question_it = models.CharField(max_length=255, blank=True)
+    question_en = models.CharField(max_length=255, blank=True)
 
-    respuesta_fr = models.TextField()
-    respuesta_es = models.TextField(blank=True)
-    respuesta_en = models.TextField(blank=True)
+    answer_fr = models.TextField()
+    answer_de = models.TextField(blank=True)
+    answer_it = models.TextField(blank=True)
+    answer_en = models.TextField(blank=True)
 
-    orden = models.PositiveIntegerField(default=0)
-    activo = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["orden", "pregunta_fr"]
-        verbose_name = "Pregunta frecuente"
-        verbose_name_plural = "Preguntas frecuentes"
+        ordering = ["order", "question_fr"]
+        verbose_name = "FAQ"
+        verbose_name_plural = "FAQs"
 
     def __str__(self):
-        return self.pregunta_fr
+        return self.question_fr
 
+
+# ============================================================
+# INSTITUTIONAL PAGE
+#
+# Se utiliza también para:
+# - Mentions légales / Impressum
+# - Protection des données / nLPD
+#
+# Francés = idioma principal
+# Español = referencia administrativa
+# ============================================================
 
 class InstitutionalPage(
     MultilingualSEOModel,
     TimeStampedModel,
 ):
-    titulo_fr = models.CharField(max_length=160)
-    titulo_es = models.CharField(max_length=160, blank=True)
-    titulo_en = models.CharField(max_length=160, blank=True)
+    # ========================================================
+    # TITLES
+    # ========================================================
 
-    slug_fr = models.SlugField(max_length=180, unique=True)
-    slug_es = models.SlugField(max_length=180, blank=True, null=True, unique=True)
-    slug_en = models.SlugField(max_length=180, blank=True, null=True, unique=True)
+    title_es = models.CharField(
+        "Título · referencia ES",
+        max_length=200,
+        blank=True,
+    )
 
-    contenido_fr = models.TextField()
-    contenido_es = models.TextField(blank=True)
-    contenido_en = models.TextField(blank=True)
+    title_fr = models.CharField(max_length=160)
+    title_de = models.CharField(max_length=160, blank=True)
+    title_it = models.CharField(max_length=160, blank=True)
+    title_en = models.CharField(max_length=160, blank=True)
 
-    imagen = models.ImageField(upload_to="pages/", blank=True, null=True)
-    activo = models.BooleanField(default=True)
+    # ========================================================
+    # SLUGS
+    # ========================================================
+
+    slug_fr = models.SlugField(
+        max_length=180,
+        unique=True,
+    )
+
+    slug_de = models.SlugField(
+        max_length=180,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    slug_it = models.SlugField(
+        max_length=180,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    slug_en = models.SlugField(
+        max_length=180,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
+    # ========================================================
+    # CONTENT
+    # ========================================================
+
+    content_es = models.TextField(blank=True)
+    content_fr = models.TextField()
+    content_de = models.TextField(blank=True)
+    content_it = models.TextField(blank=True)
+    content_en = models.TextField(blank=True)
+
+    # ========================================================
+    # MEDIA
+    # ========================================================
+
+    image = models.ImageField(
+        upload_to="pages/",
+        blank=True,
+        null=True,
+    )
+
+    # ========================================================
+    # SETTINGS
+    # ========================================================
+
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "Página institucional"
-        verbose_name_plural = "Páginas institucionales"
+        verbose_name = "Institutional page"
+        verbose_name_plural = "Institutional pages"
 
     def __str__(self):
-        return self.titulo_fr
+        return self.title_fr
+
+    # ========================================================
+    # LOCALIZED FIELD
+    # ========================================================
+
+    def get_localized_field(self, field_name):
+        language = (get_language() or "fr").split("-")[0]
+
+        if language not in ("fr", "de", "it", "en"):
+            language = "fr"
+
+        value = getattr(self, f"{field_name}_{language}", "")
+
+        if value:
+            return value
+
+        value_fr = getattr(self, f"{field_name}_fr", "")
+
+        if value_fr:
+            return value_fr
+
+        for fallback in ("de", "it", "en", "es"):
+            value = getattr(self, f"{field_name}_{fallback}", "")
+
+            if value:
+                return value
+
+        return ""
+
+    # ========================================================
+    # CURRENT VALUES
+    # ========================================================
+
+    def get_current_title(self):
+        return self.get_localized_field("title")
+
+    def get_current_content(self):
+        return self.get_localized_field("content")
+
+    def get_current_seo_title(self):
+        return self.get_localized_field("seo_title")
+
+    def get_current_meta_description(self):
+        return self.get_localized_field("meta_description")
+
+    # ========================================================
+    # SAVE
+    # ========================================================
 
     def save(self, *args, **kwargs):
         if not self.slug_fr:
-            self.slug_fr = slugify(self.titulo_fr)
+            self.slug_fr = slugify(self.title_fr)
 
-        if self.titulo_es and not self.slug_es:
-            self.slug_es = slugify(self.titulo_es)
+        if self.title_de and not self.slug_de:
+            self.slug_de = slugify(self.title_de)
 
-        if self.titulo_en and not self.slug_en:
-            self.slug_en = slugify(self.titulo_en)
+        if self.title_it and not self.slug_it:
+            self.slug_it = slugify(self.title_it)
+
+        if self.title_en and not self.slug_en:
+            self.slug_en = slugify(self.title_en)
 
         super().save(*args, **kwargs)
 
 
+# ============================================================
+# HOME CONTENT
+# ============================================================
+
 class HomeContent(TimeStampedModel):
-    titulo_fr = models.CharField(max_length=200)
-    titulo_es = models.CharField(max_length=200, blank=True)
-    titulo_en = models.CharField(max_length=200, blank=True)
+    title_es = models.CharField(max_length=200, blank=True)
+    title_fr = models.CharField(max_length=200)
+    title_de = models.CharField(max_length=200, blank=True)
+    title_it = models.CharField(max_length=200, blank=True)
+    title_en = models.CharField(max_length=200, blank=True)
 
-    subtitulo_fr = models.TextField(blank=True)
-    subtitulo_es = models.TextField(blank=True)
-    subtitulo_en = models.TextField(blank=True)
+    subtitle_es = models.TextField(blank=True)
+    subtitle_fr = models.TextField(blank=True)
+    subtitle_de = models.TextField(blank=True)
+    subtitle_it = models.TextField(blank=True)
+    subtitle_en = models.TextField(blank=True)
 
-    imagen_hero = models.ImageField(upload_to="home/", blank=True, null=True)
+    hero_image = models.ImageField(
+        upload_to="home/",
+        blank=True,
+        null=True,
+    )
+
     video_url = models.URLField(blank=True)
 
-    activo = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "Contenido de inicio"
-        verbose_name_plural = "Contenido de inicio"
+        verbose_name = "Home content"
+        verbose_name_plural = "Home content"
 
     def __str__(self):
-        return self.titulo_fr
+        return self.title_fr

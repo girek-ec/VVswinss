@@ -1,0 +1,628 @@
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!-- =========================================================
+     PRELOADER
+========================================================= -->
+<div class="preloader overflow-hidden">
+    <div class="site-name">
+        <span>
+            {% if site_configuration %}
+                {{ site_configuration.company_name }}
+            {% else %}
+                V&V Swiss Services
+            {% endif %}
+        </span>
+    </div>
+    <div class="preloader-gutters">
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+        <div class="bar">
+            <div class="inner-bar"></div>
+        </div>
+    </div>
+</div>
+<!-- =========================================================
+     HEADER
+========================================================= -->
+<header class="header header-4 sticky-active">
+    <div class="primary-header">
+        <div class="container">
+            <div class="primary-header-inner">
+                <div class="header-left-wrap">
+                    <!-- =================================================
+                             LOGO
+                        ================================================== -->
+                        <div class="header-logo">
+                            <a href="{% url 'core:home' %}">
+                                {% if site_configuration and site_configuration.logo %}
+                                    <img src="{{ site_configuration.logo.url }}"
+                                         alt="{{ site_configuration.company_name }}">
+                                {% else %}
+                                    <img src="{% static 'antra/assets/img/logo/logo-2.png' %}"
+                                         alt="V&V Swiss Services">
+                                {% endif %}
+                            </a>
+                        </div>
+       <!-- =================================================
+     MAIN MENU
+================================================== -->
+<div class="header-menu-wrap">
+    <div class="mobile-menu-items">
+        <ul>
+            <!-- =================================================
+                 ACCUEIL
+            ================================================== -->
+            <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "home" %} class="active"{% endif %}>
+                <a href="{% url 'core:home' %}">
+                    {% trans "Accueil" %}
+                </a>
+            </li>
+
+<!-- =================================================
+     SERVICES · CATEGORIES
+================================================= -->
+<li class="menu-item-has-children{% if request.resolver_match.namespace == 'services' %} active{% endif %}">
+    <a href="{% url 'services:list' %}">
+        {% trans "Services" %}
+    </a>
+
+    {% if nav_service_categories %}
+    <ul>
+
+        <!-- =================================================
+             TOUS LES SERVICES
+        ================================================== -->
+        <li>
+            <a href="{% url 'services:list' %}">
+                {% trans "Tous les services" %}
+            </a>
+        </li>
+
+        <!-- =================================================
+             CATÉGORIES
+        ================================================== -->
+        {% for category in nav_service_categories %}
+            {% with category_slug=category|localized:"slug" %}
+                {% if category_slug %}
+                <li>
+                    <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
+                        {{ category|localized:"name" }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+
+    </ul>
+    {% endif %}
+</li>
+
+            <!-- =================================================
+                 RÉALISATIONS
+            ================================================== -->
+            <li{% if request.resolver_match.namespace == "projects" %} class="active"{% endif %}>
+                <a href="{% url 'projects:list' %}">
+                    {% trans "Réalisations" %}
+                </a>
+            </li>
+            <!-- =================================================
+                 À PROPOS
+            ================================================== -->
+            <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "about" %} class="active"{% endif %}>
+                <a href="{% url 'core:about' %}">
+                    {% trans "À propos" %}
+                </a>
+            </li>
+            <!-- =================================================
+                 PROFESSIONNELS
+            ================================================== -->
+            <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "professionals" %} class="active"{% endif %}>
+                <a href="{% url 'core:professionals' %}">
+                    {% trans "Professionnels" %}
+                </a>
+            </li>
+   <!-- =================================================
+     LEGAL
+================================================== -->
+<li class="menu-item-has-children{% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'mentions_legales' or request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'protection_donnees' %} active{% endif %}">
+    <a href="#">
+        {% trans "Informations légales" %}
+    </a>
+    <ul>
+        <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "mentions_legales" %} class="active"{% endif %}>
+            <a href="{% url 'core:mentions_legales' %}">
+                {% trans "Mentions légales" %}
+            </a>
+        </li>
+        <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "protection_donnees" %} class="active"{% endif %}>
+            <a href="{% url 'core:protection_donnees' %}">
+                {% trans "Protection des données" %}
+            </a>
+        </li>
+    </ul>
+</li>
+            <!-- =================================================
+                 CONTACT
+            ================================================== -->
+            <li{% if request.resolver_match.namespace == "contact" %} class="active"{% endif %}>
+                <a href="{% url 'contact:contact' %}">
+                    {% trans "Contact" %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+                </div>
+                <!-- =================================================
+                     RIGHT HEADER
+                ================================================== -->
+                <div class="header-right-wrap">
+                    <!-- =================================================
+                         PHONE
+                    ================================================== -->
+                    {% if site_configuration and site_configuration.phone %}
+                    <a href="tel:{{ site_configuration.phone }}" class="header-contact">
+                            <span class="icon">
+                                <i class="fa-regular fa-phone"></i>
+                            </span>
+                        <span class="content">
+                                <span class="call-text">
+                                    {% trans "Appelez-nous" %}
+                                </span>
+                                <span class="call-number">
+                                    {{ site_configuration.phone }}
+                                </span>
+                            </span>
+                    </a>
+                    {% endif %}
+<!-- =================================================
+     DESKTOP LANGUAGES
+================================================== -->
+<div class="header-language">
+    <!-- FR -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="fr">
+        <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
+    </form>
+    <span>/</span>
+    <!-- DE -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="de">
+        <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %}>DE</button>
+    </form>
+    <span>/</span>
+    <!-- IT -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="it">
+        <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %}>IT</button>
+    </form>
+    <span>/</span>
+    <!-- EN -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="en">
+        <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
+    </form>
+</div>
+<!-- =================================================
+     MOBILE HEADER LANGUAGES
+     Visible solamente en tablet y móvil
+================================================== -->
+<div class="header-language-mobile">
+
+    <!-- FR -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="fr">
+        <button type="submit"
+                {% if CURRENT_LANGUAGE == "fr" %}
+                class="active"
+                aria-current="page"
+                {% endif %}>
+            FR
+        </button>
+    </form>
+
+    <span>/</span>
+
+    <!-- DE -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="de">
+        <button type="submit"
+                {% if CURRENT_LANGUAGE == "de" %}
+                class="active"
+                aria-current="page"
+                {% endif %}>
+            DE
+        </button>
+    </form>
+
+    <span>/</span>
+
+    <!-- IT -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="it">
+        <button type="submit"
+                {% if CURRENT_LANGUAGE == "it" %}
+                class="active"
+                aria-current="page"
+                {% endif %}>
+            IT
+        </button>
+    </form>
+
+    <span>/</span>
+
+    <!-- EN -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="en">
+        <button type="submit"
+                {% if CURRENT_LANGUAGE == "en" %}
+                class="active"
+                aria-current="page"
+                {% endif %}>
+            EN
+        </button>
+    </form>
+
+</div>
+
+
+                    <!-- =================================================
+     SEARCH
+================================================== -->
+<div class="search-icon dl-search-icon" role="button" tabindex="0" aria-label="{% trans 'Ouvrir la recherche' %}">
+    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+</div>
+<!-- =================================================
+     SIDEBAR BUTTON
+================================================== -->
+<div class="sidebar-icon">
+    <button class="sidebar-trigger open" type="button" aria-label="{% trans 'Ouvrir le menu' %}">
+        <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>
+    </button>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- =========================================================
+     SEARCH POPUP
+========================================================= -->
+<div id="popup-search-box">
+    <div class="box-inner-wrap d-flex align-items-center">
+        <form id="site-search-form" action="#" method="get" role="search" aria-label="{% trans 'Recherche sur le site' %}">
+            <input id="popup-search" type="search" name="s" placeholder="{% trans 'Rechercher...' %}" aria-label="{% trans 'Rechercher sur le site' %}">
+        </form>
+        <button class="search-close" type="button" aria-label="{% trans 'Fermer la recherche' %}">
+            <i class="fa-sharp fa-regular fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+<div id="sidebar-area" class="sidebar-area">
+    <button class="sidebar-trigger close" type="button" aria-label="{% trans 'Fermer le menu' %}">
+        <svg class="sidebar-close" xmlns="http://www.w3.org/2000/svg" width="16px" height="12.7px" viewBox="0 0 16 12.7">
+            <g>
+                <rect x="0" y="5.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)" width="16" height="2"></rect>
+                <rect x="0" y="5.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)" width="16" height="2"></rect>
+            </g>
+        </svg>
+    </button>
+    <div class="side-menu-content">
+        <!-- =================================================
+             SIDEBAR LOGO
+        ================================================== -->
+        <div class="side-menu-logo">
+            <a href="{% url 'core:home' %}">
+                {% if site_configuration and site_configuration.white_logo %}
+                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}">
+                {% elif site_configuration and site_configuration.logo %}
+                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}">
+                {% else %}
+                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services">
+                {% endif %}
+            </a>
+        </div>
+        <!-- =================================================
+             MENU GENERATED BY ANTRA
+        ================================================== -->
+        <div class="side-menu-wrap"></div>
+        <!-- =================================================
+             COMPANY
+        ================================================== -->
+        <div class="side-menu-about">
+            <h4 class="title">
+                {% if site_configuration %}
+                {{ site_configuration|localized:"slogan" }}
+                {% else %}
+                {% trans "Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment." %}
+                {% endif %}
+            </h4>
+        </div>
+        <!-- =================================================
+     PRIVATE INBOX ACCESS
+================================================== -->
+        <div class="side-menu-contact">
+            <ul class="side-menu-list">
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <!-- INBOX -->
+                <li>
+                    <a href="{% url 'contact:inbox' %}">
+                        <i class="fa-regular fa-envelope"></i>
+                        {% trans "Boîte de réception" %}
+                    </a>
+                </li>
+               <!-- LOGOUT -->
+<li>
+    <form action="{% url 'contact:inbox_logout' %}" method="post" class="side-menu-logout-form">
+        {% csrf_token %}
+        <button type="submit" class="side-menu-logout-btn">
+            <i class="fa-regular fa-arrow-right-from-bracket"></i>
+            {% trans "Se déconnecter" %}
+        </button>
+    </form>
+</li>
+                {% else %}
+                <!-- LOGIN -->
+                <li>
+                    <a href="{% url 'contact:inbox_login' %}">
+                        <i class="fa-regular fa-user"></i>
+                        {% trans "Accès interne" %}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
+        {% if site_configuration %}
+        <div class="side-menu-contact">
+            <ul class="side-menu-list">
+                <!-- ADDRESS -->
+                {% if site_configuration.address %}
+                <li>
+                    {{ site_configuration.address }}
+                    {% if site_configuration.city %}<br>{{ site_configuration.city }}{% endif %}
+                    {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
+                    {% if site_configuration.country %}<br>{% trans "Suisse" %}{% endif %}
+                </li>
+                {% endif %}
+                <!-- PHONE -->
+                {% if site_configuration.phone %}
+                <li>
+                    <a href="tel:{{ site_configuration.phone }}">
+                        {{ site_configuration.phone }}
+                    </a>
+                </li>
+                {% endif %}
+                <!-- EMAIL -->
+                {% if site_configuration.email %}
+                <li>
+                    <a class="mail" href="mailto:{{ site_configuration.email }}">
+                        {{ site_configuration.email }}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        <!-- =================================================
+             WHATSAPP
+        ================================================== -->
+        {% if site_configuration and site_configuration.whatsapp %}
+        <div class="side-menu-contact">
+            <ul class="side-menu-list">
+                <li>
+                    <a href="https://wa.me/{{ site_configuration.whatsapp }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        {% trans "Écrivez-nous sur WhatsApp" %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        <!-- =================================================
+             SOCIAL
+        ================================================== -->
+        {% if social_links %}
+        <ul class="side-menu-social">
+            {% for social_link in social_links %}
+            <li>
+                <a href="{{ social_link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social_link.name }}">
+                    {% if social_link.icon %}
+                    <i class="{{ social_link.icon }}"></i>
+                    {% else %}
+                    {{ social_link.name }}
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+<div id="sidebar-overlay"></div>
+<!-- =========================================================
+     MOBILE MENU
+========================================================= -->
+<div class="mobile-side-menu">
+    <div class="side-menu-content">
+        <!-- =================================================
+             MOBILE HEADER
+        ================================================== -->
+        <div class="side-menu-head">
+            <a href="{% url 'core:home' %}">
+                {% if site_configuration and site_configuration.white_logo %}
+                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}">
+                {% elif site_configuration and site_configuration.logo %}
+                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}">
+                {% else %}
+                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services">
+                {% endif %}
+            </a>
+            <button class="mobile-side-menu-close" type="button" aria-label="{% trans 'Fermer le menu' %}">
+                <i class="fa-regular fa-xmark"></i>
+            </button>
+        </div>
+        <!-- =================================================
+             MOBILE MENU GENERATED BY ANTRA
+        ================================================== -->
+        <div class="side-menu-wrap"></div>
+        <!-- =================================================
+             MOBILE CONTACT
+        ================================================== -->
+        {% if site_configuration %}
+        <div class="side-menu-contact">
+            <div class="side-menu-header">
+                <h3>
+                    {% trans "Contact" %}
+                </h3>
+            </div>
+            <ul class="side-menu-list">
+                <!-- ADDRESS -->
+                {% if site_configuration.address %}
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>
+                        {{ site_configuration.address }}
+                        {% if site_configuration.city %}<br>{{ site_configuration.city }}{% endif %}
+                        {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
+                        {% if site_configuration.country %}<br>{% trans "Suisse" %}{% endif %}
+                    </p>
+                </li>
+                {% endif %}
+                <!-- PHONE -->
+                {% if site_configuration.phone %}
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ site_configuration.phone }}">
+                        {{ site_configuration.phone }}
+                    </a>
+                </li>
+                {% endif %}
+                <!-- EMAIL -->
+                {% if site_configuration.email %}
+                <li>
+                    <i class="fas fa-envelope-open-text"></i>
+                    <a href="mailto:{{ site_configuration.email }}">
+                        {{ site_configuration.email }}
+                    </a>
+                </li>
+                {% endif %}
+                <!-- WHATSAPP -->
+                {% if site_configuration.whatsapp %}
+                <li>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <a href="https://wa.me/{{ site_configuration.whatsapp }}" target="_blank" rel="noopener noreferrer">
+                        WhatsApp
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+<!-- =================================================
+     MOBILE LANGUAGES
+================================================== -->
+<div class="mobile-language">
+    <!-- FR -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="fr">
+        <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
+    </form>
+    <span>/</span>
+    <!-- DE -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="de">
+        <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %}>DE</button>
+    </form>
+    <span>/</span>
+    <!-- IT -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="it">
+        <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %}>IT</button>
+    </form>
+    <span>/</span>
+    <!-- EN -->
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <input type="hidden" name="language" value="en">
+        <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
+    </form>
+</div>
+        <!-- =================================================
+             MOBILE QUOTE BUTTON
+        ================================================== -->
+        <div class="header-btn-wrap">
+            <a href="{% url 'contact:contact' %}" class="tl-primary-btn header-btn">
+                {% trans "Demander un devis" %}
+            </a>
+        </div>
+        <!-- =================================================
+             MOBILE SOCIAL
+        ================================================== -->
+        {% if social_links %}
+        <ul class="side-menu-social">
+            {% for social_link in social_links %}
+            <li>
+                <a href="{{ social_link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social_link.name }}">
+                    {% if social_link.icon %}
+                    <i class="{{ social_link.icon }}"></i>
+                    {% else %}
+                    {{ social_link.name }}
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+<div class="mobile-side-menu-overlay"></div>

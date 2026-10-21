@@ -1,218 +1,1497 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load l10n %}
 {% load i18n_fields %}
-
-
-{% block title %}
-
-    {% if home %}
-        {{ home|localized:"titulo" }}
-        | VVswinss
-    {% else %}
-        VVswinss
-    {% endif %}
-
-{% endblock %}
-
-
+{% block title %}{% trans "Rénovation et travaux du bâtiment" %} | V&V Swiss Services{% endblock %}
+{% block meta_description %}{% trans "V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande." %}{% endblock %}
 {% block content %}
 
 
-<section>
+<!-- ============================================================
+     SECCIÓN 01 · HERO / SLIDER DE CATEGORÍAS | SECTION 01 · HERO / SLIDER DE CATÉGORIES
+============================================================ -->
 
-    {% if home %}
+<div class="vvs-hero-slider swiper pb-100">
+    <div class="swiper-wrapper">
 
-        <h1>
-            {{ home|localized:"titulo" }}
-        </h1>
+        {% for category in service_categories %}
 
-        <p>
-            {{ home|localized:"subtitulo" }}
-        </p>
+        {% with category_slug=category|localized:"slug" category_name=category|localized:"name" category_description=category|localized:"description" %}
 
-        {% if home.imagen_hero %}
+        <div class="swiper-slide">
 
-            <img
-                src="{{ home.imagen_hero.url }}"
-                alt="{{ home|localized:'titulo' }}"
-                style="max-width: 100%;"
-            >
+            <section class="hero-section overflow-hidden tl-bg-color">
 
-        {% endif %}
+                <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/hero-bg-shape.png' %}"></div>
 
-    {% else %}
+                <div class="container">
 
-        <h1>
-            VVswinss
-        </h1>
+                    <div class="row hero-wrap pt-130">
 
-        <p>
-            Isolation · Façades · Rénovation
-        </p>
+                        <div class="col-lg-6">
+
+                            <div class="hero-content hero-content-4">
+
+                                <div class="section-heading mb-0">
+
+                                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char"
+                                        data-duration="0.9" data-stagger="0.03">
+                                        {% trans "Nos services" %}
+                                    </h4>
+
+                                    <h2 class="section-title cursor-effect title-2">
+                                        {% trans "Solutions pour" %} <br>
+                                        <span>{{ category_name }}</span>
+                                    </h2>
+
+                                    <p>
+                                        {% if category_description %}
+                                        {{ category_description|striptags|truncatewords:22 }}
+                                        {% else %}
+                                        {% trans "Une solution professionnelle adaptée à votre bâtiment et aux besoins de votre projet." %}
+                                        {% endif %}
+                                    </p>
+
+                                </div>
+
+                                <div class="hero-btn">
+
+                                    {% if category_slug %}
+
+                                    <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}" class="tl-primary-btn">
+                                        {% trans "Découvrir cette catégorie" %}
+                                        <span class="icon">
+                                            <i class="fa-regular fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+
+                                    {% else %}
+
+                                    <a href="{% url 'services:list' %}" class="tl-primary-btn">
+                                        {% trans "Voir nos services" %}
+                                        <span class="icon">
+                                            <i class="fa-regular fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <div class="hero-img">
+
+                                {% if category.image %}
+
+                                <img src="{{ category.image.url }}" alt="{{ category_name }}">
+
+                                {% else %}
+
+                                <img src="{% static 'antra/assets/img/images/hero-img-1.png' %}"
+                                     alt="{{ category_name }}">
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% endwith %}
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
+<!-- ============================================================
+     SECCIÓN 02 · CATEGORÍAS DE SERVICIOS | SECTION 02 · CATÉGORIES DE SERVICES
+============================================================ -->
+<section class="project-section-inner services-home-grid pt-30 pb-130">
+
+    <div class="container container-2">
+
+        <!-- ========================================================
+             ENCABEZADO | EN-TÊTE
+        ========================================================= -->
+        <div class="row section-heading-wrap fade-top mb-60">
+
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+            </div>
+
+            <!-- IZQUIERDA | GAUCHE -->
+            <div class="col-lg-4 col-md-12">
+
+                <div class="section-heading mb-0">
+
+                    <h4 class="sub-heading"
+                        data-text-animation="fade-in-right"
+                        data-split="char"
+                        data-duration="0.9"
+                        data-stagger="0.03">
+                        {% trans "Nos services" %}
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <!-- DERECHA | DROITE -->
+            <div class="col-lg-8 col-md-12">
+
+                <div class="section-heading section-heading-2 mb-0">
+
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Des solutions adaptées" %}
+                        <span>
+                            {% trans "à tous vos projets" %}
+                        </span>
+                    </h2>
+
+                    <p class="mb-0">
+                        {% trans "Découvrez l’ensemble de nos services pour la rénovation, l’amélioration, la protection et l’entretien de votre bien." %}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================================
+             CATÉGORIES DE SERVICES | CATEGORÍAS DE SERVICIOS
+        ========================================================= -->
+        <div class="row gy-5">
+
+            {% for category in service_categories %}
+
+                {% with category_name=category|localized:"name" category_slug=category|localized:"slug" category_description=category|localized:"description" %}
+
+                <!--
+                    XL      = 4 categorías por fila
+                    LG      = 3 categorías por fila
+                    MD      = 2 categorías por fila
+                    MÓVIL   = 1 categoría por fila
+                -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+
+                    <div class="project-item antra-hover-view">
+
+                        <!-- ============================================
+                             IMAGEN DE LA CATEGORÍA
+                             IMAGE DE LA CATÉGORIE
+                        ============================================= -->
+                        <div class="project-img">
+
+                            <a class="d-block p-relative z-1"
+                               href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
+
+                                {% if category.image %}
+
+                                    <img src="{{ category.image.url }}"
+                                         class="service-square-img"
+                                         alt="{{ category_name }}">
+
+                                {% else %}
+
+                                    <img src="{% static 'antra/assets/img/project/project-img-1.png' %}"
+                                         class="service-square-img"
+                                         alt="{{ category_name }}">
+
+                                {% endif %}
+
+                            </a>
+
+
+                            <!-- ========================================
+                                 ETIQUETA | ÉTIQUETTE
+                            ========================================= -->
+                            <ul>
+                                <li>
+
+                                    <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
+                                        {% trans "Catégorie" %}
+                                    </a>
+
+                                </li>
+                            </ul>
+
+                        </div>
+
+
+                        <!-- ============================================
+                             INFORMACIÓN DE LA CATEGORÍA
+                             INFORMATIONS DE LA CATÉGORIE
+                        ============================================= -->
+                        <div class="project-content">
+
+                            <h6 class="sub-title" style="font-weight: 200;">
+
+                                <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
+                                    {{ category_name }}
+                                </a>
+
+                            </h6>
+
+
+                            <!-- ========================================
+                                 DESCRIPCIÓN | DESCRIPTION
+                            ========================================= -->
+                            {% if category_description %}
+
+                                <span>
+                                    {{ category_description|truncatewords:18 }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endwith %}
+
+
+            <!-- ====================================================
+                 SIN CATEGORÍAS | AUCUNE CATÉGORIE
+            ===================================================== -->
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="text-center">
+
+                        <p>
+                            {% trans "Nos catégories de services seront prochainement disponibles." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ========================================================
+             BOTÓN GENERAL | BOUTON GÉNÉRAL
+        ========================================================= -->
+        <div class="text-center mt-50">
+
+            <a href="{% url 'services:list' %}"
+               class="tl-primary-btn">
+
+                {% trans "Voir tous nos services" %}
+
+                <span class="icon">
+                    <i class="fa-regular fa-arrow-right"></i>
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ============================================================
+     SECCIÓN 03 · EMPRESA / EXPERIENCIA | SECTION 03 · ENTREPRISE / EXPÉRIENCE
+============================================================ -->
+<section class="about-section-3 pt-50 pb-30 overflow-hidden tl-bg-color">
+    <div class="shape-1"><img src="{% static 'antra/assets/img/shapes/about-shape-2.png' %}" alt=""></div>
+    <div class="container container-2">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-img-wrap-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
+                    <div class="about-img-1">
+                        <img src="{% static 'antra/assets/img/images/about-img-4.png' %}"
+                             alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                    </div>
+                    <div class="about-img-2">
+                        <img src="{% static 'antra/assets/img/images/about-img-5.png' %}"
+                             alt="{% trans 'Rénovation et isolation en Suisse romande' %}">
+                    </div>
+                    <div class="about-counter">
+                        <h3 class="title"><span class="odometer" data-count="20">0</span><span>+</span></h3>
+                        <p>{% trans "Ans" %} <br>{% trans "d’expérience" %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+                    <div class="section-heading mb-0">
+                        <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char"
+                            data-duration="0.9" data-stagger="0.03">{% trans "Plus de 20 ans d’expérience" %}</h4>
+                        <h2 class="section-title cursor-effect title-2">{% trans "Rénovation et" %} <span>{% trans "isolation," %} <br>{% trans "notre savoir-faire" %}</span>
+                        </h2>
+                        <p>{% trans "Nous croyons qu’une rénovation réussie repose sur un travail soigné, une organisation claire et des solutions adaptées à chaque bâtiment. Notre mission est d’accompagner chaque projet avec sérieux, proximité et précision, de la première analyse jusqu’aux finitions." %}</p>
+                    </div>
+                    <div class="about-items">
+                        <div class="about-item">
+                            <h3 class="title">{% trans "Rénovation complète" %}</h3>
+                            <p>{% trans "Un interlocuteur unique pour coordonner" %} <br>{% trans "les différents travaux de votre projet" %}</p>
+                        </div>
+                        <div class="about-item">
+                            <h3 class="title">{% trans "Solutions énergétiques" %}</h3>
+                            <p>{% trans "Des solutions d’isolation adaptées pour" %} <br>{% trans "améliorer confort et efficacité énergétique" %}</p>
+                        </div>
+                    </div>
+                    <div class="about-btn">
+                        <a href="{% url 'core:about' %}" class="tl-primary-btn">{% trans "Découvrir l’entreprise" %}
+                            <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ about-section -->
+
+<!-- ============================================================
+     SECCIÓN 04 · VALORES / CARRUSEL | SECTION 04 · VALEURS / CARROUSEL
+============================================================ -->
+<section class="newsletter-section bg-white pt-130  overflow-hidden">
+    <div class="bg-shape">
+        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="">
+    </div>
+    <div class="container">
+        <div class="newsletter-wrap">
+            <div class="section-heading text-center">
+                <h2 class="section-title">{% trans "Nos" %} <span>{% trans "valeurs" %}</span></h2>
+                <p>{% trans "Décrivez-nous votre projet et recevez une première réponse sous 48 h." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="banner-process-area overflow-hidden">
+    <div class="service-carousel-wrap">
+        <div class="banner-process-carousel">
+            <!-- VALORES -->
+            <div class="swiper-wrapper antra-swiper-wrapper">
+                {% for value in company_values %}
+                <div class="swiper-slide elementor-banner-process-item">
+                    <div class="banner-process-caption">
+                        <span class="number">{{ forloop.counter|stringformat:"02d" }}</span>
+                        <h3 class="banner-process-title">{{ value|localized:"title" }}</h3>
+                        <div class="banner-process-content">
+                            {{ value|localized:"description" }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- IMÁGENES DE LOS VALORES -->
+            <div class="banner-process-image-list">
+                {% for value in company_values %}
+                <div class="banner-process-img">
+                    <div class="process-img">
+                        {% if value.image %}
+                        <img src="{{ value.image.url }}" alt="{{ value|localized:'title' }}">
+                        {% else %}
+                        <img src="{% static 'antra/assets/img/bg-img/banner-process-1.png' %}"
+                             alt="{{ value|localized:'title' }}">
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ company-values-section -->
+
+<!-- ============================================================
+     SECCIÓN 05 · SABER HACER | SECTION 05 · SAVOIR-FAIRE
+============================================================ -->
+<section class="skill-section pt-130 pb-130 overflow-hidden fade-wrapper">
+    <div class="skill-text">V&V</div>
+    <div class="shape-1"><img src="{% static 'antra/assets/img/shapes/skill-shape-1.png' %}" alt=""></div>
+    <div class="container container-2">
+        <div class="row section-heading-wrap pl-0 mw-100 fade-top">
+            <div class="shape"><img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt=""></div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9"
+                        data-stagger="0.03">{% trans "Notre savoir-faire" %}</h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">{% trans "Des solutions complètes pour" %} <span>{% trans "rénover, protéger" %}<br>{% trans "et valoriser votre bien." %}</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="skill-left-content slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
+                    <div class="skill-desc">
+                        <p>{% trans "V&V Swiss Services intervient à chaque étape de votre projet avec des prestations complémentaires adaptées aux besoins du bâtiment. De la rénovation aux finitions, nous coordonnons les travaux pour garantir une réalisation cohérente, soignée et durable." %}</p>
+                    </div>
+                    <div class="skills-items">
+                        <div class="skills-item fade-top">
+                            <h4 class="title">{% trans "Rénovation intérieure et extérieure" %}</h4>
+                            <div class="progress">
+                                <div class="progress-bar wow slideInLeft" data-wow-delay="0ms"
+                                     data-wow-duration="2000ms" role="progressbar"
+                                     style="width:95%;visibility:visible;animation-duration:2000ms;animation-delay:0ms;animation-name:slideInLeft;">
+                                    <span>95%</span>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skills-item fade-top">
+                            <h4 class="title">{% trans "Maçonnerie, isolation et plâtrerie" %}</h4>
+                            <div class="progress">
+                                <div class="progress-bar wow slideInLeft" data-wow-delay="0ms"
+                                     data-wow-duration="2000ms" role="progressbar"
+                                     style="width:90%;visibility:visible;animation-duration:2000ms;animation-delay:0ms;animation-name:slideInLeft;">
+                                    <span>90%</span>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skills-item fade-top">
+                            <h4 class="title">{% trans "Peinture, finitions et entretien" %}</h4>
+                            <div class="progress">
+                                <div class="progress-bar wow slideInLeft" data-wow-delay="0ms"
+                                     data-wow-duration="2000ms" role="progressbar"
+                                     style="width:85%;visibility:visible;animation-duration:2000ms;animation-delay:0ms;animation-name:slideInLeft;">
+                                    <span>85%</span>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="skill-img slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+                    <img src="{% static 'antra/assets/img/images/skill-img-1.png' %}"
+                         alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ skill-section -->
+
+<!-- ============================================================
+     SECCIÓN 06 · ÚLTIMA REALIZACIÓN / ANTES Y DESPUÉS | SECTION 06 · DERNIÈRE RÉALISATION / AVANT & APRÈS
+============================================================ -->
+
+{% if home_before_after_item %}
+
+{% with project=home_before_after_item.project project_slug=home_before_after_item.project|localized:"slug" %}
+
+<section class="project-before-after-showcase pt-50 pb-80 overflow-hidden">
+
+    <div class="container container-2">
+
+        <!-- =================================================
+             ENCABEZADO DE SECCIÓN | EN-TÊTE DE SECTION
+        ================================================== -->
+
+        <div class="row section-heading-wrap fade-top mb-60">
+
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+
+                <div class="section-heading mb-0">
+
+                    <h4 class="sub-heading"
+                        data-text-animation="fade-in-right"
+                        data-split="char"
+                        data-duration="0.9"
+                        data-stagger="0.03">
+                        {% trans "Notre dernière réalisation" %}
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8 col-md-12">
+
+                <div class="section-heading section-heading-2 mb-0">
+
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Découvrez la transformation" %}
+                        <span>{% trans "avant et après" %}</span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =================================================
+             INFORMACIÓN DEL PROYECTO | INFORMATIONS DU PROJET
+        ================================================== -->
+
+        <div class="row align-items-end mb-50">
+
+            <div class="col-lg-8">
+
+                <h3 class="details-title-2">
+                    {{ project|localized:"title" }}
+                </h3>
+
+                {% if project|localized:"summary" %}
+
+                <p>
+                    {{ project|localized:"summary"|striptags }}
+                </p>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-lg-4">
+
+                {% if project.location %}
+
+                <p class="mb-10">
+                    <strong>{% trans "Lieu" %}:</strong>
+                    {{ project.location }}
+                </p>
+
+                {% endif %}
+
+                {% if project.end_date %}
+
+                <p class="mb-0">
+                    <strong>{% trans "Réalisation" %}:</strong>
+                    {{ project.end_date|date:"Y" }}
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- =================================================
+             ANTES / DESPUÉS | AVANT / APRÈS
+        ================================================== -->
+
+        <div class="project-before-after-full">
+
+            <div class="twentytwenty-container before-after-fullwidth home-before-after">
+
+                <img src="{{ home_before_after_item.before_image.url }}"
+                     alt="{% trans 'Avant' %} - {{ project|localized:'title' }}">
+
+                <img src="{{ home_before_after_item.after_image.url }}"
+                     alt="{% trans 'Après' %} - {{ project|localized:'title' }}">
+
+            </div>
+
+        </div>
+
+        <!-- =================================================
+             ACCIONES | ACTIONS
+        ================================================== -->
+
+<!-- ============================================================
+     BOTONES DEL PROYECTO | BOUTONS DU PROJET
+     Desktop: horizontal con separación
+     Móvil: vertical con separación
+============================================================ -->
+<div class="mt-50 d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
+
+    {% if project_slug %}
+
+    <a href="{% url 'projects:detail' project_slug %}"
+       class="tl-primary-btn">
+
+        {% trans "Découvrir le projet" %}
+
+        <span class="icon">
+            <i class="fa-regular fa-arrow-right"></i>
+        </span>
+
+    </a>
 
     {% endif %}
 
-</section>
+    <a href="{% url 'projects:list' %}"
+       class="tl-primary-btn">
 
+        {% trans "Voir toutes nos réalisations" %}
 
-<section>
+        <span class="icon">
+            <i class="fa-regular fa-arrow-right"></i>
+        </span>
 
-    <h2>
-        Solutions
-    </h2>
+    </a>
 
-    {% for servicio in servicios_destacados %}
+</div>
 
-        <article>
-
-            <h3>
-                {{ servicio|localized:"nombre" }}
-            </h3>
-
-            <p>
-                {{ servicio|localized:"resumen" }}
-            </p>
-
-        </article>
-
-    {% empty %}
-
-        <p>
-            Les services seront bientôt disponibles.
-        </p>
-
-    {% endfor %}
+    </div>
 
 </section>
 
+{% endwith %}
 
-<section>
+{% endif %}
 
-    <h2>
-        Réalisations
-    </h2>
+<!-- ./ SECCIÓN 06 · ÚLTIMA REALIZACIÓN / ANTES Y DESPUÉS | SECTION 06 · DERNIÈRE RÉALISATION / AVANT & APRÈS -->
 
-    {% for proyecto in proyectos_destacados %}
 
-        <article>
+<!-- ============================================================
+     SECCIÓN 07 · TESTIMONIOS | SECTION 07 · TÉMOIGNAGES
+============================================================ -->
+<section class="testimonial-section-3 pt-50  pb-30 fade-wrapper tl-bg-color">
+    <div class="container container-2">
+        <div class="row section-heading-wrap fade-top">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="shape">
+            </div>
 
-            <h3>
-                {{ proyecto|localized:"titulo" }}
-            </h3>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+                    <h4 class="sub-heading"
+                        data-text-animation="fade-in-right"
+                        data-split="char"
+                        data-duration="0.9"
+                        data-stagger="0.03">
+                        {% trans "Nos clients témoignent" %}
+                    </h4>
+                </div>
+            </div>
 
-            <p>
-                {{ proyecto|localized:"resumen" }}
-            </p>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Découvrez ce que" %}
+                        <span>
+                            {% trans "nos clients" %}<br>
+                            {% trans "disent de nous" %}
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
 
-            {% if proyecto.imagen_principal %}
+        <div class="row pin-inner">
 
-                <img
-                    src="{{ proyecto.imagen_principal.url }}"
-                    alt="{{ proyecto|localized:'titulo' }}"
-                    style="max-width: 300px;"
-                >
+            <div class="col-lg-6">
+                <div class="testi-img-3 pin-box">
+                    <img src="{% static 'antra/assets/img/testi/testi-img-2.png' %}" alt="testi">
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="testi-carousel-wrap scroll-content">
+
+                    <div class="testi-top-content">
+
+                        <div class="left-content">
+                            <h3 class="rating">
+                                {% if testimonials %}
+                                    5.0
+                                {% else %}
+                                    0.0
+                                {% endif %}
+                            </h3>
+
+                            <div class="rating-list">
+                                <ul>
+                                    <li><i class="fa-solid fa-star"></i></li>
+                                    <li><i class="fa-solid fa-star"></i></li>
+                                    <li><i class="fa-solid fa-star"></i></li>
+                                    <li><i class="fa-solid fa-star"></i></li>
+                                    <li><i class="fa-solid fa-star"></i></li>
+                                </ul>
+
+                                <span>
+                                    {{ testimonials|length }} {% trans "avis" %}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="right-content">
+                            <p>
+                                {% trans "La satisfaction de nos clients reflète notre engagement envers la qualité, la confiance et un service professionnel." %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="testi-carousel-3 swiper">
+                        <div class="swiper-wrapper">
+
+                            {% for testimonial in testimonials %}
+
+                                <div class="swiper-slide">
+                                    <div class="testi-item">
+
+                                        <p>
+                                            “{{ testimonial|localized:"text" }}”
+                                        </p>
+
+                                        <div class="testi-author">
+
+                                            <div class="author-img">
+
+                                                {% if testimonial.photo %}
+                                                    <img src="{{ testimonial.photo.url }}"
+                                                         alt="{{ testimonial.name }}">
+                                                {% else %}
+                                                    <img src="{% static 'antra/assets/img/testi/testi-author-1.png' %}"
+                                                         alt="{{ testimonial.name }}">
+                                                {% endif %}
+
+                                            </div>
+
+                                            <h4 class="name">
+                                                {{ testimonial.name }}
+
+                                                {% if testimonial.company %}
+                                                    <span>{{ testimonial.company }}</span>
+                                                {% endif %}
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% empty %}
+                                <div class="swiper-slide">
+                                    <div class="testi-item">
+                                        <p>
+                                            {% trans "Les avis de nos clients seront prochainement disponibles." %}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ./ testimonial-section -->
+
+
+
+<!-- ============================================================
+     SECCIÓN 08 · MAPA / ZONA DE SERVICIO | SECTION8 · CARTE / ZONE D’INTERVENTION
+============================================================ -->
+
+{% if site_configuration %}
+
+{% if site_configuration.map_embed_url or site_configuration.latitude and site_configuration.longitude %}
+
+<section class="map-wrapper pb-50  pb-30">
+
+    <!-- ============================================================
+         CONTENEDOR PRINCIPAL ESTANDARIZADO | CONTENEUR PRINCIPAL STANDARDISÉ
+         MISMO ANCHO DE LA MATRIZ ANTRA: container container-2
+    ============================================================ -->
+    <div class="container container-2">
+
+        <!-- ========================================================
+             ENCABEZADO DEL MAPA | EN-TÊTE DE LA CARTE
+        ========================================================= -->
+        <div class="row section-heading-wrap mb-50">
+
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+            </div>
+
+            <!-- COLUMNA IZQUIERDA | COLONNE GAUCHE -->
+            <div class="col-lg-4 col-md-12">
+
+                <div class="section-heading mb-0">
+
+                    <h4 class="sub-heading">
+                        {% trans "Zone d’intervention" %}
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <!-- COLUMNA DERECHA | COLONNE DROITE -->
+            <div class="col-lg-8 col-md-12">
+
+                <div class="section-heading section-heading-2 mb-0">
+
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Nous intervenons principalement" %}
+
+                        <span>
+                            {% trans "dans le canton de Vaud" %}
+                            <br>
+                            {% trans "et en Suisse romande" %}
+                        </span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================================
+             MAPA | CARTE
+        ========================================================= -->
+        <div class="contact-map-wrap">
+
+            {% if site_configuration.map_embed_url %}
+
+            <iframe
+                src="{{ site_configuration.map_embed_url }}"
+                width="100%"
+                height="620"
+                style="border:0;"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                title="{% trans 'Zone d’intervention V&V Swiss Services' %}">
+            </iframe>
+
+            {% elif site_configuration.latitude and site_configuration.longitude %}
+
+            <iframe
+                src="https://www.google.com/maps?q={{ site_configuration.latitude|unlocalize }},{{ site_configuration.longitude|unlocalize }}&z=12&output=embed"
+                width="100%"
+                height="620"
+                style="border:0;"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                title="{% trans 'Zone d’intervention V&V Swiss Services' %}">
+            </iframe>
 
             {% endif %}
 
-        </article>
+        </div>
 
-    {% empty %}
-
-        <p>
-            Les réalisations seront bientôt disponibles.
-        </p>
-
-    {% endfor %}
-
-</section>
-
-
-{% if pasos %}
-
-<section>
-
-    <h2>
-        Notre méthode
-    </h2>
-
-    {% for paso in pasos %}
-
-        <article>
-
-            <strong>
-                {{ paso.numero }}
-            </strong>
-
-            <h3>
-                {{ paso|localized:"titulo" }}
-            </h3>
-
-            <p>
-                {{ paso|localized:"descripcion" }}
-            </p>
-
-        </article>
-
-    {% endfor %}
+    </div>
 
 </section>
 
 {% endif %}
 
+{% endif %}
 
-{% if testimonios %}
+<!-- ============================================================
+     SECCIÓN 09 · CONTACTO / SOLICITUD DE PRESUPUESTO | SECTION 09 · CONTACT / DEMANDE DE DEVIS
+============================================================ -->
+<section class="contact-section pt-50 pb-30">
+    <div class="container container-2">
+        <div class="row section-heading-wrap w-100 ml-0">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9"
+                        data-stagger="0.03">
+                        {% trans "Contactez-nous" %}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Vous avez un projet ?" %}
+                        <span>{% trans "Demandez votre devis" %}</span>
+                    </h2>
+                    <p class="mb-0">
+                        {% trans "Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche claire, professionnelle et adaptée à votre projet." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- ========================================================
+             INFORMACIÓN DE CONTACTO + FORMULARIO | INFORMATIONS DE CONTACT + FORMULAIRE
+        ========================================================= -->
+        <div class="row request-wrap contact-page-area align-items-start">
+            <!-- ====================================================
+                 COLUMNA IZQUIERDA / INFORMACIÓN DE CONTACTO | COLONNE GAUCHE / INFORMATIONS DE CONTACT
+            ===================================================== -->
+            <div class="col-lg-6 col-md-12 align-self-start">
+                <div class="request-content mt-0">
+                    <div class="request-item-wrap contact-info-grid">
+                        <!-- DIRECCIÓN | ADRESSE -->
+                        {% if site_configuration and site_configuration.address %}
+                        <div class="request-item white-content contact-info-card">
+                            <span>{% trans "Adresse" %}</span>
+                            <p>
+                                {{ site_configuration.address }}
+                                {% if site_configuration.city %}<br>{{ site_configuration.city }}{% endif %}
+                                {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
+                                {% if site_configuration.country %}<br>{{ site_configuration.country }}{% endif %}
+                            </p>
+                        </div>
+                        {% endif %}
+                        <!-- CONTACTO DIRECTO | CONTACT DIRECT -->
+                        {% if site_configuration %}
+                        <div class="request-item white-content contact-info-card">
+                            <span>{% trans "Contact direct" %}</span>
+                            {% if site_configuration.phone %}
+                            <a href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
+                            {% endif %}
+                            {% if site_configuration.email %}
+                            <a href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <!-- HORARIOS DE ATENCIÓN | HORAIRES D’OUVERTURE -->
+                        {% if business_hours %}
+                        <div class="request-item white-content contact-info-card business-hours-card">
+                            <span>{% trans "Horaires d’ouverture" %}</span>
+                            <div class="business-hours-list">
+                                {% for business_hour in business_hours %}
+                                <div class="business-hour-row">
+                                    <strong>{{ business_hour|localized:"day" }}</strong>
+                                    <span>{{ business_hour.hours }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <!-- =================================================
+                         ACCIONES DIRECTAS | ACCIONES | ACTIONS DIRECTES
+                    ================================================== -->
+                    {% if site_configuration %}
+                    {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis." as whatsapp_text %}
+                    {% trans "Demande concernant un projet de rénovation" as email_subject %}
+                    {% trans "Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et demander un devis." as email_body %}
+                    <div class="project-contact-actions">
+                        {% if site_configuration.whatsapp %}
+                        <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-contact-btn project-contact-whatsapp"
+                           aria-label="{% trans 'Contacter V&V Swiss Services sur WhatsApp' %}">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        {% endif %}
+                        {% if site_configuration.email %}
+                        <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"
+                           class="project-contact-btn"
+                           aria-label="{% trans 'Envoyer un e-mail à V&V Swiss Services' %}">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span>{% trans "E-mail" %}</span>
+                        </a>
+                        {% endif %}
+                        {% if site_configuration.phone %}
+                        <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn"
+                           aria-label="{% trans 'Appeler V&V Swiss Services' %}">
+                            <i class="fa-regular fa-phone"></i>
+                            <span>{% trans "Appeler" %}</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <!-- IMAGEN DE CONTACTO | IMAGE DE CONTACT -->
+                    <div class="contact-img">
+                        <img src="{% static 'antra/assets/img/images/contact-img-1.png' %}"
+                             alt="{% trans 'V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud' %}">
+                    </div>
+                </div>
+            </div>
+            <!-- ====================================================
+                 COLUMNA DERECHA / FORMULARIO DE CONTACTO | COLONNE DROITE / FORMULAIRE DE CONTACT
+            ===================================================== -->
+            <div class="col-lg-6 col-md-12 align-self-start">
+                <div class="request-form-wrap contact-form-panel">
+                    {% include "contact/includes/contact_form.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<section>
 
-    <h2>
-        Témoignages
-    </h2>
 
-    {% for testimonial in testimonios %}
 
-        <blockquote>
+<!-- ============================================================
+     SECCIÓN 10 · BLOG / CONSEJOS Y ACTUALIDAD | SECTION 10 · BLOG / CONSEILS & ACTUALITÉS
+============================================================ -->
 
-            {{ testimonial|localized:"texto" }}
+<section class="blog-section  fade-wrapper tl-bg-color  pt100 pb-50">
 
-            <footer>
-                {{ testimonial.nombre }}
-            </footer>
+    <div class="container container-2">
 
-        </blockquote>
+        <!-- ====================================================
+             ENCABEZADO DE SECCIÓN | EN-TÊTE DE SECTION
+        ===================================================== -->
 
-    {% endfor %}
+        <div class="row section-heading-wrap fade-top">
+
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+
+                <div class="section-heading mb-0">
+
+                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9"
+                        data-stagger="0.03">
+                        {% trans "Conseils & actualités" %}
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8 col-md-12">
+
+                <div class="section-heading section-heading-2 mb-0">
+
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Découvrez nos derniers" %}
+                        <span>
+                            {% trans "conseils, recommandations" %} <br>
+                            {% trans "et articles." %}
+                        </span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ====================================================
+             CARRUSEL DEL BLOG | CARROUSEL DU BLOG
+        ===================================================== -->
+
+        <div class="blog-carousel-2">
+
+            <div class="swiper-wrapper">
+
+                {% for post in latest_posts %}
+
+                <div class="swiper-slide">
+
+                    <div class="post-card">
+
+                        <!-- =================================
+                             IMAGEN DEL ARTÍCULO | IMAGE DE L’ARTICLE
+                        ================================== -->
+
+                        <div class="post-thumb">
+
+                            {% with post_slug=post|localized:"slug" %}
+
+                            {% if post_slug %}
+
+                            <a href="{% url 'blog:detail' post_slug %}">
+
+                                {% if post.main_image %}
+
+                                <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}">
+
+                                {% endif %}
+
+                            </a>
+
+                            {% else %}
+
+                            {% if post.main_image %}
+
+                            <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}">
+
+                            {% endif %}
+
+                            {% endif %}
+
+                            {% endwith %}
+
+                            <!-- CATEGORÍA | CATÉGORIE -->
+
+                            {% if post.category %}
+
+                            <span class="category">
+                                        {{ post.category|localized:"name" }}
+                                    </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <!-- =================================
+                             CONTENIDO DEL ARTÍCULO | CONTENU DE L’ARTICLE
+                        ================================== -->
+
+                        <div class="post-content">
+
+                            <!-- METADATOS DEL ARTÍCULO | MÉTADONNÉES DE L’ARTICLE -->
+
+                            <ul class="post-meta">
+
+                                <li>
+                                    {{ post.published_at|date:"d M Y" }}
+                                </li>
+
+                                <li>
+
+                                    {% trans "Par" %}
+
+                                    <span>
+
+                                            {% if post.author.get_full_name %}
+
+                                                {{ post.author.get_full_name }}
+
+                                            {% else %}
+
+                                                {{ post.author.username }}
+
+                                            {% endif %}
+
+                                        </span>
+
+                                </li>
+
+                            </ul>
+
+                            <!-- TÍTULO DEL ARTÍCULO | TITRE DE L’ARTICLE -->
+
+                            {% with post_slug=post|localized:"slug" %}
+
+                            <h3 class="title">
+
+                                {% if post_slug %}
+
+                                <a href="{% url 'blog:detail' post_slug %}">
+                                    {{ post|localized:"title" }}
+                                </a>
+
+                                {% else %}
+
+                                {{ post|localized:"title" }}
+
+                                {% endif %}
+
+                            </h3>
+
+                            {% endwith %}
+
+                            <!-- EXTRACTO DEL ARTÍCULO | EXTRAIT DE L’ARTICLE -->
+
+                            {% if post|localized:"excerpt" %}
+
+                            <p>
+                                {{ post|localized:"excerpt"|striptags|truncatechars:170 }}
+                            </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <!-- =========================================
+                     ESTADO VACÍO | ÉTAT VIDE
+                ========================================== -->
+
+                <div class="swiper-slide">
+
+                    <div class="post-card">
+
+                        <div class="post-content">
+
+                            <h3 class="title">
+                                {% trans "Conseils & actualités" %}
+                            </h3>
+
+                            <p>
+                                {% trans "Nos prochains conseils et articles seront bientôt disponibles." %}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- ====================================================
+             BOTÓN TODOS LOS ARTÍCULOS | BOUTON TOUS LES ARTICLES
+        ===================================================== -->
+
+        {% if latest_posts %}
+
+        <div class="text-center mt-50">
+
+            <a href="{% url 'blog:list' %}" class="tl-primary-btn">
+
+                {% trans "Voir tous les articles" %}
+
+                <span class="icon">
+                        <i class="fa-regular fa-arrow-right"></i>
+                    </span>
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
 
 </section>
 
-{% endif %}
+<!-- ./ blog-section -->
 
 
-{% if faqs %}
 
-<section>
 
-    <h2>
-        Questions fréquentes
-    </h2>
-
-    {% for faq in faqs %}
-
-        <details>
-
-            <summary>
-                {{ faq|localized:"pregunta" }}
-            </summary>
-
-            <p>
-                {{ faq|localized:"respuesta" }}
-            </p>
-
-        </details>
-
-    {% endfor %}
-
-</section>
-
-{% endif %}
 
 
 {% endblock %}
+<!-- ============================================================
+     JAVASCRIPT · SLIDER HERO + COMPONENTES DINÁMICOS | JAVASCRIPT · SLIDER HERO + COMPOSANTS DYNAMIQUES
+============================================================ -->
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // ========================================================
+        // ANTES / DESPUÉS | AVANT / APRÈS · DERNIÈRE RÉALISATION
+        // ========================================================
+
+        if (
+            typeof jQuery !== "undefined"
+            &&
+            typeof jQuery.fn.twentytwenty !== "undefined"
+        ) {
+            jQuery(".home-before-after").twentytwenty();
+        }
+
+        // ========================================================
+        // SLIDER HERO | HERO SLIDER
+        // ========================================================
+
+        const sliderElement = document.querySelector(".vvs-hero-slider");
+
+        if (sliderElement && typeof Swiper !== "undefined") {
+
+            const totalSlides = sliderElement.querySelectorAll(".swiper-slide").length;
+
+            if (totalSlides > 1 && !sliderElement.swiper) {
+
+                new Swiper(sliderElement, {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    speed: 850,
+                    loop: false,
+                    rewind: true,
+                    watchOverflow: true,
+                    observer: true,
+                    observeParents: true,
+                    preventInteractionOnTransition: true,
+                    allowTouchMove: true,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true
+                    }
+                });
+
+            }
+
+        }
+
+    });
+
+    // ========================================================
+    // CARRUSEL DE SERVICIOS | CARROUSEL DE SERVICES
+    // ========================================================
+
+    window.addEventListener("load", function () {
+
+        setTimeout(function () {
+
+            const serviceCarousel = document.querySelector(".vvs-service-carousel-3");
+
+            if (!serviceCarousel || typeof Swiper === "undefined") return;
+
+            if (serviceCarousel.swiper) {
+                serviceCarousel.swiper.destroy(true, true);
+            }
+
+            const wrapper = serviceCarousel.querySelector(".swiper-wrapper");
+
+            if (!wrapper) return;
+
+            wrapper.querySelectorAll(".vvs-service-clone").forEach(function (clone) {
+                clone.remove();
+            });
+
+            const originalSlides = Array.from(
+                wrapper.querySelectorAll(":scope > .swiper-slide")
+            );
+
+            const totalOriginalSlides = originalSlides.length;
+
+            if (totalOriginalSlides <= 1) return;
+
+            originalSlides.forEach(function (slide) {
+
+                const clone = slide.cloneNode(true);
+
+                clone.classList.add("vvs-service-clone");
+
+                wrapper.appendChild(clone);
+
+            });
+
+            const serviceSwiper = new Swiper(serviceCarousel, {
+                slidesPerView: 1,
+                slidesPerGroup: 1,
+                spaceBetween: 30,
+                speed: 1000,
+                loop: false,
+                rewind: false,
+                watchOverflow: false,
+                observer: true,
+                observeParents: true,
+                allowTouchMove: true,
+                grabCursor: true,
+                preventInteractionOnTransition: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                    waitForTransition: true
+                },
+                on: {
+                    slideChangeTransitionEnd: function () {
+
+                        if (this.activeIndex >= totalOriginalSlides) {
+
+                            const equivalentIndex = this.activeIndex - totalOriginalSlides;
+
+                            this.slideTo(equivalentIndex, 0, false);
+
+                            if (this.autoplay) {
+                                this.autoplay.start();
+                            }
+
+                        }
+
+                    }
+                }
+            });
+
+        }, 300);
+
+    });
+
+    // ========================================================
+// TESTIMONIOS · CARRUSEL VERTICAL AUTOMÁTICO | TÉMOIGNAGES · CARROUSEL VERTICAL AUTOMATIQUE
+// ========================================================
+
+window.addEventListener("load", function () {
+
+    setTimeout(function () {
+
+        const testimonialCarousel = document.querySelector(".testi-carousel-3");
+
+        if (!testimonialCarousel || typeof Swiper === "undefined") {
+            return;
+        }
+
+        // Evitar doble inicialización por el JS original de Antra
+        if (testimonialCarousel.swiper) {
+            testimonialCarousel.swiper.destroy(true, true);
+        }
+
+        const totalSlides =
+            testimonialCarousel.querySelectorAll(".swiper-slide").length;
+
+        if (totalSlides <= 1) {
+            return;
+        }
+
+        new Swiper(testimonialCarousel, {
+
+            // Movimiento vertical
+            direction: "vertical",
+
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+
+            spaceBetween: 30,
+
+            // Velocidad de la transición
+            speed: 1000,
+
+            // Carrusel infinito
+            loop: true,
+
+            // Movimiento automático
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                waitForTransition: true
+            },
+
+            // Permite mover manualmente
+            allowTouchMove: true,
+
+            grabCursor: true,
+
+            watchOverflow: true,
+
+            observer: true,
+            observeParents: true,
+
+            preventInteractionOnTransition: true
+
+        });
+
+    }, 500);
+
+});
+</script>
+{% endblock %}
+

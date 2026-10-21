@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+<!-- ============================================================
+     SEO · PAGE TITLE
+============================================================ -->
+{% block title %}{% trans "Boîte de réception des demandes" %} | V&V Swiss Services{% endblock %}
+{% block content %}
+<!-- ============================================================
+     SECTION 01 · BOÎTE DE RÉCEPTION INTERNE
+============================================================ -->
+<section class="vv-inbox-section">
+    <div class="container container-2">
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+        <div class="vv-inbox-header">
+            <div>
+                <span class="vv-inbox-kicker"><i class="fa-regular fa-inbox"></i> {% trans "Espace interne" %}</span>
+                <h1 class="vv-inbox-title">{% trans "Boîte de réception des demandes" %}</h1>
+                <p class="vv-inbox-description">{% trans "Gestion des contacts, visites techniques et devis de V&V Swiss Services." %}</p>
+            </div>
+            <div class="vv-inbox-header-meta">
+                <span class="vv-inbox-total">{{ counters.all }}</span>
+                <span>{% blocktrans count total=counters.all %}demande{% plural %}demandes{% endblocktrans %}</span>
+            </div>
+        </div>
+        <!-- =================================================
+             COUNTERS / STATUS SUMMARY
+        ================================================== -->
+        <div class="row g-3 vv-stats-row">
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="{% url 'contact:inbox' %}" class="vv-stat-card {% if not selected_status %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Total" %}</span>
+                    <strong class="vv-stat-number">{{ counters.all }}</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="?status=new" class="vv-stat-card {% if selected_status == 'new' %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Nouvelles" %}</span>
+                    <strong class="vv-stat-number">{{ counters.new }}</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="?status=contacted" class="vv-stat-card {% if selected_status == 'contacted' %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Contactées" %}</span>
+                    <strong class="vv-stat-number">{{ counters.contacted }}</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="?status=visit" class="vv-stat-card {% if selected_status == 'visit' %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Visites" %}</span>
+                    <strong class="vv-stat-number">{{ counters.visit }}</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="?status=quote" class="vv-stat-card {% if selected_status == 'quote' %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Devis" %}</span>
+                    <strong class="vv-stat-number">{{ counters.quote }}</strong>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a href="?status=closed" class="vv-stat-card {% if selected_status == 'closed' %}active{% endif %}">
+                    <span class="vv-stat-label">{% trans "Clôturées" %}</span>
+                    <strong class="vv-stat-number">{{ counters.closed }}</strong>
+                </a>
+            </div>
+        </div>
+        <!-- =================================================
+             SEARCH / FILTERS
+        ================================================== -->
+        <div class="vv-inbox-toolbar">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-lg-7">
+                    <label for="inbox-search" class="vv-field-label">{% trans "Rechercher une demande" %}</label>
+                    <div class="vv-search-box">
+                        <i class="fa-regular fa-magnifying-glass"></i>
+                        <input id="inbox-search" type="text" name="q" value="{{ search }}" class="form-control" placeholder="{% trans 'Nom, téléphone, e-mail ou lieu...' %}">
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-3">
+                    <label for="status-filter" class="vv-field-label">{% trans "État" %}</label>
+                    <select id="status-filter" name="status" class="form-control vv-native-select">
+                        <option value="">{% trans "Tous les états" %}</option>
+                        {% for value, label in status_choices %}
+                            <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-5 col-lg-2">
+                    <button type="submit" class="tl-primary-btn vv-toolbar-button">
+                        {% trans "Rechercher" %}
+                        <span class="icon"><i class="fa-regular fa-arrow-right"></i></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- =================================================
+             LIST HEADER
+        ================================================== -->
+        <div class="vv-inbox-list-head d-none d-lg-grid">
+            <span>{% trans "Client" %}</span>
+            <span>{% trans "Projet" %}</span>
+            <span>{% trans "Contact" %}</span>
+            <span>{% trans "Reçu" %}</span>
+            <span></span>
+        </div>
+        <!-- =================================================
+             REQUEST LIST
+        ================================================== -->
+        <div class="vv-inbox-list">
+            {% for item in page %}
+                <article class="vv-request-card">
+                    <div class="vv-request-grid">
+                        <!-- CLIENT -->
+                        <div class="vv-request-client">
+                            <div class="vv-status-line">
+                                <span class="vv-status-badge vv-status-{{ item.status }}">{{ item.get_status_display }}</span>
+                                {% if item.attachments.count %}
+                                    <span class="vv-attachment-badge" title="{% trans 'Pièces jointes' %}">
+                                        <i class="fa-regular fa-paperclip"></i>
+                                        {{ item.attachments.count }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <h2 class="vv-request-name"><a href="{% url 'contact:inbox_detail' item.pk %}">{{ item.name }}</a></h2>
+                            {% if item.company %}<span class="vv-request-secondary">{{ item.company }}</span>{% endif %}
+                        </div>
+                        <!-- PROJECT -->
+                        <div class="vv-request-project">
+                            {% if item.service %}
+                                <strong>{{ item.localized_service_name }}</strong>
+                            {% else %}
+                                <strong>{% trans "Sans service" %}</strong>
+                            {% endif %}
+                            <span class="vv-request-secondary">
+                                {% if item.project_location %}
+                                    {{ item.project_location }}
+                                {% else %}
+                                    {% trans "Aucun lieu indiqué" %}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <!-- CONTACT -->
+                        <div class="vv-request-contact">
+                            {% if item.phone %}
+                                <a href="tel:{{ item.phone }}"><i class="fa-regular fa-phone"></i> {{ item.phone }}</a>
+                            {% endif %}
+                            <a href="mailto:{{ item.email }}"><i class="fa-regular fa-envelope"></i> {{ item.email }}</a>
+                        </div>
+                        <!-- DATE -->
+                        <div class="vv-request-date">
+                            <span>{{ item.created_at|date:"d/m/Y" }}</span>
+                            <small>{{ item.created_at|date:"H:i" }}</small>
+                            {% if item.request_visit %}
+                                <span class="vv-visit-indicator"><i class="fa-regular fa-calendar-check"></i> {% trans "Visite demandée" %}</span>
+                            {% endif %}
+                        </div>
+                        <!-- ACTION -->
+                        <div class="vv-request-action">
+                            <a href="{% url 'contact:inbox_detail' item.pk %}" class="vv-circle-link" aria-label="{% blocktrans with name=item.name %}Voir la demande de {{ name }}{% endblocktrans %}" title="{% trans 'Voir le détail' %}">
+                                <i class="fa-regular fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="vv-empty-state">
+                    <div class="vv-empty-icon"><i class="fa-regular fa-inbox"></i></div>
+                    <h3>{% trans "Aucune demande" %}</h3>
+                    <p>{% trans "Aucun résultat ne correspond à la recherche ou au filtre sélectionné." %}</p>
+                    <a href="{% url 'contact:inbox' %}" class="tl-primary-btn">
+                        {% trans "Voir toutes les demandes" %}
+                        <span class="icon"><i class="fa-regular fa-arrow-right"></i></span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- =================================================
+             PAGINATION
+        ================================================== -->
+        {% if page.has_other_pages %}
+            <nav class="vv-pagination" aria-label="{% trans 'Pagination de la boîte de réception' %}">
+                <div>
+                    {% if page.has_previous %}
+                        <a class="vv-page-link" href="?page={{ page.previous_page_number }}&q={{ search|urlencode }}&status={{ selected_status }}"><i class="fa-regular fa-arrow-left"></i> {% trans "Précédente" %}</a>
+                    {% endif %}
+                </div>
+                <span class="vv-page-current">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+                <div>
+                    {% if page.has_next %}
+                        <a class="vv-page-link" href="?page={{ page.next_page_number }}&q={{ search|urlencode }}&status={{ selected_status }}">{% trans "Suivante" %} <i class="fa-regular fa-arrow-right"></i></a>
+                    {% endif %}
+                </div>
+            </nav>
+        {% endif %}
+    </div>
+</section>
+<!-- ============================================================
+     KEEP STATUS FILTER AS NATIVE SELECT
+============================================================ -->
+{% endblock %}

@@ -1,80 +1,729 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
 {% load i18n_fields %}
 
 
+<!-- ============================================================
+     SEO TITLE
+============================================================ -->
+
 {% block title %}
-{{ proyecto|localized:"titulo" }} | VVswinss
+
+    {% with seo_title=project|localized:"seo_title" %}
+
+        {% if seo_title %}
+
+            {{ seo_title }}
+
+        {% else %}
+
+            {{ project|localized:"title" }} | V&V Swiss Services
+
+        {% endif %}
+
+    {% endwith %}
+
 {% endblock %}
+
+
+<!-- ============================================================
+     META DESCRIPTION
+============================================================ -->
+
+{% block meta_description %}
+
+    {% with meta_description=project|localized:"meta_description" %}
+
+        {% if meta_description %}
+
+            {{ meta_description }}
+
+        {% elif project|localized:"summary" %}
+
+            {{ project|localized:"summary"|striptags|truncatechars:160 }}
+
+        {% else %}
+
+            {{ project|localized:"title" }} | V&V Swiss Services
+
+        {% endif %}
+
+    {% endwith %}
+
+{% endblock %}
+
 
 
 {% block content %}
 
-<article>
 
-    <h1>
-        {{ proyecto|localized:"titulo" }}
-    </h1>
+<!-- ============================================================
+     PAGE HEADER
+============================================================ -->
 
-    <p>
-        {{ proyecto.ubicacion }}
-    </p>
+<section class="page-header">
 
-    {% if proyecto.imagen_principal %}
+    <div
+        class="bg-img"
+        data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"
+    ></div>
 
-        <img
-            src="{{ proyecto.imagen_principal.url }}"
-            alt="{{ proyecto|localized:'titulo' }}"
-            style="max-width:100%;"
-        >
+    <div class="overlay"></div>
 
-    {% endif %}
 
-    <div>
-        {{ proyecto|localized:"contenido"|linebreaks }}
+    <div class="container">
+
+        <div class="page-header-content">
+
+
+            <h1 class="title">
+
+                {% trans "Détails du projet" %}
+
+            </h1>
+
+
+            <h4 class="sub-title">
+
+
+                <a
+                    class="home"
+                    href="{% url 'core:home' %}"
+                >
+                    {% trans "Accueil" %}
+                </a>
+
+
+                <span class="icon">-</span>
+
+
+                <a
+                    class="home"
+                    href="{% url 'projects:list' %}"
+                >
+                    {% trans "Réalisations" %}
+                </a>
+
+
+                <span class="icon">-</span>
+
+
+                <span class="inner-page">
+
+                    {{ project|localized:"title" }}
+
+                </span>
+
+
+            </h4>
+
+
+        </div>
+
     </div>
 
-
-    {% for intervencion in proyecto.intervenciones.all %}
-
-        <section>
-
-            <h2>
-                {{ intervencion|localized:"titulo" }}
-            </h2>
-
-            <p>
-                {{ intervencion|localized:"descripcion" }}
-            </p>
-
-        </section>
-
-    {% endfor %}
+</section>
 
 
-    {% for comparacion in proyecto.antes_despues.all %}
 
-        <section>
+<!-- ============================================================
+     PROJECT DETAILS
+============================================================ -->
 
-            <h2>
-                {{ comparacion|localized:"titulo" }}
-            </h2>
+<section class="portfolio-details pt-130 pb-130">
 
-            <img
-                src="{{ comparacion.imagen_antes.url }}"
-                alt="Avant"
-                style="max-width:45%;"
+    <div class="container container-2">
+
+        <div class="project-details-wrap">
+
+
+            <!-- =================================================
+                 PROJECT TITLE
+            ================================================== -->
+
+            <h1
+                class="details-title"
+                style="text-align: center!important;"
             >
 
-            <img
-                src="{{ comparacion.imagen_despues.url }}"
-                alt="Après"
-                style="max-width:45%;"
-            >
+                {{ project|localized:"title" }}
 
-        </section>
+            </h1>
 
-    {% endfor %}
 
-</article>
+
+            <!-- =================================================
+                 BEFORE / AFTER
+            ================================================== -->
+
+            {% if project.before_after.all %}
+
+                <section class="project-before-after-showcase pt-10 pb-80">
+
+                    <div class="container-fluid px-0">
+
+
+                        <div class="project-before-after-heading text-center mb-50">
+
+                            <h4 class="details-title-2">
+
+                                {% trans "Avant et après" %}
+
+                            </h4>
+
+                        </div>
+
+
+                        {% with comparison=project.before_after.all.0 %}
+
+                            <div class="project-before-after-full">
+
+                                <div class="twentytwenty-container before-after-fullwidth">
+
+
+                                    <img
+                                        src="{{ comparison.before_image.url }}"
+                                        alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
+                                    >
+
+
+                                    <img
+                                        src="{{ comparison.after_image.url }}"
+                                        alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
+                                    >
+
+
+                                </div>
+
+                            </div>
+
+                        {% endwith %}
+
+
+                    </div>
+
+                </section>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 PROJECT INFORMATION
+            ================================================== -->
+
+            <div class="project-details-meta">
+
+
+                <!-- =================================================
+                     PROJECT TYPE
+                ================================================== -->
+
+                {% if project.project_type %}
+
+                    <div class="details-meta">
+
+                        <span>
+                            {% trans "Type de projet" %} :
+                        </span>
+
+                        <h5>
+
+                            {{ project.project_type|localized:"name" }}
+
+                        </h5>
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     BUILDING TYPE
+                ================================================== -->
+
+                {% if project.building_type %}
+
+                    <div class="details-meta">
+
+                        <span>
+                            {% trans "Type de bâtiment" %} :
+                        </span>
+
+                        <h5>
+
+                            {{ project.building_type|localized:"name" }}
+
+                        </h5>
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     SERVICES
+                ================================================== -->
+
+                {% with project_services=project.services.all %}
+
+                    {% if project_services %}
+
+                        <div class="details-meta">
+
+                            <span>
+                                {% trans "Services" %} :
+                            </span>
+
+                            <h5>
+
+                                {% for service in project_services %}
+
+                                    {{ service|localized:"name" }}
+
+                                    {% if not forloop.last %}
+                                        ,
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </h5>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+
+                <!-- =================================================
+                     LOCATION
+                ================================================== -->
+
+                {% if project.location %}
+
+                    <div class="details-meta">
+
+                        <span>
+                            {% trans "Lieu" %} :
+                        </span>
+
+                        <h5>
+
+                            {{ project.location }}
+
+                        </h5>
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     CLIENT
+                ================================================== -->
+
+                {% if project.client %}
+
+                    <div class="details-meta">
+
+                        <span>
+                            {% trans "Client" %} :
+                        </span>
+
+                        <h5>
+
+                            {{ project.client }}
+
+                        </h5>
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     DATE
+                ================================================== -->
+
+                {% if project.start_date or project.end_date %}
+
+                    <div class="details-meta">
+
+                        <span>
+                            {% trans "Date" %} :
+                        </span>
+
+                        <h5>
+
+
+                            {% if project.start_date and project.end_date %}
+
+
+                                {% if project.start_date|date:"Y" == project.end_date|date:"Y" %}
+
+                                    {{ project.end_date|date:"Y" }}
+
+                                {% else %}
+
+                                    {{ project.start_date|date:"Y" }}
+                                    -
+                                    {{ project.end_date|date:"Y" }}
+
+                                {% endif %}
+
+
+                            {% elif project.end_date %}
+
+                                {{ project.end_date|date:"Y" }}
+
+                            {% else %}
+
+                                {{ project.start_date|date:"Y" }}
+
+                            {% endif %}
+
+
+                        </h5>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MAIN IMAGE
+            ================================================== -->
+
+            {% if project.main_image %}
+
+                <div class="project-details-img">
+
+                    <img
+                        src="{{ project.main_image.url }}"
+                        alt="{{ project|localized:'title' }}"
+                    >
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 PROJECT INTRODUCTION
+            ================================================== -->
+
+            {% if project|localized:"summary" or project|localized:"content" %}
+
+                <div class="project-description">
+
+
+                    <h2 class="details-title-2">
+
+                        {% trans "Le projet" %}
+
+                    </h2>
+
+
+                    {% if project|localized:"summary" %}
+
+                        <p class="project-summary">
+
+                            {{ project|localized:"summary" }}
+
+                        </p>
+
+                    {% endif %}
+
+
+                    {% if project|localized:"content" %}
+
+                        {{ project|localized:"content"|linebreaks }}
+
+                    {% endif %}
+
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 INTERVENTIONS
+            ================================================== -->
+
+            {% with interventions=project.interventions.all %}
+
+                {% if interventions %}
+
+
+                    <h2 class="details-title-2">
+
+                        {% trans "Travaux réalisés" %}
+
+                    </h2>
+
+
+                    <div class="project-details-list">
+
+                        <ul>
+
+
+                            {% for intervention in interventions %}
+
+                                <li>
+
+
+                                    <i class="fa-sharp fa-solid fa-circle-check"></i>
+
+
+                                    <strong>
+
+                                        {{ intervention|localized:"title" }}
+
+                                    </strong>
+
+
+                                    {% if intervention|localized:"description" %}
+
+                                        <span>
+
+                                            {{ intervention|localized:"description" }}
+
+                                        </span>
+
+                                    {% endif %}
+
+
+                                </li>
+
+                            {% endfor %}
+
+
+                        </ul>
+
+                    </div>
+
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+            <!-- =================================================
+                 PROJECT GALLERY
+            ================================================== -->
+
+            {% with gallery=project.images.all %}
+
+                {% if gallery %}
+
+
+                    <h2 class="details-title-2">
+
+                        {% trans "Galerie du projet" %}
+
+                    </h2>
+
+
+                    <div class="row gy-4 mb-5">
+
+
+                        {% for project_image in gallery %}
+
+                            <div class="col-lg-6 col-md-6">
+
+
+                                <a
+                                    href="{{ project_image.image.url }}"
+                                    class="venobox"
+                                    data-gall="project-gallery"
+                                >
+
+                                    <img
+                                        src="{{ project_image.image.url }}"
+                                        alt="{% if project_image|localized:'alt' %}{{ project_image|localized:'alt' }}{% else %}{{ project|localized:'title' }}{% endif %}"
+                                        class="w-100"
+                                        loading="lazy"
+                                    >
+
+                                </a>
+
+
+                            </div>
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+           <!-- =================================================
+     CALL TO ACTION
+================================================== -->
+
+<div class="project-detail-cta mt-5 pt-4">
+
+    <h2 class="details-title-2">
+        {% trans "Vous avez un projet similaire ?" %}
+    </h2>
+
+    <p>
+        {% trans "Contactez V&V Swiss Services pour discuter de votre projet et identifier la solution adaptée à votre bâtiment." %}
+    </p>
+
+    {% trans "Bonjour, je suis intéressé par un projet similaire et je souhaite recevoir davantage d’informations ainsi qu’un devis." as contact_message %}
+    {% trans "Demande concernant un projet similaire" as email_subject %}
+
+    <div class="project-contact-actions">
+
+        <a href="{% url 'contact:contact' %}" class="project-contact-btn project-contact-main">
+    {% trans "Envoyer un message" %}
+    <span class="icon">
+        <i class="fa-regular fa-arrow-right"></i>
+    </span>
+</a>
+
+        {% if site_configuration.whatsapp %}
+            <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+        {% endif %}
+
+        {% if site_configuration.email %}
+            <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}" class="project-contact-btn">
+                <i class="fa-regular fa-envelope"></i>
+                <span>{% trans "E-mail" %}</span>
+            </a>
+        {% endif %}
+
+        {% if site_configuration.phone %}
+            <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
+                <i class="fa-regular fa-phone"></i>
+                <span>{% trans "Appeler" %}</span>
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ============================================================
+     CONTACT PROJECT MODAL
+============================================================ -->
+
+<div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="project-contact-modal-kicker">V&V Swiss Services</span>
+                    <h3 class="modal-title" id="contactProjectModalLabel">{% trans "Parlez-nous de votre projet" %}</h3>
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p class="project-contact-modal-intro">
+                    {% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}
+                </p>
+
+
+
+                <div class="request-form-wrap project-modal-form-wrap">
+                    {% include "contact/includes/contact_form.html" %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const contactProjectModal = document.getElementById("contactProjectModal");
+
+        if (contactProjectModal && contactProjectModal.parentElement !== document.body) {
+            document.body.appendChild(contactProjectModal);
+        }
+
+        if (contactProjectModal) {
+            contactProjectModal.addEventListener("show.bs.modal", function () {
+                if (contactProjectModal.parentElement !== document.body) {
+                    document.body.appendChild(contactProjectModal);
+                }
+            });
+
+            contactProjectModal.addEventListener("shown.bs.modal", function () {
+                contactProjectModal.scrollTop = 0;
+            });
+        }
+
+
+        if (
+            typeof jQuery !== "undefined"
+            &&
+            typeof jQuery.fn.twentytwenty !== "undefined"
+        ) {
+
+            jQuery(
+                ".twentytwenty-container"
+            ).twentytwenty();
+
+        }
+
+    }
+);
+
+</script>
 
 {% endblock %}

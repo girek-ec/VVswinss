@@ -1,0 +1,2417 @@
+# VVswinss French translations
+# Copyright (C) 2026 VVswinss
+# This file is distributed under the same license as the VVswinss package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VVswinss 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-17 21:13-0500\n"
+"PO-Revision-Date: 2026-09-27 11:30-0500\n"
+"Last-Translator: VVswinss\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\contact\includes\contact_form.html:8
+#: .\templates\contact\includes\contact_form.html:14
+msgid "Veuillez vérifier les informations du formulaire."
+msgstr ""
+
+#: .\contact\includes\contact_form.html:84
+#: .\templates\contact\includes\contact_form.html:126
+msgid ""
+"Vous pouvez joindre jusqu’à 8 photos au format JPG, PNG ou WebP. Chaque "
+"photo peut peser jusqu’à 8 Mo."
+msgstr ""
+
+#: .\contact\includes\contact_form.html:114
+#: .\templates\contact\includes\contact_form.html:171
+msgid ""
+"La date et l’heure demandées sont indicatives. Notre équipe vous contactera "
+"pour confirmer la visite."
+msgstr ""
+
+#: .\contact\includes\contact_form.html:130
+#: .\templates\contact\includes\contact_form.html:211
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "Demander mon devis"
+msgstr "Demander un devis"
+
+#: .\contact\models.py:26
+msgid "Nouvelle"
+msgstr ""
+
+#: .\contact\models.py:27
+#, fuzzy
+#| msgid "Contact"
+msgid "Contactée"
+msgstr "Contact"
+
+#: .\contact\models.py:28 .\templates\contact\inbox_detail.html:99
+#, fuzzy
+#| msgid "Des solutions techniques"
+msgid "Visite technique"
+msgstr "Des solutions techniques"
+
+#: .\contact\models.py:29 .\templates\contact\inbox.html:58
+msgid "Devis"
+msgstr ""
+
+#: .\contact\models.py:30
+msgid "Clôturée"
+msgstr ""
+
+#: .\contact\models.py:31
+msgid "Écartée"
+msgstr ""
+
+#: .\contact\models.py:49 .\templates\contact\inbox_detail.html:42
+msgid "Nom"
+msgstr ""
+
+#: .\contact\models.py:51 .\templates\contact\inbox_detail.html:46
+#: .\templates\core\about.html:5 .\templates\core\about.html:26
+#: .\templates\core\about.html:70 .\templates\includes\footer.html:93
+msgid "Entreprise"
+msgstr "Entreprise"
+
+#: .\contact\models.py:53 .\templates\blog\post_detail.html:353
+#: .\templates\contact\contact.html:231
+#: .\templates\contact\inbox_detail.html:54 .\templates\core\about.html:146
+#: .\templates\core\about.html:763 .\templates\core\home.html:1015
+#: .\templates\projects\project_detail.html:616
+#: .\templates\services\service_detail.html:360
+#: .\templates\services\service_detail.html:387
+#: .\templates\services\service_detail.html:414
+#: .\templates\services\service_detail.html:441
+#: .\templates\services\service_list.html:336
+msgid "E-mail"
+msgstr ""
+
+#: .\contact\models.py:55 .\templates\contact\inbox_detail.html:50
+#: .\templates\core\about.html:153
+msgid "Téléphone"
+msgstr "Téléphone"
+
+#: .\contact\models.py:61 .\templates\contact\inbox_detail.html:65
+msgid "Service"
+msgstr "Service"
+
+#: .\contact\models.py:67
+#, fuzzy
+#| msgid "Le projet"
+msgid "Lieu du projet"
+msgstr "Le projet"
+
+#: .\contact\models.py:69
+msgid "Message"
+msgstr ""
+
+#: .\contact\models.py:75
+#, fuzzy
+#| msgid "Demander un devis gratuit"
+msgid "Demander une visite technique"
+msgstr "Demander un devis"
+
+#: .\contact\models.py:77
+#, fuzzy
+#| msgid "Service souhaité"
+msgid "Date souhaitée"
+msgstr "Service souhaité"
+
+#: .\contact\models.py:79
+#, fuzzy
+#| msgid "Service souhaité"
+msgid "Heure souhaitée"
+msgstr "Service souhaité"
+
+#: .\contact\models.py:85
+msgid "Politique de confidentialité acceptée"
+msgstr ""
+
+#: .\contact\models.py:87
+msgid "Date d’acceptation de la politique de confidentialité"
+msgstr ""
+
+#: .\contact\models.py:89
+msgid "Version de la politique de confidentialité"
+msgstr ""
+
+#: .\contact\models.py:95 .\templates\contact\inbox.html:82
+#: .\templates\contact\inbox_detail.html:129
+msgid "État"
+msgstr ""
+
+#: .\contact\models.py:101
+msgid "Langue"
+msgstr ""
+
+#: .\contact\models.py:107 .\templates\contact\inbox_detail.html:137
+msgid "Notes internes"
+msgstr ""
+
+#: .\contact\models.py:113
+#, fuzzy
+#| msgid "Adresse"
+msgid "Adresse IP"
+msgstr "Adresse"
+
+#: .\contact\models.py:115
+msgid "Agent utilisateur"
+msgstr ""
+
+#: .\contact\models.py:123 .\contact\models.py:140
+#, fuzzy
+#| msgid "Demander des informations"
+msgid "Demande de contact"
+msgstr "Demander un devis"
+
+#: .\contact\models.py:124
+#, fuzzy
+#| msgid "Demander des informations"
+msgid "Demandes de contact"
+msgstr "Demander un devis"
+
+#: .\contact\models.py:142
+msgid "Fichier"
+msgstr ""
+
+#: .\contact\models.py:146
+msgid "Pièce jointe"
+msgstr ""
+
+#: .\contact\models.py:147 .\templates\contact\inbox.html:120
+msgid "Pièces jointes"
+msgstr ""
+
+#: .\contact\views.py:380
+msgid "Identifiants incorrects ou accès non autorisé."
+msgstr ""
+
+#: .\contact\views.py:775
+msgid "Demande mise à jour avec succès."
+msgstr ""
+
+#: .\core\urls.py:16
+#, fuzzy
+#| msgid "À propos"
+msgid "a-propos/"
+msgstr "À propos"
+
+#: .\core\urls.py:21
+#, fuzzy
+#| msgid "Professionnels"
+msgid "professionnels/"
+msgstr "Professionnels"
+
+#: .\core\urls.py:26
+msgid "mentions-legales/"
+msgstr ""
+
+#: .\core\urls.py:27
+msgid "protection-des-donnees/"
+msgstr ""
+
+#: .\templates\antra\index.html:6
+#, fuzzy
+#| msgid ""
+#| "Votre partenaire pour la rénovation, l’isolation et les travaux du "
+#| "bâtiment."
+msgid "Rénovation, isolation et travaux du bâtiment"
+msgstr ""
+"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+
+#: .\templates\antra\index.html:8
+#, fuzzy
+#| msgid ""
+#| "Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+#| "maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+#| "canton de Vaud."
+msgid ""
+"V&V Swiss Services accompagne particuliers, régies et professionnels pour "
+"leurs projets de rénovation, isolation, maçonnerie, plâtrerie, peinture, "
+"finitions et entretien immobilier en Suisse romande."
+msgstr ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+
+#: .\templates\antra\index.html:29
+msgid "RÉNOVATION & TRAVAUX DU BÂTIMENT"
+msgstr ""
+
+#: .\templates\antra\index.html:36
+msgid "Des solutions fiables pour rénover, protéger et valoriser vos espaces"
+msgstr ""
+
+#: .\templates\antra\index.html:47
+#, fuzzy
+#| msgid ""
+#| "Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+#| "peinture et finition de V&V Swiss Services."
+msgid ""
+"Un accompagnement professionnel pour vos projets de rénovation intérieure et "
+"extérieure, isolation, maçonnerie, plâtrerie, peinture et finitions."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#: .\templates\antra\index.html:54 .\templates\includes\header.html:602
+msgid "Demander un devis"
+msgstr "Demander un devis"
+
+#: .\templates\antra\index.html:69
+msgid "Expérience, proximité et qualité au service de vos projets."
+msgstr ""
+
+#: .\templates\antra\index.html:106 .\templates\core\home.html:40
+#: .\templates\core\home.html:147
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Nos services"
+msgstr "Tous les services"
+
+#: .\templates\antra\index.html:114 .\templates\services\service_list.html:32
+#, fuzzy
+#| msgid "Des solutions durables"
+msgid "Des solutions adaptées à"
+msgstr "Des solutions durables"
+
+#: .\templates\antra\index.html:114 .\templates\services\service_list.html:34
+#, fuzzy
+#| msgid "projet de rénovation"
+msgid "chaque projet de rénovation"
+msgstr "projet de rénovation"
+
+#: .\templates\antra\index.html:118
+#, fuzzy
+#| msgid ""
+#| "Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+#| "maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+#| "canton de Vaud."
+msgid ""
+"Rénovation intérieure et extérieure, isolation thermique, maçonnerie, "
+"plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien "
+"immobilier."
+msgstr ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+
+#: .\templates\antra\index.html:155
+msgid ""
+"Une prestation professionnelle adaptée à votre bâtiment, à vos besoins et à "
+"votre projet."
+msgstr ""
+
+#: .\templates\antra\index.html:193 .\templates\core\about.html:730
+#: .\templates\core\home.html:345
+msgid "Plus de 20 ans d’expérience"
+msgstr "Plus de 20 ans d’expérience"
+
+#: .\templates\antra\index.html:197
+msgid "Un savoir-faire solide pour"
+msgstr ""
+
+#: .\templates\antra\index.html:197
+#, fuzzy
+#| msgid "Des solutions durables"
+msgid "des travaux soignés et durables"
+msgstr "Des solutions durables"
+
+#: .\templates\antra\index.html:202 .\templates\core\home.html:454
+msgid "Rénovation intérieure et extérieure"
+msgstr ""
+
+#: .\templates\antra\index.html:203
+#, fuzzy
+#| msgid "Protection durable des façades"
+msgid "Isolation thermique et façades"
+msgstr "Protection durable des façades"
+
+#: .\templates\antra\index.html:204
+msgid "Maçonnerie, plâtrerie et peinture"
+msgstr ""
+
+#: .\templates\antra\index.html:205
+msgid "Finitions et entretien immobilier"
+msgstr ""
+
+#: .\templates\antra\index.html:209
+msgid ""
+"Nous associons expérience, proximité, réactivité et soin des finitions afin "
+"de proposer des solutions adaptées aux particuliers, régies immobilières et "
+"professionnels."
+msgstr ""
+
+#: .\templates\antra\index.html:214 .\templates\core\home.html:361
+#, fuzzy
+#| msgid "Notre entreprise"
+msgid "Découvrir l’entreprise"
+msgstr "Notre entreprise"
+
+#: .\templates\antra\index.html:224 .\templates\core\about.html:273
+#: .\templates\core\home.html:329 .\templates\core\home.html:492
+msgid "Travaux de rénovation V&V Swiss Services"
+msgstr ""
+
+#: .\templates\antra\index.html:252
+msgid "Savoir-faire"
+msgstr ""
+
+#: .\templates\antra\index.html:260
+msgid "Des prestations complémentaires pour"
+msgstr ""
+
+#: .\templates\antra\index.html:260
+#, fuzzy
+#| msgid "Parler de votre projet"
+msgid "prendre en charge votre projet"
+msgstr "Parler de votre projet"
+
+#: .\templates\antra\index.html:264
+#, fuzzy
+#| msgid ""
+#| "Chaque projet est étudié selon les caractéristiques du bâtiment, les "
+#| "besoins du client et les solutions techniques adaptées."
+msgid ""
+"Chaque intervention est étudiée selon l’état du bâtiment, vos priorités, les "
+"contraintes techniques et le niveau de finition recherché."
+msgstr ""
+"Chaque projet est étudié selon les caractéristiques du bâtiment, les besoins "
+"du client et les solutions techniques adaptées."
+
+#: .\templates\antra\index.html:291 .\templates\antra\index.html:308
+#: .\templates\services\service_list.html:67
+#: .\templates\services\service_list.html:83
+msgid ""
+"Des solutions professionnelles adaptées à votre bâtiment et à votre projet."
+msgstr ""
+
+#: .\templates\antra\index.html:359 .\templates\services\service_list.html:171
+#, fuzzy
+#| msgid "Plus de 20 ans d’expérience"
+msgid "Années d’expérience"
+msgstr "Plus de 20 ans d’expérience"
+
+#: .\templates\antra\index.html:360
+#, fuzzy
+#| msgid "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+msgid "Une expérience solide dans le secteur du bâtiment en Suisse."
+msgstr "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+
+#: .\templates\antra\index.html:367
+msgid "Services mis en avant"
+msgstr ""
+
+#: .\templates\antra\index.html:368
+msgid "Des prestations complémentaires pour différents besoins du bâtiment."
+msgstr ""
+
+#: .\templates\antra\index.html:375 .\templates\services\service_list.html:185
+msgid "Première réponse"
+msgstr ""
+
+#: .\templates\antra\index.html:376 .\templates\services\service_list.html:188
+msgid ""
+"Une première prise de contact sous 48 heures pour étudier votre demande."
+msgstr ""
+
+#: .\templates\antra\index.html:383 .\templates\services\service_list.html:199
+msgid "Langues disponibles"
+msgstr ""
+
+#: .\templates\antra\index.html:384
+msgid "Français, allemand, italien et anglais pour faciliter les échanges."
+msgstr ""
+
+#: .\templates\antra\index.html:409
+#, fuzzy
+#| msgid "Notre méthode"
+msgid "Notre méthode de travail"
+msgstr "Notre méthode"
+
+#: .\templates\antra\index.html:413
+msgid "Un processus clair pour"
+msgstr ""
+
+#: .\templates\antra\index.html:413
+#, fuzzy
+#| msgid "Travaux réalisés"
+msgid "des travaux maîtrisés"
+msgstr "Travaux réalisés"
+
+#: .\templates\antra\index.html:419
+msgid ""
+"De la première prise de contact à la réception des travaux, nous avançons "
+"par étapes afin d’assurer clarté, coordination et qualité d’exécution."
+msgstr ""
+
+#: .\templates\antra\index.html:451
+#, fuzzy
+#| msgid "Vous avez un projet similaire ?"
+msgid "Vous avez un projet à réaliser ?"
+msgstr "Vous avez un projet similaire ?"
+
+#: .\templates\antra\index.html:452
+#, fuzzy
+#| msgid "Parlons-en ensemble"
+msgid "Parlons-en"
+msgstr "Parlons-en ensemble"
+
+#: .\templates\antra\index.html:474 .\templates\core\about.html:681
+msgid "Projets"
+msgstr "Projets"
+
+#: .\templates\antra\index.html:487 .\templates\core\about.html:680
+#: .\templates\projects\project_list.html:40
+msgid "Nos réalisations"
+msgstr "Nos réalisations"
+
+#: .\templates\antra\index.html:495
+msgid "Des projets qui illustrent"
+msgstr ""
+
+#: .\templates\antra\index.html:495 .\templates\core\home.html:346
+msgid "notre savoir-faire"
+msgstr ""
+
+#: .\templates\antra\index.html:499
+#, fuzzy
+#| msgid ""
+#| "Découvrez une sélection de projets de rénovation, d’isolation, de façades "
+#| "et de travaux intérieurs réalisés par V&V Swiss Services."
+msgid ""
+"Découvrez une sélection de rénovations, travaux intérieurs, façades, "
+"isolation et interventions réalisées par V&V Swiss Services."
+msgstr ""
+"Découvrez une sélection de projets de rénovation, d’isolation, de façades et "
+"de travaux intérieurs réalisés par V&V Swiss Services."
+
+#: .\templates\antra\index.html:531
+msgid "Réalisation V&V Swiss Services"
+msgstr ""
+
+#: .\templates\antra\index.html:546
+#, fuzzy
+#| msgid "Type de bâtiment"
+msgid "Travaux du bâtiment"
+msgstr "Type de bâtiment"
+
+#: .\templates\antra\index.html:572 .\templates\antra\index.html:590
+msgid "Avis clients"
+msgstr ""
+
+#: .\templates\antra\index.html:580
+#, fuzzy
+#| msgid "La confiance de nos clients"
+msgid "La confiance se construit par"
+msgstr "La confiance de nos clients"
+
+#: .\templates\antra\index.html:580
+#, fuzzy
+#| msgid "La qualité des finitions"
+msgid "la qualité du travail"
+msgstr "La qualité des finitions"
+
+#: .\templates\antra\index.html:599
+#, fuzzy
+#| msgid "Qualité suisse"
+msgid "Qualité"
+msgstr "Qualité suisse"
+
+#: .\templates\antra\index.html:608
+msgid "et proximité"
+msgstr ""
+
+#: .\templates\antra\index.html:613
+msgid ""
+"Nous privilégions l’écoute, la transparence, la réactivité et le soin des "
+"finitions sur chaque intervention."
+msgstr ""
+
+#: .\templates\antra\index.html:672
+msgid "Des assurances et partenaires qui accompagnent"
+msgstr ""
+
+#: .\templates\antra\index.html:672
+#, fuzzy
+#| msgid "Services"
+msgid "Swiss Services"
+msgstr "Services"
+
+#: .\templates\antra\index.html:718
+#, fuzzy
+#| msgid "Parler de votre projet"
+msgid "Une vision globale de votre projet"
+msgstr "Parler de votre projet"
+
+#: .\templates\antra\index.html:722
+msgid "Analyser, planifier et réaliser"
+msgstr ""
+
+#: .\templates\antra\index.html:722
+msgid "avec précision"
+msgstr ""
+
+#: .\templates\antra\index.html:754
+msgid "Découvrez notre approche du travail bien réalisé"
+msgstr ""
+
+#: .\templates\antra\index.html:758
+msgid ""
+"Un projet réussi repose sur l’écoute, la préparation, la coordination et une "
+"exécution soignée jusque dans les finitions."
+msgstr ""
+
+#: .\templates\antra\index.html:787
+msgid "Questions fréquentes"
+msgstr ""
+
+#: .\templates\antra\index.html:795
+msgid "Des réponses claires avant de"
+msgstr ""
+
+#: .\templates\antra\index.html:795
+msgid "commencer vos travaux"
+msgstr ""
+
+#: .\templates\antra\index.html:810
+msgid "FAQ"
+msgstr ""
+
+#: .\templates\antra\index.html:848
+msgid "Un projet à réaliser ?"
+msgstr ""
+
+#: .\templates\antra\index.html:852 .\templates\core\about.html:790
+#: .\templates\projects\project_detail.html:653
+#: .\templates\services\service_list.html:364
+#, fuzzy
+#| msgid "Parler de votre projet"
+msgid "Parlez-nous de votre projet"
+msgstr "Parler de votre projet"
+
+#: .\templates\antra\index.html:852
+#, fuzzy
+#| msgid ""
+#| "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+msgid "et recevez une première réponse sous 48 h"
+msgstr "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+
+#: .\templates\antra\index.html:856
+#, fuzzy
+#| msgid ""
+#| "Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+#| "peinture et finition de V&V Swiss Services."
+msgid ""
+"Décrivez vos besoins en rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture, finitions ou entretien immobilier."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#: .\templates\antra\index.html:861
+#, fuzzy
+#| msgid ""
+#| "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+msgid "Devis gratuit · Première réponse sous 48 h"
+msgstr "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+
+#: .\templates\antra\index.html:861
+#, fuzzy
+#| msgid ""
+#| "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+msgid "Devis gratuit et première réponse sous 48 heures"
+msgstr "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+
+#: .\templates\antra\index.html:862
+msgid "Contacter V&V Swiss Services"
+msgstr ""
+
+#: .\templates\antra\index.html:898 .\templates\antra\index.html:1073
+#: .\templates\blog\post_detail.html:52 .\templates\blog\post_list.html:6
+#: .\templates\blog\post_list.html:24 .\templates\core\home.html:1073
+#: .\templates\core\home.html:1243
+msgid "Conseils & actualités"
+msgstr ""
+
+#: .\templates\antra\index.html:910 .\templates\core\home.html:1085
+msgid "Découvrez nos derniers"
+msgstr ""
+
+#: .\templates\antra\index.html:912 .\templates\core\home.html:1087
+msgid "conseils, recommandations"
+msgstr ""
+
+#: .\templates\antra\index.html:913 .\templates\core\home.html:1088
+msgid "et articles."
+msgstr ""
+
+#: .\templates\antra\index.html:1000 .\templates\blog\post_detail.html:97
+#: .\templates\blog\post_detail.html:107 .\templates\blog\post_list.html:227
+#: .\templates\core\home.html:1172
+msgid "Par"
+msgstr ""
+
+#: .\templates\antra\index.html:1077 .\templates\core\home.html:1247
+#, fuzzy
+#| msgid "Nos projets seront bientôt disponibles."
+msgid "Nos prochains conseils et articles seront bientôt disponibles."
+msgstr "Nos projets seront bientôt disponibles."
+
+#: .\templates\antra\index.html:1103 .\templates\blog\post_list.html:106
+#: .\templates\blog\post_list.html:344 .\templates\core\home.html:1272
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Voir tous les articles"
+msgstr "Tous les services"
+
+#: .\templates\base-before-antra.html:102
+msgid "Home"
+msgstr "Accueil"
+
+#: .\templates\base-before-antra.html:106 .\templates\includes\header.html:87
+#: .\templates\projects\project_detail.html:278
+#: .\templates\services\service_detail.html:8
+#: .\templates\services\service_detail.html:24
+#: .\templates\services\service_list.html:5
+#: .\templates\services\service_list.html:25
+msgid "Services"
+msgstr "Services"
+
+#: .\templates\base-before-antra.html:110
+msgid "Projects"
+msgstr "Projets"
+
+#: .\templates\base-before-antra.html:114
+msgid "News & Advice"
+msgstr "Actualités et conseils"
+
+#: .\templates\base-before-antra.html:118 .\templates\contact\contact.html:42
+#: .\templates\contact\inbox.html:104 .\templates\includes\footer.html:96
+#: .\templates\includes\header.html:170 .\templates\includes\header.html:515
+msgid "Contact"
+msgstr "Contact"
+
+#: .\templates\blog\post_detail.html:9
+#, fuzzy
+#| msgid ""
+#| "Votre partenaire pour la rénovation, l’isolation et les travaux du "
+#| "bâtiment."
+msgid ""
+"Conseils, recommandations et actualités de V&V Swiss Services sur la "
+"rénovation et les travaux du bâtiment."
+msgstr ""
+"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+
+#: .\templates\blog\post_detail.html:50 .\templates\blog\post_list.html:30
+#: .\templates\contact\contact.html:40
+#: .\templates\contact\contact_success.html:17 .\templates\core\about.html:24
+#: .\templates\core\mentions_legales.html:59
+#: .\templates\core\professionals.html:24
+#: .\templates\core\protection_donnees.html:61
+#: .\templates\includes\footer.html:90 .\templates\includes\header.html:78
+#: .\templates\projects\project_detail.html:94
+#: .\templates\projects\project_list.html:45
+msgid "Accueil"
+msgstr "Accueil"
+
+#: .\templates\blog\post_detail.html:200 .\templates\blog\post_detail.html:202
+#, fuzzy
+#| msgid "Certifications"
+msgid "Citation"
+msgstr "Certifications"
+
+#: .\templates\blog\post_detail.html:271
+msgid "Partager cet article"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:282
+#, fuzzy
+#| msgid "Contactez-nous sur WhatsApp"
+msgid "Partager sur WhatsApp"
+msgstr "Contactez-nous sur WhatsApp"
+
+#: .\templates\blog\post_detail.html:299
+msgid "Partager sur Facebook"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:316
+msgid "Partager sur X"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:333
+msgid "Partager sur LinkedIn"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:348
+#, fuzzy
+#| msgid "Votre adresse e-mail"
+msgid "Partager par e-mail"
+msgstr "Votre adresse e-mail"
+
+#: .\templates\blog\post_detail.html:364 .\templates\blog\post_detail.html:370
+msgid "Copier le lien"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:365
+msgid "Lien copié"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:391
+msgid "Commentaires"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:431
+msgid "Publier un commentaire"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:467
+msgid "Publier le commentaire"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:494 .\templates\blog\post_detail.html:498
+#: .\templates\contact\inbox.html:92
+#, fuzzy
+#| msgid "Rechercher..."
+msgid "Rechercher"
+msgstr "Rechercher..."
+
+#: .\templates\blog\post_detail.html:497
+#, fuzzy
+#| msgid "Rechercher..."
+msgid "Rechercher un article..."
+msgstr "Rechercher..."
+
+#: .\templates\blog\post_detail.html:511
+msgid "Catégories"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:524
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Tous les articles"
+msgstr "Tous les services"
+
+#: .\templates\blog\post_detail.html:535
+msgid "Articles récents"
+msgstr ""
+
+#: .\templates\blog\post_detail.html:572
+msgid "Aucun autre article disponible pour le moment."
+msgstr ""
+
+#: .\templates\blog\post_detail.html:582
+msgid "Tags"
+msgstr ""
+
+#: .\templates\blog\post_list.html:8
+#, fuzzy
+#| msgid ""
+#| "Découvrez V&V Swiss Services, spécialiste de la rénovation, de "
+#| "l’isolation et des travaux du bâtiment en Suisse romande."
+msgid ""
+"Découvrez les conseils, recommandations et actualités de V&V Swiss Services "
+"sur la rénovation, l’isolation, la peinture, les finitions et les travaux du "
+"bâtiment en Suisse romande."
+msgstr ""
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
+"et des travaux du bâtiment en Suisse romande."
+
+#: .\templates\blog\post_list.html:36
+msgid "Blog"
+msgstr ""
+
+#: .\templates\blog\post_list.html:74
+msgid "Résultats pour"
+msgstr ""
+
+#: .\templates\blog\post_list.html:81 .\templates\core\home.html:229
+msgid "Catégorie"
+msgstr ""
+
+#: .\templates\blog\post_list.html:88
+msgid "Tag"
+msgstr ""
+
+#: .\templates\blog\post_list.html:96
+msgid "article(s) trouvé(s)"
+msgstr ""
+
+#: .\templates\blog\post_list.html:317
+msgid "Aucun résultat pour"
+msgstr ""
+
+#: .\templates\blog\post_list.html:322
+msgid "Aucun article disponible dans cette catégorie."
+msgstr ""
+
+#: .\templates\blog\post_list.html:326
+msgid "Aucun article disponible avec ce tag."
+msgstr ""
+
+#: .\templates\blog\post_list.html:330
+msgid "Aucun article disponible pour le moment."
+msgstr ""
+
+#: .\templates\blog\post_list.html:338
+msgid "Essayez une autre recherche ou consultez tous nos articles."
+msgstr ""
+
+#: .\templates\blog\post_list.html:380
+msgid "Page précédente"
+msgstr ""
+
+#: .\templates\blog\post_list.html:428
+msgid "Page suivante"
+msgstr ""
+
+#: .\templates\contact\contact.html:12 .\templates\contact\contact.html:37
+msgid "Contact et demande de devis"
+msgstr ""
+
+#: .\templates\contact\contact.html:20
+#, fuzzy
+#| msgid ""
+#| "Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+#| "maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+#| "canton de Vaud."
+msgid ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud et en Suisse romande. Demandez votre devis."
+msgstr ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+
+#: .\templates\contact\contact.html:72 .\templates\core\home.html:928
+msgid "Contactez-nous"
+msgstr "Contactez-nous"
+
+#: .\templates\contact\contact.html:88 .\templates\core\home.html:935
+msgid "Vous avez un projet ?"
+msgstr "Vous avez un projet ?"
+
+#: .\templates\contact\contact.html:89 .\templates\core\home.html:936
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "Demandez votre devis"
+msgstr "Demander un devis"
+
+#: .\templates\contact\contact.html:93 .\templates\core\home.html:939
+msgid ""
+"Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche "
+"claire, professionnelle et adaptée à votre projet."
+msgstr ""
+
+#: .\templates\contact\contact.html:126 .\templates\core\home.html:957
+msgid "Adresse"
+msgstr "Adresse"
+
+#: .\templates\contact\contact.html:156 .\templates\core\home.html:969
+#, fuzzy
+#| msgid "Contact"
+msgid "Contact direct"
+msgstr "Contact"
+
+#: .\templates\contact\contact.html:178 .\templates\core\home.html:981
+msgid "Horaires d’ouverture"
+msgstr ""
+
+#: .\templates\contact\contact.html:205 .\templates\core\about.html:740
+#: .\templates\core\home.html:997 .\templates\services\service_list.html:320
+msgid ""
+"Bonjour, je souhaite obtenir des informations concernant un projet de "
+"rénovation et demander un devis."
+msgstr ""
+
+#: .\templates\contact\contact.html:207 .\templates\core\about.html:741
+#: .\templates\core\home.html:998 .\templates\services\service_list.html:321
+#, fuzzy
+#| msgid "projet de rénovation"
+msgid "Demande concernant un projet de rénovation"
+msgstr "projet de rénovation"
+
+#: .\templates\contact\contact.html:209 .\templates\core\about.html:742
+#: .\templates\core\home.html:999
+msgid ""
+"Bonjour, je souhaite recevoir davantage d’informations concernant un projet "
+"de rénovation et demander un devis."
+msgstr ""
+
+#: .\templates\contact\contact.html:218 .\templates\core\home.html:1005
+#, fuzzy
+#| msgid "Contactez-nous sur WhatsApp"
+msgid "Contacter V&V Swiss Services sur WhatsApp"
+msgstr "Contactez-nous sur WhatsApp"
+
+#: .\templates\contact\contact.html:229 .\templates\core\home.html:1013
+msgid "Envoyer un e-mail à V&V Swiss Services"
+msgstr ""
+
+#: .\templates\contact\contact.html:240 .\templates\core\home.html:1020
+msgid "Appeler V&V Swiss Services"
+msgstr ""
+
+#: .\templates\contact\contact.html:242 .\templates\core\about.html:153
+#: .\templates\core\about.html:770 .\templates\core\home.html:1022
+#: .\templates\projects\project_detail.html:623
+#: .\templates\services\service_detail.html:366
+#: .\templates\services\service_detail.html:393
+#: .\templates\services\service_detail.html:420
+#: .\templates\services\service_detail.html:447
+#: .\templates\services\service_list.html:342
+#, fuzzy
+#| msgid "Appelez-nous"
+msgid "Appeler"
+msgstr "Appelez-nous"
+
+#: .\templates\contact\contact.html:256 .\templates\core\home.html:1030
+#, fuzzy
+#| msgid ""
+#| "Découvrez V&V Swiss Services, spécialiste de la rénovation, de "
+#| "l’isolation et des travaux du bâtiment en Suisse romande."
+msgid ""
+"V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le "
+"canton de Vaud"
+msgstr ""
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
+"et des travaux du bâtiment en Suisse romande."
+
+#: .\templates\contact\contact.html:310 .\templates\core\home.html:844
+msgid "Zone d’intervention"
+msgstr ""
+
+#: .\templates\contact\contact.html:323 .\templates\core\home.html:857
+msgid "Nous intervenons principalement"
+msgstr ""
+
+#: .\templates\contact\contact.html:326 .\templates\core\home.html:860
+msgid "dans le canton de Vaud"
+msgstr ""
+
+#: .\templates\contact\contact.html:328 .\templates\core\home.html:862
+#, fuzzy
+#| msgid "Suisse romande"
+msgid "et en Suisse romande"
+msgstr "Suisse romande"
+
+#: .\templates\contact\contact.html:346 .\templates\contact\contact.html:350
+#: .\templates\core\home.html:887 .\templates\core\home.html:900
+msgid "Zone d’intervention V&V Swiss Services"
+msgstr ""
+
+#: .\templates\contact\contact_success.html:4
+#: .\templates\contact\contact_success.html:15
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "Demande envoyée"
+msgstr "Demander un devis"
+
+#: .\templates\contact\contact_success.html:5
+msgid "Votre demande a été envoyée avec succès à V&V Swiss Services."
+msgstr ""
+
+#: .\templates\contact\contact_success.html:19
+#, fuzzy
+#| msgid "Confiance"
+msgid "Confirmation"
+msgstr "Confiance"
+
+#: .\templates\contact\contact_success.html:32
+msgid "Merci pour votre demande"
+msgstr ""
+
+#: .\templates\contact\contact_success.html:33
+#, fuzzy
+#| msgid "Votre projet"
+msgid "Votre projet a bien été"
+msgstr "Votre projet"
+
+#: .\templates\contact\contact_success.html:33
+msgid "transmis à notre équipe"
+msgstr ""
+
+#: .\templates\contact\contact_success.html:39
+msgid "Retour à l’accueil"
+msgstr ""
+
+#: .\templates\contact\contact_success.html:42
+msgid "Nouvelle demande"
+msgstr ""
+
+#: .\templates\contact\inbox.html:7 .\templates\contact\inbox.html:20
+msgid "Boîte de réception des demandes"
+msgstr ""
+
+#: .\templates\contact\inbox.html:19
+msgid "Espace interne"
+msgstr ""
+
+#: .\templates\contact\inbox.html:21
+msgid ""
+"Gestion des contacts, visites techniques et devis de V&V Swiss Services."
+msgstr ""
+
+#: .\templates\contact\inbox.html:25
+msgid "demande"
+msgid_plural "demandes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\contact\inbox.html:34
+msgid "Total"
+msgstr ""
+
+#: .\templates\contact\inbox.html:40
+msgid "Nouvelles"
+msgstr ""
+
+#: .\templates\contact\inbox.html:46
+#, fuzzy
+#| msgid "Contact"
+msgid "Contactées"
+msgstr "Contact"
+
+#: .\templates\contact\inbox.html:52
+msgid "Visites"
+msgstr ""
+
+#: .\templates\contact\inbox.html:64
+msgid "Clôturées"
+msgstr ""
+
+#: .\templates\contact\inbox.html:75
+msgid "Rechercher une demande"
+msgstr ""
+
+#: .\templates\contact\inbox.html:78
+msgid "Nom, téléphone, e-mail ou lieu..."
+msgstr ""
+
+#: .\templates\contact\inbox.html:84
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Tous les états"
+msgstr "Tous les services"
+
+#: .\templates\contact\inbox.html:102 .\templates\contact\inbox_detail.html:39
+#: .\templates\projects\project_detail.html:336
+msgid "Client"
+msgstr "Client"
+
+#: .\templates\contact\inbox.html:103 .\templates\contact\inbox_detail.html:63
+#, fuzzy
+#| msgid "Projets"
+msgid "Projet"
+msgstr "Projets"
+
+#: .\templates\contact\inbox.html:105
+msgid "Reçu"
+msgstr ""
+
+#: .\templates\contact\inbox.html:134
+#, fuzzy
+#| msgid "Service"
+msgid "Sans service"
+msgstr "Service"
+
+#: .\templates\contact\inbox.html:140
+msgid "Aucun lieu indiqué"
+msgstr ""
+
+#: .\templates\contact\inbox.html:156
+#, fuzzy
+#| msgid "Suisse romande"
+msgid "Visite demandée"
+msgstr "Suisse romande"
+
+#: .\templates\contact\inbox.html:161
+#, python-format
+msgid "Voir la demande de %(name)s"
+msgstr ""
+
+#: .\templates\contact\inbox.html:161
+msgid "Voir le détail"
+msgstr ""
+
+#: .\templates\contact\inbox.html:170
+#, fuzzy
+#| msgid "Envoyer ma demande"
+msgid "Aucune demande"
+msgstr "Envoyer ma demande"
+
+#: .\templates\contact\inbox.html:171
+msgid "Aucun résultat ne correspond à la recherche ou au filtre sélectionné."
+msgstr ""
+
+#: .\templates\contact\inbox.html:173
+msgid "Voir toutes les demandes"
+msgstr ""
+
+#: .\templates\contact\inbox.html:183
+msgid "Pagination de la boîte de réception"
+msgstr ""
+
+#: .\templates\contact\inbox.html:186
+msgid "Précédente"
+msgstr ""
+
+#: .\templates\contact\inbox.html:192
+#, fuzzy
+#| msgid "Avant"
+msgid "Suivante"
+msgstr "Avant"
+
+#: .\templates\contact\inbox_detail.html:18
+msgid "Retour à la boîte de réception"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:27
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "Demande reçue le"
+msgstr "Demander un devis"
+
+#: .\templates\contact\inbox_detail.html:69 .\templates\core\home.html:580
+#: .\templates\projects\project_detail.html:312
+msgid "Lieu"
+msgstr "Lieu"
+
+#: .\templates\contact\inbox_detail.html:73
+msgid "Description"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:82
+msgid "Photographies"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:100
+msgid "Date demandée :"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:102
+msgid "Heure :"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:117
+msgid "Gestion"
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:138
+msgid "Observations internes..."
+msgstr ""
+
+#: .\templates\contact\inbox_detail.html:141
+msgid "Enregistrer les modifications"
+msgstr ""
+
+#: .\templates\contact\inbox_login.html:8
+#: .\templates\contact\inbox_login.html:45 .\templates\includes\header.html:406
+msgid "Accès interne"
+msgstr ""
+
+#: .\templates\contact\inbox_login.html:59
+msgid "Connectez-vous pour accéder à la boîte de réception des demandes."
+msgstr ""
+
+#: .\templates\contact\inbox_login.html:101
+msgid "Utilisateur"
+msgstr ""
+
+#: .\templates\contact\inbox_login.html:124
+msgid "Mot de passe"
+msgstr ""
+
+#: .\templates\contact\inbox_login.html:144
+msgid "Se connecter"
+msgstr ""
+
+#: .\templates\contact\includes\contact_form.html:21
+#: .\templates\core\protection_donnees.html:19
+#: .\templates\core\protection_donnees.html:56
+#: .\templates\core\protection_donnees.html:68
+#: .\templates\core\protection_donnees.html:102
+#: .\templates\includes\footer.html:218 .\templates\includes\header.html:160
+#, fuzzy
+#| msgid "Protection durable des façades"
+msgid "Protection des données"
+msgstr "Protection durable des façades"
+
+#: .\templates\core\about.html:6
+msgid ""
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
+"et des travaux du bâtiment en Suisse romande."
+msgstr ""
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
+"et des travaux du bâtiment en Suisse romande."
+
+#: .\templates\core\about.html:20
+msgid "Notre entreprise"
+msgstr "Notre entreprise"
+
+#: .\templates\core\about.html:47
+msgid "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+msgstr "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+
+#: .\templates\core\about.html:75
+msgid ""
+"Bonjour, je souhaite recevoir plus d’informations sur vos services et "
+"demander un devis pour mon projet de rénovation."
+msgstr ""
+
+#: .\templates\core\about.html:76
+msgid "Demander des informations"
+msgstr "Demander un devis"
+
+#: .\templates\core\about.html:103
+msgid "Décoration"
+msgstr ""
+
+#: .\templates\core\about.html:108
+#, fuzzy
+#| msgid "Notre méthode"
+msgid "Notre équipe"
+msgstr "Notre méthode"
+
+#: .\templates\core\about.html:115
+#, fuzzy
+#| msgid "Professionnels"
+msgid "Des professionnels"
+msgstr "Professionnels"
+
+#: .\templates\core\about.html:117
+#, fuzzy
+#| msgid "Tous les services"
+msgid "à votre service"
+msgstr "Tous les services"
+
+#: .\templates\core\about.html:146
+#, fuzzy
+#| msgid "Envoyer ma demande"
+msgid "Envoyer un e-mail à"
+msgstr "Envoyer ma demande"
+
+#: .\templates\core\about.html:214 .\templates\core\about.html:216
+#: .\templates\core\about.html:232
+msgid "Notre mission"
+msgstr "Notre mission"
+
+#: .\templates\core\about.html:237
+msgid "Qualité suisse"
+msgstr "Qualité suisse"
+
+#: .\templates\core\about.html:238
+msgid "Des travaux soignés et des finitions réalisées avec exigence."
+msgstr "Des travaux soignés et des finitions réalisées avec exigence."
+
+#: .\templates\core\about.html:241
+msgid "Proximité et confiance"
+msgstr "Proximité et confiance"
+
+#: .\templates\core\about.html:242
+msgid "Un accompagnement clair, personnalisé et adapté à chaque projet."
+msgstr "Un accompagnement clair, personnalisé et adapté à chaque projet."
+
+#: .\templates\core\about.html:264
+msgid "Notre vision"
+msgstr "Notre vision"
+
+#: .\templates\core\about.html:295 .\templates\core\home.html:381
+msgid "Nos"
+msgstr ""
+
+#: .\templates\core\about.html:295 .\templates\core\home.html:381
+#, fuzzy
+#| msgid " valeurs"
+msgid "valeurs"
+msgstr " valeurs"
+
+#: .\templates\core\about.html:296 .\templates\core\home.html:382
+msgid "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+msgstr "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
+
+#: .\templates\core\about.html:349
+msgid "Assurances"
+msgstr ""
+
+#: .\templates\core\about.html:356
+msgid "Une protection fiable pour"
+msgstr ""
+
+#: .\templates\core\about.html:356
+msgid "nos activités et vos projets"
+msgstr ""
+
+#: .\templates\core\about.html:359
+msgid ""
+"Nos couvertures d’assurance contribuent à garantir des interventions "
+"réalisées avec responsabilité, sécurité et professionnalisme."
+msgstr ""
+
+#: .\templates\core\about.html:399 .\templates\core\about.html:578
+#: .\templates\core\about.html:793 .\templates\projects\project_detail.html:656
+#: .\templates\services\service_list.html:367
+#, fuzzy
+#| msgid "Fermer le menu"
+msgid "Fermer"
+msgstr "Fermer le menu"
+
+#: .\templates\core\about.html:425 .\templates\core\about.html:604
+msgid "Document"
+msgstr ""
+
+#: .\templates\core\about.html:439 .\templates\core\about.html:618
+msgid "Voir le PDF"
+msgstr ""
+
+#: .\templates\core\about.html:445 .\templates\core\about.html:624
+msgid "Visiter le site officiel"
+msgstr ""
+
+#: .\templates\core\about.html:500
+msgid "Certifications"
+msgstr "Certifications"
+
+#: .\templates\core\about.html:507
+#, fuzzy
+#| msgid "Nos clients témoignent"
+msgid "Des certifications qui témoignent de"
+msgstr "Nos clients témoignent"
+
+#: .\templates\core\about.html:508
+msgid "notre qualité et notre"
+msgstr ""
+
+#: .\templates\core\about.html:508
+#, fuzzy
+#| msgid "notre engagement"
+msgid "engagement"
+msgstr "notre engagement"
+
+#: .\templates\core\about.html:511
+msgid ""
+"Découvrez les certifications et accréditations qui soutiennent notre "
+"engagement envers la qualité, la sécurité et le professionnalisme."
+msgstr ""
+
+#: .\templates\core\about.html:595
+msgid "Organisme émetteur"
+msgstr ""
+
+#: .\templates\core\about.html:681
+msgid "réalisés"
+msgstr "réalisés"
+
+#: .\templates\core\about.html:682
+msgid ""
+"Découvrez une sélection de projets de rénovation, d’isolation, de façades et "
+"de travaux intérieurs réalisés par V&V Swiss Services."
+msgstr ""
+"Découvrez une sélection de projets de rénovation, d’isolation, de façades et "
+"de travaux intérieurs réalisés par V&V Swiss Services."
+
+#: .\templates\core\about.html:727
+msgid "Notre positionnement"
+msgstr "Notre positionnement"
+
+#: .\templates\core\about.html:731
+msgid "dans le bâtiment en Suisse"
+msgstr "dans le bâtiment en Suisse"
+
+#: .\templates\core\about.html:734
+msgid ""
+"Nous associons le savoir-faire technique d’une grande entreprise à la "
+"proximité, la réactivité et la flexibilité d’un spécialiste local."
+msgstr ""
+"Nous associons le savoir-faire technique d’une grande entreprise à la "
+"proximité, la réactivité et la flexibilité d’un spécialiste local."
+
+#: .\templates\core\about.html:750 .\templates\projects\project_detail.html:600
+#: .\templates\services\service_detail.html:348
+#: .\templates\services\service_detail.html:375
+#: .\templates\services\service_detail.html:402
+#: .\templates\services\service_detail.html:429
+#: .\templates\services\service_list.html:325
+#, fuzzy
+#| msgid "Envoyer ma demande"
+msgid "Envoyer un message"
+msgstr "Envoyer ma demande"
+
+#: .\templates\core\about.html:797 .\templates\projects\project_detail.html:663
+#: .\templates\services\service_list.html:371
+msgid ""
+"Décrivez votre projet et notre équipe vous contactera pour étudier vos "
+"besoins et vous proposer une solution adaptée."
+msgstr ""
+
+#: .\templates\core\home.html:6
+msgid "Rénovation et travaux du bâtiment"
+msgstr ""
+
+#: .\templates\core\home.html:7
+#, fuzzy
+#| msgid ""
+#| "Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+#| "maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+#| "canton de Vaud."
+msgid ""
+"V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, "
+"maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse "
+"romande."
+msgstr ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+
+#: .\templates\core\home.html:44
+#, fuzzy
+#| msgid "Solutions"
+msgid "Solutions pour"
+msgstr "Solutions"
+
+#: .\templates\core\home.html:52
+msgid ""
+"Une solution professionnelle adaptée à votre bâtiment et aux besoins de "
+"votre projet."
+msgstr ""
+
+#: .\templates\core\home.html:63
+msgid "Découvrir cette catégorie"
+msgstr ""
+
+#: .\templates\core\home.html:72
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Voir nos services"
+msgstr "Tous les services"
+
+#: .\templates\core\home.html:160
+#, fuzzy
+#| msgid "Des solutions durables"
+msgid "Des solutions adaptées"
+msgstr "Des solutions durables"
+
+#: .\templates\core\home.html:162
+#, fuzzy
+#| msgid "Vous avez un projet ?"
+msgid "à tous vos projets"
+msgstr "Vous avez un projet ?"
+
+#: .\templates\core\home.html:167
+msgid ""
+"Découvrez l’ensemble de nos services pour la rénovation, l’amélioration, la "
+"protection et l’entretien de votre bien."
+msgstr ""
+
+#: .\templates\core\home.html:283
+#, fuzzy
+#| msgid "Nos domaines d’intervention seront bientôt disponibles."
+msgid "Nos catégories de services seront prochainement disponibles."
+msgstr "Nos domaines d’intervention seront bientôt disponibles."
+
+#: .\templates\core\home.html:303
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Voir tous nos services"
+msgstr "Tous les services"
+
+#: .\templates\core\home.html:333
+#, fuzzy
+#| msgid "Une présence en Suisse romande"
+msgid "Rénovation et isolation en Suisse romande"
+msgstr "Une présence en Suisse romande"
+
+#: .\templates\core\home.html:337
+msgid "Ans"
+msgstr ""
+
+#: .\templates\core\home.html:337
+#, fuzzy
+#| msgid "Plus de 20 ans d’expérience"
+msgid "d’expérience"
+msgstr "Plus de 20 ans d’expérience"
+
+#: .\templates\core\home.html:346
+#, fuzzy
+#| msgid "Renovation"
+msgid "Rénovation et"
+msgstr "Rénovation"
+
+#: .\templates\core\home.html:346
+#, fuzzy
+#| msgid "Solutions"
+msgid "isolation,"
+msgstr "Solutions"
+
+#: .\templates\core\home.html:348
+msgid ""
+"Nous croyons qu’une rénovation réussie repose sur un travail soigné, une "
+"organisation claire et des solutions adaptées à chaque bâtiment. Notre "
+"mission est d’accompagner chaque projet avec sérieux, proximité et "
+"précision, de la première analyse jusqu’aux finitions."
+msgstr ""
+
+#: .\templates\core\home.html:352
+msgid "Rénovation complète"
+msgstr ""
+
+#: .\templates\core\home.html:353
+msgid "Un interlocuteur unique pour coordonner"
+msgstr ""
+
+#: .\templates\core\home.html:353
+#, fuzzy
+#| msgid "Parler de votre projet"
+msgid "les différents travaux de votre projet"
+msgstr "Parler de votre projet"
+
+#: .\templates\core\home.html:356
+#, fuzzy
+#| msgid "Des solutions techniques"
+msgid "Solutions énergétiques"
+msgstr "Des solutions techniques"
+
+#: .\templates\core\home.html:357
+msgid "Des solutions d’isolation adaptées pour"
+msgstr ""
+
+#: .\templates\core\home.html:357
+msgid "améliorer confort et efficacité énergétique"
+msgstr ""
+
+#: .\templates\core\home.html:436
+#, fuzzy
+#| msgid "Notre vision"
+msgid "Notre savoir-faire"
+msgstr "Notre vision"
+
+#: .\templates\core\home.html:441
+#, fuzzy
+#| msgid "Des solutions durables"
+msgid "Des solutions complètes pour"
+msgstr "Des solutions durables"
+
+#: .\templates\core\home.html:441
+msgid "rénover, protéger"
+msgstr ""
+
+#: .\templates\core\home.html:441
+msgid "et valoriser votre bien."
+msgstr ""
+
+#: .\templates\core\home.html:450
+msgid ""
+"V&V Swiss Services intervient à chaque étape de votre projet avec des "
+"prestations complémentaires adaptées aux besoins du bâtiment. De la "
+"rénovation aux finitions, nous coordonnons les travaux pour garantir une "
+"réalisation cohérente, soignée et durable."
+msgstr ""
+
+#: .\templates\core\home.html:465
+msgid "Maçonnerie, isolation et plâtrerie"
+msgstr ""
+
+#: .\templates\core\home.html:476
+msgid "Peinture, finitions et entretien"
+msgstr ""
+
+#: .\templates\core\home.html:531
+#, fuzzy
+#| msgid "Nos réalisations"
+msgid "Notre dernière réalisation"
+msgstr "Nos réalisations"
+
+#: .\templates\core\home.html:543
+msgid "Découvrez la transformation"
+msgstr ""
+
+#: .\templates\core\home.html:544
+#, fuzzy
+#| msgid "Avant et après"
+msgid "avant et après"
+msgstr "Avant et après"
+
+#: .\templates\core\home.html:589
+#, fuzzy
+#| msgid "Réalisations"
+msgid "Réalisation"
+msgstr "Réalisations"
+
+#: .\templates\core\home.html:608 .\templates\projects\project_detail.html:187
+msgid "Avant"
+msgstr "Avant"
+
+#: .\templates\core\home.html:611 .\templates\projects\project_detail.html:193
+msgid "Après"
+msgstr "Après"
+
+#: .\templates\core\home.html:633
+#, fuzzy
+#| msgid "Décrivez votre projet"
+msgid "Découvrir le projet"
+msgstr "Décrivez votre projet"
+
+#: .\templates\core\home.html:646
+#, fuzzy
+#| msgid "Nos réalisations"
+msgid "Voir toutes nos réalisations"
+msgstr "Nos réalisations"
+
+#: .\templates\core\home.html:684
+msgid "Nos clients témoignent"
+msgstr "Nos clients témoignent"
+
+#: .\templates\core\home.html:692
+msgid "Découvrez ce que"
+msgstr ""
+
+#: .\templates\core\home.html:694
+msgid "nos clients"
+msgstr ""
+
+#: .\templates\core\home.html:695
+msgid "disent de nous"
+msgstr ""
+
+#: .\templates\core\home.html:734
+msgid "avis"
+msgstr ""
+
+#: .\templates\core\home.html:741
+msgid ""
+"La satisfaction de nos clients reflète notre engagement envers la qualité, "
+"la confiance et un service professionnel."
+msgstr ""
+
+#: .\templates\core\home.html:792
+#, fuzzy
+#| msgid "Nos projets seront bientôt disponibles."
+msgid "Les avis de nos clients seront prochainement disponibles."
+msgstr "Nos projets seront bientôt disponibles."
+
+#: .\templates\core\mentions_legales.html:19
+#: .\templates\core\mentions_legales.html:54
+#: .\templates\core\mentions_legales.html:65
+#: .\templates\core\mentions_legales.html:97
+#: .\templates\core\mentions_legales.html:135
+#: .\templates\includes\footer.html:214 .\templates\includes\header.html:155
+msgid "Mentions légales"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:32
+#: .\templates\core\mentions_legales.html:36
+msgid ""
+"Consultez les mentions légales et les informations juridiques de V&V Swiss "
+"Services en Suisse."
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:91
+#: .\templates\includes\header.html:150
+msgid "Informations légales"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:103
+msgid ""
+"Informations juridiques et réglementaires relatives au site internet de V&V "
+"Swiss Services."
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:152
+msgid "Éditeur du site"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:157
+#, fuzzy
+#| msgid "Entreprise"
+msgid "Entreprise :"
+msgstr "Entreprise"
+
+#: .\templates\core\mentions_legales.html:162
+msgid "Forme juridique :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:167
+#, fuzzy
+#| msgid "Adresse"
+msgid "Adresse :"
+msgstr "Adresse"
+
+#: .\templates\core\mentions_legales.html:176
+#, fuzzy
+#| msgid "Téléphone"
+msgid "Téléphone :"
+msgstr "Téléphone"
+
+#: .\templates\core\mentions_legales.html:180
+msgid "E-mail :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:184
+msgid "Numéro IDE / UID :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:188
+msgid "Numéro TVA :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:192
+msgid "Registre du commerce :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:196
+msgid "Représentant légal :"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:200
+#, fuzzy
+#| msgid "Solutions pour professionnels"
+msgid "Assurance professionnelle :"
+msgstr "Solutions pour professionnels"
+
+#: .\templates\core\mentions_legales.html:210
+msgid "Hébergement du site"
+msgstr ""
+
+#: .\templates\core\mentions_legales.html:239
+#: .\templates\core\protection_donnees.html:200
+msgid "Dernière mise à jour :"
+msgstr ""
+
+#: .\templates\core\professionals.html:8 .\templates\core\professionals.html:22
+#: .\templates\core\professionals.html:26 .\templates\includes\header.html:142
+msgid "Professionnels"
+msgstr "Professionnels"
+
+#: .\templates\core\professionals.html:12
+msgid ""
+"Solutions de rénovation, entretien et remise en état pour régies "
+"immobilières, administrateurs de PPE, entreprises et professionnels dans le "
+"canton de Vaud."
+msgstr ""
+"Solutions de rénovation, entretien et remise en état pour régies "
+"immobilières, administrateurs de PPE, entreprises et professionnels dans le "
+"canton de Vaud."
+
+#: .\templates\core\professionals.html:39
+msgid "Solutions pour professionnels"
+msgstr "Solutions pour professionnels"
+
+#: .\templates\core\professionals.html:40
+msgid "Un partenaire pour vos biens immobiliers et vos projets"
+msgstr "Un partenaire pour vos biens immobiliers et vos projets"
+
+#: .\templates\core\professionals.html:41
+msgid ""
+"V&V Swiss Services accompagne les régies immobilières, administrateurs de "
+"PPE, propriétaires, entreprises générales, constructeurs et autres "
+"professionnels pour leurs besoins d’entretien, de réparation et de "
+"rénovation."
+msgstr ""
+"V&V Swiss Services accompagne les régies immobilières, administrateurs de "
+"PPE, propriétaires, entreprises générales, constructeurs et autres "
+"professionnels pour leurs besoins d’entretien, de réparation et de "
+"rénovation."
+
+#: .\templates\core\protection_donnees.html:32
+#: .\templates\core\protection_donnees.html:36
+msgid ""
+"Informations relatives à la protection des données personnelles chez V&V "
+"Swiss Services."
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:96
+msgid "Vie privée"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:107
+msgid ""
+"Informations concernant la collecte, l’utilisation et la protection de vos "
+"données personnelles."
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:122
+msgid "Responsable du traitement"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:127
+msgid ""
+"Le responsable du traitement des données personnelles collectées par ce site "
+"est :"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:155
+#: .\templates\core\protection_donnees.html:157
+msgid "Contact pour la protection des données :"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:169
+msgid "Protection de vos données personnelles"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:170
+msgid ""
+"La déclaration relative à la protection des données de V&V Swiss Services "
+"sera prochainement disponible sur cette page."
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:178
+msgid "Hébergement et prestataires techniques"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:181
+msgid "Le site internet est hébergé auprès de :"
+msgstr ""
+
+#: .\templates\core\protection_donnees.html:189
+msgid "Pays d’hébergement :"
+msgstr ""
+
+#: .\templates\includes\footer.html:75
+#, fuzzy
+#| msgid "Solutions for insulation, façades and renovation."
+msgid "Solutions pour l’isolation, les façades et la rénovation."
+msgstr "Solutions pour l’isolation, les façades et la rénovation."
+
+#: .\templates\includes\footer.html:91
+msgid "Solutions"
+msgstr "Solutions"
+
+#: .\templates\includes\footer.html:92 .\templates\includes\header.html:126
+#: .\templates\projects\project_detail.html:105
+#: .\templates\projects\project_list.html:11
+#: .\templates\projects\project_list.html:51
+msgid "Réalisations"
+msgstr "Réalisations"
+
+#: .\templates\includes\footer.html:94
+msgid "Notre méthode"
+msgstr "Notre méthode"
+
+#: .\templates\includes\footer.html:95
+msgid "Actualités & conseils"
+msgstr ""
+
+#: .\templates\includes\footer.html:128
+#, fuzzy
+#| msgid "Des solutions techniques"
+msgid "Isolation thermique"
+msgstr "Des solutions techniques"
+
+#: .\templates\includes\footer.html:129
+msgid "Façades"
+msgstr "Façades"
+
+#: .\templates\includes\footer.html:130
+#, fuzzy
+#| msgid "Renovation"
+msgid "Rénovation"
+msgstr "Rénovation"
+
+#: .\templates\includes\footer.html:209
+#, fuzzy
+#| msgid "Tous les services"
+msgid "Tous droits réservés."
+msgstr "Tous les services"
+
+#: .\templates\includes\header.html:98
+msgid "Tous les services"
+msgstr "Tous les services"
+
+#: .\templates\includes\header.html:134
+msgid "À propos"
+msgstr "À propos"
+
+#: .\templates\includes\header.html:191
+msgid "Appelez-nous"
+msgstr "Appelez-nous"
+
+#: .\templates\includes\header.html:309
+#, fuzzy
+#| msgid "Ouvrir le menu"
+msgid "Ouvrir la recherche"
+msgstr "Ouvrir le menu"
+
+#: .\templates\includes\header.html:316
+msgid "Ouvrir le menu"
+msgstr "Ouvrir le menu"
+
+#: .\templates\includes\header.html:330
+msgid "Recherche sur le site"
+msgstr ""
+
+#: .\templates\includes\header.html:331
+msgid "Rechercher..."
+msgstr "Rechercher..."
+
+#: .\templates\includes\header.html:331
+msgid "Rechercher sur le site"
+msgstr ""
+
+#: .\templates\includes\header.html:333
+#, fuzzy
+#| msgid "Fermer le menu"
+msgid "Fermer la recherche"
+msgstr "Fermer le menu"
+
+#: .\templates\includes\header.html:342 .\templates\includes\header.html:500
+msgid "Fermer le menu"
+msgstr "Fermer le menu"
+
+#: .\templates\includes\header.html:377
+msgid ""
+"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+msgstr ""
+"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+
+#: .\templates\includes\header.html:391
+#, fuzzy
+#| msgid "projet de rénovation"
+msgid "Boîte de réception"
+msgstr "projet de rénovation"
+
+#: .\templates\includes\header.html:398
+msgid "Se déconnecter"
+msgstr ""
+
+#: .\templates\includes\header.html:424 .\templates\includes\header.html:527
+#, fuzzy
+#| msgid "Suisse romande"
+msgid "Suisse"
+msgstr "Suisse romande"
+
+#: .\templates\includes\header.html:455
+#, fuzzy
+#| msgid "Contactez-nous sur WhatsApp"
+msgid "Écrivez-nous sur WhatsApp"
+msgstr "Contactez-nous sur WhatsApp"
+
+#: .\templates\projects\project_detail.html:82
+msgid "Détails du projet"
+msgstr "Détails du projet"
+
+#: .\templates\projects\project_detail.html:171
+msgid "Avant et après"
+msgstr "Avant et après"
+
+#: .\templates\projects\project_detail.html:228
+msgid "Type de projet"
+msgstr "Type de projet"
+
+#: .\templates\projects\project_detail.html:252
+msgid "Type de bâtiment"
+msgstr "Type de bâtiment"
+
+#: .\templates\projects\project_detail.html:360
+msgid "Date"
+msgstr "Date"
+
+#: .\templates\projects\project_detail.html:434
+msgid "Le projet"
+msgstr "Le projet"
+
+#: .\templates\projects\project_detail.html:474
+msgid "Travaux réalisés"
+msgstr "Travaux réalisés"
+
+#: .\templates\projects\project_detail.html:537
+msgid "Galerie du projet"
+msgstr "Galerie du projet"
+
+#: .\templates\projects\project_detail.html:587
+msgid "Vous avez un projet similaire ?"
+msgstr "Vous avez un projet similaire ?"
+
+#: .\templates\projects\project_detail.html:591
+#, fuzzy
+#| msgid ""
+#| "Contactez VVswinss pour discuter de votre projet et identifier la "
+#| "solution adaptée à votre bâtiment."
+msgid ""
+"Contactez V&V Swiss Services pour discuter de votre projet et identifier la "
+"solution adaptée à votre bâtiment."
+msgstr ""
+"Contactez VVswinss pour discuter de votre projet et identifier la solution "
+"adaptée à votre bâtiment."
+
+#: .\templates\projects\project_detail.html:594
+msgid ""
+"Bonjour, je suis intéressé par un projet similaire et je souhaite recevoir "
+"davantage d’informations ainsi qu’un devis."
+msgstr ""
+
+#: .\templates\projects\project_detail.html:595
+#, fuzzy
+#| msgid "Vous avez un projet similaire ?"
+msgid "Demande concernant un projet similaire"
+msgstr "Vous avez un projet similaire ?"
+
+#: .\templates\projects\project_list.html:18
+#, fuzzy
+#| msgid ""
+#| "Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+#| "peinture et finition de V&V Swiss Services."
+msgid ""
+"Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture et travaux du bâtiment."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#: .\templates\projects\project_list.html:208
+msgid "Nos projets seront bientôt disponibles."
+msgstr "Nos projets seront bientôt disponibles."
+
+#: .\templates\services\service_detail.html:12
+msgid ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#: .\templates\services\service_detail.html:43
+msgid "Découvrir"
+msgstr ""
+
+#: .\templates\services\service_detail.html:43
+#, fuzzy
+#| msgid "Tous les services"
+msgid "le service"
+msgstr "Tous les services"
+
+#: .\templates\services\service_list.html:6
+#, fuzzy
+#| msgid ""
+#| "Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+#| "peinture et finition de V&V Swiss Services."
+msgid ""
+"Découvrez les services de rénovation intérieure et extérieure, isolation "
+"thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de "
+"chantier et entretien immobilier de V&V Swiss Services."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#: .\templates\services\service_list.html:38
+#, fuzzy
+#| msgid ""
+#| "Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+#| "maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+#| "canton de Vaud."
+msgid ""
+"Découvrez nos prestations de rénovation intérieure et extérieure, isolation "
+"thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de "
+"chantier et entretien immobilier."
+msgstr ""
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
+"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
+"canton de Vaud."
+
+#: .\templates\services\service_list.html:128
+msgid "UN PROJET À RÉALISER ?"
+msgstr ""
+
+#: .\templates\services\service_list.html:131
+#, fuzzy
+#| msgid "Parlons de votre"
+msgid "Parlons de vos"
+msgstr "Parlons de votre"
+
+#: .\templates\services\service_list.html:132
+msgid "travaux et de vos"
+msgstr ""
+
+#: .\templates\services\service_list.html:132
+msgid "besoins"
+msgstr ""
+
+#: .\templates\services\service_list.html:137
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "Demander"
+msgstr "Demander un devis"
+
+#: .\templates\services\service_list.html:137
+#, fuzzy
+#| msgid "Demander un devis"
+msgid "un devis"
+msgstr "Demander un devis"
+
+#: .\templates\services\service_list.html:157
+#, fuzzy
+#| msgid "Service souhaité"
+msgid "Services spécialisés"
+msgstr "Service souhaité"
+
+#: .\templates\services\service_list.html:160
+msgid ""
+"Des prestations complémentaires pour répondre aux besoins de rénovation, "
+"d’entretien et de finition."
+msgstr ""
+
+#: .\templates\services\service_list.html:174
+#, fuzzy
+#| msgid "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+msgid "Une expérience de plus de 20 ans dans le secteur du bâtiment en Suisse."
+msgstr "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse"
+
+#: .\templates\services\service_list.html:202
+msgid ""
+"Un site et un accompagnement accessibles en français, allemand, italien et "
+"anglais."
+msgstr ""
+
+#: .\templates\services\service_list.html:221
+#: .\templates\services\service_list.html:223
+msgid "Savoir-faire V&V Swiss Services"
+msgstr ""
+
+#: .\templates\services\service_list.html:234
+msgid "Notre manière de travailler"
+msgstr ""
+
+#: .\templates\services\service_list.html:237
+msgid "Un accompagnement"
+msgstr "Un accompagnement"
+
+#: .\templates\services\service_list.html:238
+msgid "clair, soigné et"
+msgstr ""
+
+#: .\templates\services\service_list.html:238
+#, fuzzy
+#| msgid "Décrivez votre projet"
+msgid "adapté à votre projet"
+msgstr "Décrivez votre projet"
+
+#: .\templates\services\service_list.html:253
+msgid "engagements essentiels"
+msgstr ""
+
+#: .\templates\services\service_list.html:258
+msgid ""
+"Écoute, qualité, transparence, réactivité et soin des finitions guident "
+"notre approche sur chaque intervention."
+msgstr ""
+
+#: .\templates\services\service_list.html:267
+msgid ""
+"Nous analysons vos besoins, proposons une solution adaptée et suivons les "
+"travaux avec attention afin d’assurer une réalisation cohérente, durable et "
+"soignée."
+msgstr ""
+
+#: .\templates\services\service_list.html:279
+#, fuzzy
+#| msgid "pour votre bâtiment"
+msgid "Rénovation & bâtiment"
+msgstr "pour votre bâtiment"
+
+#: .\templates\services\service_list.html:301
+#, fuzzy
+#| msgid "projet de rénovation"
+msgid "Projet de rénovation"
+msgstr "projet de rénovation"
+
+#: .\templates\services\service_list.html:307
+msgid "Besoin d’un conseil ?"
+msgstr ""
+
+#: .\templates\services\service_list.html:310
+#, fuzzy
+#| msgid "Appelez-nous"
+msgid "Parlez-nous de"
+msgstr "Appelez-nous"
+
+#: .\templates\services\service_list.html:311
+#, fuzzy
+#| msgid "Votre projet"
+msgid "votre projet et de"
+msgstr "Votre projet"
+
+#: .\templates\services\service_list.html:311
+msgid "vos besoins"
+msgstr ""
+
+#: .\templates\services\service_list.html:314
+#, fuzzy
+#| msgid ""
+#| "Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+#| "peinture et finition de V&V Swiss Services."
+msgid ""
+"Présentez-nous votre projet de rénovation, d’isolation, de maçonnerie, de "
+"plâtrerie, de peinture, de finition ou d’entretien immobilier."
+msgstr ""
+"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture et finition de V&V Swiss Services."
+
+#~ msgid "V&V Swiss Services - Rénovation et construction"
+#~ msgstr "V&V Swiss Services - Rénovation et construction"
+
+#~ msgid "Nom complet"
+#~ msgstr "Nom complet"
+
+#~ msgid "Votre nom et prénom"
+#~ msgstr "Votre nom et prénom"
+
+#~ msgid "Votre numéro de téléphone"
+#~ msgstr "Votre numéro de téléphone"
+
+#~ msgid "Adresse e-mail"
+#~ msgstr "Adresse e-mail"
+
+#~ msgid "Sélectionnez un service"
+#~ msgstr "Sélectionnez un service"
+
+#~ msgid "Décrivez brièvement les travaux que vous souhaitez réaliser..."
+#~ msgstr "Décrivez brièvement les travaux que vous souhaitez réaliser..."
+
+#~ msgid "Thank you"
+#~ msgstr "Merci"
+
+#~ msgid "Thank you for your request"
+#~ msgstr "Merci pour votre demande"
+
+#~ msgid "Your request has been successfully received."
+#~ msgstr "Votre demande a bien été reçue."
+
+#~ msgid "Back to home"
+#~ msgstr "Retour à l’accueil"
+
+#~ msgid ""
+#~ "Développer une présence reconnue dans la rénovation et l’isolation en "
+#~ "Suisse romande."
+#~ msgstr ""
+#~ "Développer une présence reconnue dans la rénovation et l’isolation en "
+#~ "Suisse romande."
+
+#~ msgid "Qualité des finitions"
+#~ msgstr "Qualité des finitions"
+
+#~ msgid ""
+#~ "Être reconnus pour des réalisations soignées, durables et conformes aux "
+#~ "exigences de qualité suisses."
+#~ msgstr ""
+#~ "Être reconnus pour des réalisations soignées, durables et conformes aux "
+#~ "exigences de qualité suisses."
+
+#~ msgid ""
+#~ "Construire des relations durables grâce à la proximité, à la transparence "
+#~ "et au respect de nos engagements."
+#~ msgstr ""
+#~ "Construire des relations durables grâce à la proximité, à la transparence "
+#~ "et au respect de nos engagements."
+
+#~ msgid "Building solutions in Switzerland"
+#~ msgstr "Solutions pour le bâtiment en Suisse"
+
+#~ msgid "Insulation, façades and renovation"
+#~ msgstr "Isolation, façades et rénovation"
+
+#~ msgid "Request a quote"
+#~ msgstr "Demander un devis"
+
+#~ msgid "Energy efficiency and protection"
+#~ msgstr "Efficacité énergétique et protection"
+
+#~ msgid "Solutions designed for your building"
+#~ msgstr "Des solutions conçues pour votre bâtiment"
+
+#~ msgid "Discover our solutions"
+#~ msgstr "Découvrir nos solutions"
+
+#~ msgid "À propos de VVswinss"
+#~ msgstr "À propos de VVswinss"
+
+#~ msgid "Solutions adaptées à chaque bâtiment"
+#~ msgstr "Solutions adaptées à chaque bâtiment"
+
+#~ msgid "Amélioration du confort thermique"
+#~ msgstr "Amélioration du confort thermique"
+
+#~ msgid "Accompagnement personnalisé"
+#~ msgstr "Accompagnement personnalisé"
+
+#~ msgid "Notre expertise"
+#~ msgstr "Notre expertise"
+
+#~ msgid "pour protéger et améliorer votre bâtiment"
+#~ msgstr "pour protéger et améliorer votre bâtiment"
+
+#~ msgid "Company"
+#~ msgstr "Entreprise"
+
+#~ msgid "Our Method"
+#~ msgstr "Notre méthode"
+
+#~ msgid "Thermal insulation"
+#~ msgstr "Isolation thermique"
+
+#~ msgid "All rights reserved."
+#~ msgstr "Tous droits réservés."
+
+#~ msgid ""
+#~ "Discover VVswinss projects in insulation, façades and building renovation."
+#~ msgstr ""
+#~ "Découvrez les projets VVswinss dans les domaines de l’isolation, des "
+#~ "façades et de la rénovation des bâtiments."
+
+#~ msgid "Send request"
+#~ msgstr "Envoyer la demande"
+
+#~| msgid "Certifications et références"
+#~ msgid "Devenir une référence"
+#~ msgstr "Certifications et références"
+
+#~ msgid "Des références qui soutiennent"
+#~ msgstr "Des références qui soutiennent"
+
+#~ msgid "au cœur de notre travail"
+#~ msgstr "au cœur de notre travail"
+
+#~ msgid "Call us"
+#~ msgstr "Appelez-nous"
+
+#~ msgid "Search..."
+#~ msgstr "Rechercher..."
+
+#~ msgid "Building solutions for insulation, façades and renovation."
+#~ msgstr ""
+#~ "Solutions pour le bâtiment, l’isolation, les façades et la rénovation."
+
+#~ msgid ""
+#~ "Discover VVswinss and our approach to insulation, façades and building "
+#~ "renovation."
+#~ msgstr ""
+#~ "Découvrez VVswinss et notre approche de l’isolation, des façades et de la "
+#~ "rénovation des bâtiments."
+
+#~ msgid "pour protéger et améliorer"
+#~ msgstr "pour protéger et améliorer"
+
+#~ msgid ""
+#~ "VVswinss propose des solutions dans les domaines de l’isolation, des "
+#~ "façades et de la rénovation des bâtiments, avec une approche orientée "
+#~ "vers la protection, le confort et la performance énergétique."
+#~ msgstr ""
+#~ "VVswinss propose des solutions dans les domaines de l’isolation, des "
+#~ "façades et de la rénovation des bâtiments, avec une approche orientée "
+#~ "vers la protection, le confort et la performance énergétique."
+
+#~ msgid "structuré à chaque étape"
+#~ msgstr "structuré à chaque étape"
+
+#~ msgid ""
+#~ "Contactez VVswinss pour discuter de vos besoins en isolation, façades ou "
+#~ "rénovation et obtenir une première orientation pour votre projet."
+#~ msgstr ""
+#~ "Contactez VVswinss pour discuter de vos besoins en isolation, façades ou "
+#~ "rénovation et obtenir une première orientation pour votre projet."

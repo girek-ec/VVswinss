@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+<!-- ============================================================
+     SEO · PAGE TITLE
+============================================================ -->
+{% block title %}{{ contact_request.name }} | V&V Swiss Services{% endblock %}
+{% block content %}
+<!-- ============================================================
+     SECTION 01 · DÉTAIL DE LA DEMANDE
+============================================================ -->
+<section class="pt-150 pb-150">
+    <div class="container">
+        <!-- =================================================
+             BACK TO INBOX
+        ================================================== -->
+        <div class="mb-30">
+            <a href="{% url 'contact:inbox' %}">← {% trans "Retour à la boîte de réception" %}</a>
+        </div>
+        <!-- =================================================
+             REQUEST HEADER
+        ================================================== -->
+        <div class="row mb-50">
+            <div class="col-lg-8">
+                <small>{{ contact_request.get_status_display }}</small>
+                <h1>{{ contact_request.name }}</h1>
+                <p>{% trans "Demande reçue le" %} {{ contact_request.created_at|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- =================================================
+                 LEFT COLUMN · REQUEST INFORMATION
+            ================================================== -->
+            <div class="col-lg-8">
+                <!-- =============================================
+                     CLIENT
+                ============================================== -->
+                <div class="bg-white rounded-4 shadow-sm p-4 mb-30">
+                    <h3 class="mb-30">{% trans "Client" %}</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <strong>{% trans "Nom" %}</strong>
+                            <div>{{ contact_request.name }}</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>{% trans "Entreprise" %}</strong>
+                            <div>{{ contact_request.company|default:"—" }}</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>{% trans "Téléphone" %}</strong>
+                            <div><a href="tel:{{ contact_request.phone }}">{{ contact_request.phone }}</a></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <strong>{% trans "E-mail" %}</strong>
+                            <div><a href="mailto:{{ contact_request.email }}">{{ contact_request.email }}</a></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- =============================================
+                     PROJECT
+                ============================================== -->
+                <div class="bg-white rounded-4 shadow-sm p-4 mb-30">
+                    <h3 class="mb-30">{% trans "Projet" %}</h3>
+                    <p>
+                        <strong>{% trans "Service" %}</strong><br>
+                        {{ localized_service_name|default:"—" }}
+                    </p>
+                    <p>
+                        <strong>{% trans "Lieu" %}</strong><br>
+                        {{ contact_request.project_location|default:"—" }}
+                    </p>
+                    <p>
+                        <strong>{% trans "Description" %}</strong><br>
+                        {{ contact_request.message|linebreaksbr }}
+                    </p>
+                </div>
+                <!-- =============================================
+                     ATTACHMENTS
+                ============================================== -->
+                {% if contact_request.attachments.all %}
+                    <div class="bg-white rounded-4 shadow-sm p-4 mb-30">
+                        <h3 class="mb-30">{% trans "Photographies" %}</h3>
+                        <div class="row g-3">
+                            {% for attachment in contact_request.attachments.all %}
+                                <div class="col-md-4">
+                                    <a href="{{ attachment.file.url }}" target="_blank" rel="noopener">
+                                        <img src="{{ attachment.file.url }}" alt="" class="img-fluid rounded-3">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <!-- =============================================
+                     TECHNICAL VISIT
+                ============================================== -->
+                {% if contact_request.request_visit %}
+                    <div class="bg-white rounded-4 shadow-sm p-4">
+                        <h3 class="mb-30">{% trans "Visite technique" %}</h3>
+                        <p><strong>{% trans "Date demandée :" %}</strong> {{ contact_request.preferred_date|date:"d/m/Y" }}</p>
+                        <p>
+                            <strong>{% trans "Heure :" %}</strong>
+                            {% if contact_request.preferred_time %}
+                                {{ contact_request.preferred_time|time:"H:i" }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- =================================================
+                 RIGHT COLUMN · MANAGEMENT
+            ================================================== -->
+            <div class="col-lg-4">
+                <div class="bg-white rounded-4 shadow-sm p-4">
+                    <h3 class="mb-30">{% trans "Gestion" %}</h3>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- =============================================
+                         MANAGEMENT FORM
+                    ============================================== -->
+                    <form method="post" action="{% url 'contact:inbox_update' contact_request.pk %}">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="form-label">{% trans "État" %}</label>
+                            <select name="status" class="form-control">
+                                {% for value, label in status_choices %}
+                                    <option value="{{ value }}" {% if contact_request.status == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">{% trans "Notes internes" %}</label>
+                            <textarea name="internal_notes" class="form-control" rows="8" placeholder="{% trans 'Observations internes...' %}">{{ contact_request.internal_notes }}</textarea>
+                        </div>
+                        <button type="submit" class="tl-primary-btn">
+                            {% trans "Enregistrer les modifications" %}
+                            <span class="icon"><i class="fa-regular fa-arrow-right"></i></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,828 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load i18n_fields %}
+{% block title %}{% if about_page %}{{ about_page|localized:"title" }} | V&V Swiss Services{% else %}{% trans "Entreprise" %} | V&V Swiss Services{% endif %}{% endblock %}
+{% block meta_description %}{% if about_page %}{{ about_page|localized:"meta_description" }}{% else %}{% trans "Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation et des travaux du bâtiment en Suisse romande." %}{% endif %}{% endblock %}
+{% block content %}
+<!-- ============================================================
+     SECTION 01 · PAGE HEADER
+============================================================ -->
+<section class="page-header">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="page-header-content">
+            <h1 class="title">
+                {% if about_page %}
+                {{ about_page|localized:"title" }}
+                {% else %}
+                {% trans "Notre entreprise" %}
+                {% endif %}
+            </h1>
+            <h4 class="sub-title">
+                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
+                <span class="icon">-</span>
+                <span class="inner-page">{% trans "Entreprise" %}</span>
+            </h4>
+        </div>
+    </div>
+</section>
+<!-- ./ page-header -->
+<!-- ============================================================
+     SECTION 02 · ABOUT / PRESENTATION
+============================================================ -->
+<section class="about-section-2 pt-130 pb-130">
+    <div class="shape-1">
+        <img src="{% static 'antra/assets/img/shapes/about-shape-1.png' %}" alt="">
+    </div>
+    <div class="container container-2">
+        <div class="row about-wrap-2">
+            <div class="col-lg-8">
+                <div class="about-content-left">
+                    <div class="section-heading">
+                        {% if about_content %}
+                        <h2 class="section-title title-2 ">{{ about_content|localized:"intro_title" }}</h2>
+                        {% else %}
+                        <h2 class="section-title title-2">{% trans "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse" %}</h2>
+                        {% endif %}
+                    </div>
+                    <div class="about-counter-wrap">
+                        {% if hero_statistic %}
+                        <div class="counter-content">
+                            <h3 class="title">
+                                <span class="odometer" data-count="{{ hero_statistic.value }}">0</span>
+                            </h3>
+                            <p>{{ hero_statistic|localized:"title" }}</p>
+                        </div>
+                        {% endif %}
+                        <div class="counter-img">
+                            <img src="{% static 'antra/assets/img/images/about-img-2.png' %}" alt="V&V Swiss Services">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-center">
+                <div class="about-content-right w-100">
+                    <div class="about-desc">
+                        <div class="section-heading mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">V&V Swiss Services</h4>
+                            <h2 class="section-title cursor-effect title-2"><span>{% trans "Entreprise" %}</span></h2>
+                            {% if about_content %}
+                            {{ about_content|localized:"intro_text"|linebreaks }}
+                            {% endif %}
+                        </div>
+                        {% trans "Bonjour, je souhaite recevoir plus d’informations sur vos services et demander un devis pour mon projet de rénovation." as whatsapp_text %}
+                        {% trans "Demander des informations" as whatsapp_button %}
+                        {% if site_configuration and site_configuration.whatsapp %}
+                        <div class="about-btn mt-30">
+<a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}" class="tl-primary-btn" target="_blank" rel="noopener noreferrer">
+                                {{ whatsapp_button }}
+                                <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ about-section -->
+<!-- ============================================================
+     SECTION 03 · TEAM
+============================================================ -->
+{% if team_members %}
+<section class="team-section-7 bg-grey pt-130 pb-130 fade-wrapper">
+    <div class="container container-2">
+        <!-- =================================================
+             HEADING
+        ================================================== -->
+        <div class="row section-heading-wrap ml-0 mw-100 fade-top">
+            <div class="shape">
+<img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="{% trans 'Décoration' %}" >
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03" >
+                        {% trans "Notre équipe" %}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Des professionnels" %}
+                        <span>
+                                {% trans "à votre service" %}
+                            </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- =================================================
+             SECTION 03 · TEAM MEMBERS
+        ================================================== -->
+        <div class="row gy-lg-0 gy-5 fade-wrapper">
+            {% for member in team_members %}
+            <div class="col-lg-3 col-md-6 fade-top">
+                <div class="team-item-7">
+                    <!-- =====================================
+                         PHOTO
+                    ====================================== -->
+                    <div class="team-thumb">
+                        {% if member.photo %}
+<img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" >
+                        {% else %}
+<img src="{% static 'antra/assets/img/team/team-img-1.png' %}" alt="{{ member.name }}" loading="lazy" >
+                        {% endif %}
+                        <!-- =================================
+                             CONTACT ACTIONS
+                        ================================== -->
+                        {% if member.email or member.phone %}
+                        <ul class="team-social">
+                            {% if member.email %}
+                            <li>
+<a href="mailto:{{ member.email }}" aria-label="{% trans 'Envoyer un e-mail à' %} {{ member.name }}" title="{% trans 'E-mail' %}" >
+                                    <i class="fa-regular fa-envelope"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if member.phone %}
+                            <li>
+<a href="tel:{{ member.phone }}" aria-label="{% trans 'Appeler' %} {{ member.name }}" title="{% trans 'Téléphone' %}" >
+                                    <i class="fa-regular fa-phone"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <!-- =====================================
+                         CONTENT
+                    ====================================== -->
+                    <div class="team-content text-center">
+                        <h3 class="title">
+                            {{ member.name }}
+                        </h3>
+                        {% with position=member|localized:"position" %}
+                        {% if position %}
+                        <span>
+                                            {{ position }}
+                                        </span>
+                        {% endif %}
+                        {% endwith %}
+                        {% with biography=member|localized:"biography" %}
+                        {% if biography %}
+                        <p class="team-biography mt-15">
+                            {{ biography|truncatewords:22 }}
+                        </p>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ============================================================
+     SECTION 04 · VIDEO AREA
+============================================================ -->
+<div class="video-area-wrap">
+    <div class="video-bg" data-background="{% static 'antra/assets/img/bg-img/video-bg-3.png' %}"></div>
+    <div class="play-btn">
+<a class="video-popup venobox" data-autoplay="true" data-vbtype="video" href="https://youtu.be/JwC-Qx1lJso">play</a>
+    </div>
+</div>
+<!-- ./ video-section -->
+<!-- ============================================================
+     SECTION 05 · MISSION
+============================================================ -->
+{% if about_content %}
+<section class="about-section-3 pt-130 pb-130 overflow-hidden tl-bg-color">
+    <div class="shape-1">
+        <img src="{% static 'antra/assets/img/shapes/about-shape-2.png' %}" alt="">
+    </div>
+    <div class="container container-2">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="about-img-wrap-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
+                    <div class="about-img-1">
+                        {% if about_content.mission_image %}
+                        <img src="{{ about_content.mission_image.url }}" alt="{% trans 'Notre mission' %}">
+                        {% else %}
+<img src="{% static 'antra/assets/img/images/about-img-4.png' %}" alt="{% trans 'Notre mission' %}">
+                        {% endif %}
+                    </div>
+                    <div class="about-img-2">
+                        {% if about_content.mission_image_secondary %}
+                        <img src="{{ about_content.mission_image_secondary.url }}" alt="V&V Swiss Services">
+                        {% else %}
+                        <img src="{% static 'antra/assets/img/images/about-img-5.png' %}" alt="V&V Swiss Services">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+                    <div class="section-heading mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">V&V Swiss Services</h4>
+                        <h2 class="section-title cursor-effect title-2"><span>{% trans "Notre mission" %}</span></h2>
+                        <p>{{ about_content|localized:"mission" }}</p>
+                    </div>
+                    <div class="about-items">
+                        <div class="about-item">
+                            <h3 class="title">{% trans "Qualité suisse" %}</h3>
+                            <p>{% trans "Des travaux soignés et des finitions réalisées avec exigence." %}</p>
+                        </div>
+                        <div class="about-item">
+                            <h3 class="title">{% trans "Proximité et confiance" %}</h3>
+                            <p>{% trans "Un accompagnement clair, personnalisé et adapté à chaque projet." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ./ mission-section -->
+<!-- ============================================================
+     SECTION 06 · VISION
+============================================================ -->
+{% if about_content %}
+<section class="service-section-3 pt-130 pb-130 overflow-hidden">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/service-bg-1.png' %}"></div>
+    <div class="container container-2">
+        <div class="row justify-content-between align-items-center fade-wrapper">
+            <div class="col-lg-5">
+                <div class="service-left-content-3 white-content fade-top">
+                    <div class="section-heading white-content mb-30">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">V&V Swiss Services</h4>
+                        <h2 class="section-title cursor-effect title-2"><span>{% trans "Notre vision" %}</span></h2>
+                        <div class="desc mt-40 mb-50">
+                            <p>{{ about_content|localized:"vision" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+  <div class="skill-img slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+                    <img src="{% static 'antra/assets/img/images/skill-img-1.png' %}" alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ./ vision-section -->
+<!-- ============================================================
+     SECTION 07 · COMPANY VALUES
+============================================================ -->
+{% if company_values %}
+<!-- ============================================================
+     SECTION 07A · VALUES HEADING
+============================================================ -->
+<section class="newsletter-section bg-white pt-130  overflow-hidden">
+    <div class="bg-shape">
+        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="">
+    </div>
+    <div class="container">
+        <div class="newsletter-wrap">
+            <div class="section-heading text-center">
+                <h2 class="section-title">{% trans "Nos" %} <span>{% trans "valeurs" %}</span></h2>
+                <p>{% trans "Décrivez-nous votre projet et recevez une première réponse sous 48 h." %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ final-cta -->
+<section class="banner-process-area overflow-hidden">
+    <div class="service-carousel-wrap">
+        <div class="banner-process-carousel">
+            <!-- VALORES -->
+            <div class="swiper-wrapper antra-swiper-wrapper">
+                {% for value in company_values %}
+                <div class="swiper-slide elementor-banner-process-item">
+                    <div class="banner-process-caption">
+                        <span class="number">{{ forloop.counter|stringformat:"02d" }}</span>
+                        <h3 class="banner-process-title">{{ value|localized:"title" }}</h3>
+                        <div class="banner-process-content">
+                            {{ value|localized:"description" }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- IMÁGENES DE LOS VALORES -->
+            <div class="banner-process-image-list">
+                {% for value in company_values %}
+                <div class="banner-process-img">
+                    <div class="process-img">
+                        {% if value.image %}
+                        <img src="{{ value.image.url }}" alt="{{ value|localized:'title' }}">
+                        {% else %}
+<img src="{% static 'antra/assets/img/bg-img/banner-process-1.png' %}" alt="{{ value|localized:'title' }}">
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ./ company-values-section -->
+{% if insurances %}
+<section class="service-section pt-150 pb-110 overflow-hidden tl-bg-color fade-wrapper">
+    <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/service-bg-shape-1.png' %}"></div>
+    <div class="container">
+        <div class="row section-heading-wrap fade-top">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="shape">
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                        {% trans "Assurances" %}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect">
+                        {% trans "Une protection fiable pour" %} <span>{% trans "nos activités et vos projets" %}</span>
+                    </h2>
+                    <p class="mb-0">
+                        {% trans "Nos couvertures d’assurance contribuent à garantir des interventions réalisées avec responsabilité, sécurité et professionnalisme." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-xl-0 gy-4">
+            {% for insurance in insurances %}
+            <div class="col-xl-3 col-lg-6 col-md-12">
+<div class="service-item insurance-item slide-anim" data-delay="0.3" data-offset="100" {% cycle 'data-direction="left"' 'data-direction="bottom"' 'data-direction="bottom"' 'data-direction="right"' %}>
+                <div class="service-top insurance-service-top">
+                    <div class="icon insurance-image">
+                        {% if insurance.image %}
+                        <img src="{{ insurance.image.url }}" alt="{{ insurance|localized:'name' }}">
+                        {% else %}
+<img src="{% static 'antra/assets/img/icon/service-icon-1.png' %}" alt="{{ insurance|localized:'name' }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="insurance-button-wrap">
+<button type="button" class="tl-primary-btn insurance-btn" data-bs-toggle="modal" data-bs-target="#insuranceModal{{ insurance.id }}">
+                        <span class="insurance-btn-text">{{ insurance|localized:"name" }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</section>
+<!-- ============================================================
+     ASSURANCES · MODALS
+============================================================ -->
+{% for insurance in insurances %}
+<div class="modal fade insurance-modal" id="insuranceModal{{ insurance.id }}" tabindex="-1" aria-labelledby="insuranceModalLabel{{ insurance.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="insuranceModalLabel{{ insurance.id }}">
+                    {{ insurance|localized:"name" }}
+                </h3>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
+            </div>
+            <div class="modal-body">
+                <!-- =================================================
+                     IMAGE
+                ================================================== -->
+                {% if insurance.image %}
+                <div class="insurance-modal-image">
+                    <img src="{{ insurance.image.url }}" alt="{{ insurance|localized:'name' }}">
+                </div>
+                {% endif %}
+                <!-- =================================================
+                     DESCRIPTION
+                ================================================== -->
+                {% with insurance_description=insurance|localized:"description" %}
+                {% if insurance_description %}
+                <div class="insurance-modal-description">
+                    <p>{{ insurance_description|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+                {% endwith %}
+                <!-- =================================================
+                     PDF
+                ================================================== -->
+                {% if insurance.pdf %}
+                <div class="insurance-modal-document">
+                    <h4>{% trans "Document" %}</h4>
+                    <div class="insurance-pdf-preview">
+<iframe src="{{ insurance.pdf.url }}#toolbar=1&navpanes=0" title="{{ insurance|localized:'name' }}"></iframe>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- =================================================
+                     ACTION BUTTONS
+                ================================================== -->
+                {% if insurance.pdf or insurance.url %}
+                <div class="insurance-modal-buttons">
+                    {% if insurance.pdf %}
+<a href="{{ insurance.pdf.url }}" target="_blank" rel="noopener noreferrer" class="insurance-modal-btn">
+                        <i class="fa-regular fa-file-pdf"></i>
+                        <span>{% trans "Voir le PDF" %}</span>
+                    </a>
+                    {% endif %}
+                    {% if insurance.url %}
+                    <a href="{{ insurance.url }}" target="_blank" rel="noopener noreferrer" class="insurance-modal-btn">
+                        <i class="fa-regular fa-arrow-up-right-from-square"></i>
+                        <span>{% trans "Visiter le site officiel" %}</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- ============================================================
+     ASSURANCES · MOVE MODALS TO BODY
+============================================================ -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const insuranceModals = document.querySelectorAll(".insurance-modal");
+        insuranceModals.forEach(function (modal) {
+            if (modal.parentElement !== document.body) {
+                document.body.appendChild(modal);
+            }
+        });
+        insuranceModals.forEach(function (modal) {
+            modal.addEventListener("show.bs.modal", function () {
+                if (modal.parentElement !== document.body) {
+                    document.body.appendChild(modal);
+                }
+            });
+            modal.addEventListener("shown.bs.modal", function () {
+                modal.scrollTop = 0;
+            });
+            modal.addEventListener("hidden.bs.modal", function () {
+                document.querySelectorAll(".modal-backdrop").forEach(function (backdrop) {
+                    backdrop.remove();
+                });
+                if (!document.querySelector(".modal.show")) {
+                    document.body.classList.remove("modal-open");
+                    document.body.style.removeProperty("overflow");
+                    document.body.style.removeProperty("padding-right");
+                }
+            });
+        });
+    });
+</script>
+{% endif %}
+<!-- ./ service-section -->
+{% if certifications %}
+<section class="feature-section pt-150 pb-110 overflow-hidden tl-bg-color fade-wrapper">
+    <div class="container container-2">
+        <div class="row section-heading-wrap fade-top feature-top">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="shape">
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                        {% trans "Certifications" %}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Des certifications qui témoignent de" %}
+                        <span>{% trans "notre qualité et notre" %}<br>{% trans "engagement" %}</span>
+                    </h2>
+                    <p class="mb-0">
+                        {% trans "Découvrez les certifications et accréditations qui soutiennent notre engagement envers la qualité, la sécurité et le professionnalisme." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row fade-top">
+            <!-- =================================================
+                 IMAGE PRINCIPALE
+            ================================================== -->
+            <div class="col-lg-6">
+                <div class="feature-item-imgs">
+                    {% with first_certification=certifications|first %}
+                    <div class="feature-img">
+                        {% if first_certification.image %}
+                        <img src="{{ first_certification.image.url }}" alt="{{ first_certification.name }}">
+                        {% else %}
+<img src="{% static 'antra/assets/img/service/feature-img-1.png' %}" alt="{{ first_certification.name }}">
+                        {% endif %}
+                        <div class="img-content">
+                            <p>
+                                {% if first_certification.issuer %}
+                                {{ first_certification.issuer }}
+                                {% else %}
+                                {{ first_certification.name }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endwith %}
+                </div>
+            </div>
+            <!-- =================================================
+                 LISTA DE CERTIFICACIONES
+            ================================================== -->
+            <div class="col-lg-6">
+                <div class="feature-item-list feature-item-list-1">
+                    {% for certification in certifications %}
+<div class="feature-item" {% if certification.image %}data-img="{{ certification.image.url }}" {% else %}data-img="{% static 'antra/assets/img/service/feature-img-1.png' %}" {% endif %} data-text="{% if certification.issuer %}{{ certification.issuer|escape }}{% else %}{{ certification.name|escape }}{% endif %}">
+                        <span class="number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
+                        <h3 class="title">
+                            <a href="#certificationModal{{ certification.id }}" data-bs-toggle="modal">
+                                {{ certification.name }}
+                            </a>
+                        </h3>
+<a href="#certificationModal{{ certification.id }}" data-bs-toggle="modal" class="arrow" aria-label="{{ certification.name }}">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================================================
+     CERTIFICATIONS · MODALS
+============================================================ -->
+{% for certification in certifications %}
+<div class="modal fade certification-modal" id="certificationModal{{ certification.id }}" tabindex="-1" aria-labelledby="certificationModalLabel{{ certification.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="certificationModalLabel{{ certification.id }}">
+                    {{ certification.name }}
+                </h3>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
+            </div>
+            <div class="modal-body">
+                <!-- =================================================
+                     IMAGE
+                ================================================== -->
+                {% if certification.image %}
+                <div class="certification-modal-image">
+                    <img src="{{ certification.image.url }}" alt="{{ certification.name }}">
+                </div>
+                {% endif %}
+                <!-- =================================================
+                     ISSUER
+                ================================================== -->
+                {% if certification.issuer %}
+                <div class="certification-modal-description">
+                    <p>
+                        <strong>{% trans "Organisme émetteur" %}:</strong> {{ certification.issuer }}
+                    </p>
+                </div>
+                {% endif %}
+                <!-- =================================================
+                     PDF
+                ================================================== -->
+                {% if certification.pdf %}
+                <div class="certification-modal-document">
+                    <h4>{% trans "Document" %}</h4>
+                    <div class="certification-pdf-preview">
+<iframe src="{{ certification.pdf.url }}#toolbar=1&navpanes=0" title="{{ certification.name }}"></iframe>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- =================================================
+                     ACTION BUTTONS
+                ================================================== -->
+                {% if certification.pdf or certification.url %}
+                <div class="certification-modal-buttons">
+                    {% if certification.pdf %}
+<a href="{{ certification.pdf.url }}" target="_blank" rel="noopener noreferrer" class="certification-modal-btn">
+                        <i class="fa-regular fa-file-pdf"></i>
+                        <span>{% trans "Voir le PDF" %}</span>
+                    </a>
+                    {% endif %}
+                    {% if certification.url %}
+<a href="{{ certification.url }}" target="_blank" rel="noopener noreferrer" class="certification-modal-btn">
+                        <i class="fa-regular fa-arrow-up-right-from-square"></i>
+                        <span>{% trans "Visiter le site officiel" %}</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- ============================================================
+     CERTIFICATIONS · MOVE MODALS TO BODY
+============================================================ -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const certificationModals = document.querySelectorAll(".certification-modal");
+        certificationModals.forEach(function (modal) {
+            if (modal.parentElement !== document.body) {
+                document.body.appendChild(modal);
+            }
+        });
+        certificationModals.forEach(function (modal) {
+            modal.addEventListener("show.bs.modal", function () {
+                if (modal.parentElement !== document.body) {
+                    document.body.appendChild(modal);
+                }
+            });
+            modal.addEventListener("shown.bs.modal", function () {
+                modal.scrollTop = 0;
+            });
+            modal.addEventListener("hidden.bs.modal", function () {
+                document.querySelectorAll(".modal-backdrop").forEach(function (backdrop) {
+                    backdrop.remove();
+                });
+                if (!document.querySelector(".modal.show")) {
+                    document.body.classList.remove("modal-open");
+                    document.body.style.removeProperty("overflow");
+                    document.body.style.removeProperty("padding-right");
+                }
+            });
+        });
+    });
+</script>
+{% endif %}
+<!-- ./ feature-section -->
+<!-- ============================================================
+     SECTION 10 · PROJECTS / REALISATIONS
+============================================================ -->
+{% if featured_projects %}
+<section class="gallary-section-2 pb-130 overflow-hidden">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/gallary-bg-1.png' %}"></div>
+    <div class="container container-2">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="gallary-left-content">
+                    <div class="section-heading white-content mb-0">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Nos réalisations" %}</h4>
+                        <h2 class="section-title">{% trans "Projets" %}<br>{% trans "réalisés" %}</h2>
+                        <p class="mb-0">{% trans "Découvrez une sélection de projets de rénovation, d’isolation, de façades et de travaux intérieurs réalisés par V&V Swiss Services." %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="gallary-carousel-wrap">
+                    <div class="gallary-carousel swiper">
+                        <div class="swiper-wrapper">
+                            {% for project in featured_projects %}
+                            <div class="swiper-slide">
+                                <div class="gallary-inner-item">
+                                    <a href="{% url 'projects:detail' project|localized:'slug' %}">
+                                        {% if project.main_image %}
+                                        <img src="{{ project.main_image.url }}" alt="{{ project|localized:'title' }}">
+                                        {% else %}
+<img src="{% static 'antra/assets/img/images/gallary-img-1.png' %}" alt="{{ project|localized:'title' }}">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="swiper-arrow">
+                        <div class="swiper-nav swiper-prev"><i class="fa-regular fa-arrow-left"></i></div>
+                        <div class="swiper-nav swiper-next"><i class="fa-regular fa-arrow-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- ./ projects-section -->
+<!-- ============================================================
+     SECTION 11 · MARKET POSITION / CONTACT CTA
+============================================================ -->
+<section class="newsletter-section bg-white pt-130 pb-130 overflow-hidden">
+    <div class="bg-shape">
+        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="">
+    </div>
+    <div class="container">
+        <div class="newsletter-wrap">
+            <div class="section-heading text-center">
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                    {% trans "Notre positionnement" %}
+                </h4>
+                <h2 class="section-title">
+                    {% trans "Plus de 20 ans d’expérience" %}
+                    <span>{% trans "dans le bâtiment en Suisse" %}</span>
+                </h2>
+                <p>
+                    {% trans "Nous associons le savoir-faire technique d’une grande entreprise à la proximité, la réactivité et la flexibilité d’un spécialiste local." %}
+                </p>
+            </div>
+            <!-- ============================================================
+     LOCALIZED CONTACT TEXTS
+============================================================= -->
+            {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis." as whatsapp_text %}
+            {% trans "Demande concernant un projet de rénovation" as email_subject %}
+            {% trans "Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et demander un devis." as email_body %}
+            <!-- ============================================================
+                 CONTACT ACTIONS
+            ============================================================= -->
+            <div class="project-contact-actions">
+                <!-- FORMULARIO / MODAL -->
+<button type="button" class="project-contact-btn" data-bs-toggle="modal" data-bs-target="#contactProjectModal">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>{% trans "Envoyer un message" %}</span>
+                </button>
+                <!-- WHATSAPP -->
+                {% if site_configuration and site_configuration.whatsapp %}
+<a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                {% endif %}
+                <!-- E-MAIL -->
+                {% if site_configuration and site_configuration.email %}
+<a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}" class="project-contact-btn">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>{% trans "E-mail" %}</span>
+                </a>
+                {% endif %}
+                <!-- TÉLÉPHONE -->
+                {% if site_configuration and site_configuration.phone %}
+                <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
+                    <i class="fa-regular fa-phone"></i>
+                    <span>{% trans "Appeler" %}</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ market-position -->
+<!-- ============================================================
+     SECTION 12 · CONTACT PROJECT MODAL
+============================================================ -->
+<div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <span class="project-contact-modal-kicker">
+                        V&V Swiss Services
+                    </span>
+                    <h3 class="modal-title" id="contactProjectModalLabel">
+                        {% trans "Parlez-nous de votre projet" %}
+                    </h3>
+                </div>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p class="project-contact-modal-intro">
+                    {% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}
+                </p>
+                <div class="request-form-wrap project-modal-form-wrap">
+                    {% include "contact/includes/contact_form.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================
+     CONTACT PROJECT MODAL · MOVE TO BODY
+============================================================ -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const contactProjectModal = document.getElementById("contactProjectModal");
+        if (!contactProjectModal) {
+            return;
+        }
+        if (contactProjectModal.parentElement !== document.body) {
+            document.body.appendChild(contactProjectModal);
+        }
+        contactProjectModal.addEventListener("show.bs.modal", function () {
+            if (contactProjectModal.parentElement !== document.body) {
+                document.body.appendChild(contactProjectModal);
+            }
+        });
+        contactProjectModal.addEventListener("shown.bs.modal", function () {
+            contactProjectModal.scrollTop = 0;
+        });
+    });
+</script>
+{% endblock %}
