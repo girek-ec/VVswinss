@@ -1,0 +1,81 @@
+name: vvswinss
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: vvswinss-postgres
+    restart: always
+
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - vvswinss_internal
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DB_USER} -d ${DB_NAME}"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: vvswinss-django
+    restart: always
+
+    env_file:
+      - .env
+
+    command:
+      [
+        "gunicorn",
+        "vvswinss.wsgi:application",
+        "--bind",
+        "0.0.0.0:8000"
+      ]
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    volumes:
+      - ./media:/app/media
+      - ./staticfiles:/app/staticfiles
+
+    expose:
+      - "8000"
+
+    networks:
+      - vvswinss_internal
+      - npm_proxy
+
+
+volumes:
+
+  postgres_data:
+    name: vvswinss_postgres_data
+
+
+networks:
+
+  vvswinss_internal:
+    name: vvswinss_internal
+    driver: bridge
+
+  npm_proxy:
+    external: true
+    name: npm_proxy
