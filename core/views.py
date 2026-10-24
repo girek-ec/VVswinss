@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django.urls import reverse
 
 from blog.models import Post
 from contact.forms import ContactRequestForm
 from projects.models import BeforeAfter, Project
 from services.models import Service, ServiceCategory
+
+from .utils import get_localized_value
 
 from .models import (
     AboutContent,
@@ -26,6 +29,33 @@ from .models import (
 # ============================================================
 
 def home(request):
+    # ========================================================
+    # MAP · PUBLISHED PROJECTS
+    # Misma fuente de datos utilizada por la página Contacto.
+    # ========================================================
+    map_projects = Project.objects.filter(
+        is_published=True,
+        show_on_map=True,
+        latitude__isnull=False,
+        longitude__isnull=False,
+    ).order_by("-end_date", "-created_at")
+
+    map_projects_data = []
+    for project in map_projects:
+        project_title = get_localized_value(project, "title") or project.title_fr
+        project_slug = get_localized_value(project, "slug") or project.slug_fr
+
+        map_projects_data.append({
+            "id": project.pk,
+            "title": project_title,
+            "location": project.location or "",
+            "year": project.end_date.year if project.end_date else "",
+            "latitude": float(project.latitude),
+            "longitude": float(project.longitude),
+            "image": project.main_image.url if project.main_image else "",
+            "url": reverse("projects:detail", args=[project_slug]) if project_slug else "",
+        })
+
     context = {
         "home": HomeContent.objects.filter(is_active=True).first(),
         "about_page": InstitutionalPage.objects.filter(is_active=True, slug_fr="entreprise").first(),
@@ -49,6 +79,8 @@ def home(request):
         "form": ContactRequestForm(),
         "company_values": CompanyValue.objects.filter(is_active=True).order_by("order")[:5],
         "latest_posts": Post.objects.filter(is_published=True).select_related("category", "author").prefetch_related("tags").order_by("-published_at")[:6],
+        "map_projects": map_projects,
+        "map_projects_data": map_projects_data,
     }
 
     return render(request, "core/home.html", context)

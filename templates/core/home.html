@@ -5,6 +5,32 @@
 {% load i18n_fields %}
 {% block title %}{% trans "Rénovation et travaux du bâtiment" %} | V&V Swiss Services{% endblock %}
 {% block meta_description %}{% trans "V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande." %}{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+.contact-map-wrap{position:relative}
+#vv-project-map{width:100%;height:620px;background:#f3f3f3;z-index:1}
+.vv-map-interaction{position:absolute;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:20px;border:0;background:rgba(0,0,0,.08);cursor:pointer;transition:opacity .2s ease,visibility .2s ease}
+.vv-map-interaction span{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:4px;background:rgba(17,17,17,.82);color:#fff;font-size:14px;font-weight:700;line-height:1.3;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.vv-map-interaction.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.vv-map-interaction:focus-visible{outline:3px solid #fff;outline-offset:-5px}
+.vv-map-marker{background:transparent!important;border:0!important}
+.vv-map-marker-pin{position:relative;width:48px;height:48px;border-radius:50%;background:#fff;border:3px solid #fff;box-shadow:0 5px 16px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
+.vv-map-marker-pin:after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid #fff}
+.vv-map-marker-pin img{width:34px;height:34px;object-fit:contain;border-radius:50%}
+.vv-map-popup{width:230px;font-family:inherit}
+.vv-map-popup-image{display:block;width:100%;height:125px;object-fit:cover;margin:0 0 10px}
+.vv-map-popup-title{font-size:16px;font-weight:700;line-height:1.3;margin:0 0 5px;color:#111}
+.vv-map-popup-meta{font-size:13px;line-height:1.5;margin:0 0 9px;color:#666}
+.vv-map-popup-link{display:inline-block;font-size:13px;font-weight:700;text-decoration:none;color:#111}
+.vv-map-popup-link:hover{text-decoration:underline}
+.vv-map-empty{min-height:300px;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#666;background:#f5f5f5}
+.leaflet-popup-content{margin:14px}
+.leaflet-popup-content-wrapper{border-radius:8px}
+@media(max-width:767px){#vv-project-map{height:480px}.vv-map-popup{width:205px}}
+</style>
+{% endblock %}
+
 {% block content %}
 
 
@@ -804,106 +830,61 @@
 
 
 <!-- ============================================================
-     SECCIÓN 08 · MAPA / ZONA DE SERVICIO | SECTION8 · CARTE / ZONE D’INTERVENTION
+     SECCIÓN 08 · MAPA DE REALIZACIONES | SECTION 08 · CARTE DES RÉALISATIONS
 ============================================================ -->
-
-{% if site_configuration %}
-
-{% if site_configuration.map_embed_url or site_configuration.latitude and site_configuration.longitude %}
-
-<section class="map-wrapper pb-50  pb-30">
-
-    <!-- ============================================================
-         CONTENEDOR PRINCIPAL ESTANDARIZADO | CONTENEUR PRINCIPAL STANDARDISÉ
-         MISMO ANCHO DE LA MATRIZ ANTRA: container container-2
-    ============================================================ -->
+<section class="map-wrapper pb-50 pb-30">
     <div class="container container-2">
-
-        <!-- ========================================================
-             ENCABEZADO DEL MAPA | EN-TÊTE DE LA CARTE
-        ========================================================= -->
         <div class="row section-heading-wrap mb-50">
-
             <div class="shape">
                 <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
             </div>
 
-            <!-- COLUMNA IZQUIERDA | COLONNE GAUCHE -->
             <div class="col-lg-4 col-md-12">
-
                 <div class="section-heading mb-0">
-
-                    <h4 class="sub-heading">
-                        {% trans "Zone d’intervention" %}
-                    </h4>
-
+                    <h4 class="sub-heading">{% trans "Nos réalisations sur la carte" %}</h4>
                 </div>
-
             </div>
 
-            <!-- COLUMNA DERECHA | COLONNE DROITE -->
             <div class="col-lg-8 col-md-12">
-
                 <div class="section-heading section-heading-2 mb-0">
-
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Nous intervenons principalement" %}
-
+                        {% trans "Découvrez où nous sommes intervenus" %}
                         <span>
-                            {% trans "dans le canton de Vaud" %}
-                            <br>
+                            {% trans "dans le canton de Vaud" %}<br>
                             {% trans "et en Suisse romande" %}
                         </span>
                     </h2>
-
                 </div>
+            </div>
+        </div>
 
+        <div class="contact-map-wrap">
+            <button
+                type="button"
+                class="vv-map-interaction"
+                id="vv-map-interaction"
+                aria-controls="vv-project-map"
+                aria-label="{% trans 'Activer la carte interactive' %}">
+                <span>
+                    <i class="fa-regular fa-hand-pointer" aria-hidden="true"></i>
+                    {% trans "Activer la carte" %}
+                </span>
+            </button>
+
+            <div
+                id="vv-project-map"
+                tabindex="0"
+                {% if site_configuration.latitude and site_configuration.longitude %}
+                data-center-lat="{{ site_configuration.latitude|unlocalize }}"
+                data-center-lng="{{ site_configuration.longitude|unlocalize }}"
+                {% endif %}
+                aria-label="{% trans 'Carte des réalisations V&V Swiss Services' %}">
             </div>
 
+            {{ map_projects_data|json_script:"vv-map-projects-data" }}
         </div>
-
-        <!-- ========================================================
-             MAPA | CARTE
-        ========================================================= -->
-        <div class="contact-map-wrap">
-
-            {% if site_configuration.map_embed_url %}
-
-            <iframe
-                src="{{ site_configuration.map_embed_url }}"
-                width="100%"
-                height="620"
-                style="border:0;"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen
-                title="{% trans 'Zone d’intervention V&V Swiss Services' %}">
-            </iframe>
-
-            {% elif site_configuration.latitude and site_configuration.longitude %}
-
-            <iframe
-                src="https://www.google.com/maps?q={{ site_configuration.latitude|unlocalize }},{{ site_configuration.longitude|unlocalize }}&z=12&output=embed"
-                width="100%"
-                height="620"
-                style="border:0;"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen
-                title="{% trans 'Zone d’intervention V&V Swiss Services' %}">
-            </iframe>
-
-            {% endif %}
-
-        </div>
-
     </div>
-
 </section>
-
-{% endif %}
-
-{% endif %}
 
 <!-- ============================================================
      SECCIÓN 09 · CONTACTO / SOLICITUD DE PRESUPUESTO | SECTION 09 · CONTACT / DEMANDE DE DEVIS
@@ -1491,6 +1472,161 @@ window.addEventListener("load", function () {
 
     }, 500);
 
+});
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+    const mapElement=document.getElementById("vv-project-map");
+    const dataElement=document.getElementById("vv-map-projects-data");
+    const interactionButton=document.getElementById("vv-map-interaction");
+
+    if(!mapElement||!dataElement){return;}
+
+    if(typeof L==="undefined"){
+        mapElement.innerHTML='<div class="vv-map-empty">{% trans "La carte est momentanément indisponible." %}</div>';
+        return;
+    }
+
+    let projects=[];
+    try{
+        projects=JSON.parse(dataElement.textContent||"[]");
+    }catch(error){
+        projects=[];
+    }
+
+    const defaultLat=parseFloat(mapElement.dataset.centerLat);
+    const defaultLng=parseFloat(mapElement.dataset.centerLng);
+    const hasDefaultCenter=Number.isFinite(defaultLat)&&Number.isFinite(defaultLng);
+
+    const map=L.map(mapElement,{
+        zoomControl:true,
+        scrollWheelZoom:false,
+        dragging:true,
+        touchZoom:true,
+        doubleClickZoom:true,
+        boxZoom:true,
+        keyboard:true
+    });
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom:19,
+            attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+        }
+    ).addTo(map);
+
+    const activateMap=function(){
+        map.scrollWheelZoom.enable();
+        if(interactionButton){
+            interactionButton.classList.add("is-hidden");
+            interactionButton.setAttribute("aria-hidden","true");
+        }
+        mapElement.focus({preventScroll:true});
+    };
+
+    const deactivateMap=function(){
+        map.scrollWheelZoom.disable();
+        if(interactionButton){
+            interactionButton.classList.remove("is-hidden");
+            interactionButton.removeAttribute("aria-hidden");
+        }
+    };
+
+    if(interactionButton){
+        interactionButton.addEventListener("click",activateMap);
+        mapElement.addEventListener("mouseleave",deactivateMap);
+        mapElement.addEventListener("keydown",function(event){
+            if(event.key==="Escape"){
+                deactivateMap();
+                interactionButton.focus({preventScroll:true});
+            }
+        });
+    }
+
+    const markerHtml='<div class="vv-map-marker-pin"><img src="{% static 'antra/assets/img/favicon.png' %}" alt="V&V"></div>';
+    const vvIcon=L.divIcon({
+        className:"vv-map-marker",
+        html:markerHtml,
+        iconSize:[48,58],
+        iconAnchor:[24,57],
+        popupAnchor:[0,-50]
+    });
+
+    const markers=[];
+
+    const escapeHtml=function(value){
+        const el=document.createElement("div");
+        el.textContent=value==null?"":String(value);
+        return el.innerHTML;
+    };
+
+    projects.forEach(function(project){
+        const lat=Number(project.latitude);
+        const lng=Number(project.longitude);
+
+        if(!Number.isFinite(lat)||!Number.isFinite(lng)){return;}
+
+        const marker=L.marker(
+            [lat,lng],
+            {
+                icon:vvIcon,
+                title:project.title||"V&V Swiss Services"
+            }
+        ).addTo(map);
+
+        let popup='<div class="vv-map-popup">';
+
+        if(project.image){
+            popup+='<img class="vv-map-popup-image" src="'+escapeHtml(project.image)+'" alt="'+escapeHtml(project.title)+'">';
+        }
+
+        popup+='<div class="vv-map-popup-title">'+escapeHtml(project.title||"V&V Swiss Services")+'</div>';
+
+        const meta=[];
+
+        if(project.location){
+            meta.push(escapeHtml(project.location));
+        }
+
+        if(project.year){
+            meta.push(escapeHtml(project.year));
+        }
+
+        if(meta.length){
+            popup+='<div class="vv-map-popup-meta">'+meta.join(" · ")+'</div>';
+        }
+
+        if(project.url){
+            popup+='<a class="vv-map-popup-link" href="'+escapeHtml(project.url)+'">{% trans "Voir la réalisation" %} →</a>';
+        }
+
+        popup+='</div>';
+
+        marker.bindPopup(popup,{maxWidth:260});
+        markers.push(marker);
+    });
+
+    if(markers.length===1){
+        map.setView(markers[0].getLatLng(),13);
+    }else if(markers.length>1){
+        map.fitBounds(
+            L.featureGroup(markers).getBounds(),
+            {
+                padding:[50,50],
+                maxZoom:13
+            }
+        );
+    }else if(hasDefaultCenter){
+        map.setView([defaultLat,defaultLng],11);
+    }else{
+        map.setView([46.8182,8.2275],8);
+    }
+
+    setTimeout(function(){
+        map.invalidateSize();
+    },250);
 });
 </script>
 {% endblock %}
