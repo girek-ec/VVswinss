@@ -1,4 +1,5 @@
 {% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
 <!-- ============================================================
      CONTACT FORM · REUSABLE INCLUDE
@@ -115,15 +116,62 @@
 
     <!-- ========================================================
          PHOTOS
+         Selector personalizado: solo el botón es interactivo.
+         El estado del archivo queda como texto independiente.
     ========================================================= -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item">
                 <h4 class="form-title">{{ form.photos.label }}</h4>
-                {{ form.photos }}
+
+                <div class="vv-file-selector">
+                    {{ form.photos }}
+
+                    {% if CURRENT_LANGUAGE == "de" %}
+                        <label for="{{ form.photos.id_for_label }}"
+                               class="vv-file-button"
+                               data-empty="Keine Datei"
+                               data-many="Dateien ausgewählt">
+                            Auswählen
+                        </label>
+                        <span class="vv-file-status">Keine Datei</span>
+                    {% elif CURRENT_LANGUAGE == "it" %}
+                        <label for="{{ form.photos.id_for_label }}"
+                               class="vv-file-button"
+                               data-empty="Nessun file"
+                               data-many="file selezionati">
+                            Scegli
+                        </label>
+                        <span class="vv-file-status">Nessun file</span>
+                    {% elif CURRENT_LANGUAGE == "en" %}
+                        <label for="{{ form.photos.id_for_label }}"
+                               class="vv-file-button"
+                               data-empty="No file"
+                               data-many="files selected">
+                            Choose
+                        </label>
+                        <span class="vv-file-status">No file</span>
+                    {% else %}
+                        <label for="{{ form.photos.id_for_label }}"
+                               class="vv-file-button"
+                               data-empty="Aucun fichier"
+                               data-many="fichiers sélectionnés">
+                            Choisir
+                        </label>
+                        <span class="vv-file-status">Aucun fichier</span>
+                    {% endif %}
+                </div>
 
                 <small class="d-block mt-10">
-                    {% trans "Vous pouvez joindre jusqu’à 8 photos au format JPG, PNG ou WebP. Chaque photo peut peser jusqu’à 8 Mo." %}
+                    {% if CURRENT_LANGUAGE == "de" %}
+                        Bis zu 8 Fotos · JPG, PNG oder WebP · max. 8 MB pro Foto.
+                    {% elif CURRENT_LANGUAGE == "it" %}
+                        Fino a 8 foto · JPG, PNG o WebP · max. 8 MB per foto.
+                    {% elif CURRENT_LANGUAGE == "en" %}
+                        Up to 8 photos · JPG, PNG or WebP · max. 8 MB each.
+                    {% else %}
+                        Jusqu’à 8 photos · JPG, PNG ou WebP · max. 8 Mo par photo.
+                    {% endif %}
                 </small>
             </div>
         </div>
@@ -218,44 +266,292 @@
 
 
 <!-- ============================================================
+     FILE INPUT · ESTILO ANTRA / V&V
+     Sin contenedor exterior. Solo el botón se destaca.
+============================================================ -->
+<style>
+    .vv-file-selector {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .vv-file-selector input[type="file"] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .vv-file-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        min-width: 120px;
+        min-height: 42px;
+        padding: 10px 20px;
+        margin: 0;
+        border: 1px solid #111;
+        border-radius: 10px;
+        background: #111;
+        color: #fff;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+        transition: background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+
+    .vv-file-button:hover {
+        background: #0b5d13;
+        border-color: #0b5d13;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, .12);
+    }
+
+    .vv-file-selector input[type="file"]:focus + .vv-file-button,
+    .vv-file-button:focus-visible {
+        outline: 2px solid #0b5d13;
+        outline-offset: 3px;
+    }
+
+    .vv-file-status {
+        min-width: 0;
+        color: inherit;
+        opacity: .72;
+        font-size: inherit;
+        line-height: 1.35;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vv-file-selector.has-file .vv-file-status {
+        opacity: 1;
+        font-weight: 500;
+    }
+
+    @media (max-width: 575.98px) {
+        .vv-file-selector {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vv-file-button {
+            min-width: 112px;
+        }
+
+        .vv-file-status {
+            width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+    }
+</style>
+
+<!-- ============================================================
      JAVASCRIPT / TECHNICAL VISIT + SERVICE SELECT
 ============================================================ -->
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const visitCheckbox = document.getElementById("{{ form.request_visit.id_for_label }}");
-    const visitFields = document.getElementById("technical-visit-fields");
+
+    /* =========================================================
+       PHOTO FILE SELECTOR
+       ========================================================= */
+
+    const photoInput = document.getElementById(
+        "{{ form.photos.id_for_label }}"
+    );
+
+    const photoSelector = photoInput
+        ? photoInput.closest(".vv-file-selector")
+        : null;
+
+    const photoButton = photoSelector
+        ? photoSelector.querySelector(".vv-file-button")
+        : null;
+
+    const photoStatus = photoSelector
+        ? photoSelector.querySelector(".vv-file-status")
+        : null;
+
+    if (photoInput && photoSelector && photoButton && photoStatus) {
+        function updatePhotoStatus() {
+            const files = photoInput.files
+                ? Array.from(photoInput.files)
+                : [];
+
+            if (files.length === 0) {
+                photoSelector.classList.remove("has-file");
+                photoStatus.textContent = photoButton.dataset.empty || "";
+                return;
+            }
+
+            photoSelector.classList.add("has-file");
+
+            if (files.length === 1) {
+                photoStatus.textContent = files[0].name;
+                return;
+            }
+
+            photoStatus.textContent =
+                files.length + " " + (photoButton.dataset.many || "");
+        }
+
+        updatePhotoStatus();
+        photoInput.addEventListener("change", updatePhotoStatus);
+    }
+
+    /* =========================================================
+       TECHNICAL VISIT
+       ========================================================= */
+
+    const visitCheckbox = document.getElementById(
+        "{{ form.request_visit.id_for_label }}"
+    );
+
+    const visitFields = document.getElementById(
+        "technical-visit-fields"
+    );
 
     if (visitCheckbox && visitFields) {
+
         function updateTechnicalVisitFields() {
-            visitFields.style.display = visitCheckbox.checked ? "" : "none";
+            visitFields.style.display = visitCheckbox.checked
+                ? ""
+                : "none";
         }
 
         updateTechnicalVisitFields();
-        visitCheckbox.addEventListener("change", updateTechnicalVisitFields);
+
+        visitCheckbox.addEventListener(
+            "change",
+            updateTechnicalVisitFields
+        );
     }
+
+
+    /* =========================================================
+       SERVICE SELECT
+       Mantener únicamente el SELECT nativo de Django
+       ========================================================= */
 
     const serviceSelect = document.getElementById("id_service");
 
     if (serviceSelect) {
+
         serviceSelect.style.display = "block";
         serviceSelect.style.width = "100%";
 
-        const nextElement = serviceSelect.nextElementSibling;
 
-        if (nextElement && (nextElement.classList.contains("nice-select") || nextElement.classList.contains("select2-container"))) {
-            nextElement.remove();
+        /* -----------------------------------------------------
+           Eliminar Nice Select si ya fue generado
+           ----------------------------------------------------- */
+
+        function removeGeneratedServiceSelect() {
+
+            const parent = serviceSelect.parentElement;
+
+            if (!parent) {
+                return;
+            }
+
+            const generatedSelects = parent.querySelectorAll(
+                ".nice-select, .select2-container"
+            );
+
+            generatedSelects.forEach(function (element) {
+
+                /*
+                 * Eliminamos únicamente los elementos generados
+                 * asociados al campo de servicio.
+                 */
+
+                if (
+                    element.previousElementSibling === serviceSelect ||
+                    element.classList.contains("service-native-select")
+                ) {
+                    element.remove();
+                }
+            });
+
+
+            /*
+             * El SELECT original siempre permanece visible.
+             */
+
+            serviceSelect.style.display = "block";
+            serviceSelect.style.width = "100%";
         }
 
-        if (typeof window.jQuery !== "undefined" && typeof jQuery.fn.niceSelect === "function") {
+
+        /* -----------------------------------------------------
+           Si Nice Select ya está activo, destruirlo
+           ----------------------------------------------------- */
+
+        if (
+            typeof window.jQuery !== "undefined" &&
+            typeof jQuery.fn.niceSelect === "function"
+        ) {
+
             try {
-                jQuery("#id_service").niceSelect("destroy");
+
+                const $serviceSelect = jQuery(serviceSelect);
+
+                if (
+                    $serviceSelect.next(".nice-select").length
+                ) {
+                    $serviceSelect.niceSelect("destroy");
+                }
+
             } catch (error) {
-                // Le select natif reste visible.
+                /*
+                 * No hacemos nada.
+                 * El SELECT nativo permanece operativo.
+                 */
             }
         }
 
-        serviceSelect.style.display = "block";
-        serviceSelect.style.width = "100%";
+
+        removeGeneratedServiceSelect();
+
+
+        /* -----------------------------------------------------
+           Protección contra inicialización posterior
+
+           Algunas plantillas ejecutan niceSelect después del
+           DOMContentLoaded. Este observer evita que vuelva a
+           aparecer un segundo selector.
+           ----------------------------------------------------- */
+
+        const serviceParent = serviceSelect.parentElement;
+
+        if (serviceParent) {
+
+            const observer = new MutationObserver(function () {
+
+                removeGeneratedServiceSelect();
+
+            });
+
+            observer.observe(
+                serviceParent,
+                {
+                    childList: true
+                }
+            );
+        }
     }
+
 });
 </script>

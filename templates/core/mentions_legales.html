@@ -168,7 +168,7 @@
                                         {% if site_configuration.address %}{{ site_configuration.address }}<br>{% endif %}
                                         {% if site_configuration.postal_code %}{{ site_configuration.postal_code }} {% endif %}{{ site_configuration.city }}
                                         {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
-                                        {% if site_configuration.country %}<br>{{ site_configuration.country }}{% endif %}
+                                        {% if site_configuration.country %}<br>{% trans "Suisse" %}{% endif %}
                                     </p>
                                 {% endif %}
 
@@ -217,7 +217,7 @@
                                     {% endif %}
 
                                     {% if site_configuration.hosting_country %}
-                                        <br>{{ site_configuration.hosting_country }}
+                                        <br>{% trans site_configuration.hosting_country %}
                                     {% endif %}
                                 </p>
                             {% endif %}

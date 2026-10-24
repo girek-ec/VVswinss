@@ -1,43 +1,36 @@
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 22:59-0500\n"
+"POT-Creation-Date: 2026-10-24 11:31-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: en <LL@li.org>\n"
 "Language: en\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: .\contact\includes\contact_form.html:8
-#: .\templates\contact\includes\contact_form.html:14
+#: .\contact\includes\contact_form.html:8 .\templates\contact\includes\contact_form.html:15
 msgid "Veuillez vérifier les informations du formulaire."
 msgstr "Please check the information in the form."
 
 #: .\contact\includes\contact_form.html:84
-#: .\templates\contact\includes\contact_form.html:126
 msgid ""
-"Vous pouvez joindre jusqu’à 8 photos au format JPG, PNG ou WebP. Chaque "
-"photo peut peser jusqu’à 8 Mo."
-msgstr ""
-"You can attach up to 8 photos in JPG, PNG or WebP format. Each photo can be "
-"up to 8 MB."
+"Vous pouvez joindre jusqu’à 8 photos au format JPG, PNG ou WebP. Chaque photo peut peser jusqu’à "
+"8 Mo."
+msgstr "You can attach up to 8 photos in JPG, PNG or WebP format. Each photo can be up to 8 MB."
 
-#: .\contact\includes\contact_form.html:114
-#: .\templates\contact\includes\contact_form.html:171
+#: .\contact\includes\contact_form.html:114 .\templates\contact\includes\contact_form.html:219
 msgid ""
-"La date et l’heure demandées sont indicatives. Notre équipe vous contactera "
-"pour confirmer la visite."
-msgstr ""
-"The requested date and time are indicative. Our team will contact you to "
-"confirm the visit."
+"La date et l’heure demandées sont indicatives. Notre équipe vous contactera pour confirmer la "
+"visite."
+msgstr "The requested date and time are indicative. Our team will contact you to confirm the visit."
 
-#: .\contact\includes\contact_form.html:130
-#: .\templates\contact\includes\contact_form.html:211
+#: .\contact\includes\contact_form.html:130 .\templates\contact\includes\contact_form.html:259
 msgid "Demander mon devis"
 msgstr "Request my quote"
 
@@ -69,27 +62,21 @@ msgstr "Discarded"
 msgid "Nom"
 msgstr "Name"
 
-#: .\contact\models.py:51 .\templates\contact\inbox_detail.html:46
-#: .\templates\core\about.html:5 .\templates\core\about.html:26
-#: .\templates\core\about.html:70 .\templates\includes\footer.html:93
+#: .\contact\models.py:51 .\templates\contact\inbox_detail.html:46 .\templates\core\about.html:5
+#: .\templates\core\about.html:26 .\templates\core\about.html:70 .\templates\includes\footer.html:95
 msgid "Entreprise"
 msgstr "Company"
 
-#: .\contact\models.py:53 .\templates\blog\post_detail.html:353
-#: .\templates\contact\contact.html:231
+#: .\contact\models.py:53 .\templates\blog\post_detail.html:353 .\templates\contact\contact.html:241
 #: .\templates\contact\inbox_detail.html:54 .\templates\core\about.html:146
-#: .\templates\core\about.html:763 .\templates\core\home.html:1015
-#: .\templates\projects\project_detail.html:616
-#: .\templates\services\service_detail.html:360
-#: .\templates\services\service_detail.html:387
-#: .\templates\services\service_detail.html:414
-#: .\templates\services\service_detail.html:441
-#: .\templates\services\service_list.html:336
+#: .\templates\core\about.html:784 .\templates\core\home.html:1008
+#: .\templates\core\professionals.html:681 .\templates\projects\project_detail.html:616
+#: .\templates\services\category_detail.html:245 .\templates\services\service_detail.html:147
+#: .\templates\services\service_list.html:808
 msgid "E-mail"
 msgstr "Email"
 
-#: .\contact\models.py:55 .\templates\contact\inbox_detail.html:50
-#: .\templates\core\about.html:153
+#: .\contact\models.py:55 .\templates\contact\inbox_detail.html:50 .\templates\core\about.html:153
 msgid "Téléphone"
 msgstr "Phone"
 
@@ -132,8 +119,7 @@ msgstr "Privacy policy acceptance date"
 msgid "Version de la politique de confidentialité"
 msgstr "Privacy policy version"
 
-#: .\contact\models.py:95 .\templates\contact\inbox.html:82
-#: .\templates\contact\inbox_detail.html:129
+#: .\contact\models.py:95 .\templates\contact\inbox.html:82 .\templates\contact\inbox_detail.html:129
 msgid "État"
 msgstr "Status"
 
@@ -175,47 +161,48 @@ msgstr "Attachment"
 msgid "Pièces jointes"
 msgstr "Attachments"
 
-#: .\contact\views.py:344
+#: .\contact\views.py:365
 msgid "Identifiants incorrects ou accès non autorisé."
 msgstr "Incorrect credentials or unauthorised access."
 
-#: .\contact\views.py:731
+#: .\contact\views.py:749
 msgid "Demande mise à jour avec succès."
 msgstr "Request updated successfully."
 
+# | msgid "À propos"
 #: .\core\urls.py:17
-#, fuzzy
-#| msgid "À propos"
 msgid "a-propos/"
 msgstr "about/"
 
+# | msgid "Professionnels"
 #: .\core\urls.py:22
-#, fuzzy
-#| msgid "Professionnels"
-msgid "protection-des-donnees/"
-msgstr "privacy-policy/"
+msgid "professionnels/"
+msgstr "professionals/"
 
+# | msgid "Mentions légales"
 #: .\core\urls.py:27
-#, fuzzy
-#| msgid "Mentions légales"
 msgid "mentions-legales/"
 msgstr "legal-notice/"
 
+# | msgid "Professionnels"
+#: .\core\urls.py:28
+msgid "protection-des-donnees/"
+msgstr "privacy-policy/"
 
-
-
-
+# | msgid "Rénovation et travaux du bâtiment"
+#: .\templates\antra\index.html:6
+msgid "Rénovation, isolation et travaux du bâtiment"
+msgstr "Renovation, insulation and building works"
 
 #: .\templates\antra\index.html:8
 msgid ""
-"V&V Swiss Services accompagne particuliers, régies et professionnels pour "
-"leurs projets de rénovation, isolation, maçonnerie, plâtrerie, peinture, "
-"finitions et entretien immobilier en Suisse romande."
+"V&V Swiss Services accompagne particuliers, régies et professionnels pour leurs projets de "
+"rénovation, isolation, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en "
+"Suisse romande."
 msgstr ""
-"V&V Swiss Services supports private clients, property management companies "
-"and professionals with renovation, insulation, masonry, plastering, "
-"painting, finishing and property maintenance projects across French-speaking "
-"Switzerland."
+"V&V Swiss Services supports private clients, property management companies and professionals with"
+" renovation, insulation, masonry, plastering, painting, finishing and property maintenance "
+"projects across French-speaking Switzerland."
 
 #: .\templates\antra\index.html:29
 msgid "RÉNOVATION & TRAVAUX DU BÂTIMENT"
@@ -227,13 +214,13 @@ msgstr "Reliable solutions to renovate, protect and enhance your spaces"
 
 #: .\templates\antra\index.html:47
 msgid ""
-"Un accompagnement professionnel pour vos projets de rénovation intérieure et "
-"extérieure, isolation, maçonnerie, plâtrerie, peinture et finitions."
+"Un accompagnement professionnel pour vos projets de rénovation intérieure et extérieure, "
+"isolation, maçonnerie, plâtrerie, peinture et finitions."
 msgstr ""
-"Professional support for your interior and exterior renovation, insulation, "
-"masonry, plastering, painting and finishing projects."
+"Professional support for your interior and exterior renovation, insulation, masonry, plastering, "
+"painting and finishing projects."
 
-#: .\templates\antra\index.html:54 .\templates\includes\header.html:605
+#: .\templates\antra\index.html:54 .\templates\includes\header.html:508
 msgid "Demander un devis"
 msgstr "Request a quote"
 
@@ -242,39 +229,33 @@ msgid "Expérience, proximité et qualité au service de vos projets."
 msgstr "Experience, local service and quality for your projects."
 
 # | msgid "Tous les états"
-#: .\templates\antra\index.html:106 .\templates\core\home.html:40
-#: .\templates\core\home.html:147
+#: .\templates\antra\index.html:106 .\templates\core\home.html:40 .\templates\core\home.html:147
+#: .\templates\services\service_list.html:46
 msgid "Nos services"
 msgstr "Our services"
 
 # | msgid "Visite technique"
-#: .\templates\antra\index.html:114 .\templates\services\service_list.html:32
+#: .\templates\antra\index.html:114 .\templates\services\service_list.html:61
 msgid "Des solutions adaptées à"
 msgstr "Solutions tailored to"
 
-#: .\templates\antra\index.html:114 .\templates\services\service_list.html:34
+#: .\templates\antra\index.html:114 .\templates\services\service_list.html:64
 msgid "chaque projet de rénovation"
 msgstr "every renovation project"
 
 #: .\templates\antra\index.html:118
 msgid ""
-"Rénovation intérieure et extérieure, isolation thermique, maçonnerie, "
-"plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien "
-"immobilier."
+"Rénovation intérieure et extérieure, isolation thermique, maçonnerie, plâtrerie, peinture, "
+"finitions, nettoyage de fin de chantier et entretien immobilier."
 msgstr ""
-"Interior and exterior renovation, thermal insulation, masonry, plastering, "
-"painting, finishing, post-construction cleaning and property maintenance."
+"Interior and exterior renovation, thermal insulation, masonry, plastering, painting, finishing, "
+"post-construction cleaning and property maintenance."
 
 #: .\templates\antra\index.html:155
-msgid ""
-"Une prestation professionnelle adaptée à votre bâtiment, à vos besoins et à "
-"votre projet."
-msgstr ""
-"A professional service tailored to your building, your needs and your "
-"project."
+msgid "Une prestation professionnelle adaptée à votre bâtiment, à vos besoins et à votre projet."
+msgstr "A professional service tailored to your building, your needs and your project."
 
-#: .\templates\antra\index.html:193 .\templates\core\about.html:730
-#: .\templates\core\home.html:345
+#: .\templates\antra\index.html:193 .\templates\core\about.html:751 .\templates\core\home.html:345
 msgid "Plus de 20 ans d’expérience"
 msgstr "More than 20 years of experience"
 
@@ -304,21 +285,19 @@ msgstr "Finishing and property maintenance"
 
 #: .\templates\antra\index.html:209
 msgid ""
-"Nous associons expérience, proximité, réactivité et soin des finitions afin "
-"de proposer des solutions adaptées aux particuliers, régies immobilières et "
-"professionnels."
+"Nous associons expérience, proximité, réactivité et soin des finitions afin de proposer des "
+"solutions adaptées aux particuliers, régies immobilières et professionnels."
 msgstr ""
-"We combine experience, local service, responsiveness and attention to detail "
-"to provide solutions tailored to private clients, property management "
-"companies and professionals."
+"We combine experience, local service, responsiveness and attention to detail to provide solutions"
+" tailored to private clients, property management companies and professionals."
 
 # | msgid "Entreprise"
 #: .\templates\antra\index.html:214 .\templates\core\home.html:361
 msgid "Découvrir l’entreprise"
 msgstr "Discover our company"
 
-#: .\templates\antra\index.html:224 .\templates\core\about.html:273
-#: .\templates\core\home.html:329 .\templates\core\home.html:492
+#: .\templates\antra\index.html:224 .\templates\core\about.html:294 .\templates\core\home.html:329
+#: .\templates\core\home.html:492
 msgid "Travaux de rénovation V&V Swiss Services"
 msgstr "V&V Swiss Services renovation works"
 
@@ -336,20 +315,18 @@ msgstr "take care of your project"
 
 #: .\templates\antra\index.html:264
 msgid ""
-"Chaque intervention est étudiée selon l’état du bâtiment, vos priorités, les "
-"contraintes techniques et le niveau de finition recherché."
+"Chaque intervention est étudiée selon l’état du bâtiment, vos priorités, les contraintes "
+"techniques et le niveau de finition recherché."
 msgstr ""
-"Each job is assessed according to the condition of the building, your "
-"priorities, technical constraints and the required standard of finish."
+"Each job is assessed according to the condition of the building, your priorities, technical "
+"constraints and the required standard of finish."
 
 #: .\templates\antra\index.html:291 .\templates\antra\index.html:308
-#: .\templates\services\service_list.html:67
-#: .\templates\services\service_list.html:83
-msgid ""
-"Des solutions professionnelles adaptées à votre bâtiment et à votre projet."
+#: .\templates\services\service_list.html:128 .\templates\services\service_list.html:163
+msgid "Des solutions professionnelles adaptées à votre bâtiment et à votre projet."
 msgstr "Professional solutions tailored to your building and your project."
 
-#: .\templates\antra\index.html:359 .\templates\services\service_list.html:171
+#: .\templates\antra\index.html:359 .\templates\services\service_list.html:380
 msgid "Années d’expérience"
 msgstr "Years of experience"
 
@@ -365,16 +342,15 @@ msgstr "Featured services"
 msgid "Des prestations complémentaires pour différents besoins du bâtiment."
 msgstr "Complementary services for a range of building needs."
 
-#: .\templates\antra\index.html:375 .\templates\services\service_list.html:185
+#: .\templates\antra\index.html:375 .\templates\services\service_list.html:417
 msgid "Première réponse"
 msgstr "Initial response"
 
-#: .\templates\antra\index.html:376 .\templates\services\service_list.html:188
-msgid ""
-"Une première prise de contact sous 48 heures pour étudier votre demande."
+#: .\templates\antra\index.html:376 .\templates\services\service_list.html:424
+msgid "Une première prise de contact sous 48 heures pour étudier votre demande."
 msgstr "An initial response within 48 hours to review your request."
 
-#: .\templates\antra\index.html:383 .\templates\services\service_list.html:199
+#: .\templates\antra\index.html:383 .\templates\services\service_list.html:454
 msgid "Langues disponibles"
 msgstr "Languages available"
 
@@ -396,11 +372,11 @@ msgstr "well-managed work"
 
 #: .\templates\antra\index.html:419
 msgid ""
-"De la première prise de contact à la réception des travaux, nous avançons "
-"par étapes afin d’assurer clarté, coordination et qualité d’exécution."
+"De la première prise de contact à la réception des travaux, nous avançons par étapes afin "
+"d’assurer clarté, coordination et qualité d’exécution."
 msgstr ""
-"From the first contact through to completion, we work step by step to ensure "
-"clarity, coordination and high-quality workmanship."
+"From the first contact through to completion, we work step by step to ensure clarity, "
+"coordination and high-quality workmanship."
 
 #: .\templates\antra\index.html:451
 msgid "Vous avez un projet à réaliser ?"
@@ -411,12 +387,12 @@ msgid "Parlons-en"
 msgstr "Let’s talk about it"
 
 # | msgid "Projet"
-#: .\templates\antra\index.html:474 .\templates\core\about.html:681
+#: .\templates\antra\index.html:474 .\templates\core\about.html:702
 msgid "Projets"
 msgstr "Projects"
 
-#: .\templates\antra\index.html:487 .\templates\core\about.html:680
-#: .\templates\projects\project_list.html:40
+#: .\templates\antra\index.html:487 .\templates\core\about.html:701
+#: .\templates\core\professionals.html:581 .\templates\projects\project_list.html:39
 msgid "Nos réalisations"
 msgstr "Our projects"
 
@@ -430,11 +406,11 @@ msgstr "our expertise"
 
 #: .\templates\antra\index.html:499
 msgid ""
-"Découvrez une sélection de rénovations, travaux intérieurs, façades, "
-"isolation et interventions réalisées par V&V Swiss Services."
+"Découvrez une sélection de rénovations, travaux intérieurs, façades, isolation et interventions "
+"réalisées par V&V Swiss Services."
 msgstr ""
-"Discover a selection of renovation, interior work, façade, insulation and "
-"other projects completed by V&V Swiss Services."
+"Discover a selection of renovation, interior work, façade, insulation and other projects "
+"completed by V&V Swiss Services."
 
 #: .\templates\antra\index.html:531
 msgid "Réalisation V&V Swiss Services"
@@ -466,11 +442,9 @@ msgstr "and local service"
 
 #: .\templates\antra\index.html:613
 msgid ""
-"Nous privilégions l’écoute, la transparence, la réactivité et le soin des "
-"finitions sur chaque intervention."
-msgstr ""
-"We prioritise listening, transparency, responsiveness and attention to "
-"detail on every job."
+"Nous privilégions l’écoute, la transparence, la réactivité et le soin des finitions sur chaque "
+"intervention."
+msgstr "We prioritise listening, transparency, responsiveness and attention to detail on every job."
 
 #: .\templates\antra\index.html:672
 msgid "Des assurances et partenaires qui accompagnent"
@@ -499,11 +473,11 @@ msgstr "Discover our approach to quality workmanship"
 
 #: .\templates\antra\index.html:758
 msgid ""
-"Un projet réussi repose sur l’écoute, la préparation, la coordination et une "
-"exécution soignée jusque dans les finitions."
+"Un projet réussi repose sur l’écoute, la préparation, la coordination et une exécution soignée "
+"jusque dans les finitions."
 msgstr ""
-"A successful project is built on listening, preparation, coordination and "
-"careful execution right through to the finishing touches."
+"A successful project is built on listening, preparation, coordination and careful execution right"
+" through to the finishing touches."
 
 #: .\templates\antra\index.html:787
 msgid "Questions fréquentes"
@@ -525,9 +499,10 @@ msgstr "FAQ"
 msgid "Un projet à réaliser ?"
 msgstr "Planning a project?"
 
-#: .\templates\antra\index.html:852 .\templates\core\about.html:790
-#: .\templates\projects\project_detail.html:653
-#: .\templates\services\service_list.html:364
+#: .\templates\antra\index.html:852 .\templates\core\about.html:811
+#: .\templates\core\professionals.html:708 .\templates\projects\project_detail.html:653
+#: .\templates\services\category_detail.html:283 .\templates\services\service_detail.html:141
+#: .\templates\services\service_detail.html:161 .\templates\services\service_list.html:878
 msgid "Parlez-nous de votre projet"
 msgstr "Tell us about your project"
 
@@ -537,11 +512,11 @@ msgstr "and receive an initial response within 48 hours"
 
 #: .\templates\antra\index.html:856
 msgid ""
-"Décrivez vos besoins en rénovation, isolation, maçonnerie, plâtrerie, "
-"peinture, finitions ou entretien immobilier."
+"Décrivez vos besoins en rénovation, isolation, maçonnerie, plâtrerie, peinture, finitions ou "
+"entretien immobilier."
 msgstr ""
-"Tell us about your renovation, insulation, masonry, plastering, painting, "
-"finishing or property maintenance needs."
+"Tell us about your renovation, insulation, masonry, plastering, painting, finishing or property "
+"maintenance needs."
 
 #: .\templates\antra\index.html:861
 msgid "Devis gratuit · Première réponse sous 48 h"
@@ -557,40 +532,39 @@ msgstr "Contact V&V Swiss Services"
 
 #: .\templates\antra\index.html:898 .\templates\antra\index.html:1073
 #: .\templates\blog\post_detail.html:52 .\templates\blog\post_list.html:6
-#: .\templates\blog\post_list.html:24 .\templates\core\home.html:1073
-#: .\templates\core\home.html:1243
+#: .\templates\blog\post_list.html:24 .\templates\core\home.html:1066 .\templates\core\home.html:1236
 msgid "Conseils & actualités"
 msgstr "Tips & news"
 
 # | msgid "Tous les états"
 # | msgid "Découvrir nos services"
-#: .\templates\antra\index.html:910 .\templates\core\home.html:1085
+#: .\templates\antra\index.html:910 .\templates\core\home.html:1078
 msgid "Découvrez nos derniers"
 msgstr "Discover our latest"
 
-#: .\templates\antra\index.html:912 .\templates\core\home.html:1087
+#: .\templates\antra\index.html:912 .\templates\core\home.html:1080
 msgid "conseils, recommandations"
 msgstr "tips and recommendations"
 
 # | msgid "Lire l'article"
-#: .\templates\antra\index.html:913 .\templates\core\home.html:1088
+#: .\templates\antra\index.html:913 .\templates\core\home.html:1081
 msgid "et articles."
 msgstr "and articles."
 
 #: .\templates\antra\index.html:1000 .\templates\blog\post_detail.html:97
 #: .\templates\blog\post_detail.html:107 .\templates\blog\post_list.html:227
-#: .\templates\core\home.html:1172
+#: .\templates\core\home.html:1165
 msgid "Par"
 msgstr "By"
 
 # | msgid "Nos projets seront bientôt disponibles."
-#: .\templates\antra\index.html:1077 .\templates\core\home.html:1247
+#: .\templates\antra\index.html:1077 .\templates\core\home.html:1240
 msgid "Nos prochains conseils et articles seront bientôt disponibles."
 msgstr "Our upcoming tips and articles will be available soon."
 
 # | msgid "Voir toutes les demandes"
 #: .\templates\antra\index.html:1103 .\templates\blog\post_list.html:106
-#: .\templates\blog\post_list.html:344 .\templates\core\home.html:1272
+#: .\templates\blog\post_list.html:344 .\templates\core\home.html:1265
 msgid "Voir tous les articles"
 msgstr "View all articles"
 
@@ -599,12 +573,9 @@ msgid "Home"
 msgstr "Home"
 
 # | msgid "Service"
-#: .\templates\base-before-antra.html:106 .\templates\includes\header.html:87
-#: .\templates\projects\project_detail.html:278
-#: .\templates\services\service_detail.html:8
-#: .\templates\services\service_detail.html:24
-#: .\templates\services\service_list.html:5
-#: .\templates\services\service_list.html:25
+#: .\templates\base-before-antra.html:106 .\templates\includes\header.html:88
+#: .\templates\projects\project_detail.html:278 .\templates\services\category_detail.html:38
+#: .\templates\services\service_detail.html:27 .\templates\services\service_list.html:7
 msgid "Services"
 msgstr "Services"
 
@@ -617,30 +588,26 @@ msgstr "Projects"
 msgid "News & Advice"
 msgstr "News & Advice"
 
-#: .\templates\base-before-antra.html:118 .\templates\contact\contact.html:42
-#: .\templates\contact\inbox.html:104 .\templates\includes\footer.html:96
-#: .\templates\includes\header.html:170 .\templates\includes\header.html:518
+#: .\templates\base-before-antra.html:118 .\templates\contact\contact.html:64
+#: .\templates\contact\inbox.html:104 .\templates\includes\footer.html:98
+#: .\templates\includes\header.html:171 .\templates\includes\header.html:437
+#: .\templates\services\category_detail.html:89
 msgid "Contact"
 msgstr "Contact"
 
 # | msgid "V&V Swiss Services - rénovation et travaux du bâtiment"
 #: .\templates\blog\post_detail.html:9
 msgid ""
-"Conseils, recommandations et actualités de V&V Swiss Services sur la "
-"rénovation et les travaux du bâtiment."
-msgstr ""
-"Tips, recommendations and news from V&V Swiss Services on renovation and "
-"building work."
+"Conseils, recommandations et actualités de V&V Swiss Services sur la rénovation et les travaux du"
+" bâtiment."
+msgstr "Tips, recommendations and news from V&V Swiss Services on renovation and building work."
 
 #: .\templates\blog\post_detail.html:50 .\templates\blog\post_list.html:30
-#: .\templates\contact\contact.html:40
-#: .\templates\contact\contact_success.html:17 .\templates\core\about.html:24
-#: .\templates\core\mentions_legales.html:59
-#: .\templates\core\professionals.html:24
-#: .\templates\core\protection_donnees.html:61
-#: .\templates\includes\footer.html:90 .\templates\includes\header.html:78
-#: .\templates\projects\project_detail.html:94
-#: .\templates\projects\project_list.html:45
+#: .\templates\contact\contact.html:62 .\templates\contact\contact_success.html:17
+#: .\templates\core\about.html:24 .\templates\core\mentions_legales.html:59
+#: .\templates\core\protection_donnees.html:61 .\templates\includes\footer.html:92
+#: .\templates\includes\header.html:79 .\templates\projects\project_detail.html:94
+#: .\templates\projects\project_list.html:44
 msgid "Accueil"
 msgstr "Home"
 
@@ -735,13 +702,11 @@ msgstr "Tags"
 # | "l’isolation et des travaux du bâtiment en Suisse romande."
 #: .\templates\blog\post_list.html:8
 msgid ""
-"Découvrez les conseils, recommandations et actualités de V&V Swiss Services "
-"sur la rénovation, l’isolation, la peinture, les finitions et les travaux du "
-"bâtiment en Suisse romande."
+"Découvrez les conseils, recommandations et actualités de V&V Swiss Services sur la rénovation, "
+"l’isolation, la peinture, les finitions et les travaux du bâtiment en Suisse romande."
 msgstr ""
-"Discover tips, recommendations and news from V&V Swiss Services on "
-"renovation, insulation, painting, finishing and building work across French-"
-"speaking Switzerland."
+"Discover tips, recommendations and news from V&V Swiss Services on renovation, insulation, "
+"painting, finishing and building work across French-speaking Switzerland."
 
 #: .\templates\blog\post_list.html:36
 msgid "Blog"
@@ -797,134 +762,150 @@ msgid "Page suivante"
 msgstr "Next page"
 
 # | msgid "Contactées"
-#: .\templates\contact\contact.html:12 .\templates\contact\contact.html:37
+#: .\templates\contact\contact.html:11 .\templates\contact\contact.html:59
 msgid "Contact et demande de devis"
 msgstr "Contact and quote request"
 
-#: .\templates\contact\contact.html:20
+#: .\templates\contact\contact.html:18
 msgid ""
-"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, "
-"maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le "
-"canton de Vaud et en Suisse romande. Demandez votre devis."
+"Contactez V&V Swiss Services pour votre projet de rénovation, isolation, maçonnerie, plâtrerie, "
+"peinture ou nettoyage de fin de chantier dans le canton de Vaud et en Suisse romande. Demandez "
+"votre devis."
 msgstr ""
-"Contact V&V Swiss Services for your renovation, insulation, masonry, "
-"plastering, painting or post-construction cleaning project in the canton of "
-"Vaud and across French-speaking Switzerland. Request your quote."
+"Contact V&V Swiss Services for your renovation, insulation, masonry, plastering, painting or "
+"post-construction cleaning project in the canton of Vaud and across French-speaking Switzerland. "
+"Request your quote."
 
 # | msgid "Contactées"
-#: .\templates\contact\contact.html:72 .\templates\core\home.html:928
+#: .\templates\contact\contact.html:92 .\templates\core\home.html:921
 msgid "Contactez-nous"
 msgstr "Contact us"
 
-#: .\templates\contact\contact.html:88 .\templates\core\home.html:935
+#: .\templates\contact\contact.html:107 .\templates\core\home.html:928
 msgid "Vous avez un projet ?"
 msgstr "Do you have a project?"
 
-#: .\templates\contact\contact.html:89 .\templates\core\home.html:936
+#: .\templates\contact\contact.html:108 .\templates\core\home.html:929
 msgid "Demandez votre devis"
 msgstr "Request your quote"
 
-#: .\templates\contact\contact.html:93 .\templates\core\home.html:939
+#: .\templates\contact\contact.html:112 .\templates\core\home.html:932
 msgid ""
-"Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche "
-"claire, professionnelle et adaptée à votre projet."
+"Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche claire, professionnelle"
+" et adaptée à votre projet."
 msgstr ""
-"Tell us about your needs. Our team will support you with a clear, "
-"professional approach tailored to your project."
+"Tell us about your needs. Our team will support you with a clear, professional approach tailored "
+"to your project."
 
-#: .\templates\contact\contact.html:126 .\templates\core\home.html:957
+#: .\templates\contact\contact.html:142 .\templates\core\home.html:950
 msgid "Adresse"
 msgstr "Address"
 
+# | msgid "Visite demandée"
+#: .\templates\contact\contact.html:156 .\templates\core\home.html:955
+#: .\templates\core\mentions_legales.html:171 .\templates\core\protection_donnees.html:150
+#: .\templates\includes\footer.html:70 .\templates\includes\header.html:346
+#: .\templates\includes\header.html:449
+msgid "Suisse"
+msgstr "Switzerland"
+
 # | msgid "Contact"
-#: .\templates\contact\contact.html:156 .\templates\core\home.html:969
+#: .\templates\contact\contact.html:171 .\templates\core\home.html:962
 msgid "Contact direct"
 msgstr "Direct contact"
 
-#: .\templates\contact\contact.html:178 .\templates\core\home.html:981
+#: .\templates\contact\contact.html:192 .\templates\core\home.html:974
 msgid "Horaires d’ouverture"
 msgstr "Opening hours"
 
-#: .\templates\contact\contact.html:205 .\templates\core\about.html:740
-#: .\templates\core\home.html:997 .\templates\services\service_list.html:320
+#: .\templates\contact\contact.html:218 .\templates\core\about.html:761 .\templates\core\home.html:990
+#: .\templates\core\professionals.html:665 .\templates\services\service_list.html:757
 msgid ""
-"Bonjour, je souhaite obtenir des informations concernant un projet de "
-"rénovation et demander un devis."
-msgstr ""
-"Hello, I would like information about a renovation project and would like to "
-"request a quote."
+"Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un "
+"devis."
+msgstr "Hello, I would like information about a renovation project and would like to request a quote."
 
-#: .\templates\contact\contact.html:207 .\templates\core\about.html:741
-#: .\templates\core\home.html:998 .\templates\services\service_list.html:321
+#: .\templates\contact\contact.html:220 .\templates\core\about.html:762 .\templates\core\home.html:991
+#: .\templates\core\professionals.html:666 .\templates\services\service_list.html:759
 msgid "Demande concernant un projet de rénovation"
 msgstr "Enquiry about a renovation project"
 
-#: .\templates\contact\contact.html:209 .\templates\core\about.html:742
-#: .\templates\core\home.html:999
+#: .\templates\contact\contact.html:222 .\templates\core\about.html:763 .\templates\core\home.html:992
 msgid ""
-"Bonjour, je souhaite recevoir davantage d’informations concernant un projet "
-"de rénovation et demander un devis."
-msgstr ""
-"Hello, I would like more information about a renovation project and would "
-"like to request a quote."
+"Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et "
+"demander un devis."
+msgstr "Hello, I would like more information about a renovation project and would like to request a quote."
 
-#: .\templates\contact\contact.html:218 .\templates\core\home.html:1005
+#: .\templates\contact\contact.html:229 .\templates\core\home.html:998
 msgid "Contacter V&V Swiss Services sur WhatsApp"
 msgstr "Contact V&V Swiss Services on WhatsApp"
 
 # | msgid "Envoyer un e-mail"
-#: .\templates\contact\contact.html:229 .\templates\core\home.html:1013
+#: .\templates\contact\contact.html:239 .\templates\core\home.html:1006
 msgid "Envoyer un e-mail à V&V Swiss Services"
 msgstr "Email V&V Swiss Services"
 
-#: .\templates\contact\contact.html:240 .\templates\core\home.html:1020
+#: .\templates\contact\contact.html:249 .\templates\core\home.html:1013
 msgid "Appeler V&V Swiss Services"
 msgstr "Call V&V Swiss Services"
 
-#: .\templates\contact\contact.html:242 .\templates\core\about.html:153
-#: .\templates\core\about.html:770 .\templates\core\home.html:1022
-#: .\templates\projects\project_detail.html:623
-#: .\templates\services\service_detail.html:366
-#: .\templates\services\service_detail.html:393
-#: .\templates\services\service_detail.html:420
-#: .\templates\services\service_detail.html:447
-#: .\templates\services\service_list.html:342
+#: .\templates\contact\contact.html:251 .\templates\core\about.html:153 .\templates\core\about.html:791
+#: .\templates\core\home.html:1015 .\templates\core\professionals.html:687
+#: .\templates\projects\project_detail.html:623 .\templates\services\category_detail.html:252
+#: .\templates\services\service_detail.html:148 .\templates\services\service_list.html:825
 msgid "Appeler"
 msgstr "Call"
 
-#: .\templates\contact\contact.html:256 .\templates\core\home.html:1030
-msgid ""
-"V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le "
-"canton de Vaud"
-msgstr ""
-"V&V Swiss Services - renovation and building works company in the canton of "
-"Vaud"
+#: .\templates\contact\contact.html:264 .\templates\core\home.html:1023
+msgid "V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud"
+msgstr "V&V Swiss Services - renovation and building works company in the canton of Vaud"
 
-#: .\templates\contact\contact.html:310 .\templates\core\home.html:844
-msgid "Zone d’intervention"
-msgstr "Service area"
+# | msgid "Nos réalisations"
+#: .\templates\contact\contact.html:297
+msgid "Nos réalisations sur la carte"
+msgstr "Our projects on the map"
 
-#: .\templates\contact\contact.html:323 .\templates\core\home.html:857
-msgid "Nous intervenons principalement"
-msgstr "We mainly operate"
+# | msgid "Tous les états"
+# | msgid "Découvrir nos services"
+# | msgid "Découvrez nos derniers"
+#: .\templates\contact\contact.html:303
+msgid "Découvrez où nous sommes intervenus"
+msgstr "See where we have worked"
 
-#: .\templates\contact\contact.html:326 .\templates\core\home.html:860
+#: .\templates\contact\contact.html:304 .\templates\core\home.html:853
 msgid "dans le canton de Vaud"
 msgstr "in the canton of Vaud"
 
 # | msgid "Visite demandée"
-#: .\templates\contact\contact.html:328 .\templates\core\home.html:862
+#: .\templates\contact\contact.html:304 .\templates\core\home.html:855
 msgid "et en Suisse romande"
 msgstr "and across French-speaking Switzerland"
 
-#: .\templates\contact\contact.html:346 .\templates\contact\contact.html:350
-#: .\templates\core\home.html:887 .\templates\core\home.html:900
-msgid "Zone d’intervention V&V Swiss Services"
-msgstr "V&V Swiss Services service area"
+#: .\templates\contact\contact.html:310
+msgid "Activer la carte interactive"
+msgstr "Activate interactive map"
+
+#: .\templates\contact\contact.html:311
+msgid "Activer la carte"
+msgstr "Activate map"
+
+# | msgid "Réalisation V&V Swiss Services"
+#: .\templates\contact\contact.html:313
+msgid "Carte des réalisations V&V Swiss Services"
+msgstr "Map of V&V Swiss Services projects"
+
+# | msgid "Nos prestations seront prochainement disponibles."
+#: .\templates\contact\contact.html:329
+msgid "La carte est momentanément indisponible."
+msgstr "The map is temporarily unavailable."
+
+# | msgid "Nos réalisations"
+#: .\templates\contact\contact.html:367
+msgid "Voir la réalisation"
+msgstr "View project"
 
 # | msgid "Demande"
-#: .\templates\contact\contact_success.html:4
-#: .\templates\contact\contact_success.html:15
+#: .\templates\contact\contact_success.html:4 .\templates\contact\contact_success.html:15
 msgid "Demande envoyée"
 msgstr "Request sent"
 
@@ -950,12 +931,20 @@ msgstr "Your project has been"
 msgid "transmis à notre équipe"
 msgstr "sent to our team"
 
-#: .\templates\contact\contact_success.html:39
+#: .\templates\contact\contact_success.html:35
+msgid ""
+"Nous avons bien reçu votre demande. Notre équipe examinera les informations et les   photos "
+"transmises et vous contactera dans les meilleurs délais."
+msgstr ""
+"We have received your request. Our team will review the information and photos you submitted and "
+"contact you as soon as possible."
+
+#: .\templates\contact\contact_success.html:38
 msgid "Retour à l’accueil"
 msgstr "Back to home"
 
 # | msgid "Aucune demande"
-#: .\templates\contact\contact_success.html:42
+#: .\templates\contact\contact_success.html:41
 msgid "Nouvelle demande"
 msgstr "New request"
 
@@ -968,10 +957,8 @@ msgid "Espace interne"
 msgstr "Internal area"
 
 #: .\templates\contact\inbox.html:21
-msgid ""
-"Gestion des contacts, visites techniques et devis de V&V Swiss Services."
-msgstr ""
-"Management of V&V Swiss Services contacts, technical visits and quotations."
+msgid "Gestion des contacts, visites techniques et devis de V&V Swiss Services."
+msgstr "Management of V&V Swiss Services contacts, technical visits and quotations."
 
 #: .\templates\contact\inbox.html:25
 msgid "demande"
@@ -1119,8 +1106,8 @@ msgid "Enregistrer les modifications"
 msgstr "Save changes"
 
 # | msgid "Notes internes"
-#: .\templates\contact\inbox_login.html:8
-#: .\templates\contact\inbox_login.html:45 .\templates\includes\header.html:409
+#: .\templates\contact\inbox_login.html:8 .\templates\contact\inbox_login.html:45
+#: .\templates\includes\header.html:328
 msgid "Accès interne"
 msgstr "Internal access"
 
@@ -1141,22 +1128,22 @@ msgstr "Password"
 msgid "Se connecter"
 msgstr "Sign in"
 
+# | msgid "Professionnels"
+#: .\templates\contact\includes\contact_form.html:22 .\templates\core\protection_donnees.html:19
+#: .\templates\core\protection_donnees.html:56 .\templates\core\protection_donnees.html:68
+#: .\templates\core\protection_donnees.html:102 .\templates\includes\footer.html:228
+#: .\templates\includes\header.html:161
+msgid "Protection des données"
+msgstr "Data protection"
+
 # | msgid "Boîte de réception des demandes"
-#: .\templates\contact\includes\contact_form.html:21
-#: .\templates\core\protection_donnees.html:19
-#: .\templates\core\protection_donnees.html:56
-#: .\templates\core\protection_donnees.html:68
-#: .\templates\core\protection_donnees.html:102
-#: .\templates\includes\footer.html:218 .\templates\includes\header.html:160
-
-
 #: .\templates\core\about.html:6
 msgid ""
-"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation "
-"et des travaux du bâtiment en Suisse romande."
+"Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation et des travaux du "
+"bâtiment en Suisse romande."
 msgstr ""
-"Discover V&V Swiss Services, specialists in renovation, insulation and "
-"building works across French-speaking Switzerland."
+"Discover V&V Swiss Services, specialists in renovation, insulation and building works across "
+"French-speaking Switzerland."
 
 # | msgid "Entreprise"
 #: .\templates\core\about.html:20
@@ -1169,11 +1156,11 @@ msgstr "More than 20 years of experience in the Swiss building sector"
 
 #: .\templates\core\about.html:75
 msgid ""
-"Bonjour, je souhaite recevoir plus d’informations sur vos services et "
-"demander un devis pour mon projet de rénovation."
+"Bonjour, je souhaite recevoir plus d’informations sur vos services et demander un devis pour mon "
+"projet de rénovation."
 msgstr ""
-"Hello, I would like more information about your services and would like to "
-"request a quote for my renovation project."
+"Hello, I would like more information about your services and would like to request a quote for my"
+" renovation project."
 
 #: .\templates\core\about.html:76
 msgid "Demander des informations"
@@ -1202,160 +1189,159 @@ msgstr "at your service"
 msgid "Envoyer un e-mail à"
 msgstr "Send an email to"
 
-#: .\templates\core\about.html:214 .\templates\core\about.html:216
-#: .\templates\core\about.html:232
+#: .\templates\core\about.html:211 .\templates\core\about.html:214
+msgid "Lire la vidéo"
+msgstr "Watch video"
+
+#: .\templates\core\about.html:235 .\templates\core\about.html:237 .\templates\core\about.html:253
 msgid "Notre mission"
 msgstr "Our mission"
 
-#: .\templates\core\about.html:237
+#: .\templates\core\about.html:258
 msgid "Qualité suisse"
 msgstr "Swiss quality"
 
-#: .\templates\core\about.html:238
+#: .\templates\core\about.html:259
 msgid "Des travaux soignés et des finitions réalisées avec exigence."
 msgstr "Carefully executed work and finishes completed to high standards."
 
-#: .\templates\core\about.html:241
+#: .\templates\core\about.html:262
 msgid "Proximité et confiance"
 msgstr "Local service and trust"
 
-#: .\templates\core\about.html:242
+#: .\templates\core\about.html:263
 msgid "Un accompagnement clair, personnalisé et adapté à chaque projet."
 msgstr "Clear, personalised support tailored to each project."
 
-#: .\templates\core\about.html:264
+#: .\templates\core\about.html:285
 msgid "Notre vision"
 msgstr "Our vision"
 
 # | msgid "Nom"
-#: .\templates\core\about.html:295 .\templates\core\home.html:381
+#: .\templates\core\about.html:316 .\templates\core\home.html:381
 msgid "Nos"
 msgstr "Our"
 
-#: .\templates\core\about.html:295 .\templates\core\home.html:381
+#: .\templates\core\about.html:316 .\templates\core\home.html:381
 msgid "valeurs"
 msgstr "values"
 
-#: .\templates\core\about.html:296 .\templates\core\home.html:382
+#: .\templates\core\about.html:317 .\templates\core\home.html:382
 msgid "Décrivez-nous votre projet et recevez une première réponse sous 48 h."
-msgstr ""
-"Tell us about your project and receive an initial response within 48 hours."
+msgstr "Tell us about your project and receive an initial response within 48 hours."
 
-#: .\templates\core\about.html:349
+#: .\templates\core\about.html:370
 msgid "Assurances"
 msgstr "Insurance"
 
-#: .\templates\core\about.html:356
+#: .\templates\core\about.html:377
 msgid "Une protection fiable pour"
 msgstr "Reliable protection for"
 
-#: .\templates\core\about.html:356
+#: .\templates\core\about.html:377
 msgid "nos activités et vos projets"
 msgstr "our activities and your projects"
 
-#: .\templates\core\about.html:359
+#: .\templates\core\about.html:380
 msgid ""
-"Nos couvertures d’assurance contribuent à garantir des interventions "
-"réalisées avec responsabilité, sécurité et professionnalisme."
-msgstr ""
-"Our insurance cover helps ensure that work is carried out responsibly, "
-"safely and professionally."
+"Nos couvertures d’assurance contribuent à garantir des interventions réalisées avec "
+"responsabilité, sécurité et professionnalisme."
+msgstr "Our insurance cover helps ensure that work is carried out responsibly, safely and professionally."
 
-#: .\templates\core\about.html:399 .\templates\core\about.html:578
-#: .\templates\core\about.html:793 .\templates\projects\project_detail.html:656
-#: .\templates\services\service_list.html:367
+#: .\templates\core\about.html:420 .\templates\core\about.html:599 .\templates\core\about.html:814
+#: .\templates\core\professionals.html:710 .\templates\projects\project_detail.html:656
+#: .\templates\services\category_detail.html:286 .\templates\services\service_detail.html:162
+#: .\templates\services\service_list.html:888
 msgid "Fermer"
 msgstr "Close"
 
-#: .\templates\core\about.html:425 .\templates\core\about.html:604
+#: .\templates\core\about.html:446 .\templates\core\about.html:625
 msgid "Document"
 msgstr "Document"
 
 # | msgid "Voir le détail"
-#: .\templates\core\about.html:439 .\templates\core\about.html:618
+#: .\templates\core\about.html:460 .\templates\core\about.html:639
 msgid "Voir le PDF"
 msgstr "View PDF"
 
 # | msgid "Visite technique"
-#: .\templates\core\about.html:445 .\templates\core\about.html:624
+#: .\templates\core\about.html:466 .\templates\core\about.html:645
 msgid "Visiter le site officiel"
 msgstr "Visit the official website"
 
 # | msgid "Informations"
-#: .\templates\core\about.html:500
+#: .\templates\core\about.html:521
 msgid "Certifications"
 msgstr "Certifications"
 
-#: .\templates\core\about.html:507
+#: .\templates\core\about.html:528
 msgid "Des certifications qui témoignent de"
 msgstr "Certifications that demonstrate"
 
-#: .\templates\core\about.html:508
+#: .\templates\core\about.html:529
 msgid "notre qualité et notre"
 msgstr "our quality and"
 
-#: .\templates\core\about.html:508
+#: .\templates\core\about.html:529
 msgid "engagement"
 msgstr "commitment"
 
-#: .\templates\core\about.html:511
+#: .\templates\core\about.html:532
 msgid ""
-"Découvrez les certifications et accréditations qui soutiennent notre "
-"engagement envers la qualité, la sécurité et le professionnalisme."
+"Découvrez les certifications et accréditations qui soutiennent notre engagement envers la "
+"qualité, la sécurité et le professionnalisme."
 msgstr ""
-"Discover the certifications and accreditations that support our commitment "
-"to quality, safety and professionalism."
+"Discover the certifications and accreditations that support our commitment to quality, safety and"
+" professionalism."
 
-#: .\templates\core\about.html:595
+#: .\templates\core\about.html:616
 msgid "Organisme émetteur"
 msgstr "Issuing body"
 
-#: .\templates\core\about.html:681
+#: .\templates\core\about.html:702
 msgid "réalisés"
 msgstr "completed"
 
-#: .\templates\core\about.html:682
+#: .\templates\core\about.html:703
 msgid ""
-"Découvrez une sélection de projets de rénovation, d’isolation, de façades et "
-"de travaux intérieurs réalisés par V&V Swiss Services."
+"Découvrez une sélection de projets de rénovation, d’isolation, de façades et de travaux "
+"intérieurs réalisés par V&V Swiss Services."
 msgstr ""
-"Discover a selection of renovation, insulation, façade and interior projects "
-"completed by V&V Swiss Services."
+"Discover a selection of renovation, insulation, façade and interior projects completed by V&V "
+"Swiss Services."
 
-#: .\templates\core\about.html:727
+#: .\templates\core\about.html:748
 msgid "Notre positionnement"
 msgstr "Our positioning"
 
-#: .\templates\core\about.html:731
+#: .\templates\core\about.html:752
 msgid "dans le bâtiment en Suisse"
 msgstr "in the Swiss building sector"
 
-#: .\templates\core\about.html:734
+#: .\templates\core\about.html:755
 msgid ""
-"Nous associons le savoir-faire technique d’une grande entreprise à la "
-"proximité, la réactivité et la flexibilité d’un spécialiste local."
+"Nous associons le savoir-faire technique d’une grande entreprise à la proximité, la réactivité et"
+" la flexibilité d’un spécialiste local."
 msgstr ""
-"We combine the technical expertise of a large company with the "
-"accessibility, responsiveness and flexibility of a local specialist."
+"We combine the technical expertise of a large company with the accessibility, responsiveness and "
+"flexibility of a local specialist."
 
 # | msgid "Envoyer un e-mail"
-#: .\templates\core\about.html:750 .\templates\projects\project_detail.html:600
-#: .\templates\services\service_detail.html:348
-#: .\templates\services\service_detail.html:375
-#: .\templates\services\service_detail.html:402
-#: .\templates\services\service_detail.html:429
-#: .\templates\services\service_list.html:325
+#: .\templates\core\about.html:771 .\templates\core\professionals.html:670
+#: .\templates\projects\project_detail.html:600 .\templates\services\category_detail.html:232
+#: .\templates\services\service_list.html:774
 msgid "Envoyer un message"
 msgstr "Send a message"
 
-#: .\templates\core\about.html:797 .\templates\projects\project_detail.html:663
-#: .\templates\services\service_list.html:371
+#: .\templates\core\about.html:818 .\templates\core\professionals.html:713
+#: .\templates\projects\project_detail.html:663 .\templates\services\category_detail.html:290
+#: .\templates\services\service_detail.html:165 .\templates\services\service_list.html:902
 msgid ""
-"Décrivez votre projet et notre équipe vous contactera pour étudier vos "
-"besoins et vous proposer une solution adaptée."
+"Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer "
+"une solution adaptée."
 msgstr ""
-"Tell us about your project and our team will contact you to assess your "
-"needs and propose a suitable solution."
+"Tell us about your project and our team will contact you to assess your needs and propose a "
+"suitable solution."
 
 #: .\templates\core\home.html:6
 msgid "Rénovation et travaux du bâtiment"
@@ -1363,13 +1349,11 @@ msgstr "Renovation and building works"
 
 #: .\templates\core\home.html:7
 msgid ""
-"V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, "
-"maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse "
-"romande."
+"V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, "
+"plâtrerie, peinture, finitions et entretien immobilier en Suisse romande."
 msgstr ""
-"V&V Swiss Services supports your renovation, insulation, façade, masonry, "
-"plastering, painting, finishing and property maintenance projects across "
-"French-speaking Switzerland."
+"V&V Swiss Services supports your renovation, insulation, façade, masonry, plastering, painting, "
+"finishing and property maintenance projects across French-speaking Switzerland."
 
 # | msgid "Solutions"
 #: .\templates\core\home.html:44
@@ -1377,12 +1361,8 @@ msgid "Solutions pour"
 msgstr "Solutions for"
 
 #: .\templates\core\home.html:52
-msgid ""
-"Une solution professionnelle adaptée à votre bâtiment et aux besoins de "
-"votre projet."
-msgstr ""
-"A professional solution tailored to your building and the needs of your "
-"project."
+msgid "Une solution professionnelle adaptée à votre bâtiment et aux besoins de votre projet."
+msgstr "A professional solution tailored to your building and the needs of your project."
 
 # | msgid "Tous les états"
 # | msgid "Découvrir ce service"
@@ -1408,11 +1388,11 @@ msgstr "for all your projects"
 
 #: .\templates\core\home.html:167
 msgid ""
-"Découvrez l’ensemble de nos services pour la rénovation, l’amélioration, la "
-"protection et l’entretien de votre bien."
+"Découvrez l’ensemble de nos services pour la rénovation, l’amélioration, la protection et "
+"l’entretien de votre bien."
 msgstr ""
-"Discover our full range of services for the renovation, improvement, "
-"protection and maintenance of your property."
+"Discover our full range of services for the renovation, improvement, protection and maintenance "
+"of your property."
 
 # | msgid "Nos services seront prochainement disponibles."
 #: .\templates\core\home.html:283
@@ -1449,15 +1429,14 @@ msgstr "insulation,"
 
 #: .\templates\core\home.html:348
 msgid ""
-"Nous croyons qu’une rénovation réussie repose sur un travail soigné, une "
-"organisation claire et des solutions adaptées à chaque bâtiment. Notre "
-"mission est d’accompagner chaque projet avec sérieux, proximité et "
-"précision, de la première analyse jusqu’aux finitions."
+"Nous croyons qu’une rénovation réussie repose sur un travail soigné, une organisation claire et "
+"des solutions adaptées à chaque bâtiment. Notre mission est d’accompagner chaque projet avec "
+"sérieux, proximité et précision, de la première analyse jusqu’aux finitions."
 msgstr ""
-"We believe a successful renovation depends on careful workmanship, clear "
-"organisation and solutions tailored to each building. Our mission is to "
-"support every project with professionalism, local expertise and precision, "
-"from the initial assessment through to the finishing touches."
+"We believe a successful renovation depends on careful workmanship, clear organisation and "
+"solutions tailored to each building. Our mission is to support every project with "
+"professionalism, local expertise and precision, from the initial assessment through to the "
+"finishing touches."
 
 #: .\templates\core\home.html:352
 msgid "Rénovation complète"
@@ -1503,15 +1482,13 @@ msgstr "and enhance your property."
 
 #: .\templates\core\home.html:450
 msgid ""
-"V&V Swiss Services intervient à chaque étape de votre projet avec des "
-"prestations complémentaires adaptées aux besoins du bâtiment. De la "
-"rénovation aux finitions, nous coordonnons les travaux pour garantir une "
-"réalisation cohérente, soignée et durable."
+"V&V Swiss Services intervient à chaque étape de votre projet avec des prestations complémentaires"
+" adaptées aux besoins du bâtiment. De la rénovation aux finitions, nous coordonnons les travaux "
+"pour garantir une réalisation cohérente, soignée et durable."
 msgstr ""
-"V&V Swiss Services is involved at every stage of your project with "
-"complementary services tailored to the building’s needs. From renovation "
-"through to finishing, we coordinate the work to ensure a consistent, "
-"carefully executed and long-lasting result."
+"V&V Swiss Services is involved at every stage of your project with complementary services "
+"tailored to the building’s needs. From renovation through to finishing, we coordinate the work to"
+" ensure a consistent, carefully executed and long-lasting result."
 
 #: .\templates\core\home.html:465
 msgid "Maçonnerie, isolation et plâtrerie"
@@ -1589,38 +1566,40 @@ msgstr "reviews"
 # | "engagement envers la qualité, la sécurité et le professionnalisme."
 #: .\templates\core\home.html:741
 msgid ""
-"La satisfaction de nos clients reflète notre engagement envers la qualité, "
-"la confiance et un service professionnel."
-msgstr ""
-"Our clients’ satisfaction reflects our commitment to quality, trust and "
-"professional service."
+"La satisfaction de nos clients reflète notre engagement envers la qualité, la confiance et un "
+"service professionnel."
+msgstr "Our clients’ satisfaction reflects our commitment to quality, trust and professional service."
 
 # | msgid "Nos services seront prochainement disponibles."
-#: .\templates\core\home.html:792
+#: .\templates\core\home.html:788
 msgid "Les avis de nos clients seront prochainement disponibles."
 msgstr "Client reviews will be available soon."
 
-#: .\templates\core\mentions_legales.html:19
-#: .\templates\core\mentions_legales.html:54
-#: .\templates\core\mentions_legales.html:65
-#: .\templates\core\mentions_legales.html:97
-#: .\templates\core\mentions_legales.html:135
-#: .\templates\includes\footer.html:214 .\templates\includes\header.html:155
+#: .\templates\core\home.html:837
+msgid "Zone d’intervention"
+msgstr "Service area"
+
+#: .\templates\core\home.html:850
+msgid "Nous intervenons principalement"
+msgstr "We mainly operate"
+
+#: .\templates\core\home.html:880 .\templates\core\home.html:893
+msgid "Zone d’intervention V&V Swiss Services"
+msgstr "V&V Swiss Services service area"
+
+#: .\templates\core\mentions_legales.html:19 .\templates\core\mentions_legales.html:54
+#: .\templates\core\mentions_legales.html:65 .\templates\core\mentions_legales.html:97
+#: .\templates\core\mentions_legales.html:135 .\templates\includes\footer.html:224
+#: .\templates\includes\header.html:156
 msgid "Mentions légales"
 msgstr "Legal notice"
 
-#: .\templates\core\mentions_legales.html:32
-#: .\templates\core\mentions_legales.html:36
-msgid ""
-"Consultez les mentions légales et les informations juridiques de V&V Swiss "
-"Services en Suisse."
-msgstr ""
-"View the legal notice and legal information for V&V Swiss Services in "
-"Switzerland."
+#: .\templates\core\mentions_legales.html:32 .\templates\core\mentions_legales.html:36
+msgid "Consultez les mentions légales et les informations juridiques de V&V Swiss Services en Suisse."
+msgstr "View the legal notice and legal information for V&V Swiss Services in Switzerland."
 
 # | msgid "Informations"
-#: .\templates\core\mentions_legales.html:91
-#: .\templates\includes\header.html:150
+#: .\templates\core\mentions_legales.html:91 .\templates\includes\header.html:151
 msgid "Informations légales"
 msgstr "Legal information"
 
@@ -1628,11 +1607,8 @@ msgstr "Legal information"
 # | "Gestion des contacts, visites techniques et devis de V&V Swiss Services."
 # | msgid "Informations juridiques et réglementaires de V&V Swiss Services."
 #: .\templates\core\mentions_legales.html:103
-msgid ""
-"Informations juridiques et réglementaires relatives au site internet de V&V "
-"Swiss Services."
-msgstr ""
-"Legal and regulatory information relating to the V&V Swiss Services website."
+msgid "Informations juridiques et réglementaires relatives au site internet de V&V Swiss Services."
+msgstr "Legal and regulatory information relating to the V&V Swiss Services website."
 
 #: .\templates\core\mentions_legales.html:152
 msgid "Éditeur du site"
@@ -1688,80 +1664,421 @@ msgid "Hébergement du site"
 msgstr "Website hosting"
 
 # | msgid "Demande mise à jour avec succès."
-#: .\templates\core\mentions_legales.html:239
-#: .\templates\core\protection_donnees.html:200
+#: .\templates\core\mentions_legales.html:239 .\templates\core\protection_donnees.html:200
 msgid "Dernière mise à jour :"
 msgstr "Last updated:"
 
-#: .\templates\core\professionals.html:8 .\templates\core\professionals.html:22
-#: .\templates\core\professionals.html:26 .\templates\includes\header.html:142
-msgid "Professionnels"
-msgstr "Professionals"
+# | msgid "Solutions pour professionnels"
+#: .\templates\core\professionals.html:27
+msgid "Solutions pour les professionnels"
+msgstr "Solutions for professionals"
 
-#: .\templates\core\professionals.html:12
+# | msgid ""
+# | "Solutions de rénovation, entretien et remise en état pour régies "
+# | "immobilières, administrateurs de PPE, entreprises et professionnels dans "
+# | "le canton de Vaud."
+#: .\templates\core\professionals.html:28
 msgid ""
-"Solutions de rénovation, entretien et remise en état pour régies "
-"immobilières, administrateurs de PPE, entreprises et professionnels dans le "
-"canton de Vaud."
+"Solutions de rénovation, entretien et remise en état pour les professionnels de l'immobilier et "
+"de la construction."
 msgstr ""
-"Renovation, maintenance and refurbishment solutions for property management "
-"companies, condominium administrators, businesses and professionals in the "
-"canton of Vaud."
+"Renovation, maintenance and refurbishment solutions for professionals in the property and "
+"construction sectors."
 
-#: .\templates\core\professionals.html:39
+#: .\templates\core\professionals.html:100
 msgid "Solutions pour professionnels"
 msgstr "Solutions for professionals"
 
-#: .\templates\core\professionals.html:40
-msgid "Un partenaire pour vos biens immobiliers et vos projets"
-msgstr "A partner for your properties and projects"
+# | msgid "Parlez-nous de votre projet"
+#: .\templates\core\professionals.html:118
+msgid "Présenter votre projet"
+msgstr "Tell us about your project"
 
-#: .\templates\core\professionals.html:41
-msgid ""
-"V&V Swiss Services accompagne les régies immobilières, administrateurs de "
-"PPE, propriétaires, entreprises générales, constructeurs et autres "
-"professionnels pour leurs besoins d’entretien, de réparation et de "
-"rénovation."
-msgstr ""
-"V&V Swiss Services supports property management companies, condominium "
-"administrators, property owners, general contractors, builders and other "
-"professionals with their maintenance, repair and renovation needs."
+# | msgid "vos besoins"
+#: .\templates\core\professionals.html:165
+msgid "Vos besoins"
+msgstr "Your needs"
 
-#: .\templates\core\protection_donnees.html:32
-#: .\templates\core\protection_donnees.html:36
+# | msgid "Visite technique"
+# | msgid "Des solutions complètes pour"
+#: .\templates\core\professionals.html:170
+msgid "Des solutions pensées pour"
+msgstr "Solutions designed for"
+
+# | msgid "Des professionnels"
+#: .\templates\core\professionals.html:170
+msgid "les professionnels"
+msgstr "professionals"
+
+#: .\templates\core\professionals.html:170
+msgid "de l’immobilier"
+msgstr "in property"
+
+#: .\templates\core\professionals.html:171
 msgid ""
-"Informations relatives à la protection des données personnelles chez V&V "
-"Swiss Services."
+"Nous vous accompagnons dans la coordination, l’entretien et la remise en état de vos biens avec "
+"un interlocuteur unique et une organisation adaptée à vos contraintes."
 msgstr ""
-"Information about the protection of personal data at V&V Swiss Services."
+"We support you with the coordination, maintenance and refurbishment of your properties, with a "
+"single point of contact and an organisation tailored to your requirements."
+
+#: .\templates\core\professionals.html:179 .\templates\core\professionals.html:192
+#: .\templates\core\professionals.html:402
+msgid "Coordination de plusieurs corps de métier"
+msgstr "Coordination of multiple trades"
+
+#: .\templates\core\professionals.html:181 .\templates\core\professionals.html:189
+msgid ""
+"Nous coordonnons plusieurs interventions afin de simplifier le suivi de vos travaux et de limiter"
+" les échanges avec différents prestataires."
+msgstr ""
+"We coordinate multiple trades to simplify the management of your work and reduce the need to deal"
+" with different providers."
+
+#: .\templates\core\professionals.html:199
+msgid ""
+"Nous organisons les interventions selon vos priorités, les délais disponibles et les contraintes "
+"propres à chaque bien immobilier."
+msgstr ""
+"We organise the work according to your priorities, available timescales and the specific "
+"requirements of each property."
+
+#: .\templates\core\professionals.html:202
+msgid "Interventions rapides et planifiées"
+msgstr "Fast, scheduled work"
+
+#: .\templates\core\professionals.html:209
+msgid ""
+"Nous intervenons entre deux locations pour remettre les logements ou locaux en état et préparer "
+"efficacement leur prochaine occupation."
+msgstr ""
+"Between tenancies, we refurbish homes or premises and prepare them efficiently for their next "
+"occupancy."
+
+#: .\templates\core\professionals.html:212
+msgid "Remise en état entre locataires"
+msgstr "Refurbishment between tenancies"
+
+#: .\templates\core\professionals.html:219
+msgid ""
+"Nous prenons en charge les travaux d’entretien, les réparations et les finitions nécessaires au "
+"maintien de vos biens."
+msgstr ""
+"We take care of the maintenance work, repairs and finishing required to keep your properties in "
+"good condition."
+
+#: .\templates\core\professionals.html:222
+msgid "Entretien, réparations et finitions"
+msgstr "Maintenance, repairs and finishing"
+
+#: .\templates\core\professionals.html:229
+msgid ""
+"Nous préparons les logements et locaux avant une nouvelle occupation en coordonnant les travaux "
+"nécessaires avec un interlocuteur unique."
+msgstr ""
+"We prepare homes and premises before a new occupancy, coordinating the necessary work through a "
+"single point of contact."
+
+#: .\templates\core\professionals.html:232
+msgid "Préparation avant nouvelle occupation"
+msgstr "Preparation before a new occupancy"
+
+# | msgid "Tous les états"
+#: .\templates\core\professionals.html:264
+msgid "Remise en état"
+msgstr "Refurbishment"
+
+#: .\templates\core\professionals.html:265
+msgid "Entre deux locataires,"
+msgstr "Between tenancies,"
+
+#: .\templates\core\professionals.html:265
+msgid "nous coordonnons"
+msgstr "we coordinate"
+
+#: .\templates\core\professionals.html:265
+msgid "chaque étape"
+msgstr "every stage"
+
+#: .\templates\core\professionals.html:267
+msgid ""
+"Lors d’un changement de locataire, V&V Swiss Services organise les travaux nécessaires pour "
+"remettre le logement ou le local en état et préparer efficacement sa prochaine occupation."
+msgstr ""
+"When tenants change, V&V Swiss Services organises the necessary work to refurbish the home or "
+"premises and prepare it efficiently for the next occupancy."
+
+# | msgid "Zone d’intervention"
+#: .\templates\core\professionals.html:271
+msgid "Planifier une intervention"
+msgstr "Schedule work"
+
+# | msgid "Rénovation & bâtiment"
+#: .\templates\core\professionals.html:283
+msgid "Évaluation du bien"
+msgstr "Property assessment"
+
+# | msgid "Réalisations"
+# | msgid "Réalisation"
+#: .\templates\core\professionals.html:287
+msgid "Évaluation"
+msgstr "Assessment"
+
+#: .\templates\core\professionals.html:288
+msgid ""
+"Nous identifions les travaux nécessaires et les priorités afin de définir clairement les "
+"interventions à réaliser."
+msgstr ""
+"We identify the work required and the priorities so that the necessary interventions are clearly "
+"defined."
+
+# | msgid "l’organisation de vos travaux."
+#: .\templates\core\professionals.html:296
+msgid "Planification des travaux"
+msgstr "Work planning"
+
+# | msgid "Informations"
+# | msgid "Certifications"
+#: .\templates\core\professionals.html:300
+msgid "Planification"
+msgstr "Planning"
+
+#: .\templates\core\professionals.html:301
+msgid ""
+"Nous organisons les différents travaux selon les délais disponibles, les priorités du bien et la "
+"date prévue pour sa prochaine occupation."
+msgstr ""
+"We organise the various works according to the available timescales, the property’s priorities "
+"and the planned date of its next occupancy."
+
+# | msgid "Des prestations coordonnées pour"
+#: .\templates\core\professionals.html:309
+msgid "Intervention coordonnée"
+msgstr "Coordinated work"
+
+# | msgid "Zone d’intervention"
+#: .\templates\core\professionals.html:313
+msgid "Intervention"
+msgstr "Work"
+
+#: .\templates\core\professionals.html:314
+msgid ""
+"Nos équipes interviennent de manière coordonnée pour réaliser les travaux de rénovation, "
+"réparation, entretien et finition nécessaires."
+msgstr ""
+"Our teams work in a coordinated way to carry out the necessary renovation, repair, maintenance "
+"and finishing work."
+
+#: .\templates\core\professionals.html:322 .\templates\core\professionals.html:326
+msgid "Contrôle et remise en état"
+msgstr "Inspection and refurbishment"
+
+#: .\templates\core\professionals.html:327
+msgid ""
+"Nous vérifions les travaux réalisés afin de préparer le bien pour sa remise en location ou sa "
+"prochaine occupation."
+msgstr "We check the completed work to prepare the property for reletting or its next occupancy."
+
+#: .\templates\core\professionals.html:363
+msgid "Pourquoi V&V"
+msgstr "Why V&V"
+
+# | msgid "Un savoir-faire solide pour"
+#: .\templates\core\professionals.html:370
+msgid "Un partenaire pensé pour"
+msgstr "A partner built for"
+
+# | msgid "Tous les états"
+# | msgid "Tous les services"
+#: .\templates\core\professionals.html:372
+msgid "les exigences"
+msgstr "the needs"
+
+# | msgid "Des professionnels"
+#: .\templates\core\professionals.html:372
+msgid "des professionnels"
+msgstr "of professionals"
+
+# | msgid "Interlocuteur unique"
+#: .\templates\core\professionals.html:388
+msgid "Un interlocuteur unique"
+msgstr "A single point of contact"
+
+#: .\templates\core\professionals.html:393
+msgid ""
+"Un seul point de contact simplifie le suivi de vos demandes, la coordination des interventions et"
+" les échanges tout au long du projet."
+msgstr ""
+"A single point of contact simplifies the management of your requests, the coordination of work "
+"and communication throughout the project."
+
+#: .\templates\core\professionals.html:407
+msgid ""
+"Nous coordonnons les différentes prestations nécessaires afin de faciliter l’organisation des "
+"travaux et d’éviter la multiplication des interlocuteurs."
+msgstr ""
+"We coordinate the various services required to simplify the organisation of the work and avoid "
+"unnecessary multiple points of contact."
+
+#: .\templates\core\professionals.html:416
+msgid "Des devis clairs"
+msgstr "Clear quotations"
+
+#: .\templates\core\professionals.html:421
+msgid ""
+"Les travaux à réaliser sont présentés de manière claire afin de faciliter votre validation, votre"
+" planification et le suivi de chaque intervention."
+msgstr ""
+"The work to be carried out is presented clearly to make approval, planning and monitoring of each"
+" intervention easier."
+
+# | msgid "Visite technique"
+# | msgid "Des solutions adaptées à"
+# | msgid "Des solutions adaptées"
+#: .\templates\core\professionals.html:430
+msgid "Des finitions soignées"
+msgstr "Careful finishing"
+
+#: .\templates\core\professionals.html:435
+msgid ""
+"Nous accordons une attention particulière à la qualité d’exécution et aux finitions afin de "
+"livrer des espaces propres, fonctionnels et prêts pour leur prochaine utilisation."
+msgstr ""
+"We pay particular attention to workmanship and finishing so that we deliver clean, functional "
+"spaces ready for their next use."
+
+#: .\templates\core\professionals.html:444
+msgid "Réactivité et organisation"
+msgstr "Responsiveness and organisation"
+
+#: .\templates\core\professionals.html:449
+msgid ""
+"Nous organisons les interventions en fonction des priorités du bien, des contraintes du chantier "
+"et des délais disponibles."
+msgstr ""
+"We organise the work according to the property’s priorities, site constraints and available "
+"timescales."
+
+#: .\templates\core\professionals.html:458
+msgid "Une collaboration flexible"
+msgstr "Flexible collaboration"
+
+#: .\templates\core\professionals.html:463
+msgid ""
+"Intervention ponctuelle, remise en état entre locataires, entretien régulier ou rénovation plus "
+"importante : nous adaptons notre organisation aux besoins de chaque partenaire."
+msgstr ""
+"Whether for a one-off intervention, refurbishment between tenancies, regular maintenance or a "
+"larger renovation, we adapt our organisation to each partner’s needs."
+
+# | msgid "Plus de 20 ans d’expérience"
+#: .\templates\core\professionals.html:480
+msgid "Plus de 20 ans"
+msgstr "Over 20 years"
+
+# | msgid "d’expérience"
+#: .\templates\core\professionals.html:480
+msgid "d’expérience dans"
+msgstr "of experience in"
+
+#: .\templates\core\professionals.html:480
+msgid "la construction"
+msgstr "construction"
+
+#: .\templates\core\professionals.html:483
+msgid ""
+"Une expérience acquise en Suisse au service de projets de rénovation, d’entretien et de remise en"
+" état."
+msgstr "Experience gained in Switzerland across renovation, maintenance and refurbishment projects."
+
+# | msgid "Des projets qui illustrent"
+#: .\templates\core\professionals.html:588
+msgid "Des projets qui témoignent"
+msgstr "Projects that showcase"
+
+#: .\templates\core\professionals.html:589
+msgid "de notre"
+msgstr "our"
+
+# | msgid "Savoir-faire"
+#: .\templates\core\professionals.html:589
+msgid "savoir-faire"
+msgstr "expertise"
+
+# | msgid ""
+# | "Décrivez vos besoins en rénovation, isolation, maçonnerie, plâtrerie, "
+# | "peinture, finitions ou entretien immobilier."
+#: .\templates\core\professionals.html:592
+msgid ""
+"Découvrez une sélection de réalisations en rénovation, remise en état, peinture, isolation et "
+"entretien immobilier."
+msgstr ""
+"Discover a selection of projects in renovation, refurbishment, painting, insulation and property "
+"maintenance."
+
+# | msgid "Informations"
+#: .\templates\core\professionals.html:615 .\templates\includes\footer.html:132
+msgid "Rénovation"
+msgstr "Renovation"
+
+# | msgid "Boîte de réception"
+#: .\templates\core\professionals.html:656 .\templates\services\category_detail.html:210
+#: .\templates\services\service_list.html:704
+msgid "Projet de rénovation"
+msgstr "Renovation project"
+
+#: .\templates\core\professionals.html:661 .\templates\services\category_detail.html:216
+#: .\templates\services\service_detail.html:59 .\templates\services\service_list.html:723
+msgid "Besoin d’un conseil ?"
+msgstr "Need advice?"
+
+# | msgid "Appeler"
+#: .\templates\core\professionals.html:662 .\templates\services\category_detail.html:219
+#: .\templates\services\service_list.html:730
+msgid "Parlez-nous de"
+msgstr "Tell us about"
+
+#: .\templates\core\professionals.html:662 .\templates\services\category_detail.html:220
+#: .\templates\services\service_list.html:734
+msgid "votre projet et de"
+msgstr "your project and"
+
+#: .\templates\core\professionals.html:662 .\templates\services\category_detail.html:220
+#: .\templates\services\service_list.html:736
+msgid "vos besoins"
+msgstr "your needs"
+
+#: .\templates\core\professionals.html:663 .\templates\services\service_list.html:745
+msgid ""
+"Présentez-nous votre projet de rénovation, d’isolation, de maçonnerie, de plâtrerie, de peinture,"
+" de finition ou d’entretien immobilier."
+msgstr ""
+"Tell us about your renovation, insulation, masonry, plastering, painting, finishing or property "
+"maintenance project."
+
+#: .\templates\core\protection_donnees.html:32 .\templates\core\protection_donnees.html:36
+msgid "Informations relatives à la protection des données personnelles chez V&V Swiss Services."
+msgstr "Information about the protection of personal data at V&V Swiss Services."
 
 #: .\templates\core\protection_donnees.html:96
 msgid "Vie privée"
 msgstr "Privacy"
 
 #: .\templates\core\protection_donnees.html:107
-msgid ""
-"Informations concernant la collecte, l’utilisation et la protection de vos "
-"données personnelles."
-msgstr ""
-"Information about the collection, use and protection of your personal data."
+msgid "Informations concernant la collecte, l’utilisation et la protection de vos données personnelles."
+msgstr "Information about the collection, use and protection of your personal data."
 
 #: .\templates\core\protection_donnees.html:122
 msgid "Responsable du traitement"
 msgstr "Data controller"
 
 #: .\templates\core\protection_donnees.html:127
-msgid ""
-"Le responsable du traitement des données personnelles collectées par ce site "
-"est :"
-msgstr ""
-"The controller responsible for the personal data collected through this "
-"website is:"
+msgid "Le responsable du traitement des données personnelles collectées par ce site est :"
+msgstr "The controller responsible for the personal data collected through this website is:"
 
 # | msgid "Boîte de réception des demandes"
 # | msgid "Protection des données"
-#: .\templates\core\protection_donnees.html:155
-#: .\templates\core\protection_donnees.html:157
+#: .\templates\core\protection_donnees.html:155 .\templates\core\protection_donnees.html:157
 msgid "Contact pour la protection des données :"
 msgstr "Data protection contact:"
 
@@ -1771,11 +2088,9 @@ msgstr "Protection of your personal data"
 
 #: .\templates\core\protection_donnees.html:170
 msgid ""
-"La déclaration relative à la protection des données de V&V Swiss Services "
-"sera prochainement disponible sur cette page."
-msgstr ""
-"The V&V Swiss Services data protection statement will be available on this "
-"page soon."
+"La déclaration relative à la protection des données de V&V Swiss Services sera prochainement "
+"disponible sur cette page."
+msgstr "The V&V Swiss Services data protection statement will be available on this page soon."
 
 #: .\templates\core\protection_donnees.html:178
 msgid "Hébergement et prestataires techniques"
@@ -1789,114 +2104,101 @@ msgstr "The website is hosted by:"
 msgid "Pays d’hébergement :"
 msgstr "Hosting country:"
 
-#: .\templates\includes\footer.html:75
+#: .\templates\includes\footer.html:77
 msgid "Solutions pour l’isolation, les façades et la rénovation."
 msgstr "Solutions for insulation, façades and renovation."
 
-#: .\templates\includes\footer.html:91
+#: .\templates\includes\footer.html:93
 msgid "Solutions"
 msgstr "Solutions"
 
-#: .\templates\includes\footer.html:92 .\templates\includes\header.html:126
-#: .\templates\projects\project_detail.html:105
-#: .\templates\projects\project_list.html:11
-#: .\templates\projects\project_list.html:51
+#: .\templates\includes\footer.html:94 .\templates\includes\header.html:127
+#: .\templates\projects\project_detail.html:105 .\templates\projects\project_list.html:10
+#: .\templates\projects\project_list.html:50
 msgid "Réalisations"
 msgstr "Projects"
 
-#: .\templates\includes\footer.html:94
+#: .\templates\includes\footer.html:96
 msgid "Notre méthode"
 msgstr "Our approach"
 
-#: .\templates\includes\footer.html:95
+#: .\templates\includes\footer.html:97
 msgid "Actualités & conseils"
 msgstr "News & advice"
 
 # | msgid "Visite technique"
-#: .\templates\includes\footer.html:128
+#: .\templates\includes\footer.html:130
 msgid "Isolation thermique"
 msgstr "Thermal insulation"
 
-#: .\templates\includes\footer.html:129
+#: .\templates\includes\footer.html:131
 msgid "Façades"
 msgstr "Façades"
 
-# | msgid "Informations"
-#: .\templates\includes\footer.html:130
-msgid "Rénovation"
-msgstr "Renovation"
-
 # | msgid "Tous les états"
-#: .\templates\includes\footer.html:209
+#: .\templates\includes\footer.html:219
 msgid "Tous droits réservés."
 msgstr "All rights reserved."
 
 # | msgid "Tous les états"
-#: .\templates\includes\header.html:98
+#: .\templates\includes\header.html:99
 msgid "Tous les services"
 msgstr "All services"
 
-#: .\templates\includes\header.html:134
+#: .\templates\includes\header.html:135
 msgid "À propos"
 msgstr "About us"
 
-# | msgid "Appeler"
-#: .\templates\includes\header.html:191
-msgid "Appelez-nous"
-msgstr "Call us"
+#: .\templates\includes\header.html:143
+msgid "Professionnels"
+msgstr "Professionals"
 
 # | msgid "Ouvrir"
-#: .\templates\includes\header.html:309
+#: .\templates\includes\header.html:228
 msgid "Ouvrir la recherche"
 msgstr "Open search"
 
 # | msgid "Ouvrir"
-#: .\templates\includes\header.html:316
+#: .\templates\includes\header.html:235
 msgid "Ouvrir le menu"
 msgstr "Open menu"
 
 # | msgid "Rechercher une demande"
-#: .\templates\includes\header.html:330
+#: .\templates\includes\header.html:249
 msgid "Recherche sur le site"
 msgstr "Site search"
 
 # | msgid "Rechercher"
-#: .\templates\includes\header.html:331
+#: .\templates\includes\header.html:250
 msgid "Rechercher..."
 msgstr "Search..."
 
 # | msgid "Rechercher une demande"
-#: .\templates\includes\header.html:331
+#: .\templates\includes\header.html:250
 msgid "Rechercher sur le site"
 msgstr "Search the site"
 
-#: .\templates\includes\header.html:333
+#: .\templates\includes\header.html:252
 msgid "Fermer la recherche"
 msgstr "Close search"
 
-#: .\templates\includes\header.html:342 .\templates\includes\header.html:503
+#: .\templates\includes\header.html:261 .\templates\includes\header.html:422
 msgid "Fermer le menu"
 msgstr "Close menu"
 
-#: .\templates\includes\header.html:377
-msgid ""
-"Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
+#: .\templates\includes\header.html:296
+msgid "Votre partenaire pour la rénovation, l’isolation et les travaux du bâtiment."
 msgstr "Your partner for renovation, insulation and building works."
 
-#: .\templates\includes\header.html:391
+#: .\templates\includes\header.html:310
 msgid "Boîte de réception"
 msgstr "Inbox"
 
-#: .\templates\includes\header.html:400
+#: .\templates\includes\header.html:319
 msgid "Se déconnecter"
 msgstr "Sign out"
 
-# | msgid "Visite demandée"
-#: .\templates\includes\header.html:427 .\templates\includes\header.html:530
-msgid "Suisse"
-msgstr "Switzerland"
-
-#: .\templates\includes\header.html:458
+#: .\templates\includes\header.html:377
 msgid "Écrivez-nous sur WhatsApp"
 msgstr "Message us on WhatsApp"
 
@@ -1941,198 +2243,317 @@ msgstr "Do you have a similar project?"
 
 #: .\templates\projects\project_detail.html:591
 msgid ""
-"Contactez V&V Swiss Services pour discuter de votre projet et identifier la "
-"solution adaptée à votre bâtiment."
+"Contactez V&V Swiss Services pour discuter de votre projet et identifier la solution adaptée à "
+"votre bâtiment."
 msgstr ""
-"Contact V&V Swiss Services to discuss your project and identify the right "
-"solution for your building."
+"Contact V&V Swiss Services to discuss your project and identify the right solution for your "
+"building."
 
 #: .\templates\projects\project_detail.html:594
 msgid ""
-"Bonjour, je suis intéressé par un projet similaire et je souhaite recevoir "
-"davantage d’informations ainsi qu’un devis."
-msgstr ""
-"Hello, I am interested in a similar project and would like more information "
-"and a quote."
+"Bonjour, je suis intéressé par un projet similaire et je souhaite recevoir davantage "
+"d’informations ainsi qu’un devis."
+msgstr "Hello, I am interested in a similar project and would like more information and a quote."
 
 #: .\templates\projects\project_detail.html:595
 msgid "Demande concernant un projet similaire"
 msgstr "Enquiry about a similar project"
 
-#: .\templates\projects\project_list.html:18
+#: .\templates\projects\project_list.html:17
 msgid ""
-"Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, "
-"maçonnerie, plâtrerie, peinture et travaux du bâtiment."
+"Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, maçonnerie, plâtrerie,"
+" peinture et travaux du bâtiment."
 msgstr ""
-"Discover V&V Swiss Services projects in renovation, insulation, masonry, "
-"plastering, painting and building works."
+"Discover V&V Swiss Services projects in renovation, insulation, masonry, plastering, painting and"
+" building works."
 
-#: .\templates\projects\project_list.html:208
+#: .\templates\projects\project_list.html:207
 msgid "Nos projets seront bientôt disponibles."
 msgstr "Our projects will be available soon."
 
-#: .\templates\services\service_detail.html:12
-msgid ""
-"Découvrez les services de rénovation, isolation, maçonnerie, plâtrerie, "
-"peinture et finition de V&V Swiss Services."
-msgstr ""
-"Discover V&V Swiss Services renovation, insulation, masonry, plastering, "
-"painting and finishing services."
+# | msgid "Services de rénovation et travaux du bâtiment"
+#: .\templates\services\category_detail.html:15
+msgid "Découvrez nos services professionnels de rénovation et de bâtiment."
+msgstr "Discover our professional renovation and building services."
 
-# | msgid "Ouvrir"
-#: .\templates\services\service_detail.html:43
-msgid "Découvrir"
-msgstr "Discover"
+# | msgid "Catégories"
+#: .\templates\services\category_detail.html:65
+msgid "Nos catégories"
+msgstr "Our categories"
+
+# | msgid "Besoin d’un conseil ?"
+#: .\templates\services\category_detail.html:92
+msgid "Besoin d’aide ?"
+msgstr "Need help?"
+
+# | msgid ""
+# | "Une prestation professionnelle adaptée à votre bâtiment, à vos besoins et "
+# | "à votre projet."
+#: .\templates\services\category_detail.html:142
+msgid ""
+"Découvrez les prestations professionnelles proposées dans cette catégorie et choisissez le "
+"service adapté à votre projet."
+msgstr ""
+"Discover the professional services in this category and choose the service that suits your "
+"project."
 
 # | msgid "Tous les états"
-#: .\templates\services\service_detail.html:43
-msgid "le service"
-msgstr "the service"
+# | msgid "Découvrir ce service"
+# | msgid "Découvrir cette catégorie"
+#: .\templates\services\category_detail.html:150
+msgid "Services de cette catégorie"
+msgstr "Services in this category"
 
-#: .\templates\services\service_list.html:6
+# | msgid "Aucun article disponible dans cette catégorie."
+#: .\templates\services\category_detail.html:152
+msgid "Découvrez les prestations disponibles dans cette catégorie."
+msgstr "Discover the services available in this category."
+
+# | msgid "Aucun article disponible dans cette catégorie."
+#: .\templates\services\category_detail.html:184
+msgid "Aucun service n’est actuellement disponible dans cette catégorie."
+msgstr "No services are currently available in this category."
+
+# | msgid "Rénovation et travaux du bâtiment"
+#: .\templates\services\category_detail.html:194
+msgid "Solutions adaptées aux besoins du bâtiment"
+msgstr "Solutions tailored to the building’s needs"
+
+# | msgid "Un accompagnement clair, personnalisé et adapté à chaque projet."
+#: .\templates\services\category_detail.html:195
+msgid "Accompagnement personnalisé du projet"
+msgstr "Personalised project support"
+
+#: .\templates\services\category_detail.html:199
+msgid "Travail professionnel et finitions soignées"
+msgstr "Professional workmanship and careful finishing"
+
+#: .\templates\services\category_detail.html:200
+msgid "Intervention adaptée à chaque situation"
+msgstr "Work tailored to each situation"
+
+# | msgid ""
+# | "Décrivez votre projet et notre équipe vous contactera pour étudier vos "
+# | "besoins et vous proposer une solution adaptée."
+#: .\templates\services\category_detail.html:223
 msgid ""
-"Découvrez les services de rénovation intérieure et extérieure, isolation "
-"thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de "
-"chantier et entretien immobilier de V&V Swiss Services."
+"Présentez-nous votre projet et notre équipe vous aidera à identifier les prestations adaptées à "
+"vos besoins."
 msgstr ""
-"Discover V&V Swiss Services services for interior and exterior renovation, "
-"thermal insulation, masonry, plastering, painting, finishing, post-"
-"construction cleaning and property maintenance."
+"Tell us about your project and our team will help you identify the services that best meet your "
+"needs."
 
-#: .\templates\services\service_list.html:38
+# | msgid ""
+# | "Bonjour, je souhaite obtenir des informations concernant un projet de "
+# | "rénovation et demander un devis."
+#: .\templates\services\category_detail.html:226
+msgid "Bonjour, je souhaite obtenir des informations concernant un projet et demander un devis."
+msgstr "Hello, I would like information about a project and would like to request a quotation."
+
+# | msgid "Demande concernant un projet similaire"
+#: .\templates\services\category_detail.html:227
+msgid "Demande concernant un projet"
+msgstr "Enquiry about a project"
+
+# | msgid "Services de rénovation et travaux du bâtiment"
+#: .\templates\services\service_detail.html:11
+msgid "Découvrez ce service professionnel proposé par V&V Swiss Services en Suisse romande."
+msgstr "Discover this professional service from V&V Swiss Services in French-speaking Switzerland."
+
+# | msgid "Services spécialisés"
+#: .\templates\services\service_detail.html:44
+msgid "Services associés"
+msgstr "Related services"
+
+# | msgid "Catégories"
+#: .\templates\services\service_detail.html:50
+msgid "Voir la catégorie"
+msgstr "View category"
+
+#: .\templates\services\service_detail.html:108
+msgid "Vos avantages"
+msgstr "Your advantages"
+
+# | msgid "Projet"
+# | msgid "Le projet"
+#: .\templates\services\service_detail.html:140
+msgid "Votre projet"
+msgstr "Your project"
+
+# | msgid ""
+# | "Décrivez votre projet et notre équipe vous contactera pour étudier vos "
+# | "besoins et vous proposer une solution adaptée."
+#: .\templates\services\service_detail.html:142
+msgid "Présentez-nous vos besoins et notre équipe vous proposera une solution adaptée."
+msgstr "Tell us about your needs and our team will propose a suitable solution."
+
+#: .\templates\services\service_list.html:11
 msgid ""
-"Découvrez nos prestations de rénovation intérieure et extérieure, isolation "
-"thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de "
-"chantier et entretien immobilier."
+"Découvrez les services de rénovation intérieure et extérieure, isolation thermique, maçonnerie, "
+"plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien immobilier de V&V Swiss"
+" Services."
 msgstr ""
-"Discover our services for interior and exterior renovation, thermal "
-"insulation, masonry, plastering, painting, finishing, post-construction "
-"cleaning and property maintenance."
+"Discover V&V Swiss Services services for interior and exterior renovation, thermal insulation, "
+"masonry, plastering, painting, finishing, post-construction cleaning and property maintenance."
 
-#: .\templates\services\service_list.html:128
+# | msgid ""
+# | "Présentez-nous votre projet de rénovation, d’isolation, de maçonnerie, de "
+# | "plâtrerie, de peinture, de finition ou d’entretien immobilier."
+#: .\templates\services\service_list.html:72
+msgid ""
+"Découvrez nos principales catégories de services pour vos projets de rénovation, d’isolation, de "
+"construction, de finition et d’entretien immobilier."
+msgstr ""
+"Discover our main service categories for renovation, insulation, construction, finishing and "
+"property maintenance projects."
+
+#: .\templates\services\service_list.html:266
 msgid "UN PROJET À RÉALISER ?"
 msgstr "PLANNING A PROJECT?"
 
-#: .\templates\services\service_list.html:131
+#: .\templates\services\service_list.html:273
 msgid "Parlons de vos"
 msgstr "Let’s talk about your"
 
 # | msgid "Contactées"
-#: .\templates\services\service_list.html:132
+#: .\templates\services\service_list.html:276
 msgid "travaux et de vos"
 msgstr "work and your"
 
-#: .\templates\services\service_list.html:132
+#: .\templates\services\service_list.html:278
 msgid "besoins"
 msgstr "needs"
 
 # | msgid "Demande"
-#: .\templates\services\service_list.html:137
+#: .\templates\services\service_list.html:293
 msgid "Demander"
 msgstr "Request"
 
 # | msgid "Devis"
-#: .\templates\services\service_list.html:137
+#: .\templates\services\service_list.html:295
 msgid "un devis"
 msgstr "a quote"
 
-#: .\templates\services\service_list.html:157
-msgid "Services spécialisés"
-msgstr "Specialist services"
+# | msgid "Tous les états"
+# | msgid "Tous les services"
+#: .\templates\services\service_list.html:343
+msgid "Catégories de services"
+msgstr "Service categories"
 
-#: .\templates\services\service_list.html:160
+# | msgid ""
+# | "Des prestations complémentaires pour répondre aux besoins de rénovation, "
+# | "d’entretien et de finition."
+#: .\templates\services\service_list.html:350
 msgid ""
-"Des prestations complémentaires pour répondre aux besoins de rénovation, "
+"Des catégories de prestations complémentaires pour répondre aux besoins de rénovation, "
 "d’entretien et de finition."
-msgstr ""
-"Complementary services to meet renovation, maintenance and finishing needs."
+msgstr "Complementary service categories for renovation, maintenance and finishing needs."
 
-#: .\templates\services\service_list.html:174
+#: .\templates\services\service_list.html:387
 msgid "Une expérience de plus de 20 ans dans le secteur du bâtiment en Suisse."
 msgstr "More than 20 years of experience in the Swiss building sector."
 
-#: .\templates\services\service_list.html:202
-msgid ""
-"Un site et un accompagnement accessibles en français, allemand, italien et "
-"anglais."
-msgstr ""
-"A website and support available in French, German, Italian and English."
+#: .\templates\services\service_list.html:461
+msgid "Un site et un accompagnement accessibles en français, allemand, italien et anglais."
+msgstr "A website and support available in French, German, Italian and English."
 
-#: .\templates\services\service_list.html:221
-#: .\templates\services\service_list.html:223
+#: .\templates\services\service_list.html:494 .\templates\services\service_list.html:499
 msgid "Savoir-faire V&V Swiss Services"
 msgstr "V&V Swiss Services expertise"
 
-#: .\templates\services\service_list.html:234
+#: .\templates\services\service_list.html:532
 msgid "Notre manière de travailler"
 msgstr "How we work"
 
-#: .\templates\services\service_list.html:237
+#: .\templates\services\service_list.html:539
 msgid "Un accompagnement"
 msgstr "Support that is"
 
-#: .\templates\services\service_list.html:238
+#: .\templates\services\service_list.html:543
 msgid "clair, soigné et"
 msgstr "clear, thorough and"
 
-#: .\templates\services\service_list.html:238
+#: .\templates\services\service_list.html:545
 msgid "adapté à votre projet"
 msgstr "tailored to your project"
 
-#: .\templates\services\service_list.html:253
+#: .\templates\services\service_list.html:595
 msgid "engagements essentiels"
 msgstr "key commitments"
 
-#: .\templates\services\service_list.html:258
+#: .\templates\services\service_list.html:608
 msgid ""
-"Écoute, qualité, transparence, réactivité et soin des finitions guident "
-"notre approche sur chaque intervention."
+"Écoute, qualité, transparence, réactivité et soin des finitions guident notre approche sur chaque"
+" intervention."
 msgstr ""
-"Listening, quality, transparency, responsiveness and attention to detail "
-"guide our approach on every job."
+"Listening, quality, transparency, responsiveness and attention to detail guide our approach on "
+"every job."
 
-#: .\templates\services\service_list.html:267
+#: .\templates\services\service_list.html:629
 msgid ""
-"Nous analysons vos besoins, proposons une solution adaptée et suivons les "
-"travaux avec attention afin d’assurer une réalisation cohérente, durable et "
-"soignée."
+"Nous analysons vos besoins, proposons une solution adaptée et suivons les travaux avec attention "
+"afin d’assurer une réalisation cohérente, durable et soignée."
 msgstr ""
-"We assess your needs, propose a suitable solution and closely follow the "
-"work to ensure a consistent, durable and carefully executed result."
+"We assess your needs, propose a suitable solution and closely follow the work to ensure a "
+"consistent, durable and carefully executed result."
 
-#: .\templates\services\service_list.html:279
+#: .\templates\services\service_list.html:660
 msgid "Rénovation & bâtiment"
 msgstr "Renovation & building"
 
-# | msgid "Boîte de réception"
-#: .\templates\services\service_list.html:301
-msgid "Projet de rénovation"
-msgstr "Renovation project"
+#~ msgid "les exigences <br> des professionnels"
+#~ msgstr "Solutions for professionals"
 
-#: .\templates\services\service_list.html:307
-msgid "Besoin d’un conseil ?"
-msgstr "Need advice?"
+#~ msgid "Plus de 20 ans <br> d’expérience dans <br> la construction"
+#~ msgstr "More than 20 years of experience in the Swiss building sector"
+
+#~ msgid "de notre <br> savoir-faire"
+#~ msgstr "our expertise"
+
+#~ msgid "Un partenaire pour vos biens immobiliers et vos projets"
+#~ msgstr "A partner for your properties and projects"
+
+#~ msgid ""
+#~ "V&V Swiss Services accompagne les régies immobilières, "
+#~ "administrateurs de PPE, propriétaires, entreprises générales,"
+#~ " constructeurs et autres professionnels pour leurs "
+#~ "besoins d’entretien, de réparation et de rénovation."
+#~ msgstr ""
+#~ "V&V Swiss Services supports property management companies,"
+#~ " condominium administrators, property owners, general "
+#~ "contractors, builders and other professionals with their"
+#~ " maintenance, repair and renovation needs."
 
 # | msgid "Appeler"
-#: .\templates\services\service_list.html:310
-msgid "Parlez-nous de"
-msgstr "Tell us about"
+#~ msgid "Appelez-nous"
+#~ msgstr "Call us"
 
-#: .\templates\services\service_list.html:311
-msgid "votre projet et de"
-msgstr "your project and"
+#~ msgid ""
+#~ "Découvrez les services de rénovation, isolation, "
+#~ "maçonnerie, plâtrerie, peinture et finition de V&V "
+#~ "Swiss Services."
+#~ msgstr ""
+#~ "Discover V&V Swiss Services renovation, insulation, "
+#~ "masonry, plastering, painting and finishing services."
 
-#: .\templates\services\service_list.html:311
-msgid "vos besoins"
-msgstr "your needs"
+# | msgid "Ouvrir"
+#~ msgid "Découvrir"
+#~ msgstr "Discover"
 
-#: .\templates\services\service_list.html:314
-msgid ""
-"Présentez-nous votre projet de rénovation, d’isolation, de maçonnerie, de "
-"plâtrerie, de peinture, de finition ou d’entretien immobilier."
-msgstr ""
-"Tell us about your renovation, insulation, masonry, plastering, painting, "
-"finishing or property maintenance project."
+# | msgid "Tous les états"
+#~ msgid "le service"
+#~ msgstr "the service"
+
+#~ msgid ""
+#~ "Découvrez nos prestations de rénovation intérieure et "
+#~ "extérieure, isolation thermique, maçonnerie, plâtrerie, "
+#~ "peinture, finitions, nettoyage de fin de chantier et"
+#~ " entretien immobilier."
+#~ msgstr ""
+#~ "Discover our services for interior and exterior "
+#~ "renovation, thermal insulation, masonry, plastering, painting,"
+#~ " finishing, post-construction cleaning and property "
+#~ "maintenance."
 
 #~ msgid "Actualités & Conseils"
 #~ msgstr "News & Advice"
@@ -2144,32 +2565,27 @@ msgstr ""
 #~ msgstr "and enhance your property"
 
 #~ msgid ""
-#~ "Chaque bâtiment a ses propres besoins. Notre mission est de proposer des "
-#~ "solutions de rénovation adaptées, avec un travail soigné, une "
-#~ "organisation claire et un interlocuteur unique pour coordonner les "
-#~ "différentes étapes de votre projet."
+#~ "Chaque bâtiment a ses propres besoins. Notre mission"
+#~ " est de proposer des solutions de rénovation "
+#~ "adaptées, avec un travail soigné, une organisation "
+#~ "claire et un interlocuteur unique pour coordonner "
+#~ "les différentes étapes de votre projet."
 #~ msgstr ""
-#~ "Every building has its own needs. Our mission is to provide tailored "
-#~ "renovation solutions, with careful workmanship, clear organisation and a "
-#~ "single point of contact to coordinate the different stages of your "
-#~ "project."
+#~ "Every building has its own needs. Our mission "
+#~ "is to provide tailored renovation solutions, with "
+#~ "careful workmanship, clear organisation and a single "
+#~ "point of contact to coordinate the different stages"
+#~ " of your project."
 
 # | msgid "Tous les états"
 #~ msgid "Découvrir tous nos services"
 #~ msgstr "Discover all our services"
 
-#~ msgid ""
-#~ "Une prestation adaptée aux caractéristiques de votre bâtiment et aux "
-#~ "besoins de votre projet."
-#~ msgstr ""
-#~ "A service tailored to the characteristics of your building and the needs "
-#~ "of your project."
+#~ msgid "Une prestation adaptée aux caractéristiques de votre bâtiment et aux besoins de votre projet."
+#~ msgstr "A service tailored to the characteristics of your building and the needs of your project."
 
 #~ msgid "Services V&V Swiss Services"
 #~ msgstr "V&V Swiss Services services"
-
-#~ msgid "Nos prestations seront prochainement disponibles."
-#~ msgstr "Our services will be available soon."
 
 # | msgid "Service"
 #~ msgid "V&V Swiss Services"
@@ -2185,18 +2601,22 @@ msgstr ""
 #~ msgstr "enhance your property"
 
 #~ msgid ""
-#~ "Nous accompagnons particuliers, régies immobilières et professionnels "
-#~ "avec des solutions adaptées à chaque projet."
+#~ "Nous accompagnons particuliers, régies immobilières et "
+#~ "professionnels avec des solutions adaptées à chaque "
+#~ "projet."
 #~ msgstr ""
-#~ "We support private clients, property management companies and "
-#~ "professionals with solutions tailored to each project."
+#~ "We support private clients, property management companies"
+#~ " and professionals with solutions tailored to each "
+#~ "project."
 
 #~ msgid ""
-#~ "Un interlocuteur unique coordonne les différentes étapes afin de garantir "
-#~ "un suivi clair, un travail soigné et une réalisation cohérente."
+#~ "Un interlocuteur unique coordonne les différentes étapes"
+#~ " afin de garantir un suivi clair, un travail "
+#~ "soigné et une réalisation cohérente."
 #~ msgstr ""
-#~ "A single point of contact coordinates the different stages to ensure "
-#~ "clear follow-up, careful workmanship and consistent delivery."
+#~ "A single point of contact coordinates the different"
+#~ " stages to ensure clear follow-up, careful "
+#~ "workmanship and consistent delivery."
 
 #~ msgid "Une expérience acquise sur le terrain"
 #~ msgstr "Experience gained on site"
@@ -2204,20 +2624,11 @@ msgstr ""
 #~ msgid "dans le secteur du bâtiment."
 #~ msgstr "in the building sector."
 
-#~ msgid "Des prestations coordonnées pour"
-#~ msgstr "Coordinated services to"
-
 #~ msgid "répondre aux besoins de votre projet."
 #~ msgstr "meet the needs of your project."
 
-#~ msgid "Interlocuteur unique"
-#~ msgstr "Single point of contact"
-
 #~ msgid "Un suivi centralisé pour simplifier"
 #~ msgstr "Centralised follow-up to simplify"
-
-#~ msgid "l’organisation de vos travaux."
-#~ msgstr "the organisation of your work."
 
 #~ msgid "Présentez-nous votre projet et recevez"
 #~ msgstr "Tell us about your project and receive"
@@ -2232,18 +2643,16 @@ msgstr ""
 #~ msgstr "your property"
 
 #~ msgid ""
-#~ "V&V Swiss Services propose des prestations complémentaires pour répondre "
-#~ "aux besoins de rénovation, d’entretien et d’amélioration de votre "
-#~ "bâtiment."
+#~ "V&V Swiss Services propose des prestations complémentaires"
+#~ " pour répondre aux besoins de rénovation, d’entretien"
+#~ " et d’amélioration de votre bâtiment."
 #~ msgstr ""
-#~ "V&V Swiss Services offers complementary services to meet your building’s "
-#~ "renovation, maintenance and improvement needs."
+#~ "V&V Swiss Services offers complementary services to "
+#~ "meet your building’s renovation, maintenance and "
+#~ "improvement needs."
 
-#~ msgid ""
-#~ "Chaque intervention est adaptée au bien, au projet et aux travaux à "
-#~ "réaliser."
-#~ msgstr ""
-#~ "Each job is tailored to the property, the project and the work required."
+#~ msgid "Chaque intervention est adaptée au bien, au projet et aux travaux à réaliser."
+#~ msgstr "Each job is tailored to the property, the project and the work required."
 
 #~ msgid "Rénovation & travaux du bâtiment"
 #~ msgstr "Renovation & building works"
@@ -2252,16 +2661,15 @@ msgstr ""
 #~ msgstr "your spaces"
 
 #~ msgid ""
-#~ "V&V Swiss Services accompagne particuliers, régies immobilières et "
-#~ "professionnels avec des prestations adaptées à chaque projet, de la "
-#~ "rénovation aux finitions."
+#~ "V&V Swiss Services accompagne particuliers, régies "
+#~ "immobilières et professionnels avec des prestations "
+#~ "adaptées à chaque projet, de la rénovation aux "
+#~ "finitions."
 #~ msgstr ""
-#~ "V&V Swiss Services supports private clients, property management "
-#~ "companies and professionals with services tailored to each project, from "
-#~ "renovation through to finishing."
-
-#~ msgid "Services de rénovation et travaux du bâtiment"
-#~ msgstr "Renovation and building works services"
+#~ "V&V Swiss Services supports private clients, property "
+#~ "management companies and professionals with services "
+#~ "tailored to each project, from renovation through to"
+#~ " finishing."
 
 #~ msgid "Fichiers joints"
 #~ msgstr "Attachments"
@@ -2293,12 +2701,8 @@ msgstr ""
 #~ msgid "État de la demande"
 #~ msgstr "Request status"
 
-#~ msgid ""
-#~ "Saisissez ici les observations, le suivi, les accords ou les informations "
-#~ "importantes..."
-#~ msgstr ""
-#~ "Enter observations, follow-up notes, agreements or important information "
-#~ "here..."
+#~ msgid "Saisissez ici les observations, le suivi, les accords ou les informations importantes..."
+#~ msgstr "Enter observations, follow-up notes, agreements or important information here..."
 
 #~ msgid "Ces notes sont internes et ne sont pas visibles par le client."
 #~ msgstr "These notes are internal and are not visible to the client."

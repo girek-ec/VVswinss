@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from .models import (
     AboutContent,
@@ -17,8 +18,9 @@ from .models import (
     Statistic,
     TeamMember,
     Testimonial,
+    ProfessionalPage,
+    ProfessionalBlock,
 )
-
 
 # ============================================================
 # SITE CONFIGURATION
@@ -88,7 +90,6 @@ class SiteConfigurationAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # SOCIAL LINKS
 # ============================================================
@@ -101,7 +102,6 @@ class SocialLinkAdmin(admin.ModelAdmin):
     ordering = ("order", "name")
     readonly_fields = ("created_at", "updated_at")
 
-
 # ============================================================
 # ABOUT CONTENT
 # ============================================================
@@ -110,115 +110,109 @@ class SocialLinkAdmin(admin.ModelAdmin):
 class AboutContentAdmin(admin.ModelAdmin):
     list_display = ("intro_title_fr", "is_active", "updated_at")
     list_filter = ("is_active",)
-    readonly_fields = ("created_at", "updated_at")
+    readonly_fields = ("image_preview", "video_image_preview", "created_at", "updated_at")
 
     fieldsets = (
         ("Configuration", {
-            "fields": ("is_active", "image"),
+            "fields": ("is_active", "image", "image_preview"),
         }),
-
         ("Présentation · ES", {
             "fields": ("intro_title_es", "intro_text_es"),
             "classes": ("collapse",),
         }),
-
         ("Présentation · FR", {
             "fields": ("intro_title_fr", "intro_text_fr"),
         }),
-
         ("Présentation · DE", {
             "fields": ("intro_title_de", "intro_text_de"),
             "classes": ("collapse",),
         }),
-
         ("Présentation · IT", {
             "fields": ("intro_title_it", "intro_text_it"),
             "classes": ("collapse",),
         }),
-
         ("Présentation · EN", {
             "fields": ("intro_title_en", "intro_text_en"),
             "classes": ("collapse",),
         }),
-
         ("Mission · ES", {
             "fields": ("mission_es",),
             "classes": ("collapse",),
         }),
-
         ("Mission · FR", {
             "fields": ("mission_fr",),
         }),
-
         ("Mission · DE", {
             "fields": ("mission_de",),
             "classes": ("collapse",),
         }),
-
         ("Mission · IT", {
             "fields": ("mission_it",),
             "classes": ("collapse",),
         }),
-
         ("Mission · EN", {
             "fields": ("mission_en",),
             "classes": ("collapse",),
         }),
-
         ("Vision · ES", {
             "fields": ("vision_es",),
             "classes": ("collapse",),
         }),
-
         ("Vision · FR", {
             "fields": ("vision_fr",),
         }),
-
         ("Vision · DE", {
             "fields": ("vision_de",),
             "classes": ("collapse",),
         }),
-
         ("Vision · IT", {
             "fields": ("vision_it",),
             "classes": ("collapse",),
         }),
-
         ("Vision · EN", {
             "fields": ("vision_en",),
             "classes": ("collapse",),
         }),
-
         ("Histoire · ES", {
             "fields": ("history_es",),
             "classes": ("collapse",),
         }),
-
         ("Histoire · FR", {
             "fields": ("history_fr",),
         }),
-
         ("Histoire · DE", {
             "fields": ("history_de",),
             "classes": ("collapse",),
         }),
-
         ("Histoire · IT", {
             "fields": ("history_it",),
             "classes": ("collapse",),
         }),
-
         ("Histoire · EN", {
             "fields": ("history_en",),
             "classes": ("collapse",),
         }),
-
-        ("Dates", {
+        ("Multimedia · vídeo", {
+            "description": "Configure el vídeo de la sección Sobre nosotros. Si existe una URL de vídeo, se mostrará el botón de reproducción. Si no existe, se mostrará únicamente la imagen cargada.",
+            "fields": ("video_url", "video_image", "video_image_preview"),
+        }),
+        ("Sistema", {
             "fields": ("created_at", "updated_at"),
             "classes": ("collapse",),
         }),
     )
 
+    @admin.display(description="Vista previa · imagen principal")
+    def image_preview(self, obj):
+        if obj and obj.image:
+            return format_html('<img src="{}" style="max-height:220px;max-width:420px;object-fit:cover;border-radius:6px;" />', obj.image.url)
+        return "—"
+
+    @admin.display(description="Vista previa · imagen del vídeo")
+    def video_image_preview(self, obj):
+        if obj and obj.video_image:
+            return format_html('<img src="{}" style="max-height:220px;max-width:420px;object-fit:cover;border-radius:6px;" />', obj.video_image.url)
+        return "—"
 
 # ============================================================
 # BUSINESS HOURS
@@ -245,7 +239,6 @@ class BusinessHourAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at")
         }),
     )
-
 
 # ============================================================
 # SERVICE AREA
@@ -294,7 +287,6 @@ class ServiceAreaAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # PROCESS STEP
 # ============================================================
@@ -337,7 +329,6 @@ class ProcessStepAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at")
         }),
     )
-
 
 # ============================================================
 # TEAM MEMBER
@@ -382,7 +373,6 @@ class TeamMemberAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # INSURANCE
 # ============================================================
@@ -396,7 +386,6 @@ class InsuranceAdmin(admin.ModelAdmin):
     search_fields = ("name_es", "name_fr", "name_de", "name_it", "name_en")
     ordering = ("order", "name_fr")
 
-
 # ============================================================
 # CERTIFICATION
 # ============================================================
@@ -408,7 +397,6 @@ class CertificationAdmin(admin.ModelAdmin):
     ordering = ("order", "name")
     search_fields = ("name", "issuer")
     readonly_fields = ("created_at", "updated_at")
-
 
 # ============================================================
 # STATISTIC
@@ -452,7 +440,6 @@ class StatisticAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at")
         }),
     )
-
 
 # ============================================================
 # TESTIMONIAL
@@ -501,7 +488,6 @@ class TestimonialAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # FAQ CATEGORY
 # ============================================================
@@ -545,7 +531,6 @@ class FAQCategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # FAQ
 # ============================================================
@@ -585,7 +570,6 @@ class FAQAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at")
         }),
     )
-
 
 # ============================================================
 # INSTITUTIONAL PAGE
@@ -639,7 +623,6 @@ class InstitutionalPageAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # HOME CONTENT
 # ============================================================
@@ -686,7 +669,6 @@ class HomeContentAdmin(admin.ModelAdmin):
         }),
     )
 
-
 # ============================================================
 # COMPANY VALUE
 # ============================================================
@@ -731,5 +713,150 @@ class CompanyValueAdmin(admin.ModelAdmin):
         ("Sistema", {
             "classes": ("collapse",),
             "fields": ("created_at", "updated_at")
+        }),
+    )
+
+# ============================================================
+# PROFESSIONNELS · BLOQUES DE CONTENIDO
+# ============================================================
+
+
+class ProfessionalBlockInline(admin.StackedInline):
+    model = ProfessionalBlock
+    extra = 0
+    show_change_link = True
+
+    fieldsets = (
+        ("Configuración del bloque", {
+            "fields": ("layout", "image", "icon", "order", "is_active"),
+            "description": "Agregue únicamente lo que necesite. La imagen y el icono son opcionales.",
+        }),
+
+        ("🇫🇷 Français · Principal", {
+            "fields": ("title_fr", "text_fr"),
+            "description": "Contenido principal en francés para la Suisse romande.",
+        }),
+
+        ("🇩🇪 Deutsch", {
+            "fields": ("title_de", "text_de"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇮🇹 Italiano", {
+            "fields": ("title_it", "text_it"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇬🇧 English", {
+            "fields": ("title_en", "text_en"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇪🇸 Español · Referencia interna", {
+            "fields": ("title_es", "text_es"),
+            "classes": ("collapse",),
+            "description": "Referencia administrativa interna. No es el idioma público principal.",
+        }),
+    )
+
+
+# ============================================================
+# PROFESSIONNELS · PÁGINA
+# ============================================================
+
+
+@admin.register(ProfessionalPage)
+class ProfessionalPageAdmin(admin.ModelAdmin):
+    inlines = (ProfessionalBlockInline,)
+
+    list_display = ("hero_title_fr", "is_active", "updated_at")
+    list_filter = ("is_active",)
+    search_fields = (
+        "hero_title_es",
+        "hero_title_fr",
+        "hero_title_de",
+        "hero_title_it",
+        "hero_title_en",
+    )
+    readonly_fields = ("created_at", "updated_at")
+    filter_horizontal = ("services",)
+
+    fieldsets = (
+        ("Configuración", {
+            "fields": ("is_active", "hero_image", "services"),
+            "description": (
+                "Configuración básica. Los contenidos adicionales se agregan "
+                "más abajo como bloques independientes."
+            ),
+        }),
+
+        ("🇫🇷 Français · Principal", {
+            "fields": ("hero_title_fr", "hero_text_fr"),
+            "description": "Contenido principal en francés para la Suisse romande.",
+        }),
+
+        ("🇩🇪 Deutsch", {
+            "fields": ("hero_title_de", "hero_text_de"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇮🇹 Italiano", {
+            "fields": ("hero_title_it", "hero_text_it"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇬🇧 English", {
+            "fields": ("hero_title_en", "hero_text_en"),
+            "classes": ("collapse",),
+        }),
+
+        ("🇪🇸 Español · Referencia interna", {
+            "fields": ("hero_title_es", "hero_text_es"),
+            "classes": ("collapse",),
+            "description": "Referencia administrativa interna. No es el idioma público principal.",
+        }),
+
+        ("Sistema", {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+
+
+@admin.register(ProfessionalBlock)
+class ProfessionalBlockAdmin(admin.ModelAdmin):
+    list_display = ("title_fr", "page", "layout", "order", "is_active")
+    list_editable = ("order", "is_active")
+    list_filter = ("layout", "is_active")
+    search_fields = ("title_fr", "title_de", "title_it", "title_en", "title_es")
+    ordering = ("page", "order", "id")
+    readonly_fields = ("created_at", "updated_at")
+
+    fieldsets = (
+        ("Configuración del bloque", {
+            "fields": ("page", "layout", "image", "icon", "order", "is_active"),
+        }),
+        ("🇫🇷 Français · Principal", {
+            "fields": ("title_fr", "text_fr"),
+        }),
+        ("🇩🇪 Deutsch", {
+            "fields": ("title_de", "text_de"),
+            "classes": ("collapse",),
+        }),
+        ("🇮🇹 Italiano", {
+            "fields": ("title_it", "text_it"),
+            "classes": ("collapse",),
+        }),
+        ("🇬🇧 English", {
+            "fields": ("title_en", "text_en"),
+            "classes": ("collapse",),
+        }),
+        ("🇪🇸 Español · Referencia interna", {
+            "fields": ("title_es", "text_es"),
+            "classes": ("collapse",),
+        }),
+        ("Sistema", {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
         }),
     )

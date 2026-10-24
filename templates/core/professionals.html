@@ -1,47 +1,861 @@
+{# ============================================================
+   CONFIGURACIÓN GENERAL DEL TEMPLATE
+   - Hereda la estructura principal desde base.html.
+   - static permite cargar imágenes, CSS y otros recursos.
+   - i18n habilita las etiquetas trans
+   - i18n_fields habilita el filtro personalizado "localized".
+============================================================ #}
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-
-<!-- =========================================================
-     SEO · PAGE TITLE
-========================================================= -->
-{% block title %}{% trans "Professionnels" %} | V&V Swiss Services{% endblock %}
-<!-- =========================================================
-     SEO · META DESCRIPTION
-========================================================= -->
-{% block meta_description %}{% trans "Solutions de rénovation, entretien et remise en état pour régies immobilières, administrateurs de PPE, entreprises et professionnels dans le canton de Vaud." %}{% endblock %}
+{% load i18n_fields %}
+{# ============================================================
+   IMÁGENES DE LA PÁGINA PROFESSIONNELS
+   Carpeta física esperada:
+   static/antra/assets/img/professionals/
+   Las fotografías propias de esta página se cargan desde:
+   {% static 'antra/assets/img/professionals/nombre-imagen.webp' %}
+   Los recursos decorativos propios del tema Antra
+   (shapes, iconos y fondos estructurales) permanecen en:
+   antra/assets/img/
+============================================================ #}
+{# ============================================================
+   SEO · TÍTULO Y META DESCRIPTION
+   Textos estáticos traducibles. ProfessionalPage no define
+   actualmente campos SEO propios.
+============================================================ #}
+{% block title %}{% trans "Solutions pour les professionnels" %} | V&V Swiss Services{% endblock %}
+{% block meta_description %}{% trans "Solutions de rénovation, entretien et remise en état pour les professionnels de l'immobilier et de la construction." %}{% endblock %}
+{# ============================================================
+   CSS ESPECÍFICO DE LA PÁGINA PROFESSIONNELS
+   Complementa el diseño original de Antra para elementos
+   personalizados de esta página.
+============================================================ #}
+{% block extra_css %}
+<style>
+.professionals-page .professional-card{height:100%}
+.professionals-page .professional-card .service-top{padding-bottom:40px}
+.professionals-page .professional-card-icon{background-color:var(--tl-color-theme-primary);color:var(--tl-color-common-white);width:72px;height:72px;min-width:72px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.professionals-page .professional-card-icon i{color:var(--tl-color-common-white);font-size:28px;line-height:1}
+.professionals-page .professional-process .service-details-items{margin-bottom:0}
+.professionals-page .professional-process .service-details-item .icon{color:var(--tl-color-common-white);font-family:var(--tl-ff-heading);font-size:22px}
+.professionals-page .professional-process .service-details-item .icon span{color:var(--tl-color-common-white)}
+.professionals-page .professional-image{width:100%;height:560px;border-radius:24px;overflow:hidden}
+.professionals-page .professional-image img{width:100%;height:100%;object-fit:cover}
+.professionals-page .professional-cta{background-color:var(--tl-color-common-white);border-radius:24px;padding:55px}
+.professionals-page .professional-cta-actions{display:flex;justify-content:flex-end;align-items:center;height:100%}
+.professionals-page .project-item .project-content p{margin-bottom:0}
+.professionals-page .project-section{position:relative;overflow:hidden;padding-bottom:0!important}
+.professionals-page .project-section .project-carousel{height:auto!important;min-height:0!important;margin-bottom:0!important;padding-bottom:0!important}
+.professionals-page .project-section .project-carousel .swiper-wrapper{height:auto!important;align-items:stretch}
+.professionals-page .project-section .project-carousel .swiper-slide{height:auto!important}
+.professionals-page .project-section .project-item{height:100%;margin-bottom:0!important}
+.professionals-page .project-section .project-item .project-content{margin-bottom:0!important;padding-bottom:0!important}
+.professionals-page .project-section .project-house-img{position:absolute!important;right:0;bottom:0;margin:0!important;pointer-events:none}
+@media(max-width:992px){
+    .professionals-page .professional-image{height:460px}
+    .professionals-page .professional-cta-actions{justify-content:flex-start;margin-top:20px}
+}
+@media(max-width:767px){
+    .professionals-page .professional-card .service-top{padding-bottom:30px}
+    .professionals-page .professional-card-icon{width:64px;height:64px;min-width:64px}
+    .professionals-page .professional-card-icon i{font-size:24px}
+    .professionals-page .professional-image{height:360px}
+    .professionals-page .professional-cta{padding:35px 25px}
+}
+</style>
+{% endblock %}
 {% block content %}
-<!-- =========================================================
-     SECTION 01 · PAGE HEADER
-========================================================= -->
-<section class="page-header">
-    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
-    <div class="overlay"></div>
+<main class="professionals-page">
+<!-- ============================================================
+     CONTENIDO PRINCIPAL · PROFESSIONNELS
+     Desde aquí comienza el contenido visible de la página.
+============================================================ -->
+<!-- ============================================================
+     SECCIÓN 01 · HERO / PRESENTACIÓN PARA PROFESIONALES
+     Finalidad:
+     - Presentar la propuesta principal de V&V Swiss Services.
+     - Dirigirse directamente a profesionales del sector inmobiliario
+       y de la construcción.
+     - Mostrar título, descripción e imagen configurados desde Django.
+     - Facilitar el acceso directo para presentar un proyecto.
+     Datos dinámicos:
+     - professional_page.hero_title
+     - professional_page.hero_text
+     - professional_page.hero_image
+     CTA:
+     - "Présenter votre projet" dirige a la página de contacto.
+============================================================ -->
+<section class="hero-section overflow-hidden tl-bg-color">
+    <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/hero-bg-shape.png' %}"></div>
     <div class="container">
-        <div class="page-header-content">
-            <h1 class="title">{% trans "Professionnels" %}</h1>
-            <h4 class="sub-title">
-                <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
-                <span class="icon">-</span>
-                <span class="inner-page">{% trans "Professionnels" %}</span>
-            </h4>
-        </div>
-    </div>
-</section>
-<!-- =========================================================
-     SECTION 02 · PROFESSIONAL SOLUTIONS INTRODUCTION
-========================================================= -->
-<section class="pt-150 pb-150">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
-                <div class="section-heading text-center">
-                    <h4 class="sub-heading">{% trans "Solutions pour professionnels" %}</h4>
-                    <h2 class="section-title">{% trans "Un partenaire pour vos biens immobiliers et vos projets" %}</h2>
-                    <p>{% trans "V&V Swiss Services accompagne les régies immobilières, administrateurs de PPE, propriétaires, entreprises générales, constructeurs et autres professionnels pour leurs besoins d’entretien, de réparation et de rénovation." %}</p>
+        <div class="row hero-wrap pt-130">
+            <!-- =====================================================
+                 COLUMNA IZQUIERDA · CONTENIDO PRINCIPAL
+            ====================================================== -->
+            <div class="col-lg-6">
+                <div class="hero-content hero-content-4">
+                    <div class="section-heading mb-0 slide-anim" data-delay="2.7" data-offset="100" data-direction="left">
+                        <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                            {% trans "Solutions pour professionnels" %}
+                        </h4>
+                        <h2 class="section-title cursor-effect title-2">
+                            {{ professional_page|localized:"hero_title" }}
+                        </h2>
+                        {% with hero_text=professional_page|localized:"hero_text" %}
+                            {% if hero_text %}
+                                <p class="slide-anim" data-delay="2.8" data-offset="100" data-direction="left">
+                                    {{ hero_text }}
+                                </p>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <!-- =================================================
+                         CTA PRINCIPAL
+                    ================================================== -->
+                    <div class="hero-btn slide-anim" data-delay="3.3" data-offset="100" data-direction="left">
+                        <a href="{% url 'contact:contact' %}" class="tl-primary-btn">
+                            {% trans "Présenter votre projet" %}
+                            <span class="icon">
+                                <i class="fa-regular fa-arrow-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- =====================================================
+                 COLUMNA DERECHA · IMAGEN PRINCIPAL
+            ====================================================== -->
+            <div class="col-lg-6">
+                <div class="hero-img slide-anim" data-delay="3" data-offset="100" data-direction="right">
+                    {% if professional_page.hero_image %}
+                        <img src="{{ professional_page.hero_image.url }}" alt="{{ professional_page|localized:'hero_title' }}">
+                    {% else %}
+                        <img src="{% static 'antra/assets/img/professionals/01_hero_apoyo_video.webp' %}" alt="V&V Swiss Services">
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- ./ hero-section -->
+<!-- ============================================================
+     SECCIÓN 02 · NECESIDADES QUE RESOLVEMOS
+     Finalidad:
+     - Explicar problemas habituales de clientes inmobiliarios.
+     - Mantener el componente interactivo original de Antra.
+     Contenido:
+     01. Coordinación de varios oficios.
+     02. Intervenciones rápidas y planificadas.
+     03. Remise en état entre locatarios.
+     04. Mantenimiento, reparaciones y acabados.
+     05. Preparación antes de una nueva ocupación.
+     Funcionamiento visual:
+     - data-img cambia la imagen destacada.
+     - data-text cambia el texto descriptivo.
+============================================================ -->
+<section class="feature-section pt-150 pb-110 overflow-hidden tl-bg-color fade-wrapper">
+    <div class="container container-2">
+        <div class="row section-heading-wrap fade-top feature-top">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="V&V Swiss Services">
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Vos besoins" %}</h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">{% trans "Des solutions pensées pour" %}<span>{% trans "les professionnels" %}<br>{% trans "de l’immobilier" %}</span></h2>
+                    <p class="mb-0">{% trans "Nous vous accompagnons dans la coordination, l’entretien et la remise en état de vos biens avec un interlocuteur unique et une organisation adaptée à vos contraintes." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row fade-top">
+            <div class="col-lg-6">
+                <div class="feature-item-imgs">
+                    <div class="feature-img">
+                        <img src="{% static 'antra/assets/img/professionals/01_coordinacion_varios_oficios.webp' %}" alt="{% trans 'Coordination de plusieurs corps de métier' %}">
+                        <div class="img-content">
+                            <p>{% trans "Nous coordonnons plusieurs interventions afin de simplifier le suivi de vos travaux et de limiter les échanges avec différents prestataires." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-item-list feature-item-list-1">
+                    <!-- 01 · COORDINACIÓN DE VARIOS OFICIOS -->
+                    <div class="feature-item" data-img="{% static 'antra/assets/img/professionals/01_coordinacion_varios_oficios.webp' %}" data-text="{% trans 'Nous coordonnons plusieurs interventions afin de simplifier le suivi de vos travaux et de limiter les échanges avec différents prestataires.' %}">
+                        <span class="number">01</span>
+                        <h3 class="title">
+                            <a href="javascript:void(0);" aria-disabled="true">{% trans "Coordination de plusieurs corps de métier" %}</a>
+                        </h3>
+                        <a href="javascript:void(0);" class="arrow" aria-disabled="true">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <!-- 02 · INTERVENCIONES PLANIFICADAS -->
+                    <div class="feature-item" data-img="{% static 'antra/assets/img/professionals/02_intervenciones_planificadas.webp' %}" data-text="{% trans 'Nous organisons les interventions selon vos priorités, les délais disponibles et les contraintes propres à chaque bien immobilier.' %}">
+                        <span class="number">02</span>
+                        <h3 class="title">
+                            <a href="javascript:void(0);" aria-disabled="true">{% trans "Interventions rapides et planifiées" %}</a>
+                        </h3>
+                        <a href="javascript:void(0);" class="arrow" aria-disabled="true">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <!-- 03 · REMISE EN ÉTAT -->
+                    <div class="feature-item" data-img="{% static 'antra/assets/img/professionals/03_remise_en_etat.webp' %}" data-text="{% trans 'Nous intervenons entre deux locations pour remettre les logements ou locaux en état et préparer efficacement leur prochaine occupation.' %}">
+                        <span class="number">03</span>
+                        <h3 class="title">
+                            <a href="javascript:void(0);" aria-disabled="true">{% trans "Remise en état entre locataires" %}</a>
+                        </h3>
+                        <a href="javascript:void(0);" class="arrow" aria-disabled="true">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <!-- 04 · MANTENIMIENTO DEL INMUEBLE -->
+                    <div class="feature-item" data-img="{% static 'antra/assets/img/professionals/04_mantenimiento_inmueble.webp' %}" data-text="{% trans 'Nous prenons en charge les travaux d’entretien, les réparations et les finitions nécessaires au maintien de vos biens.' %}">
+                        <span class="number">04</span>
+                        <h3 class="title">
+                            <a href="javascript:void(0);" aria-disabled="true">{% trans "Entretien, réparations et finitions" %}</a>
+                        </h3>
+                        <a href="javascript:void(0);" class="arrow" aria-disabled="true">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <!-- 05 · PREPARACIÓN PARA NUEVA OCUPACIÓN -->
+                    <div class="feature-item" data-img="{% static 'antra/assets/img/professionals/05_preparacion_nueva_ocupacion.webp' %}" data-text="{% trans 'Nous préparons les logements et locaux avant une nouvelle occupation en coordonnant les travaux nécessaires avec un interlocuteur unique.' %}">
+                        <span class="number">05</span>
+                        <h3 class="title">
+                            <a href="javascript:void(0);" aria-disabled="true">{% trans "Préparation avant nouvelle occupation" %}</a>
+                        </h3>
+                        <a href="javascript:void(0);" class="arrow" aria-disabled="true">
+                            <i class="fa-regular fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ feature-section -->
+<!-- ============================================================
+     SECCIÓN 03 · REMISE EN ÉTAT ENTRE LOCATAIRES
+     Finalidad:
+     - Explicar cómo V&V gestiona la puesta a punto de un inmueble
+       entre la salida de un inquilino y la siguiente ocupación.
+     Proceso:
+     01. Évaluation.
+     02. Planification.
+     03. Intervention.
+     04. Contrôle et remise en état.
+     CTA:
+     - "Planifier une intervention" conduce al contacto.
+============================================================ -->
+<section class="service-section-3 pt-130 pb-130 overflow-hidden">
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/service-bg-1.png' %}"></div>
+    <div class="container container-2">
+        <div class="row fade-wrapper">
+            <div class="col-lg-5">
+                <div class="service-left-content-3 white-content fade-top">
+                    <div class="section-heading white-content mb-30">
+                        <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Remise en état" %}</h4>
+                        <h2 class="section-title cursor-effect title-2">{% trans "Entre deux locataires," %} <br><span>{% trans "nous coordonnons" %}<br>{% trans "chaque étape" %}</span></h2>
+                        <div class="desc mt-40 mb-50">
+                            <p>{% trans "Lors d’un changement de locataire, V&V Swiss Services organise les travaux nécessaires pour remettre le logement ou le local en état et préparer efficacement sa prochaine occupation." %}</p>
+                        </div>
+                    </div>
+                    <div class="service-btn">
+                        <a href="{% url 'contact:contact' %}" class="tl-primary-btn white-btn">{% trans "Planifier une intervention" %}<span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="service-carousel-wrap-3 fade-top">
+                    <div class="service-carousel-3 swiper">
+                        <div class="swiper-wrapper">
+                            <!-- 01 · ÉVALUATION -->
+                            <div class="swiper-slide">
+                                <div class="service-item-3">
+                                    <div class="service-thumb">
+                                        <img src="{% static 'antra/assets/img/professionals/01_evaluation.webp' %}" alt="{% trans 'Évaluation du bien' %}">
+                                        <span class="number">01</span>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="title"><a href="{% url 'contact:contact' %}">{% trans "Évaluation" %}</a></h5>
+                                        <p>{% trans "Nous identifions les travaux nécessaires et les priorités afin de définir clairement les interventions à réaliser." %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 02 · PLANIFICATION -->
+                            <div class="swiper-slide">
+                                <div class="service-item-3">
+                                    <div class="service-thumb">
+                                        <img src="{% static 'antra/assets/img/professionals/02_planification.webp' %}" alt="{% trans 'Planification des travaux' %}">
+                                        <span class="number">02</span>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="title"><a href="{% url 'contact:contact' %}">{% trans "Planification" %}</a></h5>
+                                        <p>{% trans "Nous organisons les différents travaux selon les délais disponibles, les priorités du bien et la date prévue pour sa prochaine occupation." %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 03 · INTERVENTION -->
+                            <div class="swiper-slide">
+                                <div class="service-item-3">
+                                    <div class="service-thumb">
+                                        <img src="{% static 'antra/assets/img/professionals/03_intervention.webp' %}" alt="{% trans 'Intervention coordonnée' %}">
+                                        <span class="number">03</span>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="title"><a href="{% url 'contact:contact' %}">{% trans "Intervention" %}</a></h5>
+                                        <p>{% trans "Nos équipes interviennent de manière coordonnée pour réaliser les travaux de rénovation, réparation, entretien et finition nécessaires." %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 04 · CONTRÔLE ET REMISE EN ÉTAT -->
+                            <div class="swiper-slide">
+                                <div class="service-item-3">
+                                    <div class="service-thumb">
+                                        <img src="{% static 'antra/assets/img/professionals/04_controle_remise_en_etat.webp' %}" alt="{% trans 'Contrôle et remise en état' %}">
+                                        <span class="number">04</span>
+                                    </div>
+                                    <div class="service-content">
+                                        <h5 class="title"><a href="{% url 'contact:contact' %}">{% trans "Contrôle et remise en état" %}</a></h5>
+                                        <p>{% trans "Nous vérifions les travaux réalisés afin de préparer le bien pour sa remise en location ou sa prochaine occupation." %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ service-section -->
+<!-- ============================================================
+     SECCIÓN 04 · POR QUÉ TRABAJAR CON V&V
+     Finalidad:
+     - Presentar ventajas B2B en formato acordeón.
+     - Reforzar confianza, claridad y capacidad de coordinación.
+     Argumentos:
+     01. Un interlocutor único.
+     02. Coordinación de varios oficios.
+     03. Presupuestos claros.
+     04. Acabados cuidados.
+     05. Reactividad y organización.
+     06. Colaboración flexible.
+     Panel lateral:
+     - Destaca la experiencia de V&V en construcción en Suiza.
+============================================================ -->
+<section class="faq-section pt-130 pb-130 tl-bg-color">
+    <div class="container container-2">
+        <div class="row section-heading-wrap">
+            <div class="shape">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="V&V Swiss Services">
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="section-heading mb-0">
+                    <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                        {% trans "Pourquoi V&V" %}
+                    </h4>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="section-heading section-heading-2 mb-0">
+                    <h2 class="section-title cursor-effect title-2">
+                        {% trans "Un partenaire pensé pour" %}
+                        <span>
+                            {% trans "les exigences" %}<br>{% trans "des professionnels" %}
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="faq-content-2">
+                    <div class="faq-accordion fade-wrapper">
+                        <div class="accordion" id="professionalAccordion">
+                            <!-- 01 · INTERLOCUTEUR UNIQUE -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseOne" aria-expanded="true" aria-controls="professionalCollapseOne">
+                                        <span>01</span>
+                                        {% trans "Un interlocuteur unique" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseOne" class="accordion-collapse collapse show" role="region" aria-labelledby="professionalHeadingOne" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Un seul point de contact simplifie le suivi de vos demandes, la coordination des interventions et les échanges tout au long du projet." %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 02 · COORDINATION -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseTwo" aria-expanded="false" aria-controls="professionalCollapseTwo">
+                                        <span>02</span>
+                                        {% trans "Coordination de plusieurs corps de métier" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseTwo" class="accordion-collapse collapse" role="region" aria-labelledby="professionalHeadingTwo" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Nous coordonnons les différentes prestations nécessaires afin de faciliter l’organisation des travaux et d’éviter la multiplication des interlocuteurs." %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 03 · DEVIS CLAIRS -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseThree" aria-expanded="false" aria-controls="professionalCollapseThree">
+                                        <span>03</span>
+                                        {% trans "Des devis clairs" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseThree" class="accordion-collapse collapse" role="region" aria-labelledby="professionalHeadingThree" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Les travaux à réaliser sont présentés de manière claire afin de faciliter votre validation, votre planification et le suivi de chaque intervention." %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 04 · FINITIONS SOIGNÉES -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseFour" aria-expanded="false" aria-controls="professionalCollapseFour">
+                                        <span>04</span>
+                                        {% trans "Des finitions soignées" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseFour" class="accordion-collapse collapse" role="region" aria-labelledby="professionalHeadingFour" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Nous accordons une attention particulière à la qualité d’exécution et aux finitions afin de livrer des espaces propres, fonctionnels et prêts pour leur prochaine utilisation." %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 05 · RÉACTIVITÉ -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseFive" aria-expanded="false" aria-controls="professionalCollapseFive">
+                                        <span>05</span>
+                                        {% trans "Réactivité et organisation" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseFive" class="accordion-collapse collapse" role="region" aria-labelledby="professionalHeadingFive" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Nous organisons les interventions en fonction des priorités du bien, des contraintes du chantier et des délais disponibles." %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 06 · FLEXIBILITÉ -->
+                            <div class="accordion-item fade-top">
+                                <h2 class="accordion-header" id="professionalHeadingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#professionalCollapseSix" aria-expanded="false" aria-controls="professionalCollapseSix">
+                                        <span>06</span>
+                                        {% trans "Une collaboration flexible" %}
+                                    </button>
+                                </h2>
+                                <div id="professionalCollapseSix" class="accordion-collapse collapse" role="region" aria-labelledby="professionalHeadingSix" data-bs-parent="#professionalAccordion">
+                                    <div class="accordion-body">
+                                        {% trans "Intervention ponctuelle, remise en état entre locataires, entretien régulier ou rénovation plus importante : nous adaptons notre organisation aux besoins de chaque partenaire." %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- =====================================================
+                 IMAGEN LATERAL
+            ====================================================== -->
+            <div class="col-lg-3">
+                <div class="faq-img-wrap slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
+                    <div class="faq-img">
+                        <img src="{% static 'antra/assets/img/professionals/01_interlocuteur_unique.webp' %}" alt="V&V Swiss Services">
+                    </div>
+                    <h4 class="title">
+                        {% trans "Plus de 20 ans" %}<br>{% trans "d’expérience dans" %}<br>{% trans "la construction" %}
+                    </h4>
+                    <p>
+                        {% trans "Une expérience acquise en Suisse au service de projets de rénovation, d’entretien et de remise en état." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ faq-section -->
+<!-- ============================================================
+     SECCIÓN 05 · SERVICIOS PARA PROFESIONALES
+     Finalidad:
+     - Mostrar los servicios seleccionados para ProfessionalPage.
+     - No duplica información: consume directamente el modelo Service.
+     Primer bucle:
+     - Nombre localizado del servicio.
+     - Subtítulo localizado.
+     - Slug localizado.
+     - Enlace al detalle del servicio.
+     Segundo bucle:
+     - Imagen principal de cada servicio.
+     - Imagen de respaldo cuando no exista main_image.
+     Fuente:
+     professional_page.services.all
+============================================================ -->
+<section class="banner-process-area overflow-hidden">
+    <div class="service-carousel-wrap">
+        <div class="banner-process-carousel">
+            <div class="swiper-wrapper antra-swiper-wrapper">
+                {% for service in professional_page.services.all %}
+                    {% with service_name=service|localized:"name" service_subtitle=service|localized:"subtitle" service_slug=service|localized:"slug" %}
+                        <div class="swiper-slide elementor-banner-process-item">
+                            <div class="banner-process-caption">
+                                <span class="number">{{ forloop.counter|stringformat:"02d" }}</span>
+                                <h3 class="banner-process-title">
+                                    {% if service_slug %}
+                                        <a href="{% url 'services:detail' service_slug %}">{{ service_name }}</a>
+                                    {% else %}
+                                        {{ service_name }}
+                                    {% endif %}
+                                </h3>
+                                <div class="banner-process-content">
+                                    {% if service_subtitle %}
+                                        {{ service_subtitle }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <div class="banner-process-image-list">
+                {% for service in professional_page.services.all %}
+                    {% cycle 'antra/assets/img/professionals/01_maconnerie.webp' 'antra/assets/img/professionals/02_isolation.webp' 'antra/assets/img/professionals/03_platrerie.webp' 'antra/assets/img/professionals/04_peinture.webp' as service_fallback silent %}
+                    <div class="banner-process-img">
+                        <div class="process-img">
+                            {% if service.main_image %}
+                                <img src="{{ service.main_image.url }}" alt="{{ service|localized:'name' }}">
+                            {% else %}
+                                <img src="{% static service_fallback %}" alt="{{ service|localized:'name' }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ banner-process-area -->
+<!-- ============================================================
+     SECCIÓN 06 · CARRUSEL DE PROYECTOS / REALIZACIONES
+     Finalidad:
+     - Mostrar proyectos destacados reales en un carrusel Swiper.
+     - Cada proyecto puede enlazar a su página de detalle.
+     - Mostrar servicios relacionados como etiquetas.
+     - Mostrar ubicación y año cuando existan.
+     Datos dinámicos:
+     - featured_projects
+     - project.title
+     - project.slug
+     - project.main_image
+     - project.services
+     - project.location
+     - project.end_date
+     Condición:
+     - La sección completa solo aparece si existen featured_projects.
+============================================================ -->
+{% if featured_projects %}
+    <section class="project-section pt-130 tl-bg-color fade-wrapper">
+        <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/project-shape-1.png' %}"></div>
+        <div class="project-text"><span>V&V</span></div>
+        <div class="container container-2">
+            <div class="row section-heading-wrap fade-top">
+                <div class="shape">
+                    <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="V&V Swiss Services">
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="section-heading mb-0">
+                        <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
+                            {% trans "Nos réalisations" %}
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="section-heading section-heading-2 mb-0">
+                        <h2 class="section-title cursor-effect title-2">
+                            {% trans "Des projets qui témoignent" %}
+                            <span>{% trans "de notre" %}<br>{% trans "savoir-faire" %}</span>
+                        </h2>
+                        <p class="mb-0">
+                            {% trans "Découvrez une sélection de réalisations en rénovation, remise en état, peinture, isolation et entretien immobilier." %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+<div class="project-carousel swiper fade-top">
+    <div class="swiper-wrapper">
+        {% for project in featured_projects %}
+            {% with project_title=project|localized:"title" project_slug=project|localized:"slug" %}
+                <div class="swiper-slide">
+                    <div class="project-item">
+                        <div class="project-img">
+                            {% cycle 'antra/assets/img/professionals/01_projet_exterieur.webp' 'antra/assets/img/professionals/02_projet_interieur.webp' 'antra/assets/img/professionals/03_projet_cuisine.webp' 'antra/assets/img/professionals/04_projet_residentiel.webp' 'antra/assets/img/professionals/05_projet_architecture.webp' as project_fallback silent %}
+                            {% if project.main_image %}
+                                <img src="{{ project.main_image.url }}" alt="{{ project_title }}">
+                            {% else %}
+                                <img src="{% static project_fallback %}" alt="{{ project_title }}">
+                            {% endif %}
+                            {% if project_slug %}
+                                <ul>
+                                    {% for service in project.services.all|slice:":2" %}
+                                        <li><a href="{% url 'projects:detail' project_slug %}">{{ service|localized:"name" }}</a></li>
+                                    {% empty %}
+                                        <li><a href="{% url 'projects:detail' project_slug %}">{% trans "Rénovation" %}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="project-content">
+                            <h3 class="title">
+                                {% if project_slug %}
+                                    <a href="{% url 'projects:detail' project_slug %}">{{ project_title }}</a>
+                                {% else %}
+                                    {{ project_title }}
+                                {% endif %}
+                            </h3>
+                            {% if project.location or project.end_date %}
+                                <span>{% if project.location %}{{ project.location }}{% endif %}{% if project.location and project.end_date %}<br>{% endif %}{% if project.end_date %}{{ project.end_date|date:"Y" }}{% endif %}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
+</div>
+        </div>
+    </section>
+{% endif %}
+<!-- ./ project-section -->
+<!-- ============================================================
+     SECCIÓN 07 · CONTACTO / ASESORAMIENTO
+     Finalidad:
+     - Cerrar la página con una llamada a la acción.
+     - Permitir contacto por formulario, WhatsApp, e-mail o teléfono.
+     Acciones disponibles:
+     - "Envoyer un message": abre el modal.
+     - WhatsApp: usa site_configuration.whatsapp.
+     - E-mail: usa site_configuration.email.
+     - Appeler: usa site_configuration.phone.
+     WhatsApp, e-mail y teléfono solo aparecen si están configurados.
+============================================================ -->
+<section class="newsletter-section pt-130 pb-130 overflow-hidden tl-bg-color">
+    <div class="bg-shape">
+        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="{% trans 'Projet de rénovation' %}">
+    </div>
+    <div class="container">
+        <div class="newsletter-wrap">
+            <div class="section-heading text-center">
+                <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Besoin d’un conseil ?" %}</h4>
+                <h2 class="section-title cursor-effect">{% trans "Parlez-nous de" %}<span>{% trans "votre projet et de" %}<br>{% trans "vos besoins" %}</span></h2>
+                <p>{% trans "Présentez-nous votre projet de rénovation, d’isolation, de maçonnerie, de plâtrerie, de peinture, de finition ou d’entretien immobilier." %}</p>
+            </div>
+            {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis." as contact_message %}
+            {% trans "Demande concernant un projet de rénovation" as email_subject %}
+            <div class="project-contact-actions">
+                <button type="button" class="project-contact-btn project-contact-whatsapp" data-bs-toggle="modal" data-bs-target="#contactProjectModal">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>{% trans "Envoyer un message" %}</span>
+                </button>
+                {% if site_configuration.whatsapp %}
+                    <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                {% endif %}
+                {% if site_configuration.email %}
+                    <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}" class="project-contact-btn">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span>{% trans "E-mail" %}</span>
+                    </a>
+                {% endif %}
+                {% if site_configuration.phone %}
+                    <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
+                        <i class="fa-regular fa-phone"></i>
+                        <span>{% trans "Appeler" %}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./ newsletter-section -->
+<!-- ============================================================
+     SECCIÓN 08 · MODAL DE CONTACTO
+     Finalidad:
+     - Permitir enviar una solicitud sin salir de la página.
+     - Utiliza Bootstrap Modal.
+     - Reutiliza el formulario general de contacto mediante include.
+============================================================ -->
+<div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <span class="project-contact-modal-kicker">V&V Swiss Services</span>
+                    <h3 class="modal-title" id="contactProjectModalLabel">{% trans "Parlez-nous de votre projet" %}</h3>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
+            </div>
+            <div class="modal-body">
+                <p class="project-contact-modal-intro">{% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}</p>
+                <div class="request-form-wrap project-modal-form-wrap">
+                    {% include "contact/includes/contact_form.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================
+     FIN DE LA PÁGINA PROFESSIONNELS
+============================================================ -->
+</main>
+{% endblock %}
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+    const carousel=document.querySelector(".service-carousel-3");
+    if(carousel&&typeof Swiper!=="undefined"){
+        if(carousel.swiper){carousel.swiper.destroy(true,true);}
+        new Swiper(carousel,{
+            slidesPerView:1,
+            spaceBetween:30,
+            loop:true,
+            speed:900,
+            autoplay:{delay:3000,disableOnInteraction:false,pauseOnMouseEnter:true}
+        });
+    }
+});
+</script>
+<script>
+window.addEventListener("load",function(){
+    setTimeout(function(){
+        const carousel=document.querySelector(".banner-process-carousel");
+        if(!carousel||typeof Swiper==="undefined"){return;}
+        if(carousel.swiper){
+            if(carousel.swiper.autoplay){carousel.swiper.autoplay.stop();}
+            carousel.swiper.destroy(true,true);
+        }
+        const images=carousel.querySelectorAll(".banner-process-image-list .banner-process-img");
+        let hoverActive=false;
+        function activateImage(index){
+            if(!images.length){return;}
+            const realIndex=((Number(index)%images.length)+images.length)%images.length;
+            images.forEach(function(image,i){image.classList.toggle("active",i===realIndex);});
+        }
+        const swiper=new Swiper(carousel,{
+            initialSlide:0,
+            slidesPerView:4,
+            slidesPerGroup:1,
+            slidesPerGroupSkip:0,
+            spaceBetween:0,
+            centeredSlides:false,
+            loop:true,
+            loopAdditionalSlides:4,
+            speed:1000,
+            autoplay:{delay:3500,disableOnInteraction:false,pauseOnMouseEnter:false,waitForTransition:true},
+            freeMode:false,
+            cssMode:false,
+            allowTouchMove:true,
+            preventInteractionOnTransition:true,
+            loopPreventsSliding:true,
+            watchSlidesProgress:true,
+            breakpoints:{
+                0:{slidesPerView:1,slidesPerGroup:1},
+                576:{slidesPerView:2,slidesPerGroup:1},
+                992:{slidesPerView:3,slidesPerGroup:1},
+                1200:{slidesPerView:4,slidesPerGroup:1}
+            },
+            on:{
+                init:function(){activateImage(this.realIndex);},
+                slideChangeTransitionStart:function(){if(!hoverActive){activateImage(this.realIndex);}},
+                slideChangeTransitionEnd:function(){if(!hoverActive){activateImage(this.realIndex);}}
+            }
+        });
+        carousel.addEventListener("mouseover",function(event){
+            const slide=event.target.closest(".swiper-slide");
+            if(!slide||!carousel.contains(slide)){return;}
+            const index=slide.getAttribute("data-swiper-slide-index");
+            if(index===null){return;}
+            hoverActive=true;
+            activateImage(index);
+        });
+        carousel.addEventListener("mouseout",function(event){
+            const slide=event.target.closest(".swiper-slide");
+            if(!slide){return;}
+            const related=event.relatedTarget;
+            if(related&&slide.contains(related)){return;}
+            hoverActive=false;
+            activateImage(swiper.realIndex);
+        });
+        swiper.slideToLoop(0,0,false);
+        activateImage(0);
+        if(swiper.autoplay){swiper.autoplay.start();}
+    },700);
+});
+</script>
+<script>
+window.addEventListener("load",function(){
+    setTimeout(function(){
+        const carousel=document.querySelector(".project-carousel");
+        if(!carousel||typeof Swiper==="undefined"){return;}
+        if(carousel.swiper){
+            if(carousel.swiper.autoplay){carousel.swiper.autoplay.stop();}
+            carousel.swiper.destroy(true,true);
+        }
+        const totalSlides=carousel.querySelectorAll(".swiper-wrapper > .swiper-slide").length;
+        const swiper=new Swiper(carousel,{
+            initialSlide:0,
+            slidesPerView:3,
+            slidesPerGroup:1,
+            slidesPerGroupSkip:0,
+            spaceBetween:30,
+            centeredSlides:false,
+            loop:totalSlides>3,
+            loopAdditionalSlides:3,
+            speed:1200,
+            freeMode:false,
+            cssMode:false,
+            allowTouchMove:true,
+            grabCursor:true,
+            preventInteractionOnTransition:true,
+            loopPreventsSliding:true,
+            watchSlidesProgress:true,
+            watchOverflow:false,
+            autoplay:{delay:3500,disableOnInteraction:false,pauseOnMouseEnter:true,waitForTransition:true},
+            breakpoints:{
+                0:{slidesPerView:1,slidesPerGroup:1,spaceBetween:20},
+                576:{slidesPerView:1,slidesPerGroup:1,spaceBetween:20},
+                768:{slidesPerView:2,slidesPerGroup:1,spaceBetween:25},
+                992:{slidesPerView:2,slidesPerGroup:1,spaceBetween:30},
+                1200:{slidesPerView:3,slidesPerGroup:1,spaceBetween:30}
+            }
+        });
+        if(swiper.autoplay){swiper.autoplay.start();}
+    },600);
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+    const contactProjectModal=document.getElementById("contactProjectModal");
+    if(!contactProjectModal){return;}
+    if(contactProjectModal.parentElement!==document.body){document.body.appendChild(contactProjectModal);}
+    contactProjectModal.addEventListener("show.bs.modal",function(){
+        if(contactProjectModal.parentElement!==document.body){document.body.appendChild(contactProjectModal);}
+    });
+    contactProjectModal.addEventListener("shown.bs.modal",function(){contactProjectModal.scrollTop=0;});
+});
+</script>
 {% endblock %}

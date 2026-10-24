@@ -18,6 +18,7 @@ from django.shortcuts import (
     redirect,
     render,
 )
+from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import (
@@ -29,6 +30,7 @@ from core.utils import (
     current_language,
     get_localized_value,
 )
+from projects.models import Project
 from services.models import Service
 
 from .forms import ContactRequestForm
@@ -37,10 +39,7 @@ from .models import (
     ContactRequest,
 )
 
-
 logger = logging.getLogger(__name__)
-
-
 
 # ============================================================
 # PUBLIC CONTACT
@@ -184,17 +183,42 @@ def contact(request):
         )
 
     # ========================================================
+    # MAP · PUBLISHED PROJECTS
+    # ========================================================
+    map_projects = Project.objects.filter(
+        is_published=True,
+        show_on_map=True,
+        latitude__isnull=False,
+        longitude__isnull=False,
+    ).order_by("-end_date", "-created_at")
+
+    map_projects_data = []
+    for project in map_projects:
+        project_title = get_localized_value(project, "title") or project.title_fr
+        project_slug = get_localized_value(project, "slug") or project.slug_fr
+        map_projects_data.append({
+            "id": project.pk,
+            "title": project_title,
+            "location": project.location or "",
+            "year": project.end_date.year if project.end_date else "",
+            "latitude": float(project.latitude),
+            "longitude": float(project.longitude),
+            "image": project.main_image.url if project.main_image else "",
+            "url": reverse("projects:detail", args=[project_slug]) if project_slug else "",
+        })
+
+    # ========================================================
     # RENDER
     # ========================================================
-
     return render(
         request,
         "contact/contact.html",
         {
             "form": form,
+            "map_projects": map_projects,
+            "map_projects_data": map_projects_data,
         },
     )
-
 
 # ============================================================
 # SUCCESS
@@ -207,7 +231,6 @@ def contact_success(request):
         request,
         "contact/contact_success.html",
     )
-
 
 # ============================================================
 # CLIENT IP
@@ -231,7 +254,6 @@ def get_client_ip(request):
         "REMOTE_ADDR"
     )
 
-
 # ============================================================
 # STAFF USER CHECK
 # ============================================================
@@ -243,7 +265,6 @@ def is_staff_user(user):
         and user.is_active
         and user.is_staff
     )
-
 
 # ============================================================
 # INBOX LOGIN
@@ -359,7 +380,6 @@ def inbox_login(request):
             ),
         },
     )
-
 
 # ============================================================
 # INBOX LOGOUT
@@ -584,7 +604,6 @@ def inbox(request):
         },
     )
 
-
 # ============================================================
 # INBOX DETAIL
 # ============================================================
@@ -646,7 +665,6 @@ def inbox_detail(
             ),
         },
     )
-
 
 # ============================================================
 # UPDATE REQUEST

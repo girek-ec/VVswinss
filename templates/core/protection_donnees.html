@@ -147,7 +147,7 @@
                             {% endif %}
 
                             {% if site_configuration.country %}
-                                {{ site_configuration.country }}
+                                {% trans "Suisse" %}
                             {% endif %}
                         </p>
 
@@ -186,7 +186,7 @@
                             {% endif %}
 
                             {% if site_configuration.hosting_country %}
-                                {% trans "Pays d’hébergement :" %} {{ site_configuration.hosting_country }}.
+                                {% trans "Pays d’hébergement :" %} {% trans site_configuration.hosting_country %}.
                             {% endif %}
                         </p>
                     {% endif %}

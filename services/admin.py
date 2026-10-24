@@ -5,13 +5,53 @@ from .models import Service, ServiceBenefit, ServiceCategory, ServiceImage
 
 
 # ============================================================
+# HELPER · ICON PREVIEW
+# ============================================================
+
+def render_icon_preview(icon_class, size=30):
+    """
+    Renderiza visualmente una clase de icono (por ejemplo:
+    fa-solid fa-house) y muestra también su nombre para facilitar
+    la administración.
+    """
+    if not icon_class:
+        return "—"
+
+    return format_html(
+        '<span style="display:inline-flex;align-items:center;gap:10px;">'
+        '<span style="display:inline-flex;align-items:center;justify-content:center;'
+        'width:42px;height:42px;border-radius:8px;background:#0a4c03;color:#fff;">'
+        '<i class="{}" style="font-size:{}px;line-height:1;"></i>'
+        '</span>'
+        '<code style="font-size:11px;white-space:nowrap;">{}</code>'
+        '</span>',
+        icon_class,
+        size,
+        icon_class,
+    )
+
+
+# ============================================================
+# MEDIA · FONT AWESOME EN DJANGO ADMIN
+# Usa el mismo CSS que carga base.html en la web pública.
+# ============================================================
+
+class FontAwesomeAdminMediaMixin:
+    class Media:
+        css = {
+            "all": ("antra/assets/css/fontawesome.min.css",),
+        }
+
+
+# ============================================================
 # INLINE · SERVICE BENEFITS
 # ============================================================
 
-class ServiceBenefitInline(admin.StackedInline):
+class ServiceBenefitInline(FontAwesomeAdminMediaMixin, admin.StackedInline):
     model = ServiceBenefit
     extra = 0
     show_change_link = True
+    readonly_fields = ("icon_preview",)
 
     fieldsets = (
         ("Español · referencia interna", {
@@ -34,9 +74,13 @@ class ServiceBenefitInline(admin.StackedInline):
             "classes": ("collapse",),
         }),
         ("Configuración", {
-            "fields": ("icon", "order"),
+            "fields": ("icon", "icon_preview", "order"),
         }),
     )
+
+    @admin.display(description="Vista previa del icono")
+    def icon_preview(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=28)
 
 
 # ============================================================
@@ -89,9 +133,10 @@ class ServiceImageInline(admin.StackedInline):
 # ============================================================
 
 @admin.register(ServiceCategory)
-class ServiceCategoryAdmin(admin.ModelAdmin):
+class ServiceCategoryAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
         "image_preview_list",
+        "icon_preview_list",
         "name_es",
         "name_fr",
         "order",
@@ -134,6 +179,7 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "image_preview",
+        "icon_preview",
         "created_at",
         "updated_at",
     )
@@ -165,7 +211,7 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         }),
 
         ("Imagen e icono", {
-            "fields": ("image", "image_preview", "icon"),
+            "fields": ("image", "image_preview", "icon", "icon_preview"),
         }),
 
         ("Publicación", {
@@ -177,6 +223,14 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
             "classes": ("collapse",),
         }),
     )
+
+    @admin.display(description="Icono")
+    def icon_preview_list(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=22)
+
+    @admin.display(description="Vista previa del icono")
+    def icon_preview(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=34)
 
     @admin.display(description="Imagen")
     def image_preview_list(self, obj):
@@ -202,8 +256,9 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
 # ============================================================
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
+        "icon_preview_list",
         "name_es",
         "name_fr",
         "category",
@@ -275,6 +330,7 @@ class ServiceAdmin(admin.ModelAdmin):
     }
 
     readonly_fields = (
+        "icon_preview",
         "main_image_preview",
         "secondary_image_preview",
         "third_image_preview",
@@ -294,7 +350,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Configuración general", {
-            "fields": ("category", "icon"),
+            "fields": ("category", "icon", "icon_preview"),
         }),
 
         ("Español · referencia interna", {
@@ -467,6 +523,18 @@ class ServiceAdmin(admin.ModelAdmin):
     )
 
     # ========================================================
+    # ICONO · LISTADO Y FORMULARIO
+    # ========================================================
+
+    @admin.display(description="Icono")
+    def icon_preview_list(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=22)
+
+    @admin.display(description="Vista previa del icono")
+    def icon_preview(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=34)
+
+    # ========================================================
     # MINIATURAS · LISTADO
     # ========================================================
 
@@ -552,8 +620,9 @@ class ServiceAdmin(admin.ModelAdmin):
 # ============================================================
 
 @admin.register(ServiceBenefit)
-class ServiceBenefitAdmin(admin.ModelAdmin):
+class ServiceBenefitAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
+        "icon_preview_list",
         "title_es",
         "title_fr",
         "service",
@@ -615,6 +684,11 @@ class ServiceBenefitAdmin(admin.ModelAdmin):
             "classes": ("collapse",),
         }),
     )
+
+
+    @admin.display(description="Icono")
+    def icon_preview_list(self, obj):
+        return render_icon_preview(getattr(obj, "icon", ""), size=22)
 
 
 # ============================================================

@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load i18n_fields %}
+{% load language_nav %}
 {% get_current_language as CURRENT_LANGUAGE %}
 <!-- =========================================================
      PRELOADER
@@ -174,61 +175,28 @@
     </div>
 </div>
                 </div>
-                <!-- =================================================
-                     RIGHT HEADER
-                ================================================== -->
-                <div class="header-right-wrap">
-                    <!-- =================================================
-                         PHONE
-                    ================================================== -->
-                    {% if site_configuration and site_configuration.phone %}
-                    <a href="tel:{{ site_configuration.phone }}" class="header-contact">
-                            <span class="icon">
-                                <i class="fa-regular fa-phone"></i>
-                            </span>
-                        <span class="content">
-                                <span class="call-text">
-                                    {% trans "Appelez-nous" %}
-                                </span>
-                                <span class="call-number">
-                                    {{ site_configuration.phone }}
-                                </span>
-                            </span>
-                    </a>
-                    {% endif %}
+             <!-- =================================================
+     RIGHT HEADER
+================================================== -->
+<div class="header-right-wrap">
+
 <!-- =================================================
      DESKTOP LANGUAGES
 ================================================== -->
 <div class="header-language">
-    <!-- FR -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="fr">
+    <form action="{% switch_language_url 'fr' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
     </form>
     <span>/</span>
-    <!-- DE -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="de">
+    <form action="{% switch_language_url 'de' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %}>DE</button>
     </form>
     <span>/</span>
-    <!-- IT -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="it">
+    <form action="{% switch_language_url 'it' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %}>IT</button>
     </form>
     <span>/</span>
-    <!-- EN -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="en">
+    <form action="{% switch_language_url 'en' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
 </div>
@@ -237,71 +205,22 @@
      Visible solamente en tablet y móvil
 ================================================== -->
 <div class="header-language-mobile">
-
-    <!-- FR -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="fr">
-        <button type="submit"
-                {% if CURRENT_LANGUAGE == "fr" %}
-                class="active"
-                aria-current="page"
-                {% endif %}>
-            FR
-        </button>
+    <form action="{% switch_language_url 'fr' %}" method="get">
+        <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
     </form>
-
     <span>/</span>
-
-    <!-- DE -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="de">
-        <button type="submit"
-                {% if CURRENT_LANGUAGE == "de" %}
-                class="active"
-                aria-current="page"
-                {% endif %}>
-            DE
-        </button>
+    <form action="{% switch_language_url 'de' %}" method="get">
+        <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %}>DE</button>
     </form>
-
     <span>/</span>
-
-    <!-- IT -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="it">
-        <button type="submit"
-                {% if CURRENT_LANGUAGE == "it" %}
-                class="active"
-                aria-current="page"
-                {% endif %}>
-            IT
-        </button>
+    <form action="{% switch_language_url 'it' %}" method="get">
+        <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %}>IT</button>
     </form>
-
     <span>/</span>
-
-    <!-- EN -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="en">
-        <button type="submit"
-                {% if CURRENT_LANGUAGE == "en" %}
-                class="active"
-                aria-current="page"
-                {% endif %}>
-            EN
-        </button>
+    <form action="{% switch_language_url 'en' %}" method="get">
+        <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
-
 </div>
-
 
                     <!-- =================================================
      SEARCH
@@ -565,35 +484,19 @@
      MOBILE LANGUAGES
 ================================================== -->
 <div class="mobile-language">
-    <!-- FR -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="fr">
+    <form action="{% switch_language_url 'fr' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
     </form>
     <span>/</span>
-    <!-- DE -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="de">
+    <form action="{% switch_language_url 'de' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %}>DE</button>
     </form>
     <span>/</span>
-    <!-- IT -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="it">
+    <form action="{% switch_language_url 'it' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %}>IT</button>
     </form>
     <span>/</span>
-    <!-- EN -->
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.get_full_path }}">
-        <input type="hidden" name="language" value="en">
+    <form action="{% switch_language_url 'en' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
 </div>

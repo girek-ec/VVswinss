@@ -952,7 +952,7 @@
                                 {{ site_configuration.address }}
                                 {% if site_configuration.city %}<br>{{ site_configuration.city }}{% endif %}
                                 {% if site_configuration.canton %}<br>{{ site_configuration.canton }}{% endif %}
-                                {% if site_configuration.country %}<br>{{ site_configuration.country }}{% endif %}
+                                {% if site_configuration.country %}<br>{% trans "Suisse" %}{% endif %}
                             </p>
                         </div>
                         {% endif %}

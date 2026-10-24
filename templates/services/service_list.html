@@ -636,14 +636,14 @@
 
                                             <div class="author-img">
 
-                                                {% if site_configuration and site_configuration.logo %}
+                                                {% if site_configuration and site_configuration.favicon %}
 
-                                                    <img src="{{ site_configuration.logo.url }}"
+                                                    <img src="{{ site_configuration.favicon.url }}"
                                                          alt="V&V Swiss Services">
 
                                                 {% else %}
 
-                                                    <img src="{% static 'antra/assets/img/logo/logo-2.png' %}"
+                                                    <img src="{% static 'antra/assets/img/licon/fa-icon.png' %}"
                                                          alt="V&V Swiss Services">
 
                                                 {% endif %}

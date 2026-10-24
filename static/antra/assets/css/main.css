@@ -186,20 +186,30 @@ ul {
     margin: 0
 }
 
+/* ==========================================================
+   SELECCIÓN DE TEXTO
+   Mantiene el color original del texto
+   ========================================================== */
+
 *::-moz-selection {
-    color: var(--tl-color-common-white);
-    text-shadow: none
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
 
 ::-moz-selection {
-    color: var(--tl-color-common-white);
-    text-shadow: none
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
 
 ::selection {
-    color: var(--tl-color-common-white);
-    text-shadow: none
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
+
+
 
 *::-moz-placeholder {
     color: var(--tl-color-common-black);
@@ -16334,18 +16344,21 @@ ul {
 }
 
 .sidebar-area::selection {
-    background-color: #999;
-    color: #fff
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
 
 .sidebar-area-webkit-::selection {
-    background-color: #999;
-    color: #fff
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
 
 .sidebar-area::-moz-selection {
-    background-color: #999;
-    color: #fff
+    background-color: rgba(10, 76, 3, 0.18);
+    color: inherit;
+    text-shadow: none;
 }
 
 #sidebar-overlay {

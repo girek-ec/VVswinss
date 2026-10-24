@@ -76,7 +76,7 @@
                         {% trans "Demander des informations" as whatsapp_button %}
                         {% if site_configuration and site_configuration.whatsapp %}
                         <div class="about-btn mt-30">
-<a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}" class="tl-primary-btn" target="_blank" rel="noopener noreferrer">
+<a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}" class="project-contact-btn" target="_blank" rel="noopener noreferrer">
                                 {{ whatsapp_button }}
                                 <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
                             </a>
@@ -187,16 +187,37 @@
     </div>
 </section>
 {% endif %}
+
+
+
 <!-- ============================================================
-     SECTION 04 · VIDEO AREA
+     ABOUT · VIDEO / IMAGE
 ============================================================ -->
 <div class="video-area-wrap">
-    <div class="video-bg" data-background="{% static 'antra/assets/img/bg-img/video-bg-3.png' %}"></div>
-    <div class="play-btn">
-<a class="video-popup venobox" data-autoplay="true" data-vbtype="video" href="https://youtu.be/JwC-Qx1lJso">play</a>
-    </div>
+
+    {% if about_content.video_image %}
+        <div class="video-bg" data-background="{{ about_content.video_image.url }}"></div>
+    {% else %}
+        <div class="video-bg" data-background="{% static 'antra/assets/img/bg-img/video-bg-3.png' %}"></div>
+    {% endif %}
+
+    {% if about_content.video_url %}
+        <div class="play-btn">
+            <a
+                class="video-popup venobox"
+                data-autoplay="true"
+                data-vbtype="video"
+                href="{{ about_content.video_url }}"
+                aria-label="{% trans 'Lire la vidéo' %}"
+            >
+                <i class="fa-solid fa-play" aria-hidden="true"></i>
+                <span class="visually-hidden">{% trans "Lire la vidéo" %}</span>
+            </a>
+        </div>
+    {% endif %}
+
 </div>
-<!-- ./ video-section -->
+
 <!-- ============================================================
      SECTION 05 · MISSION
 ============================================================ -->

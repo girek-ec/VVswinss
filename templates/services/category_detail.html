@@ -3,648 +3,269 @@
 {% load i18n %}
 {% load i18n_fields %}
 
-
 {% block title %}
 {{ category|localized:"name" }} | V&V Swiss Services
 {% endblock %}
 
-
 {% block meta_description %}
 {% with category_description=category|localized:"description" %}
-    {% if category_description %}
-        {{ category_description|striptags|truncatechars:160 }}
-    {% else %}
-        {% trans "Découvrez nos services professionnels de rénovation et de bâtiment." %}
-    {% endif %}
+{% if category_description %}
+{{ category_description|striptags|truncatechars:160 }}
+{% else %}
+{% trans "Découvrez nos services professionnels de rénovation et de bâtiment." %}
+{% endif %}
 {% endwith %}
 {% endblock %}
 
-
 {% block content %}
-
 
 <!-- ============================================================
      SECTION 01 · PAGE HEADER / CATÉGORIE
 ============================================================ -->
 <section class="page-header">
-
     {% if category.image %}
-
-        <div class="bg-img"
-             data-background="{{ category.image.url }}">
-        </div>
-
+    <div class="bg-img" data-background="{{ category.image.url }}"></div>
     {% else %}
-
-        <div class="bg-img"
-             data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}">
-        </div>
-
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
     {% endif %}
-
 
     <div class="overlay"></div>
 
-
     <div class="container">
-
         <div class="page-header-content">
-
-            <h1 class="title">
-                {{ category|localized:"name" }}
-            </h1>
-
-
+            <h1 class="title">{{ category|localized:"name" }}</h1>
             <h4 class="sub-title">
-
-                <a class="home"
-                   href="{% url 'services:list' %}">
-
-                    {% trans "Services" %}
-
-                </a>
-
-
-                <span class="icon">
-                    -
-                </span>
-
-
-                <span class="inner-page">
-                    {{ category|localized:"name" }}
-                </span>
-
+                <a class="home" href="{% url 'services:list' %}">{% trans "Services" %}</a>
+                <span class="icon">-</span>
+                <span class="inner-page">{{ category|localized:"name" }}</span>
             </h4>
-
         </div>
-
     </div>
-
 </section>
 <!-- ./ page-header -->
-
-
-
 
 
 <!-- ============================================================
      SECTION 02 · DÉTAIL DE LA CATÉGORIE
 ============================================================ -->
 <section class="service-details pt-130 pb-130">
-
     <div class="container container-2">
-
         <div class="row pin-inner">
-
 
             <!-- =================================================
                  COLONNE GAUCHE
             ================================================== -->
             <div class="col-lg-4 col-md-12">
-
                 <div class="service-details-left-content pin-box">
-
 
                     <!-- =================================================
                          LISTE DES CATÉGORIES
                     ================================================== -->
                     <div class="service-category-list">
-
-                        <h3 class="list-title">
-                            {% trans "Nos catégories" %}
-                        </h3>
-
+                        <h3 class="list-title">{% trans "Nos catégories" %}</h3>
 
                         <ul>
-
                             {% for item in categories %}
-
-                                {% with item_slug=item|localized:"slug" %}
-
-                                    {% if item_slug %}
-
-                                        <li class="{% if item.pk == category.pk %}active{% endif %}">
-
-                                            <a href="{% url 'services:category_detail' item_slug %}">
-
-                                                {{ item|localized:"name" }}
-
-                                            </a>
-
-                                        </li>
-
-                                    {% endif %}
-
-                                {% endwith %}
-
+                            {% with item_slug=item|localized:"slug" %}
+                            {% if item_slug %}
+                            <li class="{% if item.pk == category.pk %}active{% endif %}">
+                                <a href="{% url 'services:category_detail' item_slug %}">{{ item|localized:"name" }}</a>
+                            </li>
+                            {% endif %}
+                            {% endwith %}
                             {% endfor %}
-
                         </ul>
-
                     </div>
                     <!-- ./ categories -->
-
-
-
 
 
                     <!-- =================================================
                          CTA CONTACT
                     ================================================== -->
                     <div class="service-details-cta">
-
-                        <div class="cta-bg"
-                             data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}">
-                        </div>
-
+                        <div class="cta-bg" data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}"></div>
 
                         <div class="icon">
-
-                            <img src="{% static 'antra/assets/img/icon/service-details-cta.png' %}"
-                                 alt="{% trans 'Contact' %}">
-
+                            <img src="{{ site_configuration.white_logo.url }}" alt="{% trans 'Contact' %}">
                         </div>
 
-
-                        <span>
-                            {% trans "Besoin d’aide ?" %}
-                        </span>
-
+                        <span>{% trans "Besoin d’aide ?" %}</span>
 
                         {% if site_configuration.phone %}
-
-                            <a class="number"
-                               href="tel:{{ site_configuration.phone }}">
-
-                                {{ site_configuration.phone }}
-
-                            </a>
-
+                        <a class=" mail" href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
                         {% endif %}
-
 
                         {% if site_configuration.email %}
-
-                            <a class="mail"
-                               href="mailto:{{ site_configuration.email }}">
-
-                                {{ site_configuration.email }}
-
-                            </a>
-
+                        <a class="mail" href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
                         {% endif %}
 
-
-                        <div class="cta-btn">
-
-                            <button type="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#contactProjectModal">
-
-                                {% trans "Demander" %}
-                                <br>
-                                {% trans "un devis" %}
-
-                            </button>
-
-                        </div>
 
                     </div>
                     <!-- ./ CTA -->
 
-
                 </div>
-
             </div>
             <!-- ./ left -->
-
-
-
 
 
             <!-- =================================================
                  COLONNE DROITE
             ================================================== -->
             <div class="col-lg-8 col-md-12">
-
                 <div class="service-details-content scroll-content">
-
 
                     <!-- =================================================
                          IMAGE PRINCIPALE DE LA CATÉGORIE
                     ================================================== -->
                     <div class="service-details-img">
-
                         {% if category.image %}
-
-                            <img src="{{ category.image.url }}"
-                                 alt="{{ category|localized:'name' }}">
-
+                        <img src="{{ category.image.url }}" alt="{{ category|localized:'name' }}">
                         {% else %}
-
-                            <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}"
-                                 alt="{{ category|localized:'name' }}">
-
+                        <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}" alt="{{ category|localized:'name' }}">
                         {% endif %}
-
                     </div>
-
-
-
 
 
                     <!-- =================================================
                          TITRE
                     ================================================== -->
-                    <h1 class="details-title">
-
-                        {{ category|localized:"name" }}
-
-                    </h1>
-
-
-
+                    <h1 class="details-title">{{ category|localized:"name" }}</h1>
 
 
                     <!-- =================================================
                          DESCRIPTION DE LA CATÉGORIE
                     ================================================== -->
                     {% with category_description=category|localized:"description" %}
-
-                        {% if category_description %}
-
-                            <div class="category-description">
-
-                                {{ category_description|linebreaks }}
-
-                            </div>
-
-                        {% else %}
-
-                            <p>
-
-                                {% trans "Découvrez les prestations professionnelles proposées dans cette catégorie et choisissez le service adapté à votre projet." %}
-
-                            </p>
-
-                        {% endif %}
-
+                    {% if category_description %}
+                    <div class="category-description">{{ category_description|linebreaks }}</div>
+                    {% else %}
+                    <p>{% trans "Découvrez les prestations professionnelles proposées dans cette catégorie et choisissez le service adapté à votre projet." %}</p>
+                    {% endif %}
                     {% endwith %}
-
-
-
 
 
                     <!-- =================================================
                          SERVICES DE LA CATÉGORIE
                     ================================================== -->
-                    <h2 class="details-title">
+                    <h2 class="details-title">{% trans "Services de cette catégorie" %}</h2>
 
-                        {% trans "Services de cette catégorie" %}
-
-                    </h2>
-
-
-                    <p>
-
-                        {% trans "Découvrez les prestations disponibles dans cette catégorie. Sélectionnez un service pour consulter toutes les informations et les solutions proposées." %}
-
-                    </p>
-
-
-
-
+                    <p>{% trans "Découvrez les prestations disponibles dans cette catégorie." %}</p>
 
                     {% if category_services %}
+                    <div class="service-details-items">
+                        {% for service in category_services %}
+                        {% with service_summary=service|localized:"summary" service_subtitle=service|localized:"subtitle" %}
+                        <div class="service-details-item">
 
-                        <div class="service-details-items">
+                            <div class="icon">
+                                {% if service.icon %}
+                                <i class="{{ service.icon }}" style="color: #ffffff !important;"></i>
+                                {% else %}
+                                <img src="{% static 'antra/assets/img/icon/service-details-1.png' %}" alt="{{ service|localized:'name' }}">
+                                {% endif %}
+                            </div>
 
+                            <div class="content">
+                                <h3 class="title">{{ service|localized:"name" }}</h3>
 
-                            {% for service in category_services %}
-
-                                {% with service_slug=service|localized:"slug" service_summary=service|localized:"summary" service_subtitle=service|localized:"subtitle" %}
-
-                                    <div class="service-details-item">
-
-
-                                        <!-- =====================================
-                                             ICON
-                                        ====================================== -->
-                                        <div class="icon">
-
-                                            {% if service.icon %}
-
-                                                <i class="{{ service.icon }}"></i>
-
-                                            {% else %}
-
-                                                <img src="{% static 'antra/assets/img/icon/service-details-1.png' %}"
-                                                     alt="{{ service|localized:'name' }}">
-
-                                            {% endif %}
-
-                                        </div>
-
-
-                                        <!-- =====================================
-                                             CONTENT
-                                        ====================================== -->
-                                        <div class="content">
-
-
-                                            <h3 class="title">
-
-                                                {% if service_slug %}
-
-                                                    <a href="{% url 'services:detail' service_slug %}">
-
-                                                        {{ service|localized:"name" }}
-
-                                                    </a>
-
-                                                {% else %}
-
-                                                    {{ service|localized:"name" }}
-
-                                                {% endif %}
-
-                                            </h3>
-
-
-                                            {% if service_summary %}
-
-                                                <p>
-
-                                                    {{ service_summary|striptags|truncatewords:30 }}
-
-                                                </p>
-
-                                            {% elif service_subtitle %}
-
-                                                <p>
-
-                                                    {{ service_subtitle|striptags|truncatewords:30 }}
-
-                                                </p>
-
-                                            {% endif %}
-
-
-                                            {% if service_slug %}
-
-                                                <a href="{% url 'services:detail' service_slug %}"
-                                                   class="service-category-detail-link">
-
-                                                    {% trans "Découvrir le service" %}
-
-                                                    <i class="fa-regular fa-arrow-right"></i>
-
-                                                </a>
-
-                                            {% endif %}
-
-
-                                        </div>
-
-                                    </div>
-
-                                {% endwith %}
-
-                            {% endfor %}
-
+                                {% if service_summary %}
+                                <p>{{ service_summary|striptags|truncatewords:30 }}</p>
+                                {% elif service_subtitle %}
+                                <p>{{ service_subtitle|striptags|truncatewords:30 }}</p>
+                                {% endif %}
+                            </div>
 
                         </div>
-
-
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
                     {% else %}
-
-
-                        <div class="service-category-empty">
-
-                            <p>
-
-                                {% trans "Aucun service n’est actuellement disponible dans cette catégorie." %}
-
-                            </p>
-
-                        </div>
-
-
+                    <div class="service-category-empty">
+                        <p>{% trans "Aucun service n’est actuellement disponible dans cette catégorie." %}</p>
+                    </div>
                     {% endif %}
-
-
-
 
 
                     <!-- =================================================
                          ENGAGEMENTS
                     ================================================== -->
                     <div class="service-details-list-wrap">
-
-
                         <ul>
-
-                            <li>
-
-                                <i class="fa-sharp fa-solid fa-circle-check"></i>
-
-                                {% trans "Solutions adaptées aux besoins du bâtiment" %}
-
-                            </li>
-
-
-                            <li>
-
-                                <i class="fa-sharp fa-solid fa-circle-check"></i>
-
-                                {% trans "Accompagnement personnalisé du projet" %}
-
-                            </li>
-
+                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Solutions adaptées aux besoins du bâtiment" %}</li>
+                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Accompagnement personnalisé du projet" %}</li>
                         </ul>
 
-
                         <ul>
-
-                            <li>
-
-                                <i class="fa-sharp fa-solid fa-circle-check"></i>
-
-                                {% trans "Travail professionnel et finitions soignées" %}
-
-                            </li>
-
-
-                            <li>
-
-                                <i class="fa-sharp fa-solid fa-circle-check"></i>
-
-                                {% trans "Intervention adaptée à chaque situation" %}
-
-                            </li>
-
+                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Travail professionnel et finitions soignées" %}</li>
+                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Intervention adaptée à chaque situation" %}</li>
                         </ul>
-
-
                     </div>
                     <!-- ./ engagements -->
 
-
-                </div>
-
-            </div>
-            <!-- ./ right -->
-
-
-        </div>
-
-    </div>
-
-</section>
-<!-- ./ service-details -->
-
-
-
-
-
-<!-- ============================================================
+                    <!-- ============================================================
      SECTION 03 · CONTACT
 ============================================================ -->
 <section class="newsletter-section pt-130 pb-130 overflow-hidden tl-bg-color">
-
     <div class="bg-shape">
-
-        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}"
-             alt="{% trans 'Projet de rénovation' %}">
-
+        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="{% trans 'Projet de rénovation' %}">
     </div>
-
 
     <div class="container">
-
         <div class="newsletter-wrap">
-
-
             <div class="section-heading text-center">
-
-
-                <h4 class="sub-heading"
-                    data-text-animation="fade-in-right"
-                    data-split="char"
-                    data-duration="0.9"
-                    data-stagger="0.03">
-
-                    {% trans "Besoin d’un conseil ?" %}
-
-                </h4>
-
+                <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Besoin d’un conseil ?" %}</h4>
 
                 <h2 class="section-title cursor-effect">
-
                     {% trans "Parlez-nous de" %}
-
-                    <span>
-
-                        {% trans "votre projet et de" %}
-                        <br>
-                        {% trans "vos besoins" %}
-
-                    </span>
-
+                    <span>{% trans "votre projet et de" %}<br>{% trans "vos besoins" %}</span>
                 </h2>
 
-
-                <p>
-
-                    {% trans "Présentez-nous votre projet et notre équipe vous aidera à identifier les prestations adaptées à vos besoins." %}
-
-                </p>
-
-
+                <p>{% trans "Présentez-nous votre projet et notre équipe vous aidera à identifier les prestations adaptées à vos besoins." %}</p>
             </div>
-
 
             {% trans "Bonjour, je souhaite obtenir des informations concernant un projet et demander un devis." as contact_message %}
-
             {% trans "Demande concernant un projet" as email_subject %}
 
-
             <div class="project-contact-actions">
-
-
-                <button type="button"
-                        class="project-contact-btn project-contact-whatsapp"
-                        data-bs-toggle="modal"
-                        data-bs-target="#contactProjectModal">
-
+                <button type="button" class="project-contact-btn project-contact-whatsapp" data-bs-toggle="modal" data-bs-target="#contactProjectModal">
                     <i class="fa-regular fa-envelope"></i>
-
-                    <span>
-                        {% trans "Envoyer un message" %}
-                    </span>
-
+                    <span>{% trans "Envoyer un message" %}</span>
                 </button>
 
-
                 {% if site_configuration.whatsapp %}
-
-                    <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="project-contact-btn project-contact-whatsapp">
-
-                        <i class="fa-brands fa-whatsapp"></i>
-
-                        <span>
-                            WhatsApp
-                        </span>
-
-                    </a>
-
+                <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
                 {% endif %}
-
 
                 {% if site_configuration.email %}
-
-                    <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}"
-                       class="project-contact-btn">
-
-                        <i class="fa-regular fa-envelope"></i>
-
-                        <span>
-                            {% trans "E-mail" %}
-                        </span>
-
-                    </a>
-
+                <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}" class="project-contact-btn">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>{% trans "E-mail" %}</span>
+                </a>
                 {% endif %}
-
 
                 {% if site_configuration.phone %}
-
-                    <a href="tel:{{ site_configuration.phone }}"
-                       class="project-contact-btn">
-
-                        <i class="fa-regular fa-phone"></i>
-
-                        <span>
-                            {% trans "Appeler" %}
-                        </span>
-
-                    </a>
-
+                <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
+                    <i class="fa-regular fa-phone"></i>
+                    <span>{% trans "Appeler" %}</span>
+                </a>
                 {% endif %}
-
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 <!-- ./ newsletter-section -->
 
+
+                </div>
+            </div>
+            <!-- ./ right -->
+        </div>
+    </div>
+</section>
+<!-- ./ service-details -->
 
 
 
@@ -652,85 +273,38 @@
 <!-- ============================================================
      SECTION 04 · CONTACT PROJECT MODAL
 ============================================================ -->
-<div class="modal fade project-contact-modal"
-     id="contactProjectModal"
-     tabindex="-1"
-     aria-labelledby="contactProjectModalLabel"
-     aria-hidden="true">
-
-
+<div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-
         <div class="modal-content">
 
-
             <div class="modal-header">
-
                 <div>
-
-                    <span class="project-contact-modal-kicker">
-
-                        V&V Swiss Services
-
-                    </span>
-
-
-                    <h3 class="modal-title"
-                        id="contactProjectModalLabel">
-
-                        {% trans "Parlez-nous de votre projet" %}
-
-                    </h3>
-
+                    <span class="project-contact-modal-kicker">V&V Swiss Services</span>
+                    <h3 class="modal-title" id="contactProjectModalLabel">{% trans "Parlez-nous de votre projet" %}</h3>
                 </div>
 
-
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="{% trans 'Fermer' %}">
-                </button>
-
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
             </div>
-
 
             <div class="modal-body">
-
-
-                <p class="project-contact-modal-intro">
-
-                    {% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}
-
-                </p>
-
+                <p class="project-contact-modal-intro">{% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}</p>
 
                 <div class="request-form-wrap project-modal-form-wrap">
-
                     {% include "contact/includes/contact_form.html" %}
-
                 </div>
-
-
             </div>
 
-
         </div>
-
     </div>
-
 </div>
-
 
 {% endblock %}
 
 
 {% block extra_js %}
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
-    const contactProjectModal =
-        document.getElementById("contactProjectModal");
+    const contactProjectModal = document.getElementById("contactProjectModal");
 
     if (!contactProjectModal) {
         return;
@@ -740,27 +314,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.appendChild(contactProjectModal);
     }
 
-    contactProjectModal.addEventListener(
-        "show.bs.modal",
-        function () {
-
-            if (contactProjectModal.parentElement !== document.body) {
-                document.body.appendChild(contactProjectModal);
-            }
-
+    contactProjectModal.addEventListener("show.bs.modal", function () {
+        if (contactProjectModal.parentElement !== document.body) {
+            document.body.appendChild(contactProjectModal);
         }
-    );
+    });
 
-    contactProjectModal.addEventListener(
-        "shown.bs.modal",
-        function () {
-
-            contactProjectModal.scrollTop = 0;
-
-        }
-    );
-
+    contactProjectModal.addEventListener("shown.bs.modal", function () {
+        contactProjectModal.scrollTop = 0;
+    });
 });
 </script>
-
 {% endblock %}

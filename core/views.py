@@ -17,6 +17,7 @@ from .models import (
     Statistic,
     TeamMember,
     Testimonial,
+    ProfessionalPage
 )
 
 
@@ -75,12 +76,37 @@ def about(request):
     return render(request, "core/about.html", context)
 
 
+
 # ============================================================
 # PROFESSIONALS
 # ============================================================
 
 def professionals(request):
-    return render(request, "core/professionals.html")
+    professional_page = (
+        ProfessionalPage.objects
+        .filter(is_active=True)
+        .prefetch_related("blocks", "services")
+        .first()
+    )
+
+    featured_projects = (
+        Project.objects
+        .filter(
+            is_published=True,
+            is_featured=True,
+        )
+        .prefetch_related("services")
+        .order_by("-created_at")[:6]
+    )
+
+    context = {
+        "professional_page": professional_page,
+        "featured_projects": featured_projects,
+        "form": ContactRequestForm(),
+    }
+
+    return render(request, "core/professionals.html", context)
+
 
 
 # ============================================================

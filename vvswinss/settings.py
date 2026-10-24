@@ -4,8 +4,8 @@ Django settings for VVswinss.
 Configuración base para desarrollo y producción.
 Django 5.2 LTS.
 """
+
 from pathlib import Path
-import os
 import environ
 
 # ============================================================
@@ -13,7 +13,6 @@ import environ
 # ============================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # ============================================================
 # ENVIRONMENT VARIABLES
@@ -29,13 +28,11 @@ env = environ.Env(
 
 environ.Env.read_env(BASE_DIR / ".env")
 
-
 # ============================================================
 # SECURITY
 # ============================================================
 
 SECRET_KEY = env("SECRET_KEY")
-
 DEBUG = env("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list(
@@ -68,6 +65,10 @@ SECURE_PROXY_SSL_HEADER = (
     "https",
 )
 
+# Permite que servicios externos como YouTube reciban
+# el origen del sitio al cargar contenido embebido.
+# Evita el Error 153 del reproductor de YouTube.
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 # ============================================================
 # APPLICATIONS
@@ -80,15 +81,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    #VVswins
+    # VVswiss
     "core",
     "services",
     "projects",
     "blog",
     "contact",
 ]
-
 
 # ============================================================
 # MIDDLEWARE
@@ -106,15 +105,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 # ============================================================
 # URLS / WSGI
 # ============================================================
 
 ROOT_URLCONF = "vvswinss.urls"
-
 WSGI_APPLICATION = "vvswinss.wsgi.application"
-
 
 # ============================================================
 # TEMPLATES
@@ -133,15 +129,11 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "services.context_processors.services_menu",
-
-                # VVswinss
                 "core.context_processors.global_site",
             ],
         },
     },
 ]
-
-
 
 # ============================================================
 # DATABASE
@@ -160,8 +152,6 @@ DATABASES = {
         "PORT": env("DB_PORT", default="5432"),
     }
 }
-
-
 
 # ============================================================
 # EMAIL
@@ -238,8 +228,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 # ============================================================
 # INTERNATIONALIZATION
 # ============================================================
@@ -267,10 +255,10 @@ TIME_ZONE = "Europe/Zurich"
 USE_I18N = True
 USE_TZ = True
 
-
 # ============================================================
 # STATIC FILES
 # ============================================================
+
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
@@ -279,43 +267,12 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-
 # ============================================================
 # MEDIA FILES
 # ============================================================
 
 MEDIA_URL = "/media/"
-
 MEDIA_ROOT = BASE_DIR / "media"
-
-
-# ============================================================
-# EMAIL
-# ============================================================
-
-EMAIL_BACKEND = os.getenv(
-    "EMAIL_BACKEND",
-    "django.core.mail.backends.smtp.EmailBackend"
-)
-
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", 2525))
-
-EMAIL_USE_TLS = os.getenv(
-    "EMAIL_USE_TLS",
-    "True"
-).lower() == "true"
-
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-
-DEFAULT_FROM_EMAIL = os.getenv(
-    "DEFAULT_FROM_EMAIL",
-    "V&V Swiss Services <contact@tudominio.ch>"
-)
-
-EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", 10))
-
 
 # ============================================================
 # WEBSITE
@@ -325,7 +282,6 @@ SITE_URL = env(
     "SITE_URL",
     default="http://127.0.0.1:8000",
 )
-
 
 # ============================================================
 # DEFAULT PRIMARY KEY

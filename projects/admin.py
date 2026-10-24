@@ -10,7 +10,6 @@ from .models import (
     ProjectType,
 )
 
-
 # ============================================================
 # HELPERS
 # ============================================================
@@ -29,7 +28,6 @@ def render_image(field, width=100, height=70):
     except (ValueError, AttributeError):
         return "—"
 
-
 # ============================================================
 # BASE ADMIN
 # ============================================================
@@ -39,7 +37,6 @@ class BaseProjectAdmin(admin.ModelAdmin):
     save_on_top = True
     list_per_page = 30
     empty_value_display = "—"
-
 
 # ============================================================
 # PROJECT IMAGE INLINE
@@ -125,7 +122,6 @@ class ProjectImageInline(admin.StackedInline):
     @admin.display(description="Vista previa")
     def image_preview(self, obj):
         return render_image(obj.image if obj else None, 240, 150)
-
 
 # ============================================================
 # BEFORE / AFTER INLINE
@@ -219,7 +215,6 @@ class BeforeAfterInline(admin.StackedInline):
     def after_preview(self, obj):
         return render_image(obj.after_image if obj else None, 240, 150)
 
-
 # ============================================================
 # INTERVENTION INLINE
 # ============================================================
@@ -302,7 +297,6 @@ class InterventionInline(admin.StackedInline):
             },
         ),
     )
-
 
 # ============================================================
 # PROJECT TYPE
@@ -406,7 +400,6 @@ class ProjectTypeAdmin(BaseProjectAdmin):
         ),
     )
 
-
 # ============================================================
 # BUILDING TYPE
 # ============================================================
@@ -509,7 +502,6 @@ class BuildingTypeAdmin(BaseProjectAdmin):
         ),
     )
 
-
 # ============================================================
 # PROJECT
 # ============================================================
@@ -524,6 +516,7 @@ class ProjectAdmin(BaseProjectAdmin):
         "building_type",
         "location",
         "end_date",
+        "show_on_map",
         "is_featured",
         "is_published",
     )
@@ -534,6 +527,7 @@ class ProjectAdmin(BaseProjectAdmin):
     )
 
     list_editable = (
+        "show_on_map",
         "is_featured",
         "is_published",
     )
@@ -541,6 +535,7 @@ class ProjectAdmin(BaseProjectAdmin):
     list_filter = (
         "is_published",
         "is_featured",
+        "show_on_map",
         "project_type",
         "building_type",
         "services",
@@ -635,6 +630,17 @@ class ProjectAdmin(BaseProjectAdmin):
                     "client",
                     "start_date",
                     "end_date",
+                ),
+            },
+        ),
+        (
+            "Mapa de realizaciones",
+            {
+                "description": "Indique las coordenadas del proyecto y active su visualización en el mapa público.",
+                "fields": (
+                    "latitude",
+                    "longitude",
+                    "show_on_map",
                 ),
             },
         ),
@@ -775,7 +781,6 @@ class ProjectAdmin(BaseProjectAdmin):
     def unfeature_selected(self, request, queryset):
         queryset.update(is_featured=False)
 
-
 # ============================================================
 # PROJECT IMAGE
 # ============================================================
@@ -907,7 +912,6 @@ class ProjectImageAdmin(BaseProjectAdmin):
     @admin.display(description="Vista previa")
     def image_preview_large(self, obj):
         return render_image(obj.image if obj else None, 500, 300)
-
 
 # ============================================================
 # BEFORE / AFTER
@@ -1052,7 +1056,6 @@ class BeforeAfterAdmin(BaseProjectAdmin):
     @admin.display(description="Vista previa · Después")
     def after_preview(self, obj):
         return render_image(obj.after_image if obj else None, 400, 260)
-
 
 # ============================================================
 # INTERVENTION

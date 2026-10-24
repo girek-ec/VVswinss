@@ -294,7 +294,6 @@ class BusinessHour(TimeStampedModel):
     def __str__(self):
         return f"{self.day_fr}: {self.hours}"
 
-
 # ============================================================
 # ABOUT CONTENT
 # ============================================================
@@ -330,11 +329,38 @@ class AboutContent(TimeStampedModel):
     history_it = models.TextField(blank=True)
     history_en = models.TextField(blank=True)
 
+    # ========================================================
+    # IMAGEN PRINCIPAL
+    # ========================================================
+
     image = models.ImageField(
         upload_to="about/",
         blank=True,
         null=True,
     )
+
+    # ========================================================
+    # VIDEO / MULTIMEDIA
+    # ========================================================
+
+    video_url = models.URLField(
+        max_length=500,
+        blank=True,
+        verbose_name="URL del vídeo",
+        help_text="Enlace de YouTube, Vimeo u otra plataforma compatible.",
+    )
+
+    video_image = models.ImageField(
+        upload_to="about/video/",
+        blank=True,
+        null=True,
+        verbose_name="Imagen de portada del vídeo",
+        help_text="Se muestra como fondo del vídeo o como imagen cuando no existe vídeo.",
+    )
+
+    # ========================================================
+    # PUBLICACIÓN
+    # ========================================================
 
     is_active = models.BooleanField(default=True)
 
@@ -344,7 +370,6 @@ class AboutContent(TimeStampedModel):
 
     def __str__(self):
         return self.intro_title_fr or "About V&V Swiss Services"
-
 
 # ============================================================
 # SERVICE AREA
@@ -906,3 +931,258 @@ class HomeContent(TimeStampedModel):
 
     def __str__(self):
         return self.title_fr
+
+
+# ============================================================
+# PROFESSIONAL PAGE
+# PAGE PROFESSIONNELS
+#
+# Estructura simplificada:
+# - La página guarda únicamente el contenido principal.
+# - Los contenidos adicionales se crean libremente como bloques.
+# - Los servicios existentes se seleccionan sin duplicarlos.
+# ============================================================
+
+
+class ProfessionalPage(TimeStampedModel):
+    hero_title_es = models.CharField(
+        "Main title",
+        max_length=255,
+        blank=True,
+        help_text="Título principal de la página. Español se utiliza como referencia interna.",
+    )
+    hero_title_fr = models.CharField(
+        "Main title",
+        max_length=255,
+        help_text="Título principal de la página en francés. Es el idioma principal.",
+    )
+    hero_title_de = models.CharField(
+        "Main title",
+        max_length=255,
+        blank=True,
+        help_text="Título principal de la página en alemán.",
+    )
+    hero_title_it = models.CharField(
+        "Main title",
+        max_length=255,
+        blank=True,
+        help_text="Título principal de la página en italiano.",
+    )
+    hero_title_en = models.CharField(
+        "Main title",
+        max_length=255,
+        blank=True,
+        help_text="Título principal de la página en inglés.",
+    )
+
+    hero_text_es = models.TextField(
+        "Main text",
+        blank=True,
+        help_text="Texto introductorio de la página. Español se utiliza como referencia interna.",
+    )
+    hero_text_fr = models.TextField(
+        "Main text",
+        blank=True,
+        help_text="Texto introductorio de la página en francés.",
+    )
+    hero_text_de = models.TextField(
+        "Main text",
+        blank=True,
+        help_text="Texto introductorio de la página en alemán.",
+    )
+    hero_text_it = models.TextField(
+        "Main text",
+        blank=True,
+        help_text="Texto introductorio de la página en italiano.",
+    )
+    hero_text_en = models.TextField(
+        "Main text",
+        blank=True,
+        help_text="Texto introductorio de la página en inglés.",
+    )
+
+    hero_image = models.ImageField(
+        "Main image",
+        upload_to="professionals/hero/",
+        blank=True,
+        null=True,
+        help_text="Imagen principal de la página de Profesionales.",
+    )
+
+    services = models.ManyToManyField(
+        "services.Service",
+        blank=True,
+        related_name="professional_pages",
+        verbose_name="Services",
+        help_text="Seleccione únicamente los servicios que desea mostrar en la página de Profesionales.",
+    )
+
+    is_active = models.BooleanField(
+        "Active",
+        default=True,
+        help_text="Desactive esta opción para ocultar la página.",
+    )
+
+    class Meta:
+        verbose_name = "Professionals · Page"
+        verbose_name_plural = "Professionals · Page"
+
+    def __str__(self):
+        return self.hero_title_fr or "Professionnels"
+
+    def get_localized_field(self, field_name):
+        language = (get_language() or "fr").split("-")[0]
+
+        if language not in ("fr", "de", "it", "en"):
+            language = "fr"
+
+        value = getattr(self, f"{field_name}_{language}", "")
+
+        if value:
+            return value
+
+        return getattr(self, f"{field_name}_fr", "")
+
+
+# ============================================================
+# PROFESSIONAL BLOCK
+#
+# Cada bloque es una pieza independiente de contenido.
+# Se pueden agregar, quitar y ordenar libremente desde el admin.
+# ============================================================
+
+
+class ProfessionalBlock(TimeStampedModel):
+    LAYOUT_TEXT = "text"
+    LAYOUT_IMAGE_LEFT = "image_left"
+    LAYOUT_IMAGE_RIGHT = "image_right"
+    LAYOUT_CARD = "card"
+    LAYOUT_CTA = "cta"
+
+    LAYOUT_CHOICES = (
+        (LAYOUT_TEXT, "Text"),
+        (LAYOUT_IMAGE_LEFT, "Image left"),
+        (LAYOUT_IMAGE_RIGHT, "Image right"),
+        (LAYOUT_CARD, "Featured card"),
+        (LAYOUT_CTA, "Call to action"),
+    )
+
+    page = models.ForeignKey(
+        ProfessionalPage,
+        on_delete=models.CASCADE,
+        related_name="blocks",
+        verbose_name="Page",
+    )
+
+    layout = models.CharField(
+        "Layout",
+        max_length=30,
+        choices=LAYOUT_CHOICES,
+        default=LAYOUT_TEXT,
+        help_text="Seleccione cómo desea presentar este bloque en la página.",
+    )
+
+    title_es = models.CharField(
+        "Title",
+        max_length=255,
+        blank=True,
+        help_text="Título del bloque. Español se utiliza como referencia interna.",
+    )
+    title_fr = models.CharField(
+        "Title",
+        max_length=255,
+        blank=True,
+        help_text="Título del bloque en francés.",
+    )
+    title_de = models.CharField(
+        "Title",
+        max_length=255,
+        blank=True,
+        help_text="Título del bloque en alemán.",
+    )
+    title_it = models.CharField(
+        "Title",
+        max_length=255,
+        blank=True,
+        help_text="Título del bloque en italiano.",
+    )
+    title_en = models.CharField(
+        "Title",
+        max_length=255,
+        blank=True,
+        help_text="Título del bloque en inglés.",
+    )
+
+    text_es = models.TextField(
+        "Content",
+        blank=True,
+        help_text="Contenido del bloque. Español se utiliza como referencia interna.",
+    )
+    text_fr = models.TextField(
+        "Content",
+        blank=True,
+        help_text="Contenido del bloque en francés.",
+    )
+    text_de = models.TextField(
+        "Content",
+        blank=True,
+        help_text="Contenido del bloque en alemán.",
+    )
+    text_it = models.TextField(
+        "Content",
+        blank=True,
+        help_text="Contenido del bloque en italiano.",
+    )
+    text_en = models.TextField(
+        "Content",
+        blank=True,
+        help_text="Contenido del bloque en inglés.",
+    )
+
+    image = models.ImageField(
+        "Image",
+        upload_to="professionals/blocks/",
+        blank=True,
+        null=True,
+        help_text="Opcional. Se utiliza especialmente en los diseños con imagen.",
+    )
+
+    icon = models.CharField(
+        "Icon",
+        max_length=100,
+        blank=True,
+        help_text="Opcional. Clase de Font Awesome, por ejemplo: fa-solid fa-building.",
+    )
+
+    order = models.PositiveIntegerField(
+        "Order",
+        default=0,
+        help_text="Los números más bajos aparecen primero.",
+    )
+
+    is_active = models.BooleanField(
+        "Active",
+        default=True,
+        help_text="Permite mostrar u ocultar este bloque sin eliminarlo.",
+    )
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Professionals · Block"
+        verbose_name_plural = "Professionals · Blocks"
+
+    def __str__(self):
+        return self.title_fr or f"Bloque {self.pk or ''}".strip()
+
+    def get_localized_field(self, field_name):
+        language = (get_language() or "fr").split("-")[0]
+
+        if language not in ("fr", "de", "it", "en"):
+            language = "fr"
+
+        value = getattr(self, f"{field_name}_{language}", "")
+
+        if value:
+            return value
+
+        return getattr(self, f"{field_name}_fr", "")

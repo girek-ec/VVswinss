@@ -709,3 +709,26 @@
     object-fit: cover;
     object-position: center;
 }
+
+/* ==========================================================
+   CONTACT FORM
+   SERVICE SELECT NATIVO
+   Evita duplicación causada por Nice Select / Select2
+   ========================================================== */
+
+#id_service {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Nice Select generado automáticamente */
+#id_service + .nice-select,
+#id_service ~ .nice-select {
+    display: none !important;
+}
+
+/* Select2 generado automáticamente */
+#id_service + .select2-container,
+#id_service ~ .select2-container {
+    display: none !important;
+}
