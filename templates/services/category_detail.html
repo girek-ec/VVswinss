@@ -86,7 +86,13 @@
                         <div class="cta-bg" data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}"></div>
 
                         <div class="icon">
-                            <img src="{{ site_configuration.white_logo.url }}" alt="{% trans 'Contact' %}">
+                            {% if site_configuration and site_configuration.white_logo %}
+                                <img src="{{ site_configuration.white_logo.url }}" alt="{% trans 'Contact' %}">
+                            {% elif site_configuration and site_configuration.logo %}
+                                <img src="{{ site_configuration.logo.url }}" alt="{% trans 'Contact' %}">
+                            {% else %}
+                                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="{% trans 'Contact' %}">
+                            {% endif %}
                         </div>
 
                         <span>{% trans "Besoin d’aide ?" %}</span>
