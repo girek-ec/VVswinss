@@ -25,7 +25,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: #fff url("../images/loader.gif") center center no-repeat;
+  background: #fff none center center no-repeat;
 }
 
 /**

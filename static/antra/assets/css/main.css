@@ -1,4 +1,4 @@
-﻿@import "https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400..900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400..900&display=swap";
 
 :root {
     --tl-ff-body: 'Golos Text', sans-serif;
@@ -4020,7 +4020,7 @@ ul {
 }
 
 #popup-search-box .box-inner-wrap:hover {
-    cursor: url(../img/cross.png), auto
+    cursor: pointer
 }
 
 #popup-search-box .box-inner-wrap .search-close {
