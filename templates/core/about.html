@@ -3,10 +3,10 @@
 {% load i18n %}
 {% load i18n_fields %}
 {% block title %}{% if about_page %}{{ about_page|localized:"title" }} | V&V Swiss Services{% else %}{% trans "Entreprise" %} | V&V Swiss Services{% endif %}{% endblock %}
-{% block meta_description %}{% if about_page %}{{ about_page|localized:"meta_description" }}{% else %}{% trans "Découvrez V&V Swiss Services, spécialiste de la rénovation, de l’isolation et des travaux du bâtiment en Suisse romande." %}{% endif %}{% endblock %}
+{% block meta_description %}{% if about_page %}{{ about_page|localized:"meta_description" }}{% else %}{% trans "DÃ©couvrez V&V Swiss Services, spÃ©cialiste de la rÃ©novation, de lâ€™isolation et des travaux du bÃ¢timent en Suisse romande." %}{% endif %}{% endblock %}
 {% block content %}
 <!-- ============================================================
-     SECTION 01 · PAGE HEADER
+     SECTION 01 Â· PAGE HEADER
 ============================================================ -->
 <section class="page-header">
     <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
@@ -30,7 +30,7 @@
 </section>
 <!-- ./ page-header -->
 <!-- ============================================================
-     SECTION 02 · ABOUT / PRESENTATION
+     SECTION 02 Â· ABOUT / PRESENTATION
 ============================================================ -->
 <section class="about-section-2 pt-130 pb-130">
     <div class="shape-1">
@@ -44,7 +44,7 @@
                         {% if about_content %}
                         <h2 class="section-title title-2 ">{{ about_content|localized:"intro_title" }}</h2>
                         {% else %}
-                        <h2 class="section-title title-2">{% trans "Plus de 20 ans d’expérience dans le secteur du bâtiment en Suisse" %}</h2>
+                        <h2 class="section-title title-2">{% trans "Plus de 20 ans dâ€™expÃ©rience dans le secteur du bÃ¢timent en Suisse" %}</h2>
                         {% endif %}
                     </div>
                     <div class="about-counter-wrap">
@@ -72,7 +72,7 @@
                             {{ about_content|localized:"intro_text"|linebreaks }}
                             {% endif %}
                         </div>
-                        {% trans "Bonjour, je souhaite recevoir plus d’informations sur vos services et demander un devis pour mon projet de rénovation." as whatsapp_text %}
+                        {% trans "Bonjour, je souhaite recevoir plus dâ€™informations sur vos services et demander un devis pour mon projet de rÃ©novation." as whatsapp_text %}
                         {% trans "Demander des informations" as whatsapp_button %}
                         {% if site_configuration and site_configuration.whatsapp %}
                         <div class="about-btn mt-30">
@@ -90,7 +90,7 @@
 </section>
 <!-- ./ about-section -->
 <!-- ============================================================
-     SECTION 03 · TEAM
+     SECTION 03 Â· TEAM
 ============================================================ -->
 {% if team_members %}
 <section class="team-section-7 bg-grey pt-130 pb-130 fade-wrapper">
@@ -100,12 +100,12 @@
         ================================================== -->
         <div class="row section-heading-wrap ml-0 mw-100 fade-top">
             <div class="shape">
-<img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="{% trans 'Décoration' %}" >
+<img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="{% trans 'DÃ©coration' %}" >
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="section-heading mb-0">
 <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03" >
-                        {% trans "Notre équipe" %}
+                        {% trans "Notre Ã©quipe" %}
                     </h4>
                 </div>
             </div>
@@ -114,14 +114,14 @@
                     <h2 class="section-title cursor-effect title-2">
                         {% trans "Des professionnels" %}
                         <span>
-                                {% trans "à votre service" %}
+                                {% trans "Ã  votre service" %}
                             </span>
                     </h2>
                 </div>
             </div>
         </div>
         <!-- =================================================
-             SECTION 03 · TEAM MEMBERS
+             SECTION 03 Â· TEAM MEMBERS
         ================================================== -->
         <div class="row gy-lg-0 gy-5 fade-wrapper">
             {% for member in team_members %}
@@ -143,14 +143,14 @@
                         <ul class="team-social">
                             {% if member.email %}
                             <li>
-<a href="mailto:{{ member.email }}" aria-label="{% trans 'Envoyer un e-mail à' %} {{ member.name }}" title="{% trans 'E-mail' %}" >
+<a href="mailto:{{ member.email }}" aria-label="{% trans 'Envoyer un e-mail Ã ' %} {{ member.name }}" title="{% trans 'E-mail' %}" >
                                     <i class="fa-regular fa-envelope"></i>
                                 </a>
                             </li>
                             {% endif %}
                             {% if member.phone %}
                             <li>
-<a href="tel:{{ member.phone }}" aria-label="{% trans 'Appeler' %} {{ member.name }}" title="{% trans 'Téléphone' %}" >
+<a href="tel:{{ member.phone }}" aria-label="{% trans 'Appeler' %} {{ member.name }}" title="{% trans 'TÃ©lÃ©phone' %}" >
                                     <i class="fa-regular fa-phone"></i>
                                 </a>
                             </li>
@@ -191,7 +191,7 @@
 
 
 <!-- ============================================================
-     ABOUT · VIDEO / IMAGE
+     ABOUT Â· VIDEO / IMAGE
 ============================================================ -->
 <div class="video-area-wrap">
 
@@ -208,10 +208,10 @@
                 data-autoplay="true"
                 data-vbtype="video"
                 href="{{ about_content.video_url }}"
-                aria-label="{% trans 'Lire la vidéo' %}"
+                aria-label="{% trans 'Lire la vidÃ©o' %}"
             >
                 <i class="fa-solid fa-play" aria-hidden="true"></i>
-                <span class="visually-hidden">{% trans "Lire la vidéo" %}</span>
+                <span class="visually-hidden">{% trans "Lire la vidÃ©o" %}</span>
             </a>
         </div>
     {% endif %}
@@ -219,7 +219,7 @@
 </div>
 
 <!-- ============================================================
-     SECTION 05 · MISSION
+     SECTION 05 Â· MISSION
 ============================================================ -->
 {% if about_content %}
 <section class="about-section-3 pt-130 pb-130 overflow-hidden tl-bg-color">
@@ -234,14 +234,14 @@
                         {% if about_content.mission_image %}
                         <img src="{{ about_content.mission_image.url }}" alt="{% trans 'Notre mission' %}">
                         {% else %}
-<img src="{% static 'antra/assets/img/images/about-img-4.png' %}" alt="{% trans 'Notre mission' %}">
+<img src="{% static 'antra/assets/img/images/about-img-4.webp' %}" alt="{% trans 'Notre mission' %}">
                         {% endif %}
                     </div>
                     <div class="about-img-2">
                         {% if about_content.mission_image_secondary %}
                         <img src="{{ about_content.mission_image_secondary.url }}" alt="V&V Swiss Services">
                         {% else %}
-                        <img src="{% static 'antra/assets/img/images/about-img-5.png' %}" alt="V&V Swiss Services">
+                        <img src="{% static 'antra/assets/img/images/about-img-5.webp' %}" alt="V&V Swiss Services">
                         {% endif %}
                     </div>
                 </div>
@@ -255,12 +255,12 @@
                     </div>
                     <div class="about-items">
                         <div class="about-item">
-                            <h3 class="title">{% trans "Qualité suisse" %}</h3>
-                            <p>{% trans "Des travaux soignés et des finitions réalisées avec exigence." %}</p>
+                            <h3 class="title">{% trans "QualitÃ© suisse" %}</h3>
+                            <p>{% trans "Des travaux soignÃ©s et des finitions rÃ©alisÃ©es avec exigence." %}</p>
                         </div>
                         <div class="about-item">
-                            <h3 class="title">{% trans "Proximité et confiance" %}</h3>
-                            <p>{% trans "Un accompagnement clair, personnalisé et adapté à chaque projet." %}</p>
+                            <h3 class="title">{% trans "ProximitÃ© et confiance" %}</h3>
+                            <p>{% trans "Un accompagnement clair, personnalisÃ© et adaptÃ© Ã  chaque projet." %}</p>
                         </div>
                     </div>
                 </div>
@@ -271,7 +271,7 @@
 {% endif %}
 <!-- ./ mission-section -->
 <!-- ============================================================
-     SECTION 06 · VISION
+     SECTION 06 Â· VISION
 ============================================================ -->
 {% if about_content %}
 <section class="service-section-3 pt-130 pb-130 overflow-hidden">
@@ -291,7 +291,7 @@
             </div>
             <div class="col-lg-6">
   <div class="skill-img slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
-                    <img src="{% static 'antra/assets/img/images/skill-img-1.png' %}" alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                    <img src="{% static 'antra/assets/img/images/skill-img-1.webp' %}" alt="{% trans 'Travaux de rÃ©novation V&V Swiss Services' %}">
                 </div>
             </div>
         </div>
@@ -300,11 +300,11 @@
 {% endif %}
 <!-- ./ vision-section -->
 <!-- ============================================================
-     SECTION 07 · COMPANY VALUES
+     SECTION 07 Â· COMPANY VALUES
 ============================================================ -->
 {% if company_values %}
 <!-- ============================================================
-     SECTION 07A · VALUES HEADING
+     SECTION 07A Â· VALUES HEADING
 ============================================================ -->
 <section class="newsletter-section bg-white pt-130  overflow-hidden">
     <div class="bg-shape">
@@ -314,7 +314,7 @@
         <div class="newsletter-wrap">
             <div class="section-heading text-center">
                 <h2 class="section-title">{% trans "Nos" %} <span>{% trans "valeurs" %}</span></h2>
-                <p>{% trans "Décrivez-nous votre projet et recevez une première réponse sous 48 h." %}</p>
+                <p>{% trans "DÃ©crivez-nous votre projet et recevez une premiÃ¨re rÃ©ponse sous 48 h." %}</p>
             </div>
         </div>
     </div>
@@ -337,7 +337,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <!-- IMÁGENES DE LOS VALORES -->
+            <!-- IMÃGENES DE LOS VALORES -->
             <div class="banner-process-image-list">
                 {% for value in company_values %}
                 <div class="banner-process-img">
@@ -374,10 +374,10 @@
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
                     <h2 class="section-title cursor-effect">
-                        {% trans "Une protection fiable pour" %} <span>{% trans "nos activités et vos projets" %}</span>
+                        {% trans "Une protection fiable pour" %} <span>{% trans "nos activitÃ©s et vos projets" %}</span>
                     </h2>
                     <p class="mb-0">
-                        {% trans "Nos couvertures d’assurance contribuent à garantir des interventions réalisées avec responsabilité, sécurité et professionnalisme." %}
+                        {% trans "Nos couvertures dâ€™assurance contribuent Ã  garantir des interventions rÃ©alisÃ©es avec responsabilitÃ©, sÃ©curitÃ© et professionnalisme." %}
                     </p>
                 </div>
             </div>
@@ -407,7 +407,7 @@
     </div>
 </section>
 <!-- ============================================================
-     ASSURANCES · MODALS
+     ASSURANCES Â· MODALS
 ============================================================ -->
 {% for insurance in insurances %}
 <div class="modal fade insurance-modal" id="insuranceModal{{ insurance.id }}" tabindex="-1" aria-labelledby="insuranceModalLabel{{ insurance.id }}" aria-hidden="true">
@@ -474,7 +474,7 @@
 </div>
 {% endfor %}
 <!-- ============================================================
-     ASSURANCES · MOVE MODALS TO BODY
+     ASSURANCES Â· MOVE MODALS TO BODY
 ============================================================ -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -525,11 +525,11 @@
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Des certifications qui témoignent de" %}
-                        <span>{% trans "notre qualité et notre" %}<br>{% trans "engagement" %}</span>
+                        {% trans "Des certifications qui tÃ©moignent de" %}
+                        <span>{% trans "notre qualitÃ© et notre" %}<br>{% trans "engagement" %}</span>
                     </h2>
                     <p class="mb-0">
-                        {% trans "Découvrez les certifications et accréditations qui soutiennent notre engagement envers la qualité, la sécurité et le professionnalisme." %}
+                        {% trans "DÃ©couvrez les certifications et accrÃ©ditations qui soutiennent notre engagement envers la qualitÃ©, la sÃ©curitÃ© et le professionnalisme." %}
                     </p>
                 </div>
             </div>
@@ -586,7 +586,7 @@
     </div>
 </section>
 <!-- ============================================================
-     CERTIFICATIONS · MODALS
+     CERTIFICATIONS Â· MODALS
 ============================================================ -->
 {% for certification in certifications %}
 <div class="modal fade certification-modal" id="certificationModal{{ certification.id }}" tabindex="-1" aria-labelledby="certificationModalLabel{{ certification.id }}" aria-hidden="true">
@@ -613,7 +613,7 @@
                 {% if certification.issuer %}
                 <div class="certification-modal-description">
                     <p>
-                        <strong>{% trans "Organisme émetteur" %}:</strong> {{ certification.issuer }}
+                        <strong>{% trans "Organisme Ã©metteur" %}:</strong> {{ certification.issuer }}
                     </p>
                 </div>
                 {% endif %}
@@ -653,7 +653,7 @@
 </div>
 {% endfor %}
 <!-- ============================================================
-     CERTIFICATIONS · MOVE MODALS TO BODY
+     CERTIFICATIONS Â· MOVE MODALS TO BODY
 ============================================================ -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -688,7 +688,7 @@
 {% endif %}
 <!-- ./ feature-section -->
 <!-- ============================================================
-     SECTION 10 · PROJECTS / REALISATIONS
+     SECTION 10 Â· PROJECTS / REALISATIONS
 ============================================================ -->
 {% if featured_projects %}
 <section class="gallary-section-2 pb-130 overflow-hidden">
@@ -698,9 +698,9 @@
             <div class="col-lg-4 col-md-12">
                 <div class="gallary-left-content">
                     <div class="section-heading white-content mb-0">
-<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Nos réalisations" %}</h4>
-                        <h2 class="section-title">{% trans "Projets" %}<br>{% trans "réalisés" %}</h2>
-                        <p class="mb-0">{% trans "Découvrez une sélection de projets de rénovation, d’isolation, de façades et de travaux intérieurs réalisés par V&V Swiss Services." %}</p>
+<h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Nos rÃ©alisations" %}</h4>
+                        <h2 class="section-title">{% trans "Projets" %}<br>{% trans "rÃ©alisÃ©s" %}</h2>
+                        <p class="mb-0">{% trans "DÃ©couvrez une sÃ©lection de projets de rÃ©novation, dâ€™isolation, de faÃ§ades et de travaux intÃ©rieurs rÃ©alisÃ©s par V&V Swiss Services." %}</p>
                     </div>
                 </div>
             </div>
@@ -735,7 +735,7 @@
 {% endif %}
 <!-- ./ projects-section -->
 <!-- ============================================================
-     SECTION 11 · MARKET POSITION / CONTACT CTA
+     SECTION 11 Â· MARKET POSITION / CONTACT CTA
 ============================================================ -->
 <section class="newsletter-section bg-white pt-130 pb-130 overflow-hidden">
     <div class="bg-shape">
@@ -748,19 +748,19 @@
                     {% trans "Notre positionnement" %}
                 </h4>
                 <h2 class="section-title">
-                    {% trans "Plus de 20 ans d’expérience" %}
-                    <span>{% trans "dans le bâtiment en Suisse" %}</span>
+                    {% trans "Plus de 20 ans dâ€™expÃ©rience" %}
+                    <span>{% trans "dans le bÃ¢timent en Suisse" %}</span>
                 </h2>
                 <p>
-                    {% trans "Nous associons le savoir-faire technique d’une grande entreprise à la proximité, la réactivité et la flexibilité d’un spécialiste local." %}
+                    {% trans "Nous associons le savoir-faire technique dâ€™une grande entreprise Ã  la proximitÃ©, la rÃ©activitÃ© et la flexibilitÃ© dâ€™un spÃ©cialiste local." %}
                 </p>
             </div>
             <!-- ============================================================
      LOCALIZED CONTACT TEXTS
 ============================================================= -->
-            {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis." as whatsapp_text %}
-            {% trans "Demande concernant un projet de rénovation" as email_subject %}
-            {% trans "Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et demander un devis." as email_body %}
+            {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rÃ©novation et demander un devis." as whatsapp_text %}
+            {% trans "Demande concernant un projet de rÃ©novation" as email_subject %}
+            {% trans "Bonjour, je souhaite recevoir davantage dâ€™informations concernant un projet de rÃ©novation et demander un devis." as email_body %}
             <!-- ============================================================
                  CONTACT ACTIONS
             ============================================================= -->
@@ -784,7 +784,7 @@
                     <span>{% trans "E-mail" %}</span>
                 </a>
                 {% endif %}
-                <!-- TÉLÉPHONE -->
+                <!-- TÃ‰LÃ‰PHONE -->
                 {% if site_configuration and site_configuration.phone %}
                 <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
                     <i class="fa-regular fa-phone"></i>
@@ -797,7 +797,7 @@
 </section>
 <!-- ./ market-position -->
 <!-- ============================================================
-     SECTION 12 · CONTACT PROJECT MODAL
+     SECTION 12 Â· CONTACT PROJECT MODAL
 ============================================================ -->
 <div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
@@ -815,7 +815,7 @@
             </div>
             <div class="modal-body">
                 <p class="project-contact-modal-intro">
-                    {% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}
+                    {% trans "DÃ©crivez votre projet et notre Ã©quipe vous contactera pour Ã©tudier vos besoins et vous proposer une solution adaptÃ©e." %}
                 </p>
                 <div class="request-form-wrap project-modal-form-wrap">
                     {% include "contact/includes/contact_form.html" %}
@@ -825,7 +825,7 @@
     </div>
 </div>
 <!-- ============================================================
-     CONTACT PROJECT MODAL · MOVE TO BODY
+     CONTACT PROJECT MODAL Â· MOVE TO BODY
 ============================================================ -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {

@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 {% load i18n %}
 {% load i18n_fields %}
 {% load language_nav %}
@@ -12,14 +12,14 @@
     <!-- =========================================================
          FOOTER BACKGROUND
     ========================================================= -->
-    <div class="footer-bg" data-background="{% static 'antra/assets/img/bg-img/footer-bg.png' %}"></div>
+    <div class="footer-bg" data-background="{% static 'antra/assets/img/bg-img/footer-bg.webp' %}"></div>
     <div class="footer-shade"></div>
 
     <div class="container container-2">
         <div class="row footer-wrap">
 
             <!-- =========================================================
-                 COMPANY · LOGO / SLOGAN / ADDRESS
+                 COMPANY Â· LOGO / SLOGAN / ADDRESS
             ========================================================= -->
             <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
@@ -63,7 +63,7 @@
                                 {% endif %}
 
                                 {% if site_configuration.canton %}
-                                    · {{ site_configuration.canton }}
+                                    Â· {{ site_configuration.canton }}
                                 {% endif %}
 
                                 {% if site_configuration.country %}
@@ -74,7 +74,7 @@
 
                     {% else %}
 
-                        <p class="mb-10">{% trans "Solutions pour l’isolation, les façades et la rénovation." %}</p>
+                        <p class="mb-10">{% trans "Solutions pour lâ€™isolation, les faÃ§ades et la rÃ©novation." %}</p>
 
                     {% endif %}
 
@@ -91,10 +91,10 @@
                     <ul class="footer-list">
                         <li><a href="{% url 'core:home' %}">{% trans "Accueil" %}</a></li>
                         <li><a href="{% url 'services:list' %}">{% trans "Solutions" %}</a></li>
-                        <li><a href="{% url 'projects:list' %}">{% trans "Réalisations" %}</a></li>
+                        <li><a href="{% url 'projects:list' %}">{% trans "RÃ©alisations" %}</a></li>
                         <li><a href="{% url 'core:about' %}">{% trans "Entreprise" %}</a></li>
-                        <li><a href="{% url 'core:home' %}#process">{% trans "Notre méthode" %}</a></li>
-                        <li><a href="{% url 'blog:list' %}">{% trans "Actualités & conseils" %}</a></li>
+                        <li><a href="{% url 'core:home' %}#process">{% trans "Notre mÃ©thode" %}</a></li>
+                        <li><a href="{% url 'blog:list' %}">{% trans "ActualitÃ©s & conseils" %}</a></li>
                         <li><a href="{% url 'contact:contact' %}">{% trans "Contact" %}</a></li>
                     </ul>
 
@@ -120,7 +120,7 @@
 
                         <ul class="footer-list">
                             {% for business_hour in business_hours %}
-                                <li><span>{{ business_hour|localized:"day" }} — {{ business_hour.hours }}</span></li>
+                                <li><span>{{ business_hour|localized:"day" }} â€” {{ business_hour.hours }}</span></li>
                             {% endfor %}
                         </ul>
 
@@ -128,8 +128,8 @@
 
                         <ul class="footer-list">
                             <li><span>{% trans "Isolation thermique" %}</span></li>
-                            <li><span>{% trans "Façades" %}</span></li>
-                            <li><span>{% trans "Rénovation" %}</span></li>
+                            <li><span>{% trans "FaÃ§ades" %}</span></li>
+                            <li><span>{% trans "RÃ©novation" %}</span></li>
                         </ul>
 
                     {% endif %}
@@ -179,15 +179,15 @@
                             <form action="{% switch_language_url 'fr' %}" method="get" class="d-inline">
                                 <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">FR</button>
                             </form>
-                            <span> · </span>
+                            <span> Â· </span>
                             <form action="{% switch_language_url 'de' %}" method="get" class="d-inline">
                                 <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">DE</button>
                             </form>
-                            <span> · </span>
+                            <span> Â· </span>
                             <form action="{% switch_language_url 'it' %}" method="get" class="d-inline">
                                 <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">IT</button>
                             </form>
-                            <span> · </span>
+                            <span> Â· </span>
                             <form action="{% switch_language_url 'en' %}" method="get" class="d-inline">
                                 <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">EN</button>
                             </form>
@@ -210,22 +210,22 @@
             <div class="copyright-content d-flex align-items-center justify-content-between flex-wrap gap-3">
 
                 <p class="mb-0">
-                    © {% now "Y" %}
+                    Â© {% now "Y" %}
                     {% if site_configuration %}
                         {{ site_configuration.company_name }}
                     {% else %}
                         V&V Swiss Services
                     {% endif %}.
-                    {% trans "Tous droits réservés." %}
+                    {% trans "Tous droits rÃ©servÃ©s." %}
                 </p>
 
                 <ul class="footer-legal-list d-flex align-items-center flex-wrap gap-3 mb-0">
                     <li>
-                        <a href="{% url 'core:mentions_legales' %}">{% trans "Mentions légales" %}</a>
+                        <a href="{% url 'core:mentions_legales' %}">{% trans "Mentions lÃ©gales" %}</a>
                     </li>
 
                     <li>
-                        <a href="{% url 'core:protection_donnees' %}">{% trans "Protection des données" %}</a>
+                        <a href="{% url 'core:protection_donnees' %}">{% trans "Protection des donnÃ©es" %}</a>
                     </li>
                 </ul>
 
@@ -251,7 +251,7 @@
 </footer>
 <style>
 /* =========================================================
-   FOOTER · LEGAL LINKS
+   FOOTER Â· LEGAL LINKS
 ========================================================= */
 
 .footer-section .footer-legal-list {
@@ -272,7 +272,7 @@
 
 
 /* =========================================================
-   FOOTER · LANGUAGES
+   FOOTER Â· LANGUAGES
 ========================================================= */
 
 .footer-section .footer-language-list,

@@ -3,8 +3,8 @@
 {% load i18n %}
 {% load l10n %}
 {% load i18n_fields %}
-{% block title %}{% trans "Rénovation et travaux du bâtiment" %} | V&V Swiss Services{% endblock %}
-{% block meta_description %}{% trans "V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande." %}{% endblock %}
+{% block title %}{% trans "RÃ©novation et travaux du bÃ¢timent" %} | V&V Swiss Services{% endblock %}
+{% block meta_description %}{% trans "V&V Swiss Services accompagne vos projets de rÃ©novation, isolation, faÃ§ades, maÃ§onnerie, plÃ¢trerie, peinture, finitions et entretien immobilier en Suisse romande." %}{% endblock %}
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -35,7 +35,7 @@
 
 
 <!-- ============================================================
-     SECCIÓN 01 · HERO / SLIDER DE CATEGORÍAS | SECTION 01 · HERO / SLIDER DE CATÉGORIES
+     SECCIÃ“N 01 Â· HERO / SLIDER DE CATEGORÃAS | SECTION 01 Â· HERO / SLIDER DE CATÃ‰GORIES
 ============================================================ -->
 
 <div class="vvs-hero-slider swiper pb-100">
@@ -75,7 +75,7 @@
                                         {% if category_description %}
                                         {{ category_description|striptags|truncatewords:22 }}
                                         {% else %}
-                                        {% trans "Une solution professionnelle adaptée à votre bâtiment et aux besoins de votre projet." %}
+                                        {% trans "Une solution professionnelle adaptÃ©e Ã  votre bÃ¢timent et aux besoins de votre projet." %}
                                         {% endif %}
                                     </p>
 
@@ -86,7 +86,7 @@
                                     {% if category_slug %}
 
                                     <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}" class="tl-primary-btn">
-                                        {% trans "Découvrir cette catégorie" %}
+                                        {% trans "DÃ©couvrir cette catÃ©gorie" %}
                                         <span class="icon">
                                             <i class="fa-regular fa-arrow-right"></i>
                                         </span>
@@ -145,14 +145,14 @@
 
 
 <!-- ============================================================
-     SECCIÓN 02 · CATEGORÍAS DE SERVICIOS | SECTION 02 · CATÉGORIES DE SERVICES
+     SECCIÃ“N 02 Â· CATEGORÃAS DE SERVICIOS | SECTION 02 Â· CATÃ‰GORIES DE SERVICES
 ============================================================ -->
 <section class="project-section-inner services-home-grid pt-30 pb-130">
 
     <div class="container container-2">
 
         <!-- ========================================================
-             ENCABEZADO | EN-TÊTE
+             ENCABEZADO | EN-TÃŠTE
         ========================================================= -->
         <div class="row section-heading-wrap fade-top mb-60">
 
@@ -183,14 +183,14 @@
                 <div class="section-heading section-heading-2 mb-0">
 
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Des solutions adaptées" %}
+                        {% trans "Des solutions adaptÃ©es" %}
                         <span>
-                            {% trans "à tous vos projets" %}
+                            {% trans "Ã  tous vos projets" %}
                         </span>
                     </h2>
 
                     <p class="mb-0">
-                        {% trans "Découvrez l’ensemble de nos services pour la rénovation, l’amélioration, la protection et l’entretien de votre bien." %}
+                        {% trans "DÃ©couvrez lâ€™ensemble de nos services pour la rÃ©novation, lâ€™amÃ©lioration, la protection et lâ€™entretien de votre bien." %}
                     </p>
 
                 </div>
@@ -201,7 +201,7 @@
 
 
         <!-- ========================================================
-             CATÉGORIES DE SERVICES | CATEGORÍAS DE SERVICIOS
+             CATÃ‰GORIES DE SERVICES | CATEGORÃAS DE SERVICIOS
         ========================================================= -->
         <div class="row gy-5">
 
@@ -210,18 +210,18 @@
                 {% with category_name=category|localized:"name" category_slug=category|localized:"slug" category_description=category|localized:"description" %}
 
                 <!--
-                    XL      = 4 categorías por fila
-                    LG      = 3 categorías por fila
-                    MD      = 2 categorías por fila
-                    MÓVIL   = 1 categoría por fila
+                    XL      = 4 categorÃ­as por fila
+                    LG      = 3 categorÃ­as por fila
+                    MD      = 2 categorÃ­as por fila
+                    MÃ“VIL   = 1 categorÃ­a por fila
                 -->
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
 
                     <div class="project-item antra-hover-view">
 
                         <!-- ============================================
-                             IMAGEN DE LA CATEGORÍA
-                             IMAGE DE LA CATÉGORIE
+                             IMAGEN DE LA CATEGORÃA
+                             IMAGE DE LA CATÃ‰GORIE
                         ============================================= -->
                         <div class="project-img">
 
@@ -246,13 +246,13 @@
 
 
                             <!-- ========================================
-                                 ETIQUETA | ÉTIQUETTE
+                                 ETIQUETA | Ã‰TIQUETTE
                             ========================================= -->
                             <ul>
                                 <li>
 
                                     <a href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
-                                        {% trans "Catégorie" %}
+                                        {% trans "CatÃ©gorie" %}
                                     </a>
 
                                 </li>
@@ -262,8 +262,8 @@
 
 
                         <!-- ============================================
-                             INFORMACIÓN DE LA CATEGORÍA
-                             INFORMATIONS DE LA CATÉGORIE
+                             INFORMACIÃ“N DE LA CATEGORÃA
+                             INFORMATIONS DE LA CATÃ‰GORIE
                         ============================================= -->
                         <div class="project-content">
 
@@ -277,7 +277,7 @@
 
 
                             <!-- ========================================
-                                 DESCRIPCIÓN | DESCRIPTION
+                                 DESCRIPCIÃ“N | DESCRIPTION
                             ========================================= -->
                             {% if category_description %}
 
@@ -297,7 +297,7 @@
 
 
             <!-- ====================================================
-                 SIN CATEGORÍAS | AUCUNE CATÉGORIE
+                 SIN CATEGORÃAS | AUCUNE CATÃ‰GORIE
             ===================================================== -->
             {% empty %}
 
@@ -306,7 +306,7 @@
                     <div class="text-center">
 
                         <p>
-                            {% trans "Nos catégories de services seront prochainement disponibles." %}
+                            {% trans "Nos catÃ©gories de services seront prochainement disponibles." %}
                         </p>
 
                     </div>
@@ -319,7 +319,7 @@
 
 
         <!-- ========================================================
-             BOTÓN GENERAL | BOUTON GÉNÉRAL
+             BOTÃ“N GENERAL | BOUTON GÃ‰NÃ‰RAL
         ========================================================= -->
         <div class="text-center mt-50">
 
@@ -342,7 +342,7 @@
 
 
 <!-- ============================================================
-     SECCIÓN 03 · EMPRESA / EXPERIENCIA | SECTION 03 · ENTREPRISE / EXPÉRIENCE
+     SECCIÃ“N 03 Â· EMPRESA / EXPERIENCIA | SECTION 03 Â· ENTREPRISE / EXPÃ‰RIENCE
 ============================================================ -->
 <section class="about-section-3 pt-50 pb-30 overflow-hidden tl-bg-color">
     <div class="shape-1"><img src="{% static 'antra/assets/img/shapes/about-shape-2.png' %}" alt=""></div>
@@ -351,16 +351,16 @@
             <div class="col-lg-6">
                 <div class="about-img-wrap-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
                     <div class="about-img-1">
-                        <img src="{% static 'antra/assets/img/images/about-img-4.png' %}"
-                             alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                        <img src="{% static 'antra/assets/img/images/about-img-4.webp' %}"
+                             alt="{% trans 'Travaux de rÃ©novation V&V Swiss Services' %}">
                     </div>
                     <div class="about-img-2">
-                        <img src="{% static 'antra/assets/img/images/about-img-5.png' %}"
-                             alt="{% trans 'Rénovation et isolation en Suisse romande' %}">
+                        <img src="{% static 'antra/assets/img/images/about-img-5.webp' %}"
+                             alt="{% trans 'RÃ©novation et isolation en Suisse romande' %}">
                     </div>
                     <div class="about-counter">
                         <h3 class="title"><span class="odometer" data-count="20">0</span><span>+</span></h3>
-                        <p>{% trans "Ans" %} <br>{% trans "d’expérience" %}</p>
+                        <p>{% trans "Ans" %} <br>{% trans "dâ€™expÃ©rience" %}</p>
                     </div>
                 </div>
             </div>
@@ -368,23 +368,23 @@
                 <div class="about-content-3 slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
                     <div class="section-heading mb-0">
                         <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char"
-                            data-duration="0.9" data-stagger="0.03">{% trans "Plus de 20 ans d’expérience" %}</h4>
-                        <h2 class="section-title cursor-effect title-2">{% trans "Rénovation et" %} <span>{% trans "isolation," %} <br>{% trans "notre savoir-faire" %}</span>
+                            data-duration="0.9" data-stagger="0.03">{% trans "Plus de 20 ans dâ€™expÃ©rience" %}</h4>
+                        <h2 class="section-title cursor-effect title-2">{% trans "RÃ©novation et" %} <span>{% trans "isolation," %} <br>{% trans "notre savoir-faire" %}</span>
                         </h2>
-                        <p>{% trans "Nous croyons qu’une rénovation réussie repose sur un travail soigné, une organisation claire et des solutions adaptées à chaque bâtiment. Notre mission est d’accompagner chaque projet avec sérieux, proximité et précision, de la première analyse jusqu’aux finitions." %}</p>
+                        <p>{% trans "Nous croyons quâ€™une rÃ©novation rÃ©ussie repose sur un travail soignÃ©, une organisation claire et des solutions adaptÃ©es Ã  chaque bÃ¢timent. Notre mission est dâ€™accompagner chaque projet avec sÃ©rieux, proximitÃ© et prÃ©cision, de la premiÃ¨re analyse jusquâ€™aux finitions." %}</p>
                     </div>
                     <div class="about-items">
                         <div class="about-item">
-                            <h3 class="title">{% trans "Rénovation complète" %}</h3>
-                            <p>{% trans "Un interlocuteur unique pour coordonner" %} <br>{% trans "les différents travaux de votre projet" %}</p>
+                            <h3 class="title">{% trans "RÃ©novation complÃ¨te" %}</h3>
+                            <p>{% trans "Un interlocuteur unique pour coordonner" %} <br>{% trans "les diffÃ©rents travaux de votre projet" %}</p>
                         </div>
                         <div class="about-item">
-                            <h3 class="title">{% trans "Solutions énergétiques" %}</h3>
-                            <p>{% trans "Des solutions d’isolation adaptées pour" %} <br>{% trans "améliorer confort et efficacité énergétique" %}</p>
+                            <h3 class="title">{% trans "Solutions Ã©nergÃ©tiques" %}</h3>
+                            <p>{% trans "Des solutions dâ€™isolation adaptÃ©es pour" %} <br>{% trans "amÃ©liorer confort et efficacitÃ© Ã©nergÃ©tique" %}</p>
                         </div>
                     </div>
                     <div class="about-btn">
-                        <a href="{% url 'core:about' %}" class="tl-primary-btn">{% trans "Découvrir l’entreprise" %}
+                        <a href="{% url 'core:about' %}" class="tl-primary-btn">{% trans "DÃ©couvrir lâ€™entreprise" %}
                             <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
                     </div>
                 </div>
@@ -395,7 +395,7 @@
 <!-- ./ about-section -->
 
 <!-- ============================================================
-     SECCIÓN 04 · VALORES / CARRUSEL | SECTION 04 · VALEURS / CARROUSEL
+     SECCIÃ“N 04 Â· VALORES / CARRUSEL | SECTION 04 Â· VALEURS / CARROUSEL
 ============================================================ -->
 <section class="newsletter-section bg-white pt-130  overflow-hidden">
     <div class="bg-shape">
@@ -405,7 +405,7 @@
         <div class="newsletter-wrap">
             <div class="section-heading text-center">
                 <h2 class="section-title">{% trans "Nos" %} <span>{% trans "valeurs" %}</span></h2>
-                <p>{% trans "Décrivez-nous votre projet et recevez une première réponse sous 48 h." %}</p>
+                <p>{% trans "DÃ©crivez-nous votre projet et recevez une premiÃ¨re rÃ©ponse sous 48 h." %}</p>
             </div>
         </div>
     </div>
@@ -427,7 +427,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <!-- IMÁGENES DE LOS VALORES -->
+            <!-- IMÃGENES DE LOS VALORES -->
             <div class="banner-process-image-list">
                 {% for value in company_values %}
                 <div class="banner-process-img">
@@ -448,7 +448,7 @@
 <!-- ./ company-values-section -->
 
 <!-- ============================================================
-     SECCIÓN 05 · SABER HACER | SECTION 05 · SAVOIR-FAIRE
+     SECCIÃ“N 05 Â· SABER HACER | SECTION 05 Â· SAVOIR-FAIRE
 ============================================================ -->
 <section class="skill-section pt-130 pb-130 overflow-hidden fade-wrapper">
     <div class="skill-text">V&V</div>
@@ -464,7 +464,7 @@
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
-                    <h2 class="section-title cursor-effect title-2">{% trans "Des solutions complètes pour" %} <span>{% trans "rénover, protéger" %}<br>{% trans "et valoriser votre bien." %}</span>
+                    <h2 class="section-title cursor-effect title-2">{% trans "Des solutions complÃ¨tes pour" %} <span>{% trans "rÃ©nover, protÃ©ger" %}<br>{% trans "et valoriser votre bien." %}</span>
                     </h2>
                 </div>
             </div>
@@ -473,11 +473,11 @@
             <div class="col-lg-5">
                 <div class="skill-left-content slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
                     <div class="skill-desc">
-                        <p>{% trans "V&V Swiss Services intervient à chaque étape de votre projet avec des prestations complémentaires adaptées aux besoins du bâtiment. De la rénovation aux finitions, nous coordonnons les travaux pour garantir une réalisation cohérente, soignée et durable." %}</p>
+                        <p>{% trans "V&V Swiss Services intervient Ã  chaque Ã©tape de votre projet avec des prestations complÃ©mentaires adaptÃ©es aux besoins du bÃ¢timent. De la rÃ©novation aux finitions, nous coordonnons les travaux pour garantir une rÃ©alisation cohÃ©rente, soignÃ©e et durable." %}</p>
                     </div>
                     <div class="skills-items">
                         <div class="skills-item fade-top">
-                            <h4 class="title">{% trans "Rénovation intérieure et extérieure" %}</h4>
+                            <h4 class="title">{% trans "RÃ©novation intÃ©rieure et extÃ©rieure" %}</h4>
                             <div class="progress">
                                 <div class="progress-bar wow slideInLeft" data-wow-delay="0ms"
                                      data-wow-duration="2000ms" role="progressbar"
@@ -488,7 +488,7 @@
                             </div>
                         </div>
                         <div class="skills-item fade-top">
-                            <h4 class="title">{% trans "Maçonnerie, isolation et plâtrerie" %}</h4>
+                            <h4 class="title">{% trans "MaÃ§onnerie, isolation et plÃ¢trerie" %}</h4>
                             <div class="progress">
                                 <div class="progress-bar wow slideInLeft" data-wow-delay="0ms"
                                      data-wow-duration="2000ms" role="progressbar"
@@ -514,8 +514,8 @@
             </div>
             <div class="col-lg-7">
                 <div class="skill-img slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
-                    <img src="{% static 'antra/assets/img/images/skill-img-1.png' %}"
-                         alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}">
+                    <img src="{% static 'antra/assets/img/images/skill-img-1.webp' %}"
+                         alt="{% trans 'Travaux de rÃ©novation V&V Swiss Services' %}">
                 </div>
             </div>
         </div>
@@ -524,7 +524,7 @@
 <!-- ./ skill-section -->
 
 <!-- ============================================================
-     SECCIÓN 06 · ÚLTIMA REALIZACIÓN / ANTES Y DESPUÉS | SECTION 06 · DERNIÈRE RÉALISATION / AVANT & APRÈS
+     SECCIÃ“N 06 Â· ÃšLTIMA REALIZACIÃ“N / ANTES Y DESPUÃ‰S | SECTION 06 Â· DERNIÃˆRE RÃ‰ALISATION / AVANT & APRÃˆS
 ============================================================ -->
 
 {% if home_before_after_item %}
@@ -536,7 +536,7 @@
     <div class="container container-2">
 
         <!-- =================================================
-             ENCABEZADO DE SECCIÓN | EN-TÊTE DE SECTION
+             ENCABEZADO DE SECCIÃ“N | EN-TÃŠTE DE SECTION
         ================================================== -->
 
         <div class="row section-heading-wrap fade-top mb-60">
@@ -554,7 +554,7 @@
                         data-split="char"
                         data-duration="0.9"
                         data-stagger="0.03">
-                        {% trans "Notre dernière réalisation" %}
+                        {% trans "Notre derniÃ¨re rÃ©alisation" %}
                     </h4>
 
                 </div>
@@ -566,8 +566,8 @@
                 <div class="section-heading section-heading-2 mb-0">
 
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Découvrez la transformation" %}
-                        <span>{% trans "avant et après" %}</span>
+                        {% trans "DÃ©couvrez la transformation" %}
+                        <span>{% trans "avant et aprÃ¨s" %}</span>
                     </h2>
 
                 </div>
@@ -577,7 +577,7 @@
         </div>
 
         <!-- =================================================
-             INFORMACIÓN DEL PROYECTO | INFORMATIONS DU PROJET
+             INFORMACIÃ“N DEL PROYECTO | INFORMATIONS DU PROJET
         ================================================== -->
 
         <div class="row align-items-end mb-50">
@@ -612,7 +612,7 @@
                 {% if project.end_date %}
 
                 <p class="mb-0">
-                    <strong>{% trans "Réalisation" %}:</strong>
+                    <strong>{% trans "RÃ©alisation" %}:</strong>
                     {{ project.end_date|date:"Y" }}
                 </p>
 
@@ -623,7 +623,7 @@
         </div>
 
         <!-- =================================================
-             ANTES / DESPUÉS | AVANT / APRÈS
+             ANTES / DESPUÃ‰S | AVANT / APRÃˆS
         ================================================== -->
 
         <div class="project-before-after-full">
@@ -634,7 +634,7 @@
                      alt="{% trans 'Avant' %} - {{ project|localized:'title' }}">
 
                 <img src="{{ home_before_after_item.after_image.url }}"
-                     alt="{% trans 'Après' %} - {{ project|localized:'title' }}">
+                     alt="{% trans 'AprÃ¨s' %} - {{ project|localized:'title' }}">
 
             </div>
 
@@ -646,8 +646,8 @@
 
 <!-- ============================================================
      BOTONES DEL PROYECTO | BOUTONS DU PROJET
-     Desktop: horizontal con separación
-     Móvil: vertical con separación
+     Desktop: horizontal con separaciÃ³n
+     MÃ³vil: vertical con separaciÃ³n
 ============================================================ -->
 <div class="mt-50 d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
 
@@ -656,7 +656,7 @@
     <a href="{% url 'projects:detail' project_slug %}"
        class="tl-primary-btn">
 
-        {% trans "Découvrir le projet" %}
+        {% trans "DÃ©couvrir le projet" %}
 
         <span class="icon">
             <i class="fa-regular fa-arrow-right"></i>
@@ -669,7 +669,7 @@
     <a href="{% url 'projects:list' %}"
        class="tl-primary-btn">
 
-        {% trans "Voir toutes nos réalisations" %}
+        {% trans "Voir toutes nos rÃ©alisations" %}
 
         <span class="icon">
             <i class="fa-regular fa-arrow-right"></i>
@@ -687,11 +687,11 @@
 
 {% endif %}
 
-<!-- ./ SECCIÓN 06 · ÚLTIMA REALIZACIÓN / ANTES Y DESPUÉS | SECTION 06 · DERNIÈRE RÉALISATION / AVANT & APRÈS -->
+<!-- ./ SECCIÃ“N 06 Â· ÃšLTIMA REALIZACIÃ“N / ANTES Y DESPUÃ‰S | SECTION 06 Â· DERNIÃˆRE RÃ‰ALISATION / AVANT & APRÃˆS -->
 
 
 <!-- ============================================================
-     SECCIÓN 07 · TESTIMONIOS | SECTION 07 · TÉMOIGNAGES
+     SECCIÃ“N 07 Â· TESTIMONIOS | SECTION 07 Â· TÃ‰MOIGNAGES
 ============================================================ -->
 <section class="testimonial-section-3 pt-50  pb-30 fade-wrapper tl-bg-color">
     <div class="container container-2">
@@ -707,7 +707,7 @@
                         data-split="char"
                         data-duration="0.9"
                         data-stagger="0.03">
-                        {% trans "Nos clients témoignent" %}
+                        {% trans "Nos clients tÃ©moignent" %}
                     </h4>
                 </div>
             </div>
@@ -715,7 +715,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Découvrez ce que" %}
+                        {% trans "DÃ©couvrez ce que" %}
                         <span>
                             {% trans "nos clients" %}<br>
                             {% trans "disent de nous" %}
@@ -729,7 +729,7 @@
 
             <div class="col-lg-6">
                 <div class="testi-img-3 pin-box">
-                    <img src="{% static 'antra/assets/img/testi/testi-img-2.png' %}" alt="testi">
+                    <img src="{% static 'antra/assets/img/testi/testi-img-2.webp' %}" alt="testi">
                 </div>
             </div>
 
@@ -764,7 +764,7 @@
 
                         <div class="right-content">
                             <p>
-                                {% trans "La satisfaction de nos clients reflète notre engagement envers la qualité, la confiance et un service professionnel." %}
+                                {% trans "La satisfaction de nos clients reflÃ¨te notre engagement envers la qualitÃ©, la confiance et un service professionnel." %}
                             </p>
                         </div>
 
@@ -779,7 +779,7 @@
                                     <div class="testi-item">
 
                                         <p>
-                                            “{{ testimonial|localized:"text" }}”
+                                            â€œ{{ testimonial|localized:"text" }}â€
                                         </p>
 
                                         <div class="testi-author">
@@ -830,7 +830,7 @@
 
 
 <!-- ============================================================
-     SECCIÓN 08 · MAPA DE REALIZACIONES | SECTION 08 · CARTE DES RÉALISATIONS
+     SECCIÃ“N 08 Â· MAPA DE REALIZACIONES | SECTION 08 Â· CARTE DES RÃ‰ALISATIONS
 ============================================================ -->
 <section class="map-wrapper pb-50 pb-30">
     <div class="container container-2">
@@ -841,14 +841,14 @@
 
             <div class="col-lg-4 col-md-12">
                 <div class="section-heading mb-0">
-                    <h4 class="sub-heading">{% trans "Nos réalisations sur la carte" %}</h4>
+                    <h4 class="sub-heading">{% trans "Nos rÃ©alisations sur la carte" %}</h4>
                 </div>
             </div>
 
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Découvrez où nous sommes intervenus" %}
+                        {% trans "DÃ©couvrez oÃ¹ nous sommes intervenus" %}
                         <span>
                             {% trans "dans le canton de Vaud" %}<br>
                             {% trans "et en Suisse romande" %}
@@ -878,7 +878,7 @@
                 data-center-lat="{{ site_configuration.latitude|unlocalize }}"
                 data-center-lng="{{ site_configuration.longitude|unlocalize }}"
                 {% endif %}
-                aria-label="{% trans 'Carte des réalisations V&V Swiss Services' %}">
+                aria-label="{% trans 'Carte des rÃ©alisations V&V Swiss Services' %}">
             </div>
 
             {{ map_projects_data|json_script:"vv-map-projects-data" }}
@@ -887,7 +887,7 @@
 </section>
 
 <!-- ============================================================
-     SECCIÓN 09 · CONTACTO / SOLICITUD DE PRESUPUESTO | SECTION 09 · CONTACT / DEMANDE DE DEVIS
+     SECCIÃ“N 09 Â· CONTACTO / SOLICITUD DE PRESUPUESTO | SECTION 09 Â· CONTACT / DEMANDE DE DEVIS
 ============================================================ -->
 <section class="contact-section pt-50 pb-30">
     <div class="container container-2">
@@ -910,22 +910,22 @@
                         <span>{% trans "Demandez votre devis" %}</span>
                     </h2>
                     <p class="mb-0">
-                        {% trans "Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche claire, professionnelle et adaptée à votre projet." %}
+                        {% trans "DÃ©crivez-nous vos besoins. Notre Ã©quipe vous accompagne avec une approche claire, professionnelle et adaptÃ©e Ã  votre projet." %}
                     </p>
                 </div>
             </div>
         </div>
         <!-- ========================================================
-             INFORMACIÓN DE CONTACTO + FORMULARIO | INFORMATIONS DE CONTACT + FORMULAIRE
+             INFORMACIÃ“N DE CONTACTO + FORMULARIO | INFORMATIONS DE CONTACT + FORMULAIRE
         ========================================================= -->
         <div class="row request-wrap contact-page-area align-items-start">
             <!-- ====================================================
-                 COLUMNA IZQUIERDA / INFORMACIÓN DE CONTACTO | COLONNE GAUCHE / INFORMATIONS DE CONTACT
+                 COLUMNA IZQUIERDA / INFORMACIÃ“N DE CONTACTO | COLONNE GAUCHE / INFORMATIONS DE CONTACT
             ===================================================== -->
             <div class="col-lg-6 col-md-12 align-self-start">
                 <div class="request-content mt-0">
                     <div class="request-item-wrap contact-info-grid">
-                        <!-- DIRECCIÓN | ADRESSE -->
+                        <!-- DIRECCIÃ“N | ADRESSE -->
                         {% if site_configuration and site_configuration.address %}
                         <div class="request-item white-content contact-info-card">
                             <span>{% trans "Adresse" %}</span>
@@ -949,10 +949,10 @@
                             {% endif %}
                         </div>
                         {% endif %}
-                        <!-- HORARIOS DE ATENCIÓN | HORAIRES D’OUVERTURE -->
+                        <!-- HORARIOS DE ATENCIÃ“N | HORAIRES Dâ€™OUVERTURE -->
                         {% if business_hours %}
                         <div class="request-item white-content contact-info-card business-hours-card">
-                            <span>{% trans "Horaires d’ouverture" %}</span>
+                            <span>{% trans "Horaires dâ€™ouverture" %}</span>
                             <div class="business-hours-list">
                                 {% for business_hour in business_hours %}
                                 <div class="business-hour-row">
@@ -968,9 +968,9 @@
                          ACCIONES DIRECTAS | ACCIONES | ACTIONS DIRECTES
                     ================================================== -->
                     {% if site_configuration %}
-                    {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis." as whatsapp_text %}
-                    {% trans "Demande concernant un projet de rénovation" as email_subject %}
-                    {% trans "Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et demander un devis." as email_body %}
+                    {% trans "Bonjour, je souhaite obtenir des informations concernant un projet de rÃ©novation et demander un devis." as whatsapp_text %}
+                    {% trans "Demande concernant un projet de rÃ©novation" as email_subject %}
+                    {% trans "Bonjour, je souhaite recevoir davantage dâ€™informations concernant un projet de rÃ©novation et demander un devis." as email_body %}
                     <div class="project-contact-actions">
                         {% if site_configuration.whatsapp %}
                         <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}"
@@ -984,7 +984,7 @@
                         {% if site_configuration.email %}
                         <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}"
                            class="project-contact-btn"
-                           aria-label="{% trans 'Envoyer un e-mail à V&V Swiss Services' %}">
+                           aria-label="{% trans 'Envoyer un e-mail Ã  V&V Swiss Services' %}">
                             <i class="fa-regular fa-envelope"></i>
                             <span>{% trans "E-mail" %}</span>
                         </a>
@@ -1001,7 +1001,7 @@
                     <!-- IMAGEN DE CONTACTO | IMAGE DE CONTACT -->
                     <div class="contact-img">
                         <img src="{% static 'antra/assets/img/images/contact-img-1.png' %}"
-                             alt="{% trans 'V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud' %}">
+                             alt="{% trans 'V&V Swiss Services - entreprise de rÃ©novation et travaux du bÃ¢timent dans le canton de Vaud' %}">
                     </div>
                 </div>
             </div>
@@ -1021,7 +1021,7 @@
 
 
 <!-- ============================================================
-     SECCIÓN 10 · BLOG / CONSEJOS Y ACTUALIDAD | SECTION 10 · BLOG / CONSEILS & ACTUALITÉS
+     SECCIÃ“N 10 Â· BLOG / CONSEJOS Y ACTUALIDAD | SECTION 10 Â· BLOG / CONSEILS & ACTUALITÃ‰S
 ============================================================ -->
 
 <section class="blog-section  fade-wrapper tl-bg-color  pt100 pb-50">
@@ -1029,7 +1029,7 @@
     <div class="container container-2">
 
         <!-- ====================================================
-             ENCABEZADO DE SECCIÓN | EN-TÊTE DE SECTION
+             ENCABEZADO DE SECCIÃ“N | EN-TÃŠTE DE SECTION
         ===================================================== -->
 
         <div class="row section-heading-wrap fade-top">
@@ -1044,7 +1044,7 @@
 
                     <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9"
                         data-stagger="0.03">
-                        {% trans "Conseils & actualités" %}
+                        {% trans "Conseils & actualitÃ©s" %}
                     </h4>
 
                 </div>
@@ -1056,7 +1056,7 @@
                 <div class="section-heading section-heading-2 mb-0">
 
                     <h2 class="section-title cursor-effect title-2">
-                        {% trans "Découvrez nos derniers" %}
+                        {% trans "DÃ©couvrez nos derniers" %}
                         <span>
                             {% trans "conseils, recommandations" %} <br>
                             {% trans "et articles." %}
@@ -1084,7 +1084,7 @@
                     <div class="post-card">
 
                         <!-- =================================
-                             IMAGEN DEL ARTÍCULO | IMAGE DE L’ARTICLE
+                             IMAGEN DEL ARTÃCULO | IMAGE DE Lâ€™ARTICLE
                         ================================== -->
 
                         <div class="post-thumb">
@@ -1115,7 +1115,7 @@
 
                             {% endwith %}
 
-                            <!-- CATEGORÍA | CATÉGORIE -->
+                            <!-- CATEGORÃA | CATÃ‰GORIE -->
 
                             {% if post.category %}
 
@@ -1128,12 +1128,12 @@
                         </div>
 
                         <!-- =================================
-                             CONTENIDO DEL ARTÍCULO | CONTENU DE L’ARTICLE
+                             CONTENIDO DEL ARTÃCULO | CONTENU DE Lâ€™ARTICLE
                         ================================== -->
 
                         <div class="post-content">
 
-                            <!-- METADATOS DEL ARTÍCULO | MÉTADONNÉES DE L’ARTICLE -->
+                            <!-- METADATOS DEL ARTÃCULO | MÃ‰TADONNÃ‰ES DE Lâ€™ARTICLE -->
 
                             <ul class="post-meta">
 
@@ -1163,7 +1163,7 @@
 
                             </ul>
 
-                            <!-- TÍTULO DEL ARTÍCULO | TITRE DE L’ARTICLE -->
+                            <!-- TÃTULO DEL ARTÃCULO | TITRE DE Lâ€™ARTICLE -->
 
                             {% with post_slug=post|localized:"slug" %}
 
@@ -1185,7 +1185,7 @@
 
                             {% endwith %}
 
-                            <!-- EXTRACTO DEL ARTÍCULO | EXTRAIT DE L’ARTICLE -->
+                            <!-- EXTRACTO DEL ARTÃCULO | EXTRAIT DE Lâ€™ARTICLE -->
 
                             {% if post|localized:"excerpt" %}
 
@@ -1204,7 +1204,7 @@
                 {% empty %}
 
                 <!-- =========================================
-                     ESTADO VACÍO | ÉTAT VIDE
+                     ESTADO VACÃO | Ã‰TAT VIDE
                 ========================================== -->
 
                 <div class="swiper-slide">
@@ -1214,11 +1214,11 @@
                         <div class="post-content">
 
                             <h3 class="title">
-                                {% trans "Conseils & actualités" %}
+                                {% trans "Conseils & actualitÃ©s" %}
                             </h3>
 
                             <p>
-                                {% trans "Nos prochains conseils et articles seront bientôt disponibles." %}
+                                {% trans "Nos prochains conseils et articles seront bientÃ´t disponibles." %}
                             </p>
 
                         </div>
@@ -1234,7 +1234,7 @@
         </div>
 
         <!-- ====================================================
-             BOTÓN TODOS LOS ARTÍCULOS | BOUTON TOUS LES ARTICLES
+             BOTÃ“N TODOS LOS ARTÃCULOS | BOUTON TOUS LES ARTICLES
         ===================================================== -->
 
         {% if latest_posts %}
@@ -1268,14 +1268,14 @@
 
 {% endblock %}
 <!-- ============================================================
-     JAVASCRIPT · SLIDER HERO + COMPONENTES DINÁMICOS | JAVASCRIPT · SLIDER HERO + COMPOSANTS DYNAMIQUES
+     JAVASCRIPT Â· SLIDER HERO + COMPONENTES DINÃMICOS | JAVASCRIPT Â· SLIDER HERO + COMPOSANTS DYNAMIQUES
 ============================================================ -->
 {% block extra_js %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
         // ========================================================
-        // ANTES / DESPUÉS | AVANT / APRÈS · DERNIÈRE RÉALISATION
+        // ANTES / DESPUÃ‰S | AVANT / APRÃˆS Â· DERNIÃˆRE RÃ‰ALISATION
         // ========================================================
 
         if (
@@ -1407,7 +1407,7 @@
     });
 
     // ========================================================
-// TESTIMONIOS · CARRUSEL VERTICAL AUTOMÁTICO | TÉMOIGNAGES · CARROUSEL VERTICAL AUTOMATIQUE
+// TESTIMONIOS Â· CARRUSEL VERTICAL AUTOMÃTICO | TÃ‰MOIGNAGES Â· CARROUSEL VERTICAL AUTOMATIQUE
 // ========================================================
 
 window.addEventListener("load", function () {
@@ -1420,7 +1420,7 @@ window.addEventListener("load", function () {
             return;
         }
 
-        // Evitar doble inicialización por el JS original de Antra
+        // Evitar doble inicializaciÃ³n por el JS original de Antra
         if (testimonialCarousel.swiper) {
             testimonialCarousel.swiper.destroy(true, true);
         }
@@ -1442,13 +1442,13 @@ window.addEventListener("load", function () {
 
             spaceBetween: 30,
 
-            // Velocidad de la transición
+            // Velocidad de la transiciÃ³n
             speed: 1000,
 
             // Carrusel infinito
             loop: true,
 
-            // Movimiento automático
+            // Movimiento automÃ¡tico
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
@@ -1484,7 +1484,7 @@ document.addEventListener("DOMContentLoaded",function(){
     if(!mapElement||!dataElement){return;}
 
     if(typeof L==="undefined"){
-        mapElement.innerHTML='<div class="vv-map-empty">{% trans "La carte est momentanément indisponible." %}</div>';
+        mapElement.innerHTML='<div class="vv-map-empty">{% trans "La carte est momentanÃ©ment indisponible." %}</div>';
         return;
     }
 
@@ -1595,11 +1595,11 @@ document.addEventListener("DOMContentLoaded",function(){
         }
 
         if(meta.length){
-            popup+='<div class="vv-map-popup-meta">'+meta.join(" · ")+'</div>';
+            popup+='<div class="vv-map-popup-meta">'+meta.join(" Â· ")+'</div>';
         }
 
         if(project.url){
-            popup+='<a class="vv-map-popup-link" href="'+escapeHtml(project.url)+'">{% trans "Voir la réalisation" %} →</a>';
+            popup+='<a class="vv-map-popup-link" href="'+escapeHtml(project.url)+'">{% trans "Voir la rÃ©alisation" %} â†’</a>';
         }
 
         popup+='</div>';
@@ -1630,4 +1630,3 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 </script>
 {% endblock %}
-
