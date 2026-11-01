@@ -117,22 +117,22 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
-                        <!-- IDIOMAS DEL PIE DE PÁGINA | FOOTER LANGUAGES -->
-                        <div class="mt-20 footer-language-list d-flex align-items-center gap-1">
+                       <!-- IDIOMAS DEL PIE DE PÁGINA | FOOTER LANGUAGES -->
+                        <div class="mt-20 footer-language-list d-flex align-items-center gap-1" style="color:#ffffff;">
                             <form action="{% switch_language_url 'fr' %}" method="get" class="d-inline">
-                                <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">FR</button>
+                                <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:#ffffff!important;font:inherit;cursor:pointer;">FR</button>
                             </form>
-                            <span> · </span>
+                            <span style="color:#ffffff;"> · </span>
                             <form action="{% switch_language_url 'de' %}" method="get" class="d-inline">
-                                <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">DE</button>
+                                <button type="submit"{% if CURRENT_LANGUAGE == "de" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:#ffffff!important;font:inherit;cursor:pointer;">DE</button>
                             </form>
-                            <span> · </span>
+                            <span style="color:#ffffff;"> · </span>
                             <form action="{% switch_language_url 'it' %}" method="get" class="d-inline">
-                                <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">IT</button>
+                                <button type="submit"{% if CURRENT_LANGUAGE == "it" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:#ffffff!important;font:inherit;cursor:pointer;">IT</button>
                             </form>
-                            <span> · </span>
+                            <span style="color:#ffffff;"> · </span>
                             <form action="{% switch_language_url 'en' %}" method="get" class="d-inline">
-                                <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;">EN</button>
+                                <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %} style="background:none;border:0;padding:0;color:#ffffff!important;font:inherit;cursor:pointer;">EN</button>
                             </form>
                         </div>
                     </div>
@@ -151,7 +151,26 @@
                     {% else %}
                         V&V Swiss Services
                     {% endif %}.
-                    {% trans "Tous droits réservés." %}
+                    {% trans "Tous droits réservés." %}<br>
+
+                    <span style="font-size:13px;opacity:.85;color:#ffffff;">
+                        {% if CURRENT_LANGUAGE == "de" %}
+                            Website entwickelt von
+                        {% elif CURRENT_LANGUAGE == "it" %}
+                            Sito sviluppato da
+                        {% elif CURRENT_LANGUAGE == "en" %}
+                            Website developed by
+                        {% else %}
+                            Développé par
+                        {% endif %}
+
+                        <a href="https://benitez-ec.com/girekstudio/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="color:#ffffff;font-weight:600;text-decoration:none;">
+                            GIREKSTUDIO
+                        </a>
+                    </span>
                 </p>
                 <ul class="footer-legal-list d-flex align-items-center flex-wrap gap-3 mb-0">
                     <li>

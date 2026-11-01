@@ -187,17 +187,35 @@
     });
 
     // Mobile Menu Js
-    // Sincronizado con el CSS de V&V: el modo móvil empieza en 1599px.
-    if (
-      $(".mobile-menu-items").length &&
-      typeof $.fn.meanmenu === "function"
-    ) {
+    if ($(".mobile-menu-items").length) {
       $(".mobile-menu-items").meanmenu({
         meanMenuContainer: ".side-menu-wrap",
-        meanScreenWidth: "1599",
+        meanScreenWidth: "992",
         meanMenuCloseSize: "30px",
         meanExpand: ['<i class="fa-solid fa-caret-down"></i>'],
       });
+
+      // V&V ? En m?vil, el nombre del padre abre/cierra el submen?.
+      $(".side-menu-wrap")
+        .off(
+          "click.vvParentMenu",
+          ".mean-nav li.menu-item-has-children > a:not(.mean-expand)",
+        )
+        .on(
+          "click.vvParentMenu",
+          ".mean-nav li.menu-item-has-children > a:not(.mean-expand)",
+          function (event) {
+            const $expand = $(this).siblings("a.mean-expand").first();
+
+            if (!$expand.length) {
+              return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+            $expand.trigger("click");
+          },
+        );
     }
 
     // Mobile Sidemenu

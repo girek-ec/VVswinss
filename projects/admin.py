@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.templatetags.static import static
 from django.utils.html import format_html
 
 from .models import (
@@ -7,6 +8,7 @@ from .models import (
     Intervention,
     Project,
     ProjectImage,
+    ProjectPageConfiguration,
     ProjectType,
 )
 
@@ -27,6 +29,26 @@ def render_image(field, width=100, height=70):
         )
     except (ValueError, AttributeError):
         return "—"
+
+def get_project_effective_image(obj):
+    if obj and obj.main_image:
+        try:
+            return obj.main_image.url, "Imagen propia"
+        except (ValueError, AttributeError):
+            pass
+
+    config = ProjectPageConfiguration.objects.first()
+    if config and config.default_image:
+        try:
+            return config.default_image.url, "Respaldo global ? Projects"
+        except (ValueError, AttributeError):
+            pass
+
+    return (
+        static("antra/assets/img/project/VVS_placeholder_cuadrado.webp"),
+        "Respaldo est?tico ? Projects",
+    )
+
 
 # ============================================================
 # BASE ADMIN
@@ -755,11 +777,34 @@ class ProjectAdmin(BaseProjectAdmin):
 
     @admin.display(description="Imagen")
     def main_image_thumb(self, obj):
-        return render_image(obj.main_image, 80, 55)
+        url, label = get_project_effective_image(obj)
+        return format_html(
+            '<img src="{}" title="{}" '
+            'style="width:80px;height:55px;object-fit:cover;'
+            'border-radius:6px;opacity:{};" />',
+            url,
+            label,
+            "1" if obj and obj.main_image else ".78",
+        )
 
-    @admin.display(description="Vista previa")
+    @admin.display(description="Vista previa ? Imagen efectiva")
     def main_image_preview(self, obj):
-        return render_image(obj.main_image if obj else None, 500, 300)
+        if not obj:
+            return "Guarde primero el proyecto para visualizar la imagen efectiva."
+
+        url, label = get_project_effective_image(obj)
+
+        return format_html(
+            '<div style="max-width:520px;">'
+            '<div style="margin-bottom:8px;font-size:12px;font-weight:600;">{}</div>'
+            '<img src="{}" '
+            'style="max-width:500px;max-height:300px;width:auto;height:auto;'
+            'object-fit:contain;border-radius:8px;border:1px solid #ddd;'
+            'padding:4px;background:#f7f7f7;" />'
+            '</div>',
+            label,
+            url,
+        )
 
     @admin.display(description="Vista previa Open Graph")
     def og_image_preview(self, obj):

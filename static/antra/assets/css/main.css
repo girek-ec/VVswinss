@@ -2938,7 +2938,7 @@ ul {
 }
 
 .header .primary-header-inner .header-menu-wrap ul li.active.menu-item-has-children:after {
-    color: var(--tl-color-theme-primary)
+    border-color: var(--tl-color-theme-primary)
 }
 
 .header .primary-header-inner .header-menu-wrap ul li ul {
@@ -3100,22 +3100,21 @@ ul {
 }
 
 .header .primary-header-inner .header-menu-wrap ul .menu-item-has-children:after {
-    background-image: none;
-    font-family: "Font Awesome 6 Pro";
-    font-size: 12px;
-    font-weight: 900;
-    content: "\f078";
-    color: var(--tl-color-common-white);
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid var(--tl-color-common-white);
+    border-bottom: 2px solid var(--tl-color-common-white);
     position: absolute;
-    top: 50%;
+    top: 47%;
     right: 0;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(45deg);
     transition: all .3s ease-in-out;
-    cursor: pointer;
+    pointer-events: none
 }
 
 .header .primary-header-inner .header-menu-wrap ul .menu-item-has-children:hover:after {
-    color: var(--tl-color-theme-primary)
+    border-color: var(--tl-color-theme-primary)
 }
 
 .header .primary-header-inner .header-right-wrap {
@@ -3413,7 +3412,7 @@ ul {
 }
 
 .header-4 .primary-header-inner .header-menu-wrap ul li.menu-item-has-children:after {
-    color: var(--tl-color-heading-primary)
+    border-color: var(--tl-color-heading-primary)
 }
 
 .header-4 .primary-header-inner .header-right-wrap .header-contact .icon {
@@ -3897,27 +3896,23 @@ ul {
     justify-content: center
 }
 
-.mean-bar .mean-nav.mean-nav > ul li a.mean-expand:before, .mean-bar .mean-nav.mean-nav > ul li a.mean-expand:after {
-    font-size: 15px;
-    font-family: "Font Awesome 6 Pro";
-    font-weight: 900;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out
-}
-
 .mean-bar .mean-nav.mean-nav > ul li a.mean-expand:before {
-    content: "ï”"
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform .3s ease-in-out, border-color .3s ease-in-out
 }
 
-.mean-bar .mean-nav.mean-nav > ul li a.mean-expand.mean-clicked:after {
+.mean-bar .mean-nav.mean-nav > ul li a.mean-expand:after {
     display: none
 }
 
 .mean-bar .mean-nav.mean-nav > ul li a.mean-expand.mean-clicked:before {
-    transform: rotate(90deg)
+    transform: rotate(45deg)
 }
 
 .mean-bar .mean-nav.mean-nav > ul li a.mean-expand i {
