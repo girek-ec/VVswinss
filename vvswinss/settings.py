@@ -37,7 +37,7 @@ DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS",
-    default=["127.0.0.1", "localhost"],
+    default=["127.0.0.1", "localhost","192.168.1.10"],
 )
 
 CSRF_TRUSTED_ORIGINS = env.list(
@@ -96,6 +96,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "core.middleware.MediaCacheControlMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -267,6 +268,12 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# WhiteNoise:
+# - los archivos con hash del manifest se sirven como inmutables;
+# - para URLs STATIC no versionadas se usa un TTL moderado.
+WHITENOISE_MAX_AGE = env.int("WHITENOISE_MAX_AGE", default=86400)
+WHITENOISE_ALLOW_ALL_ORIGINS = True
+
 
 # ============================================================
 # STORAGE
@@ -286,6 +293,14 @@ STORAGES = {
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# MEDIA no utiliza nombres con hash como STATIC. Por eso se usa un TTL
+# menor y no se marca como immutable. Se puede ajustar desde .env.
+MEDIA_CACHE_MAX_AGE = env.int("MEDIA_CACHE_MAX_AGE", default=604800)
+MEDIA_CACHE_STALE_WHILE_REVALIDATE = env.int(
+    "MEDIA_CACHE_STALE_WHILE_REVALIDATE",
+    default=86400,
+)
 
 # ============================================================
 # WEBSITE

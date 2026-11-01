@@ -47,10 +47,10 @@ class ProjectType(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '003 - Project Type'
+        verbose_name_plural = '003 - Project Types'
         ordering = ["order", "name_fr"]
 
-        verbose_name = "Project type"
-        verbose_name_plural = "Project types"
 
     def __str__(self):
         return self.name_fr
@@ -98,10 +98,10 @@ class BuildingType(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '004 - Building Type'
+        verbose_name_plural = '004 - Building Types'
         ordering = ["order", "name_fr"]
 
-        verbose_name = "Building type"
-        verbose_name_plural = "Building types"
 
     def __str__(self):
         return self.name_fr
@@ -215,10 +215,10 @@ class Project(MultilingualSEOModel, TimeStampedModel):
     is_published = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '002 - Project'
+        verbose_name_plural = '002 - Projects'
         ordering = ["-end_date", "-created_at"]
 
-        verbose_name = "Project"
-        verbose_name_plural = "Projects"
 
     def __str__(self):
         return self.title_fr
@@ -269,6 +269,16 @@ class Project(MultilingualSEOModel, TimeStampedModel):
         if not self.title_en:
             self.slug_en = None
 
+        self.autofill_seo(
+            title_sources=(
+                "title",
+            ),
+            description_sources=(
+                "summary",
+                "content",
+            ),
+        )
+
         super().save(*args, **kwargs)
 
 # ============================================================
@@ -277,7 +287,11 @@ class Project(MultilingualSEOModel, TimeStampedModel):
 
 class ProjectImage(TimeStampedModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to="projects/gallery/")
+    image = models.ImageField(
+        upload_to="projects/gallery/",
+        blank=True,
+        null=True,
+    )
 
     # ========================================================
     # ESPAÑOL · REFERENCIA INTERNA
@@ -298,10 +312,10 @@ class ProjectImage(TimeStampedModel):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = '005 - Project Image'
+        verbose_name_plural = '005 - Project Images'
         ordering = ["order"]
 
-        verbose_name = "Project image"
-        verbose_name_plural = "Project images"
 
     def __str__(self):
         return f"Image - {self.project}"
@@ -312,9 +326,17 @@ class ProjectImage(TimeStampedModel):
 
 class BeforeAfter(TimeStampedModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="before_after")
-    before_image = models.ImageField(upload_to="projects/before-after/")
+    before_image = models.ImageField(
+        upload_to="projects/before-after/",
+        blank=True,
+        null=True,
+    )
 
-    after_image = models.ImageField(upload_to="projects/before-after/")
+    after_image = models.ImageField(
+        upload_to="projects/before-after/",
+        blank=True,
+        null=True,
+    )
 
     # ========================================================
     # ESPAÑOL · REFERENCIA INTERNA
@@ -335,10 +357,10 @@ class BeforeAfter(TimeStampedModel):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = '006 - Before / After'
+        verbose_name_plural = '006 - Before / After'
         ordering = ["order"]
 
-        verbose_name = "Before and after"
-        verbose_name_plural = "Before and after"
 
     def __str__(self):
         return self.title_fr or self.title_es or f"Before / After - {self.project}"
@@ -385,10 +407,12 @@ class Intervention(TimeStampedModel):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = '007 - Intervention'
+        verbose_name_plural = '007 - Interventions'
         ordering = ["order"]
 
-        verbose_name = "Intervention"
-        verbose_name_plural = "Interventions"
 
     def __str__(self):
         return self.title_fr or self.title_es
+
+from .visual_config import ProjectPageConfiguration  # noqa: F401,E402

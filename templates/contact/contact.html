@@ -3,26 +3,19 @@
 {% load i18n %}
 {% load l10n %}
 {% load i18n_fields %}
-
-<!-- ============================================================
-     SEO · TITLE
-============================================================ -->
+<!-- SEO · TÍTULO | SEO · TITLE -->
 {% block title %}
 {% trans "Contact et demande de devis" %} | V&V Swiss Services
 {% endblock %}
-
-<!-- ============================================================
-     SEO · META DESCRIPTION
-============================================================ -->
+<!-- SEO · META DESCRIPCIÓN | SEO · META DESCRIPTION -->
 {% block meta_description %}
 {% blocktrans trimmed %}Contactez V&V Swiss Services pour votre projet de rénovation, isolation, maçonnerie, plâtrerie, peinture ou nettoyage de fin de chantier dans le canton de Vaud et en Suisse romande. Demandez votre devis.{% endblocktrans %}
 {% endblock %}
-
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-.contact-map-wrap{position:relative}
-#vv-project-map{width:100%;height:620px;background:#f3f3f3;z-index:1}
+.contact-map-wrap{position:relative;width:100%}
+#vv-project-map{display:block;width:100%;height:620px;min-height:620px;background:#f3f3f3;position:relative;z-index:1}
 .vv-map-interaction{position:absolute;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:20px;border:0;background:rgba(0,0,0,.08);cursor:pointer;transition:opacity .2s ease,visibility .2s ease}
 .vv-map-interaction span{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:4px;background:rgba(17,17,17,.82);color:#fff;font-size:14px;font-weight:700;line-height:1.3;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .vv-map-interaction.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -40,258 +33,161 @@
 .vv-map-empty{min-height:300px;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#666;background:#f5f5f5}
 .leaflet-popup-content{margin:14px}
 .leaflet-popup-content-wrapper{border-radius:8px}
-@media(max-width:767px){#vv-project-map{height:480px}.vv-map-popup{width:205px}}
+@media(max-width:767px){#vv-project-map{height:480px;min-height:480px}.vv-map-popup{width:205px}}
 </style>
 {% endblock %}
-
 {% block content %}
-
-<!-- ============================================================
-     SECTION 01 · PAGE HEADER
-============================================================ -->
+<!-- SECCIÓN 01 · ENCABEZADO DE PÁGINA | SECTION 01 · PAGE HEADER -->
 <section class="page-header">
-    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"></div>
+    {% if page_images and contact_visuals.header_background %}
+    <div class="bg-img" data-background="{{ contact_visuals.header_background.url }}" style="background-image: url('{{ contact_visuals.header_background.url }}');"></div>
+    {% else %}
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image: url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"></div>
+    {% endif %}
     <div class="overlay"></div>
-
     <div class="container">
         <div class="page-header-content">
-
             <h1 class="title">{% trans "Contact et demande de devis" %}</h1>
-
             <h4 class="sub-title">
                 <a class="home" href="{% url 'core:home' %}">{% trans "Accueil" %}</a>
                 <span class="icon">-</span>
                 <span class="inner-page">{% trans "Contact" %}</span>
             </h4>
-
         </div>
     </div>
 </section>
-
-<!-- ============================================================
-     SECTION 02 · CONTACT INTRODUCTION
-============================================================ -->
+<!-- SECCIÓN 02 · INTRODUCCIÓN DE CONTACTO | SECTION 02 · CONTACT INTRODUCTION -->
 <section class="contact-section pt-50 pb-150">
-
     <div class="container container-2">
-
         <div class="row section-heading-wrap w-100 ml-0">
-
             <div class="shape">
-                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="">
+                <img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="" loading="lazy" decoding="async" fetchpriority="low" width="500" height="190">
             </div>
-
-            <!-- ========================================================
-                 LEFT TITLE
-            ========================================================= -->
+            <!-- TÍTULO IZQUIERDO | LEFT TITLE -->
             <div class="col-lg-4 col-md-12">
-
                 <div class="section-heading mb-0">
-
                     <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">
                         {% trans "Contactez-nous" %}
                     </h4>
-
                 </div>
-
             </div>
-
-            <!-- ========================================================
-                 RIGHT TITLE
-            ========================================================= -->
+            <!-- TÍTULO DERECHO | RIGHT TITLE -->
             <div class="col-lg-8 col-md-12">
-
                 <div class="section-heading section-heading-2 mb-0">
-
                     <h2 class="section-title cursor-effect title-2">
                         {% trans "Vous avez un projet ?" %}
                         <span>{% trans "Demandez votre devis" %}</span>
                     </h2>
-
                     <p class="mb-0">
                         {% blocktrans trimmed %}Décrivez-nous vos besoins. Notre équipe vous accompagne avec une approche claire, professionnelle et adaptée à votre projet.{% endblocktrans %}
                     </p>
-
                 </div>
-
             </div>
-
         </div>
-
-        <!-- ========================================================
-             SECTION 03 · CONTACT INFORMATION + FORM
-        ========================================================= -->
+        <!-- SECCIÓN 03 · INFORMACIÓN Y FORMULARIO DE CONTACTO | SECTION 03 · CONTACT INFORMATION AND FORM -->
         <div class="row request-wrap contact-page-area align-items-start">
-
-            <!-- ====================================================
-                 LEFT COLUMN · CONTACT INFORMATION
-            ===================================================== -->
+            <!-- COLUMNA IZQUIERDA · INFORMACIÓN DE CONTACTO | LEFT COLUMN · CONTACT INFORMATION -->
             <div class="col-lg-6 col-md-12 align-self-start">
-
                 <div class="request-content mt-0">
-
                     <div class="request-item-wrap contact-info-grid">
-
-                        <!-- =================================================
-                             ADDRESS
-                        ================================================== -->
+                        <!-- DIRECCIÓN | ADDRESS -->
                         {% if site_configuration and site_configuration.address %}
-
                         <div class="request-item white-content contact-info-card">
-
                             <span>{% trans "Adresse" %}</span>
-
                             <p>
                                 {{ site_configuration.address }}
-
                                 {% if site_configuration.postal_code or site_configuration.city %}
                                     <br>{% if site_configuration.postal_code %}{{ site_configuration.postal_code }} {% endif %}{% if site_configuration.city %}{{ site_configuration.city }}{% endif %}
                                 {% endif %}
-
                                 {% if site_configuration.canton %}
                                     <br>{{ site_configuration.canton }}
                                 {% endif %}
-
                                 {% if site_configuration.country %}
                                     <br>{% trans "Suisse" %}
                                 {% endif %}
                             </p>
-
                         </div>
-
                         {% endif %}
-
-                        <!-- =================================================
-                             DIRECT CONTACT
-                        ================================================== -->
+                        <!-- CONTACTO DIRECTO | DIRECT CONTACT -->
                         {% if site_configuration %}
-
                         <div class="request-item white-content contact-info-card">
-
                             <span>{% trans "Contact direct" %}</span>
-
                             {% if site_configuration.phone %}
                                 <a href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
                             {% endif %}
-
                             {% if site_configuration.email %}
                                 <a href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
                             {% endif %}
-
                         </div>
-
                         {% endif %}
-
-                        <!-- =================================================
-                             BUSINESS HOURS
-                        ================================================== -->
+                        <!-- HORARIOS DE ATENCIÓN | BUSINESS HOURS -->
                         {% if business_hours %}
-
                         <div class="request-item white-content contact-info-card business-hours-card">
-
                             <span>{% trans "Horaires d’ouverture" %}</span>
-
                             <div class="business-hours-list">
-
                                 {% for business_hour in business_hours %}
-
                                 <div class="business-hour-row">
                                     <strong>{{ business_hour|localized:"day" }}</strong>
                                     <span>{{ business_hour.hours }}</span>
                                 </div>
-
                                 {% endfor %}
-
                             </div>
-
                         </div>
-
                         {% endif %}
-
                     </div>
-
-                    <!-- =================================================
-                         DIRECT ACTIONS
-                    ================================================== -->
+                    <!-- ACCIONES DIRECTAS | DIRECT ACTIONS -->
                     {% if site_configuration %}
-
                     {% blocktrans trimmed asvar whatsapp_text %}Bonjour, je souhaite obtenir des informations concernant un projet de rénovation et demander un devis.{% endblocktrans %}
-
                     {% trans "Demande concernant un projet de rénovation" as email_subject %}
-
                     {% blocktrans trimmed asvar email_body %}Bonjour, je souhaite recevoir davantage d’informations concernant un projet de rénovation et demander un devis.{% endblocktrans %}
-
                     <div class="project-contact-actions">
-
-                        <!-- WHATSAPP -->
+                        <!-- WHATSAPP | WHATSAPP -->
                         {% if site_configuration.whatsapp %}
-
                         <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ whatsapp_text|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp" aria-label="{% trans 'Contacter V&V Swiss Services sur WhatsApp' %}">
                             <i class="fa-brands fa-whatsapp"></i>
                             <span>WhatsApp</span>
                         </a>
-
                         {% endif %}
-
-                        <!-- EMAIL -->
+                        <!-- CORREO ELECTRÓNICO | EMAIL -->
                         {% if site_configuration.email %}
-
                         <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ email_body|urlencode }}" class="project-contact-btn" aria-label="{% trans 'Envoyer un e-mail à V&V Swiss Services' %}">
                             <i class="fa-regular fa-envelope"></i>
                             <span>{% trans "E-mail" %}</span>
                         </a>
-
                         {% endif %}
-
-                        <!-- PHONE -->
+                        <!-- TELÉFONO | PHONE -->
                         {% if site_configuration.phone %}
-
                         <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn" aria-label="{% trans 'Appeler V&V Swiss Services' %}">
                             <i class="fa-regular fa-phone"></i>
                             <span>{% trans "Appeler" %}</span>
                         </a>
-
                         {% endif %}
-
                     </div>
-
                     {% endif %}
-
-                    <!-- =================================================
-                         CONTACT IMAGE
-                    ================================================== -->
+                    <!-- IMAGEN DE CONTACTO | CONTACT IMAGE -->
                     <div class="contact-img">
-                        <img src="{% static 'antra/assets/img/images/contact-img-1.png' %}" alt="{% trans 'V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud' %}">
+                        {% if page_images and contact_visuals.main_image %}
+                        <img src="{{ contact_visuals.main_image.url }}" alt="{% trans 'V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud' %}" loading="lazy" decoding="async" fetchpriority="low">
+                        {% else %}
+                        <img src="{% static 'antra/assets/img/images/contact-img-1.png' %}" alt="{% trans 'V&V Swiss Services - entreprise de rénovation et travaux du bâtiment dans le canton de Vaud' %}" loading="lazy" decoding="async" fetchpriority="low" width="640" height="420">
+                        {% endif %}
                     </div>
-
                 </div>
-
             </div>
-
-            <!-- ====================================================
-                 RIGHT COLUMN · CONTACT FORM
-            ===================================================== -->
+            <!-- COLUMNA DERECHA · FORMULARIO DE CONTACTO | RIGHT COLUMN · CONTACT FORM -->
             <div class="col-lg-6 col-md-12 align-self-start">
-
                 <div class="request-form-wrap contact-form-panel">
                     {% include "contact/includes/contact_form.html" %}
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
-
-<!-- ============================================================
-     SECTION 04 · MAP / RÉALISATIONS
-============================================================ -->
+<!-- SECCIÓN 04 · MAPA / REALIZACIONES | SECTION 04 · MAP / PROJECTS -->
 <section class="map-wrapper pb-150">
     <div class="container">
         <div class="row section-heading-wrap w-100 ml-0 mb-50">
-            <div class="shape"><img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt=""></div>
+            <div class="shape"><img src="{% static 'antra/assets/img/shapes/section-heading.png' %}" alt="" loading="lazy" decoding="async" fetchpriority="low" width="500" height="190"></div>
             <div class="col-lg-4 col-md-12">
                 <div class="section-heading mb-0">
                     <h4 class="sub-heading">{% trans "Nos réalisations sur la carte" %}</h4>
@@ -315,9 +211,7 @@
         </div>
     </div>
 </section>
-
 {% endblock %}
-
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -348,17 +242,71 @@ document.addEventListener("DOMContentLoaded",function(){
         mapElement.addEventListener("mouseleave",deactivateMap);
         mapElement.addEventListener("keydown",function(event){if(event.key==="Escape"){deactivateMap();interactionButton.focus({preventScroll:true});}});
     }
-    const markerHtml='<div class="vv-map-marker-pin"><img src="{% static 'antra/assets/img/favicon.png' %}" alt="V&V"></div>';
+    const markerHtml='<div class="vv-map-marker-pin"><img src="{% static 'antra/assets/img/favicon.png' %}" alt="V&V" loading="lazy" decoding="async" fetchpriority="low" width="150" height="150"></div>';
     const vvIcon=L.divIcon({className:"vv-map-marker",html:markerHtml,iconSize:[48,58],iconAnchor:[24,57],popupAnchor:[0,-50]});
     const markers=[];
     const escapeHtml=function(value){const el=document.createElement("div");el.textContent=value==null?"":String(value);return el.innerHTML;};
+    // ============================================================
+// V&V SWISS SERVICES · COMPANY MARKER
+// ============================================================
+if(hasDefaultCenter){
+    const companyName =
+        "{{ site_configuration.company_name|default:'V&V Swiss Services'|escapejs }}";
+    const companyAddress =
+        "{{ site_configuration.address|default:''|escapejs }}";
+    const companyCity =
+        "{{ site_configuration.city|default:''|escapejs }}";
+    const companyIcon=L.divIcon({
+        className:"vv-map-marker vv-company-marker",
+        html:
+            '<div class="vv-map-marker-pin">' +
+                '<img src="{% static "antra/assets/img/favicon.png" %}" ' +
+                'alt="V&V Swiss Services">' +
+            '</div>',
+        iconSize:[54,64],
+        iconAnchor:[27,63],
+        popupAnchor:[0,-56]
+    });
+    const companyMarker=L.marker(
+        [defaultLat,defaultLng],
+        {
+            icon:companyIcon,
+            title:companyName
+        }
+    ).addTo(map);
+    let companyPopup='<div class="vv-map-popup">';
+    companyPopup +=
+        '<div class="vv-map-popup-title">' +
+        escapeHtml(companyName) +
+        '</div>';
+    const companyMeta=[];
+    if(companyAddress){
+        companyMeta.push(escapeHtml(companyAddress));
+    }
+    if(companyCity){
+        companyMeta.push(escapeHtml(companyCity));
+    }
+    if(companyMeta.length){
+        companyPopup +=
+            '<div class="vv-map-popup-meta">' +
+            companyMeta.join(" · ") +
+            '</div>';
+    }
+    companyPopup +=
+        '<div class="vv-map-popup-meta">{% trans "Siège / point de contact V&V Swiss Services" %}</div>';
+    companyPopup += '</div>';
+    companyMarker.bindPopup(companyPopup,{
+        maxWidth:260
+    });
+    markers.push(companyMarker);
+}
     projects.forEach(function(project){
         const lat=Number(project.latitude);
         const lng=Number(project.longitude);
         if(!Number.isFinite(lat)||!Number.isFinite(lng)){return;}
         const marker=L.marker([lat,lng],{icon:vvIcon,title:project.title||"V&V Swiss Services"}).addTo(map);
         let popup='<div class="vv-map-popup">';
-        if(project.image){popup+='<img class="vv-map-popup-image" src="'+escapeHtml(project.image)+'" alt="'+escapeHtml(project.title)+'">';}
+        if(project.image){popup+='<img class="vv-map-popup-image" src="'+escapeHtml(project.image)+'" alt="'+escapeHtml(project.title)+'" loading="lazy" decoding="async" fetchpriority="low">';}
         popup+='<div class="vv-map-popup-title">'+escapeHtml(project.title||"V&V Swiss Services")+'</div>';
         const meta=[];
         if(project.location){meta.push(escapeHtml(project.location));}

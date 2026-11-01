@@ -1,19 +1,12 @@
 {% load i18n %}
 {% get_current_language as CURRENT_LANGUAGE %}
-
-<!-- ============================================================
-     CONTACT FORM · REUSABLE INCLUDE
-============================================================ -->
+<!-- FORMULARIO DE CONTACTO REUTILIZABLE | REUSABLE CONTACT FORM -->
 <form action="{% url 'contact:contact' %}" method="post" enctype="multipart/form-data" id="contact-form" class="form-horizontal" novalidate>
     {% csrf_token %}
-
-    <!-- ========================================================
-         FORM ERRORS
-    ========================================================= -->
+    <!-- ERRORES DEL FORMULARIO | FORM ERRORS -->
     {% if form.errors %}
     <div class="alert alert-danger mb-30" role="alert">
         <strong>{% trans "Veuillez vérifier les informations du formulaire." %}</strong>
-
         <ul class="mt-15 mb-0">
             {% for field in form %}
                 {% for error in field.errors %}
@@ -26,18 +19,13 @@
                 </li>
                 {% endfor %}
             {% endfor %}
-
             {% for error in form.non_field_errors %}
             <li>{{ error }}</li>
             {% endfor %}
         </ul>
     </div>
     {% endif %}
-
-
-    <!-- ========================================================
-         NAME + COMPANY
-    ========================================================= -->
+    <!-- NOMBRE Y EMPRESA | NAME AND COMPANY -->
     <div class="form-group row">
         <div class="col-md-6">
             <div class="form-item">
@@ -45,7 +33,6 @@
                 {{ form.name }}
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-item">
                 <h4 class="form-title">{{ form.company.label }}</h4>
@@ -53,11 +40,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         EMAIL + PHONE
-    ========================================================= -->
+    <!-- CORREO Y TELÉFONO | EMAIL AND PHONE -->
     <div class="form-group row">
         <div class="col-md-6">
             <div class="form-item">
@@ -65,7 +48,6 @@
                 {{ form.email }}
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-item">
                 <h4 class="form-title">{{ form.phone.label }} *</h4>
@@ -73,11 +55,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         SERVICE
-    ========================================================= -->
+    <!-- SERVICIO | SERVICE -->
     <div class="form-group row service-field-group">
         <div class="col-md-12">
             <div class="form-item">
@@ -86,11 +64,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         PROJECT LOCATION
-    ========================================================= -->
+    <!-- UBICACIÓN DEL PROYECTO | PROJECT LOCATION -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item">
@@ -99,11 +73,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         MESSAGE
-    ========================================================= -->
+    <!-- MENSAJE | MESSAGE -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item message-item">
@@ -112,21 +82,13 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         PHOTOS
-         Selector personalizado: solo el botón es interactivo.
-         El estado del archivo queda como texto independiente.
-    ========================================================= -->
+    <!-- FOTOGRAFÍAS | PHOTOS -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item">
                 <h4 class="form-title">{{ form.photos.label }}</h4>
-
                 <div class="vv-file-selector">
                     {{ form.photos }}
-
                     {% if CURRENT_LANGUAGE == "de" %}
                         <label for="{{ form.photos.id_for_label }}"
                                class="vv-file-button"
@@ -161,7 +123,6 @@
                         <span class="vv-file-status">Aucun fichier</span>
                     {% endif %}
                 </div>
-
                 <small class="d-block mt-10">
                     {% if CURRENT_LANGUAGE == "de" %}
                         Bis zu 8 Fotos · JPG, PNG oder WebP · max. 8 MB pro Foto.
@@ -176,17 +137,12 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         TECHNICAL VISIT / CHECKBOX
-    ========================================================= -->
+    <!-- VISITA TÉCNICA · CASILLA | TECHNICAL VISIT · CHECKBOX -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item">
                 <div class="form-check">
                     {{ form.request_visit }}
-
                     <label class="form-check-label" for="{{ form.request_visit.id_for_label }}">
                         {{ form.request_visit.label }}
                     </label>
@@ -194,11 +150,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         TECHNICAL VISIT / DATE + TIME
-    ========================================================= -->
+    <!-- VISITA TÉCNICA · FECHA Y HORA | TECHNICAL VISIT · DATE AND TIME -->
     <div class="form-group row" id="technical-visit-fields">
         <div class="col-md-6">
             <div class="form-item">
@@ -206,38 +158,29 @@
                 {{ form.preferred_date }}
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="form-item">
                 <h4 class="form-title">{{ form.preferred_time.label }}</h4>
                 {{ form.preferred_time }}
             </div>
         </div>
-
         <div class="col-md-12">
             <small class="d-block mt-10">
                 {% trans "La date et l’heure demandées sont indicatives. Notre équipe vous contactera pour confirmer la visite." %}
             </small>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         PRIVACY
-    ========================================================= -->
+    <!-- PRIVACIDAD | PRIVACY -->
     <div class="form-group row">
         <div class="col-md-12">
             <div class="form-item privacy-form-item">
-
                 <div class="form-check">
                     {{ form.privacy_accepted }}
-
                     <label class="form-check-label" for="{{ form.privacy_accepted.id_for_label }}">
                         {{ form.privacy_accepted.label|safe }}
                         <span class="required-mark" aria-hidden="true">*</span>
                     </label>
                 </div>
-
                 {% if form.privacy_accepted.errors %}
                     <div class="privacy-errors mt-10">
                         {% for error in form.privacy_accepted.errors %}
@@ -245,15 +188,10 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-
             </div>
         </div>
     </div>
-
-
-    <!-- ========================================================
-         SUBMIT
-    ========================================================= -->
+    <!-- ENVÍO DEL FORMULARIO | FORM SUBMIT -->
     <div class="submit-btn" style="align-content: center !important; text-align: center !important;">
         <button id="submit-contact" class="tl-primary-btn" type="submit">
             {% trans "Demander mon devis" %}
@@ -263,220 +201,79 @@
         </button>
     </div>
 </form>
-
-
-<!-- ============================================================
-     FILE INPUT · ESTILO ANTRA / V&V
-     Sin contenedor exterior. Solo el botón se destaca.
-============================================================ -->
-<style>
-    .vv-file-selector {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        width: 100%;
-        min-height: 44px;
-    }
-
-    .vv-file-selector input[type="file"] {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-
-    .vv-file-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 0 0 auto;
-        min-width: 120px;
-        min-height: 42px;
-        padding: 10px 20px;
-        margin: 0;
-        border: 1px solid #111;
-        border-radius: 10px;
-        background: #111;
-        color: #fff;
-        font-weight: 700;
-        line-height: 1;
-        cursor: pointer;
-        transition: background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
-    }
-
-    .vv-file-button:hover {
-        background: #0b5d13;
-        border-color: #0b5d13;
-        color: #fff;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, .12);
-    }
-
-    .vv-file-selector input[type="file"]:focus + .vv-file-button,
-    .vv-file-button:focus-visible {
-        outline: 2px solid #0b5d13;
-        outline-offset: 3px;
-    }
-
-    .vv-file-status {
-        min-width: 0;
-        color: inherit;
-        opacity: .72;
-        font-size: inherit;
-        line-height: 1.35;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .vv-file-selector.has-file .vv-file-status {
-        opacity: 1;
-        font-weight: 500;
-    }
-
-    @media (max-width: 575.98px) {
-        .vv-file-selector {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .vv-file-button {
-            min-width: 112px;
-        }
-
-        .vv-file-status {
-            width: 100%;
-            white-space: normal;
-            overflow-wrap: anywhere;
-        }
-    }
-</style>
-
-<!-- ============================================================
-     JAVASCRIPT / TECHNICAL VISIT + SERVICE SELECT
-============================================================ -->
-
+<!-- ARCHIVO · ESTILO ANTRA / V&V | FILE INPUT · ANTRA / V&V STYLE -->
+<!-- SERVICIO | SERVICE -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
-    /* =========================================================
-       PHOTO FILE SELECTOR
-       ========================================================= */
-
+    /* SELECTOR DE FOTOGRAFÍAS | PHOTO FILE SELECTOR */
     const photoInput = document.getElementById(
         "{{ form.photos.id_for_label }}"
     );
-
     const photoSelector = photoInput
         ? photoInput.closest(".vv-file-selector")
         : null;
-
     const photoButton = photoSelector
         ? photoSelector.querySelector(".vv-file-button")
         : null;
-
     const photoStatus = photoSelector
         ? photoSelector.querySelector(".vv-file-status")
         : null;
-
     if (photoInput && photoSelector && photoButton && photoStatus) {
         function updatePhotoStatus() {
             const files = photoInput.files
                 ? Array.from(photoInput.files)
                 : [];
-
             if (files.length === 0) {
                 photoSelector.classList.remove("has-file");
                 photoStatus.textContent = photoButton.dataset.empty || "";
                 return;
             }
-
             photoSelector.classList.add("has-file");
-
             if (files.length === 1) {
                 photoStatus.textContent = files[0].name;
                 return;
             }
-
             photoStatus.textContent =
                 files.length + " " + (photoButton.dataset.many || "");
         }
-
         updatePhotoStatus();
         photoInput.addEventListener("change", updatePhotoStatus);
     }
-
-    /* =========================================================
-       TECHNICAL VISIT
-       ========================================================= */
-
+    /* VISITA TÉCNICA | TECHNICAL VISIT */
     const visitCheckbox = document.getElementById(
         "{{ form.request_visit.id_for_label }}"
     );
-
     const visitFields = document.getElementById(
         "technical-visit-fields"
     );
-
     if (visitCheckbox && visitFields) {
-
         function updateTechnicalVisitFields() {
             visitFields.style.display = visitCheckbox.checked
                 ? ""
                 : "none";
         }
-
         updateTechnicalVisitFields();
-
         visitCheckbox.addEventListener(
             "change",
             updateTechnicalVisitFields
         );
     }
-
-
-    /* =========================================================
-       SERVICE SELECT
-       Mantener únicamente el SELECT nativo de Django
-       ========================================================= */
-
+    /* SELECTOR DE SERVICIO | SERVICE SELECT */
     const serviceSelect = document.getElementById("id_service");
-
     if (serviceSelect) {
-
         serviceSelect.style.display = "block";
         serviceSelect.style.width = "100%";
-
-
-        /* -----------------------------------------------------
-           Eliminar Nice Select si ya fue generado
-           ----------------------------------------------------- */
-
+        /* ELIMINAR NICE SELECT GENERADO | REMOVE GENERATED NICE SELECT */
         function removeGeneratedServiceSelect() {
-
             const parent = serviceSelect.parentElement;
-
             if (!parent) {
                 return;
             }
-
             const generatedSelects = parent.querySelectorAll(
                 ".nice-select, .select2-container"
             );
-
             generatedSelects.forEach(function (element) {
-
-                /*
-                 * Eliminamos únicamente los elementos generados
-                 * asociados al campo de servicio.
-                 */
-
+                /* ELIMINAR SOLO ELEMENTOS GENERADOS DEL SERVICIO | REMOVE ONLY GENERATED SERVICE ELEMENTS */
                 if (
                     element.previousElementSibling === serviceSelect ||
                     element.classList.contains("service-native-select")
@@ -484,66 +281,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     element.remove();
                 }
             });
-
-
-            /*
-             * El SELECT original siempre permanece visible.
-             */
-
+            /* MANTENER SIEMPRE VISIBLE EL SELECT ORIGINAL | ALWAYS KEEP ORIGINAL SELECT VISIBLE */
             serviceSelect.style.display = "block";
             serviceSelect.style.width = "100%";
         }
-
-
-        /* -----------------------------------------------------
-           Si Nice Select ya está activo, destruirlo
-           ----------------------------------------------------- */
-
+        /* DESTRUIR NICE SELECT ACTIVO | DESTROY ACTIVE NICE SELECT */
         if (
             typeof window.jQuery !== "undefined" &&
             typeof jQuery.fn.niceSelect === "function"
         ) {
-
             try {
-
                 const $serviceSelect = jQuery(serviceSelect);
-
                 if (
                     $serviceSelect.next(".nice-select").length
                 ) {
                     $serviceSelect.niceSelect("destroy");
                 }
-
             } catch (error) {
-                /*
-                 * No hacemos nada.
-                 * El SELECT nativo permanece operativo.
-                 */
+                /* MANTENER EL SELECT NATIVO OPERATIVO | KEEP NATIVE SELECT WORKING */
             }
         }
-
-
         removeGeneratedServiceSelect();
-
-
-        /* -----------------------------------------------------
-           Protección contra inicialización posterior
-
-           Algunas plantillas ejecutan niceSelect después del
-           DOMContentLoaded. Este observer evita que vuelva a
-           aparecer un segundo selector.
-           ----------------------------------------------------- */
-
+        /* PROTECCIÓN CONTRA INICIALIZACIÓN POSTERIOR | PROTECTION AGAINST LATE INITIALISATION */
         const serviceParent = serviceSelect.parentElement;
-
         if (serviceParent) {
-
             const observer = new MutationObserver(function () {
-
                 removeGeneratedServiceSelect();
-
             });
-
             observer.observe(
                 serviceParent,
                 {
@@ -552,6 +316,5 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
     }
-
 });
 </script>

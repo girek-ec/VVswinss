@@ -1,8 +1,6 @@
+/* global jQuery, gsap, ScrollTrigger, ScrollSmoother, SplitType, Swiper, VenoBox, PANOLENS, Power2 */
 (function ($) {
   "use strict";
-
-  // Get Device width
-  var device_width = window.innerWidth;
 
   /*======================================
         Preloader activation
@@ -27,20 +25,30 @@
   var increment = 0;
 
   function animateBars() {
+    if (!innerBars.length || !document.querySelector(".preloader")) {
+  return;
+}
     /* loading bar animation */
-    for (var i = 0; i < 2; i++) {
-      var randomWidth = Math.floor(Math.random() * 101);
+   for (var i = 0; i < 2; i++) {
+    var randomWidth = Math.floor(Math.random() * 101);
+    var currentBar = innerBars[i + increment];
 
-      gsap.to(innerBars[i + increment], {
-        width: randomWidth + "%",
-        duration: 0.5,
-        ease: "none",
-      });
-    }
+    if (!currentBar) continue;
+
+    gsap.to(currentBar, {
+      width: randomWidth + "%",
+      duration: 0.5,
+      ease: "none",
+    });
+  }
 
     setTimeout(function () {
       for (var i = 0; i < 2; i++) {
-        gsap.to(innerBars[i + increment], {
+        var currentBar = innerBars[i + increment];
+
+        if (!currentBar) continue;
+
+        gsap.to(currentBar, {
           width: "100%",
           duration: 0.5,
           ease: "none",
@@ -109,7 +117,7 @@
   var panorama, panoViewer, panoContainer;
   panoContainer = document.querySelector(".antra-panoroma-img");
 
-  if (panoContainer) {
+  if (panoContainer && typeof PANOLENS !== "undefined") {
     var antraData = $(".antra-panoroma-img").data("img");
     panorama = new PANOLENS.ImagePanorama(antraData);
     panoViewer = new PANOLENS.Viewer({ container: panoContainer });
@@ -117,7 +125,6 @@
   }
 
   $(window).on("load", function () {
-    animateBars();
     setTimeout(function () {
       $(".preloader").remove();
     }, 3000);
@@ -125,14 +132,19 @@
 
   $(document).ready(function () {
     // Image Comparison Slider
-    $(".antra-image-comparison").twentytwenty({
-      default_offset_pct: 0.5,
-      orientation: "horizontal",
-      no_overlay: true,
-      move_slider_on_hover: true,
-      move_with_handle_only: false,
-      click_to_move: false,
-    });
+    if (
+      typeof $.fn.twentytwenty === "function" &&
+      $(".antra-image-comparison").length
+    ) {
+      $(".antra-image-comparison").twentytwenty({
+        default_offset_pct: 0.5,
+        orientation: "horizontal",
+        no_overlay: true,
+        move_slider_on_hover: true,
+        move_with_handle_only: false,
+        click_to_move: false,
+      });
+    }
 
     if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
       $("body").addClass("firefox");
@@ -174,11 +186,15 @@
       }
     });
 
-    //Mobile Menu Js
-    if ($(".mobile-menu-items").length) {
+    // Mobile Menu Js
+    // Sincronizado con el CSS de V&V: el modo móvil empieza en 1599px.
+    if (
+      $(".mobile-menu-items").length &&
+      typeof $.fn.meanmenu === "function"
+    ) {
       $(".mobile-menu-items").meanmenu({
         meanMenuContainer: ".side-menu-wrap",
-        meanScreenWidth: "992",
+        meanScreenWidth: "1599",
         meanMenuCloseSize: "30px",
         meanExpand: ['<i class="fa-solid fa-caret-down"></i>'],
       });
@@ -239,18 +255,22 @@
     // Venobox Video
 
     function venoboxInit() {}
-    new VenoBox({
-      selector: ".video-popup, .img-popup, .venobox",
-      bgcolor: "transparent",
-      // overlayColor: "transparent",
-      numeration: true,
-      infinigall: true,
-      spinner: "plane",
-    });
+
+    if (typeof VenoBox !== "undefined") {
+      new VenoBox({
+        selector: ".video-popup, .img-popup, .venobox",
+        bgcolor: "transparent",
+        // overlayColor: "transparent",
+        numeration: true,
+        infinigall: true,
+        spinner: "plane",
+      });
+    }
+
     venoboxInit();
 
     // Data Background
-    $("[data-background").each(function () {
+    $("[data-background]").each(function () {
       $(this).css(
         "background-image",
         "url( " + $(this).attr("data-background") + "  )",
@@ -338,28 +358,38 @@
     // Price range slider
     var priceRange = $("#price-range"),
       priceOutput = $("#price-output span");
-    priceOutput.html(priceRange.val());
-    priceRange.on("change input", function () {
-      priceOutput.html($(this).val());
-    });
+
+    if (priceRange.length && priceOutput.length) {
+      priceOutput.html(priceRange.val());
+      priceRange.on("change input", function () {
+        priceOutput.html($(this).val());
+      });
+    }
 
     /* Odometer */
-    $(".odometer").waypoint(
-      function () {
-        var odo = $(".odometer");
-        odo.each(function () {
-          var countNumber = $(this).attr("data-count");
-          $(this).html(countNumber);
-        });
-      },
-      {
-        offset: "80%",
-        triggerOnce: true,
-      },
-    );
+    if (
+      $(".odometer").length &&
+      typeof $.fn.waypoint === "function"
+    ) {
+      $(".odometer").waypoint(
+        function () {
+          var odo = $(".odometer");
+          odo.each(function () {
+            var countNumber = $(this).attr("data-count");
+            $(this).html(countNumber);
+          });
+        },
+        {
+          offset: "80%",
+          triggerOnce: true,
+        },
+      );
+    }
 
     // Nice Select Js
-    $("select").niceSelect();
+    if ($("select").length && typeof $.fn.niceSelect === "function") {
+      $("select").niceSelect();
+    }
 
     function featureHoverGSAP(options) {
       const settings = Object.assign(
@@ -385,6 +415,8 @@
       let interactionMode = null;
 
       const triggerItems = document.querySelectorAll(settings.trigger);
+
+      if (!box || !imgEl || !triggerItems.length) return;
 
       function activate(item) {
         if (!item || item === lastItem) return;
@@ -530,7 +562,7 @@
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -554,7 +586,7 @@
       slidesPerGroup: 1,
       loop: false,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -573,13 +605,13 @@
     });
 
     // Service Carousel
-    var swiperService = new Swiper(".service-carousel", {
+    var swiperServiceMain = new Swiper(".service-carousel", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -598,13 +630,13 @@
     });
 
     // Service Carousel
-    var swiperService = new Swiper(".service-carousel-3", {
+    var swiperServiceThree = new Swiper(".service-carousel-3", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -629,7 +661,7 @@
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       navigation: {
         nextEl: ".gallary-carousel-wrap .swiper-prev",
@@ -652,14 +684,14 @@
     });
 
     // Testi Carousel (loop disabled: single-slide markup breaks loop layout and causes horizontal overflow)
-    var swiperTesti = new Swiper(".testi-carousel", {
+    var swiperTestiMain = new Swiper(".testi-carousel", {
       slidesPerView: 1,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: false,
       watchOverflow: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       navigation: {
         nextEl: ".testi-top-content-wrap .swiper-prev",
@@ -669,13 +701,13 @@
 
     //Testi Carousel
 
-    var swiperTesti = new Swiper(".testi-carousel-3", {
+    var swiperTestiThree = new Swiper(".testi-carousel-3", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       direction: "vertical",
       mousewheel: {
@@ -685,13 +717,13 @@
       },
     });
 
-    var swiperHistory = new Swiper(".testi-carousel-5", {
+    var swiperTestiHistory = new Swiper(".testi-carousel-5", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       navigation: {
         nextEl: ".testi-top-content-wrap-5 .swiper-prev",
@@ -720,7 +752,7 @@
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -745,7 +777,7 @@
       slidesPerGroup: 1,
       loop: true,
       autoplay: false,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -768,13 +800,13 @@
     });
 
     // Blog Carousel
-    var swiperBlog = new Swiper(".blog-carousel", {
+    var swiperBlogMain = new Swiper(".blog-carousel", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: true,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -797,13 +829,13 @@
     });
 
     // Blog Carousel
-    var swiperBlog = new Swiper(".blog-carousel-2", {
+    var swiperBlogTwo = new Swiper(".blog-carousel-2", {
       slidesPerView: 3,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: true,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       centeredSlides: true,
       breakpoints: {
@@ -827,13 +859,13 @@
     });
 
     // Blog Carousel
-    var swiperBlog = new Swiper(".blog-carousel-3", {
+    var swiperBlogThree = new Swiper(".blog-carousel-3", {
       slidesPerView: 2,
       spaceBetween: 24,
       slidesPerGroup: 1,
       loop: true,
       autoplay: true,
-      grabcursor: true,
+      grabCursor: true,
       speed: 800,
       breakpoints: {
         320: {
@@ -931,21 +963,29 @@
     if (trigger) {
       const items = trigger.querySelectorAll(".project-item-3");
 
-      items[0].classList.add("active");
+      if (items.length) {
+        items[0].classList.add("active");
 
-      items.forEach((item) => {
-        item.addEventListener("mouseenter", function () {
-          items.forEach((el) => el.classList.remove("active"));
-          this.classList.add("active");
+        items.forEach((item) => {
+          item.addEventListener("mouseenter", function () {
+            items.forEach((el) => el.classList.remove("active"));
+            this.classList.add("active");
+          });
         });
-      });
+      }
     }
 
-    // carouselTicker initail
-    $(".carouselTicker-nav").carouselTicker({});
-    $(".carouselTicker-start").carouselTicker({
-      direction: "next",
-    });
+    // CarouselTicker
+    if (
+      typeof $.fn.carouselTicker === "function" &&
+      ($(".carouselTicker-nav").length || $(".carouselTicker-start").length)
+    ) {
+      $(".carouselTicker-nav").carouselTicker({});
+
+      $(".carouselTicker-start").carouselTicker({
+        direction: "next",
+      });
+    }
 
     //Running Animated Text
     const scrollers = document.querySelectorAll(".scroller");
@@ -959,6 +999,9 @@
         scroller.setAttribute("data-animated", true);
 
         const scrollerInner = scroller.querySelector(".scroller__inner");
+
+        if (!scrollerInner) return;
+
         const scrollerContent = Array.from(scrollerInner.children);
 
         scrollerContent.forEach((item) => {
@@ -1031,7 +1074,7 @@
       // ✅ Run only if elements exist
       if (!scrollArea || !scrollImg) return;
 
-      gsap.to(scrollImg, {
+      const scrollTween = gsap.to(scrollImg, {
         x: -400,
         ease: "none",
         scrollTrigger: {
@@ -1043,9 +1086,12 @@
         },
       });
 
-      // cleanup
+      // Cleanup únicamente de este efecto.
       return () => {
-        ScrollTrigger.getAll().forEach((st) => st.kill());
+        if (scrollTween.scrollTrigger) {
+          scrollTween.scrollTrigger.kill();
+        }
+        scrollTween.kill();
         gsap.set(scrollImg, { x: 0 });
       };
     });
@@ -1081,6 +1127,9 @@
 
     revealContainers.forEach((container) => {
       let image = container.querySelector("img");
+
+      if (!image) return;
+
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -1089,10 +1138,12 @@
       });
 
       tl.set(container, { autoAlpha: 1 });
+
       tl.from(container, 1.5, {
         xPercent: -100,
         ease: Power2.out,
       });
+
       tl.from(image, 1.5, {
         xPercent: 100,
         scale: 1.3,
@@ -1135,14 +1186,19 @@
       const overlay = image.querySelector(".img-overlay");
       const img = image.querySelector("img");
 
-      const masterTL = gsap.timeline({ paused: true });
-      masterTL.add(removeOverlay(overlay)).add(scaleInImage(img), "-=1.4");
+      if (!overlay || !img) return;
 
-      let options = {
+      const masterTL = gsap.timeline({ paused: true });
+
+      masterTL
+        .add(removeOverlay(overlay))
+        .add(scaleInImage(img), "-=1.4");
+
+      const options = {
         threshold: 0,
       };
 
-      const io = new IntersectionObserver((entries, options) => {
+      const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             masterTL.play();
@@ -1252,7 +1308,6 @@
             opacity: 0,
             xPercent: -offset,
             duration,
-            opacity: 0,
             ease,
             stagger: { amount: stagger },
           });
@@ -1264,7 +1319,6 @@
             opacity: 0,
             xPercent: offset,
             duration,
-            opacity: 0,
             ease,
             stagger: { amount: stagger },
           });
@@ -1276,7 +1330,6 @@
             opacity: 0,
             duration,
             ease,
-            opacity: 0,
             stagger: { amount: stagger },
           });
           createScrollTrigger(animation, tl);
@@ -1310,7 +1363,6 @@
             opacity: 0,
             duration,
             ease,
-            opacity: 0,
             stagger: { amount: stagger, from: "random" },
           });
           createScrollTrigger(animation, tl);
@@ -1336,7 +1388,7 @@
         gsap.set("[data-text-animation]", { opacity: 1 });
       } else {
         if (type == "slide-up") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             yPercent: offset,
             duration,
@@ -1345,7 +1397,7 @@
           });
         }
         if (type == "slide-down") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             yPercent: -offset,
             duration,
@@ -1354,7 +1406,7 @@
           });
         }
         if (type == "rotate-in") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.set(animation.querySelectorAll(`.${split}`), {
             transformPerspective: 400,
           });
@@ -1368,35 +1420,33 @@
           });
         }
         if (type == "slide-from-right") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             opacity: 0,
             xPercent: offset,
             duration,
-            opacity: 0,
             ease,
           });
         }
         if (type == "fade-in") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             opacity: 0,
             duration,
             ease,
-            opacity: 0,
           });
         }
         if (type == "fade-in-random") {
-          let tl = gsap.timeline({ paused: true });
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             opacity: 0,
             duration,
             ease,
-            opacity: 0,
             stagger: { amount: stagger, from: "random" },
           });
         }
         if (type == "scrub") {
+          let tl = gsap.timeline();
           tl.from(animation.querySelectorAll(`.${split}`), {
             opacity: 0.2,
             duration,
@@ -1575,8 +1625,8 @@
           );
         }
       };
-      window.onscroll = scrollPercentage;
-      window.onload = scrollPercentage;
+      window.addEventListener("scroll", scrollPercentage, { passive: true });
+      window.addEventListener("load", scrollPercentage);
 
       // Back to Top
       function scrollToTop() {
@@ -1605,6 +1655,7 @@
   const sm = gsap.matchMedia();
   sm.add("(min-width: 768px)", () => {
     if (
+      typeof ScrollSmoother !== "undefined" &&
       document.querySelector("#antra-smooth-wrapper") &&
       document.querySelector("#antra-smooth-content")
     ) {

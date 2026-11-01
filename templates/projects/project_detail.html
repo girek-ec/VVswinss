@@ -2,728 +2,483 @@
 {% load static %}
 {% load i18n %}
 {% load i18n_fields %}
+{% static 'antra/assets/img/project/VVS_placeholder_cuadrado.webp' as project_gallery_fallback %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
-
-<!-- ============================================================
-     SEO TITLE
-============================================================ -->
-
+<!-- SEO · TÍTULO / TITLE -->
 {% block title %}
-
-    {% with seo_title=project|localized:"seo_title" %}
-
-        {% if seo_title %}
-
-            {{ seo_title }}
-
-        {% else %}
-
-            {{ project|localized:"title" }} | V&V Swiss Services
-
-        {% endif %}
-
-    {% endwith %}
-
+{% with seo_title=project|localized:"seo_title" %}
+{% if seo_title %}{{ seo_title }}{% else %}{{ project|localized:"title" }} | V&V Swiss Services{% endif %}
+{% endwith %}
 {% endblock %}
 
-
-<!-- ============================================================
-     META DESCRIPTION
-============================================================ -->
-
+<!-- SEO · META DESCRIPCIÓN / META DESCRIPTION -->
 {% block meta_description %}
-
-    {% with meta_description=project|localized:"meta_description" %}
-
-        {% if meta_description %}
-
-            {{ meta_description }}
-
-        {% elif project|localized:"summary" %}
-
-            {{ project|localized:"summary"|striptags|truncatechars:160 }}
-
-        {% else %}
-
-            {{ project|localized:"title" }} | V&V Swiss Services
-
-        {% endif %}
-
-    {% endwith %}
-
+{% with meta_description=project|localized:"meta_description" %}
+{% if meta_description %}
+{{ meta_description }}
+{% elif project|localized:"summary" %}
+{{ project|localized:"summary"|striptags|truncatechars:160 }}
+{% elif project|localized:"content" %}
+{{ project|localized:"content"|striptags|truncatechars:160 }}
+{% else %}
+{{ project|localized:"title" }} | V&V Swiss Services
+{% endif %}
+{% endwith %}
 {% endblock %}
 
+<!-- SEO · ROBOTS / ROBOTS -->
+{% block robots %}
+{% if project.is_indexable %}
+<meta name="robots" content="index,follow">
+{% else %}
+<meta name="robots" content="noindex,nofollow">
+{% endif %}
+{% endblock %}
 
+<!-- SEO · OPEN GRAPH + X / OPEN GRAPH + X -->
+{% block metas %}
+{% with seo_title=project|localized:"seo_title" meta_description=project|localized:"meta_description" %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&V Swiss Services">
+
+{% if seo_title %}
+<meta property="og:title" content="{{ seo_title }}">
+<meta name="twitter:title" content="{{ seo_title }}">
+{% else %}
+<meta property="og:title" content="{{ project|localized:'title' }} | V&V Swiss Services">
+<meta name="twitter:title" content="{{ project|localized:'title' }} | V&V Swiss Services">
+{% endif %}
+
+{% if meta_description %}
+<meta property="og:description" content="{{ meta_description }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+{% elif project|localized:"summary" %}
+<meta property="og:description" content="{{ project|localized:'summary'|striptags|truncatechars:160 }}">
+<meta name="twitter:description" content="{{ project|localized:'summary'|striptags|truncatechars:160 }}">
+{% elif project|localized:"content" %}
+<meta property="og:description" content="{{ project|localized:'content'|striptags|truncatechars:160 }}">
+<meta name="twitter:description" content="{{ project|localized:'content'|striptags|truncatechars:160 }}">
+{% endif %}
+
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+
+{% if CURRENT_LANGUAGE == "de" %}
+<meta property="og:locale" content="de_CH">
+{% elif CURRENT_LANGUAGE == "it" %}
+<meta property="og:locale" content="it_CH">
+{% elif CURRENT_LANGUAGE == "en" %}
+<meta property="og:locale" content="en_GB">
+{% else %}
+<meta property="og:locale" content="fr_CH">
+{% endif %}
+
+{% if project.og_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project.og_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project.og_image.url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+{% elif project.main_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project.main_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project.main_image.url }}">
+{% elif project_visuals and project_visuals.default_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_gallery_fallback }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project_gallery_fallback }}">
+{% endif %}
+
+<meta property="og:image:alt" content="{{ project|localized:'title' }}">
+<meta name="twitter:card" content="summary_large_image">
+
+{% if project.og_image %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project.og_image.url }}">
+{% elif project.main_image %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project.main_image.url }}">
+{% elif project_visuals and project_visuals.default_image %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+{% else %}
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_gallery_fallback }}">
+{% endif %}
+
+<meta name="twitter:image:alt" content="{{ project|localized:'title' }}">
+{% endwith %}
+{% endblock %}
+
+<!-- PERFORMANCE · PRELOAD / PRECARGA -->
+{% block preload %}
+<link rel="preload" as="image" href="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" fetchpriority="high">
+{% endblock %}
 
 {% block content %}
-
-
-<!-- ============================================================
-     PAGE HEADER
-============================================================ -->
-
+<!-- ENCABEZADO DE PÁGINA | PAGE HEADER -->
 <section class="page-header">
-
     <div
         class="bg-img"
-        data-background="{% static 'antra/assets/img/bg-img/page-header-bg.png' %}"
+        data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image: url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"
     ></div>
-
     <div class="overlay"></div>
-
-
     <div class="container">
-
         <div class="page-header-content">
-
-
             <h1 class="title">
-
                 {% trans "Détails du projet" %}
-
             </h1>
-
-
             <h4 class="sub-title">
-
-
                 <a
                     class="home"
                     href="{% url 'core:home' %}"
                 >
                     {% trans "Accueil" %}
                 </a>
-
-
                 <span class="icon">-</span>
-
-
                 <a
                     class="home"
                     href="{% url 'projects:list' %}"
                 >
                     {% trans "Réalisations" %}
                 </a>
-
-
                 <span class="icon">-</span>
-
-
                 <span class="inner-page">
-
                     {{ project|localized:"title" }}
-
                 </span>
-
-
             </h4>
-
-
         </div>
-
     </div>
-
 </section>
-
-
-
-<!-- ============================================================
-     PROJECT DETAILS
-============================================================ -->
-
+<!-- DETALLE DEL PROYECTO | PROJECT DETAILS -->
 <section class="portfolio-details pt-130 pb-130">
-
     <div class="container container-2">
-
         <div class="project-details-wrap">
-
-
-            <!-- =================================================
-                 PROJECT TITLE
-            ================================================== -->
-
+            <!-- TÍTULO DEL PROYECTO | PROJECT TITLE -->
             <h1
                 class="details-title"
                 style="text-align: center!important;"
             >
-
                 {{ project|localized:"title" }}
-
             </h1>
-
-
-
-            <!-- =================================================
-                 BEFORE / AFTER
-            ================================================== -->
-
+            <!-- ANTES / DESPUÉS | BEFORE / AFTER -->
             {% if project.before_after.all %}
-
                 <section class="project-before-after-showcase pt-10 pb-80">
-
                     <div class="container-fluid px-0">
-
-
                         <div class="project-before-after-heading text-center mb-50">
-
                             <h4 class="details-title-2">
-
                                 {% trans "Avant et après" %}
-
                             </h4>
-
                         </div>
-
-
                         {% with comparison=project.before_after.all.0 %}
-
-                            <div class="project-before-after-full">
-
-                                <div class="twentytwenty-container before-after-fullwidth">
-
-
-                                    <img
-                                        src="{{ comparison.before_image.url }}"
-                                        alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
-                                    >
-
-
-                                    <img
-                                        src="{{ comparison.after_image.url }}"
-                                        alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
-                                    >
-
-
+                            {% if comparison %}
+                                <div class="project-before-after-full">
+                                    <div class="twentytwenty-container before-after-fullwidth">
+                                        {% if comparison.before_image %}
+                                            <img
+                                                src="{{ comparison.before_image.url }}"
+                                                alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
+                                                loading="eager"
+                                                decoding="async">
+                                        {% else %}
+                                            <img
+                                                src="{% static 'antra/assets/img/home/before-default.webp' %}"
+                                                alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
+                                                loading="eager"
+                                                decoding="async">
+                                        {% endif %}
+                                        {% if comparison.after_image %}
+                                            <img
+                                                src="{{ comparison.after_image.url }}"
+                                                alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
+                                                loading="eager"
+                                                decoding="async">
+                                        {% else %}
+                                            <img
+                                                src="{% static 'antra/assets/img/home/after-default.webp' %}"
+                                                alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
+                                                loading="eager"
+                                                decoding="async">
+                                        {% endif %}
+                                    </div>
                                 </div>
-
-                            </div>
-
+                            {% endif %}
                         {% endwith %}
-
-
                     </div>
-
                 </section>
-
             {% endif %}
-
-
-
-            <!-- =================================================
-                 PROJECT INFORMATION
-            ================================================== -->
-
+            <!-- INFORMACIÓN DEL PROYECTO | PROJECT INFORMATION -->
             <div class="project-details-meta">
-
-
-                <!-- =================================================
-                     PROJECT TYPE
-                ================================================== -->
-
+                <!-- TIPO DE PROYECTO | PROJECT TYPE -->
                 {% if project.project_type %}
-
                     <div class="details-meta">
-
                         <span>
                             {% trans "Type de projet" %} :
                         </span>
-
                         <h5>
-
                             {{ project.project_type|localized:"name" }}
-
                         </h5>
-
                     </div>
-
                 {% endif %}
-
-
-
-                <!-- =================================================
-                     BUILDING TYPE
-                ================================================== -->
-
+                <!-- TIPO DE EDIFICIO | BUILDING TYPE -->
                 {% if project.building_type %}
-
                     <div class="details-meta">
-
                         <span>
                             {% trans "Type de bâtiment" %} :
                         </span>
-
                         <h5>
-
                             {{ project.building_type|localized:"name" }}
-
                         </h5>
-
                     </div>
-
                 {% endif %}
-
-
-
-                <!-- =================================================
-                     SERVICES
-                ================================================== -->
-
+                <!-- SERVICIOS | SERVICES -->
                 {% with project_services=project.services.all %}
-
                     {% if project_services %}
-
                         <div class="details-meta">
-
                             <span>
                                 {% trans "Services" %} :
                             </span>
-
                             <h5>
-
                                 {% for service in project_services %}
-
                                     {{ service|localized:"name" }}
-
                                     {% if not forloop.last %}
                                         ,
                                     {% endif %}
-
                                 {% endfor %}
-
                             </h5>
-
                         </div>
-
                     {% endif %}
-
                 {% endwith %}
-
-
-
-                <!-- =================================================
-                     LOCATION
-                ================================================== -->
-
+                <!-- UBICACIÓN | LOCATION -->
                 {% if project.location %}
-
                     <div class="details-meta">
-
                         <span>
                             {% trans "Lieu" %} :
                         </span>
-
                         <h5>
-
                             {{ project.location }}
-
                         </h5>
-
                     </div>
-
                 {% endif %}
-
-
-
-                <!-- =================================================
-                     CLIENT
-                ================================================== -->
-
+                <!-- CLIENTE | CLIENT -->
                 {% if project.client %}
-
                     <div class="details-meta">
-
                         <span>
                             {% trans "Client" %} :
                         </span>
-
                         <h5>
-
                             {{ project.client }}
-
                         </h5>
-
                     </div>
-
                 {% endif %}
-
-
-
-                <!-- =================================================
-                     DATE
-                ================================================== -->
-
+                <!-- FECHA | DATE -->
                 {% if project.start_date or project.end_date %}
-
                     <div class="details-meta">
-
                         <span>
                             {% trans "Date" %} :
                         </span>
-
                         <h5>
-
-
                             {% if project.start_date and project.end_date %}
-
-
                                 {% if project.start_date|date:"Y" == project.end_date|date:"Y" %}
-
                                     {{ project.end_date|date:"Y" }}
-
                                 {% else %}
-
                                     {{ project.start_date|date:"Y" }}
                                     -
                                     {{ project.end_date|date:"Y" }}
-
                                 {% endif %}
-
-
                             {% elif project.end_date %}
-
                                 {{ project.end_date|date:"Y" }}
-
                             {% else %}
-
                                 {{ project.start_date|date:"Y" }}
-
                             {% endif %}
-
-
                         </h5>
-
                     </div>
-
                 {% endif %}
-
-
             </div>
-
-
-
-            <!-- =================================================
-                 MAIN IMAGE
-            ================================================== -->
-
+            <!-- IMAGEN PRINCIPAL | MAIN IMAGE -->
             {% if project.main_image %}
-
                 <div class="project-details-img">
-
                     <img
                         src="{{ project.main_image.url }}"
-                        alt="{{ project|localized:'title' }}"
-                    >
-
+                        alt="{{ project|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
-
             {% endif %}
-
-
-
-            <!-- =================================================
-                 PROJECT INTRODUCTION
-            ================================================== -->
-
+            <!-- INTRODUCCIÓN DEL PROYECTO | PROJECT INTRODUCTION -->
             {% if project|localized:"summary" or project|localized:"content" %}
-
                 <div class="project-description">
-
-
                     <h2 class="details-title-2">
-
                         {% trans "Le projet" %}
-
                     </h2>
-
-
                     {% if project|localized:"summary" %}
-
                         <p class="project-summary">
-
                             {{ project|localized:"summary" }}
-
                         </p>
-
                     {% endif %}
-
-
                     {% if project|localized:"content" %}
-
                         {{ project|localized:"content"|linebreaks }}
-
                     {% endif %}
-
-
                 </div>
-
             {% endif %}
-
-
-
-            <!-- =================================================
-                 INTERVENTIONS
-            ================================================== -->
-
+            <!-- INTERVENCIONES | INTERVENTIONS -->
             {% with interventions=project.interventions.all %}
-
                 {% if interventions %}
-
-
                     <h2 class="details-title-2">
-
                         {% trans "Travaux réalisés" %}
-
                     </h2>
-
-
                     <div class="project-details-list">
-
                         <ul>
-
-
                             {% for intervention in interventions %}
-
                                 <li>
-
-
                                     <i class="fa-sharp fa-solid fa-circle-check"></i>
-
-
                                     <strong>
-
                                         {{ intervention|localized:"title" }}
-
                                     </strong>
-
-
                                     {% if intervention|localized:"description" %}
-
                                         <span>
-
                                             {{ intervention|localized:"description" }}
-
                                         </span>
-
                                     {% endif %}
-
-
                                 </li>
-
                             {% endfor %}
-
-
                         </ul>
-
                     </div>
-
-
                 {% endif %}
-
             {% endwith %}
-
-
-
-            <!-- =================================================
-                 PROJECT GALLERY
-            ================================================== -->
-
+            <!-- GALERÍA DEL PROYECTO | PROJECT GALLERY -->
             {% with gallery=project.images.all %}
-
                 {% if gallery %}
-
-
                     <h2 class="details-title-2">
-
                         {% trans "Galerie du projet" %}
-
                     </h2>
-
-
                     <div class="row gy-4 mb-5">
-
-
-                        {% for project_image in gallery %}
-
-                            <div class="col-lg-6 col-md-6">
-
-
-                                <a
-                                    href="{{ project_image.image.url }}"
-                                    class="venobox"
-                                    data-gall="project-gallery"
-                                >
-
-                                    <img
-                                        src="{{ project_image.image.url }}"
-                                        alt="{% if project_image|localized:'alt' %}{{ project_image|localized:'alt' }}{% else %}{{ project|localized:'title' }}{% endif %}"
-                                        class="w-100"
-                                        loading="lazy"
-                                    >
-
-                                </a>
-
-
-                            </div>
-
-                        {% endfor %}
-
-
+                        {% static 'antra/assets/img/project/VVS_placeholder_cuadrado.webp' as project_gallery_fallback %}
+<div class="row gy-4 mb-5">
+    {% for project_image in gallery %}
+        <div class="col-lg-6 col-md-6">
+            <a
+                href="{% if project_image.image %}{{ project_image.image.url }}{% elif project_visuals and project_visuals.default_image %}{{ project_visuals.default_image.url }}{% else %}{{ project_gallery_fallback }}{% endif %}"
+                class="venobox"
+                data-gall="project-gallery"
+            >
+                <img
+                    src="{% if project_image.image %}{{ project_image.image.url }}{% elif project_visuals and project_visuals.default_image %}{{ project_visuals.default_image.url }}{% else %}{{ project_gallery_fallback }}{% endif %}"
+                    alt="{% if project_image|localized:'alt' %}{{ project_image|localized:'alt' }}{% else %}{{ project|localized:'title' }}{% endif %}"
+                    class="w-100"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low">
+            </a>
+        </div>
+    {% empty %}
+        <div class="col-lg-6 col-md-6">
+            <a
+                href="{% if project_visuals and project_visuals.default_image %}{{ project_visuals.default_image.url }}{% else %}{{ project_gallery_fallback }}{% endif %}"
+                class="venobox"
+                data-gall="project-gallery"
+            >
+                <img
+                    src="{% if project_visuals and project_visuals.default_image %}{{ project_visuals.default_image.url }}{% else %}{{ project_gallery_fallback }}{% endif %}"
+                    alt="{{ project|localized:'title' }}"
+                    class="w-100"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low">
+            </a>
+        </div>
+    {% endfor %}
+</div>
                     </div>
-
-
                 {% endif %}
-
             {% endwith %}
-
-
-
-           <!-- =================================================
-     CALL TO ACTION
-================================================== -->
-
+           <!-- LLAMADA A LA ACCIÓN | CALL TO ACTION -->
 <div class="project-detail-cta mt-5 pt-4">
-
     <h2 class="details-title-2">
         {% trans "Vous avez un projet similaire ?" %}
     </h2>
-
     <p>
         {% trans "Contactez V&V Swiss Services pour discuter de votre projet et identifier la solution adaptée à votre bâtiment." %}
     </p>
-
     {% trans "Bonjour, je suis intéressé par un projet similaire et je souhaite recevoir davantage d’informations ainsi qu’un devis." as contact_message %}
     {% trans "Demande concernant un projet similaire" as email_subject %}
-
     <div class="project-contact-actions">
-
         <a href="{% url 'contact:contact' %}" class="project-contact-btn project-contact-main">
     {% trans "Envoyer un message" %}
     <span class="icon">
         <i class="fa-regular fa-arrow-right"></i>
     </span>
 </a>
-
         {% if site_configuration.whatsapp %}
             <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>WhatsApp</span>
             </a>
         {% endif %}
-
         {% if site_configuration.email %}
             <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}" class="project-contact-btn">
                 <i class="fa-regular fa-envelope"></i>
                 <span>{% trans "E-mail" %}</span>
             </a>
         {% endif %}
-
         {% if site_configuration.phone %}
             <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
                 <i class="fa-regular fa-phone"></i>
                 <span>{% trans "Appeler" %}</span>
             </a>
         {% endif %}
-
     </div>
-
 </div>
-
-
         </div>
-
     </div>
-
 </section>
-
-
-<!-- ============================================================
-     CONTACT PROJECT MODAL
-============================================================ -->
-
+<!-- MODAL DE CONTACTO DEL PROYECTO | PROJECT CONTACT MODAL -->
 <div class="modal fade project-contact-modal" id="contactProjectModal" tabindex="-1" aria-labelledby="contactProjectModalLabel" aria-hidden="true">
-
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-
         <div class="modal-content">
-
             <div class="modal-header">
-
                 <div>
                     <span class="project-contact-modal-kicker">V&V Swiss Services</span>
                     <h3 class="modal-title" id="contactProjectModalLabel">{% trans "Parlez-nous de votre projet" %}</h3>
                 </div>
-
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
-
             </div>
-
             <div class="modal-body">
-
                 <p class="project-contact-modal-intro">
                     {% trans "Décrivez votre projet et notre équipe vous contactera pour étudier vos besoins et vous proposer une solution adaptée." %}
                 </p>
-
-
-
                 <div class="request-form-wrap project-modal-form-wrap">
                     {% include "contact/includes/contact_form.html" %}
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
-
-
 {% endblock %}
-
-
-
 {% block extra_js %}
-
 <script>
-
 document.addEventListener(
     "DOMContentLoaded",
     function () {
-
         const contactProjectModal = document.getElementById("contactProjectModal");
-
         if (contactProjectModal && contactProjectModal.parentElement !== document.body) {
             document.body.appendChild(contactProjectModal);
         }
-
         if (contactProjectModal) {
             contactProjectModal.addEventListener("show.bs.modal", function () {
                 if (contactProjectModal.parentElement !== document.body) {
                     document.body.appendChild(contactProjectModal);
                 }
             });
-
             contactProjectModal.addEventListener("shown.bs.modal", function () {
                 contactProjectModal.scrollTop = 0;
             });
         }
-
-
         if (
             typeof jQuery !== "undefined"
             &&
             typeof jQuery.fn.twentytwenty !== "undefined"
         ) {
-
             jQuery(
                 ".twentytwenty-container"
             ).twentytwenty();
-
         }
-
     }
 );
-
 </script>
-
 {% endblock %}

@@ -6,24 +6,41 @@
 
 <html class="no-js" lang="{{ CURRENT_LANGUAGE|default:'fr' }}">
 <head>
-    <!-- =========================================================
-         META · CONFIGURATION GÉNÉRALE
-    ========================================================= -->
+    <!-- META GENERAL / GENERAL META -->
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block meta_description %}V&V Swiss Services{% endblock %}">
-    <!-- =========================================================
-         PAGE TITLE
-    ========================================================= -->
-    <title>{% block title %}VVswinss{% endblock %}</title>
-    <!-- =========================================================
-         FAVICON
-    ========================================================= -->
+
+    <!-- SEO · TITLE -->
+    <title>{% block title %}V&V Swiss Services{% endblock %}</title>
+
+    <!-- SEO · META DESCRIPTION -->
+    <meta name="description" content="{% block meta_description %}V&V Swiss Services · Rénovation, isolation et travaux du bâtiment en Suisse romande.{% endblock %}">
+
+    <!-- SEO · ROBOTS -->
+    {% block robots %}
+    <meta name="robots" content="index,follow">
+    {% endblock %}
+
+    <!-- SEO · CANONICAL -->
+    {% block canonical %}
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    {% endblock %}
+
+    <!-- SEO · OPEN GRAPH / TWITTER / PAGE-SPECIFIC META -->
+    {% block metas %}{% endblock %}
+
+    <!-- FAVICON -->
+    {% if site_configuration and site_configuration.favicon %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ site_configuration.favicon.url }}">
+    {% else %}
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'antra/assets/img/favicon.png' %}">
-    <!-- =========================================================
-         ANTRA · CSS
-    ========================================================= -->
+    {% endif %}
+
+    <!-- PRELOAD · PAGE-SPECIFIC -->
+    {% block preload %}{% endblock %}
+
+    <!-- ANTRA · CSS -->
     <link rel="stylesheet" href="{% static 'antra/assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'antra/assets/css/fontawesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'antra/assets/css/venobox.min.css' %}">
@@ -34,87 +51,89 @@
     <link rel="stylesheet" href="{% static 'antra/assets/css/twentytwenty.min.css' %}">
     <link rel="stylesheet" href="{% static 'antra/assets/css/swiper.min.css' %}">
     <link rel="stylesheet" href="{% static 'antra/assets/css/main.css' %}">
-    <!-- =========================================================
-         V&V SWISS SERVICES · BRAND CSS
-    ========================================================= -->
+
+    <!-- V&V SWISS SERVICES · BRAND CSS -->
     <link rel="stylesheet" href="{% static 'css/vvswinss-theme.css' %}">
-    <!-- =========================================================
-         PAGE-SPECIFIC CSS
-    ========================================================= -->
+
+    <!-- V&V SWISS SERVICES · GLOBAL RESPONSIVE -->
+    <link rel="stylesheet" href="{% static 'antra/assets/css/vvswinss-responsive.css' %}">
+
+    <!-- PAGE-SPECIFIC CSS -->
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
-<!-- =========================================================
-     GLOBAL HEADER
-========================================================= -->
-{% include "includes/header.html" %}
-<!-- =========================================================
-     ANTRA · SMOOTH CONTENT
-========================================================= -->
-<div id="antra-smooth-wrapper">
-    <div id="antra-smooth-content">
-        <!-- =========================================================
-             PAGE CONTENT
-        ========================================================= -->
-        {% block content %}{% endblock %}
-        <!-- =========================================================
-             GLOBAL FOOTER
-        ========================================================= -->
-        {% include "includes/footer.html" %}
+    <!-- GLOBAL HEADER -->
+    {% include "includes/header.html" %}
+
+    <!-- ANTRA · SMOOTH CONTENT -->
+    <div id="antra-smooth-wrapper">
+        <div id="antra-smooth-content">
+            <!-- PAGE CONTENT -->
+            {% block content %}{% endblock %}
+
+            <!-- GLOBAL FOOTER -->
+            {% include "includes/footer.html" %}
+        </div>
     </div>
-</div>
-<!-- =========================================================
-     SCROLL PERCENTAGE
-========================================================= -->
-<div id="scroll-percentage">
-    <span id="scroll-percentage-value"></span>
-</div>
-<!-- =========================================================
-     GLOBAL SCRIPTS
-========================================================= -->
-{% include "includes/scripts.html" %}
-<!-- =========================================================
-     PAGE-SPECIFIC JAVASCRIPT
-========================================================= -->
-{% block extra_js %}{% endblock %}
-<!-- =========================================================
-     SCROLL RESTORATION · PAGE RELOAD / LANGUAGE CHANGE
-========================================================= -->
-<script>
+
+    <!-- SCROLL PERCENTAGE -->
+    <div id="scroll-percentage">
+        <span id="scroll-percentage-value"></span>
+    </div>
+
+    <!-- GLOBAL SCRIPTS -->
+    {% include "includes/scripts.html" %}
+
+    <!-- PAGE-SPECIFIC JAVASCRIPT -->
+    {% block extra_js %}{% endblock %}
+
+    <!-- SCROLL RESTORATION · PAGE RELOAD / LANGUAGE CHANGE -->
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const SCROLL_Y_KEY = "vv_scroll_y";
         const SCROLL_PATH_KEY = "vv_scroll_path";
         const LANGUAGE_SCROLL_KEY = "vv_language_scroll_ratio";
         const LANGUAGE_SCROLL_PENDING_KEY = "vv_language_scroll_pending";
+
         if ("scrollRestoration" in history) {
             history.scrollRestoration = "manual";
         }
 
         function getScrollRatio() {
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
             if (maxScroll <= 0) {
                 return 0;
             }
+
             return window.scrollY / maxScroll;
         }
 
         function restoreExactScroll() {
             const savedPath = sessionStorage.getItem(SCROLL_PATH_KEY);
             const savedScroll = sessionStorage.getItem(SCROLL_Y_KEY);
+
             if (savedPath !== window.location.pathname || savedScroll === null) {
                 return;
             }
+
             const targetScroll = parseFloat(savedScroll);
+
             if (Number.isNaN(targetScroll)) {
                 return;
             }
+
             window.scrollTo(0, targetScroll);
+
             requestAnimationFrame(function () {
                 window.scrollTo(0, targetScroll);
             });
+
             setTimeout(function () {
                 window.scrollTo(0, targetScroll);
             }, 150);
+
             setTimeout(function () {
                 window.scrollTo(0, targetScroll);
             }, 500);
@@ -123,10 +142,13 @@
         function restoreLanguageScroll() {
             const pending = sessionStorage.getItem(LANGUAGE_SCROLL_PENDING_KEY);
             const savedRatio = sessionStorage.getItem(LANGUAGE_SCROLL_KEY);
+
             if (pending !== "1" || savedRatio === null) {
                 return false;
             }
+
             const ratio = parseFloat(savedRatio);
+
             if (Number.isNaN(ratio)) {
                 return false;
             }
@@ -137,40 +159,64 @@
             }
 
             applyScroll();
+
             requestAnimationFrame(function () {
                 applyScroll();
             });
+
             setTimeout(function () {
                 applyScroll();
             }, 150);
+
             setTimeout(function () {
                 applyScroll();
                 sessionStorage.removeItem(LANGUAGE_SCROLL_PENDING_KEY);
                 sessionStorage.removeItem(LANGUAGE_SCROLL_KEY);
             }, 500);
+
             return true;
         }
 
         document.querySelectorAll('form[action*="set_language"]').forEach(function (form) {
             form.addEventListener("submit", function () {
-                sessionStorage.setItem(LANGUAGE_SCROLL_KEY, getScrollRatio().toString());
-                sessionStorage.setItem(LANGUAGE_SCROLL_PENDING_KEY, "1");
+                sessionStorage.setItem(
+                    LANGUAGE_SCROLL_KEY,
+                    getScrollRatio().toString()
+                );
+                sessionStorage.setItem(
+                    LANGUAGE_SCROLL_PENDING_KEY,
+                    "1"
+                );
             });
         });
+
         window.addEventListener("pagehide", function () {
-            sessionStorage.setItem(SCROLL_Y_KEY, window.scrollY.toString());
-            sessionStorage.setItem(SCROLL_PATH_KEY, window.location.pathname);
+            sessionStorage.setItem(
+                SCROLL_Y_KEY,
+                window.scrollY.toString()
+            );
+            sessionStorage.setItem(
+                SCROLL_PATH_KEY,
+                window.location.pathname
+            );
         });
+
         window.addEventListener("load", function () {
             if (restoreLanguageScroll()) {
                 return;
             }
-            const navigationEntries = performance.getEntriesByType("navigation");
-            if (navigationEntries.length > 0 && navigationEntries[0].type === "reload") {
+
+            const navigationEntries =
+                performance.getEntriesByType("navigation");
+
+            if (
+                navigationEntries.length > 0 &&
+                navigationEntries[0].type === "reload"
+            ) {
                 restoreExactScroll();
             }
         });
     });
-</script>
+    </script>
 </body>
 </html>

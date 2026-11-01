@@ -38,9 +38,9 @@ class BlogCategory(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '003 - Blog Category'
+        verbose_name_plural = '003 - Blog Categories'
         ordering = ["name_fr"]
-        verbose_name = "Blog category"
-        verbose_name_plural = "Blog categories"
 
     def __str__(self):
         return self.name_fr
@@ -57,6 +57,7 @@ class BlogCategory(TimeStampedModel):
 
         if self.name_en and not self.slug_en:
             self.slug_en = slugify(self.name_en)
+
 
         super().save(*args, **kwargs)
 
@@ -78,9 +79,9 @@ class BlogTag(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = '004 - Blog Tag'
+        verbose_name_plural = '004 - Blog Tags'
         ordering = ("name_fr",)
-        verbose_name = "BLOG · 02 Tag"
-        verbose_name_plural = "BLOG · 02 Tags"
 
     def __str__(self):
         return self.name_fr
@@ -157,9 +158,9 @@ class Post(
     is_featured = models.BooleanField(default=False)
 
     class Meta:
+        verbose_name = '002 - Post'
+        verbose_name_plural = '002 - Posts'
         ordering = ["-published_at"]
-        verbose_name = "Post"
-        verbose_name_plural = "Posts"
 
     def __str__(self):
         return self.title_fr
@@ -259,9 +260,11 @@ class PostSection(models.Model):
     quote_icon = models.ImageField(upload_to="blog/quotes/", blank=True)
 
     class Meta:
+        verbose_name = '005 - Post Section'
+        verbose_name_plural = '005 - Post Sections'
         ordering = ("order", "id")
-        verbose_name = "BLOG · 04 Section d’article"
-        verbose_name_plural = "BLOG · 04 Sections d’article"
 
     def __str__(self):
         return f"{self.post.title_fr} · {self.order}"
+
+from .visual_config import BlogPageConfiguration  # noqa: F401,E402

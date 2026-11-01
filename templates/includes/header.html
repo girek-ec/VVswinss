@@ -3,106 +3,78 @@
 {% load i18n_fields %}
 {% load language_nav %}
 {% get_current_language as CURRENT_LANGUAGE %}
-<!-- =========================================================
-     PRELOADER
-========================================================= -->
-<div class="preloader overflow-hidden">
-    <div class="site-name">
-        <span>
-            {% if site_configuration %}
-                {{ site_configuration.company_name }}
-            {% else %}
-                V&V Swiss Services
-            {% endif %}
-        </span>
+<!-- PRECARGADOR | PRELOADER -->
+<div class="preloader overflow-hidden vvs-preloader">
+    <div
+        class="site-name vvs-preloader-brand"
+        {% if site_configuration and site_configuration.preloader_background %}
+            style="background-image: url('{{ site_configuration.preloader_background.url }}');"
+        {% endif %}
+    >
+        <div class="vvs-preloader-overlay"></div>
+        <div class="vvs-preloader-content">
+    {% if site_configuration and site_configuration.white_logo %}
+        <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name|default:'V&V Swiss Services' }}" class="vvs-preloader-logo">
+    {% elif site_configuration and site_configuration.logo %}
+        <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name|default:'V&V Swiss Services' }}" class="vvs-preloader-logo">
+    {% else %}
+        <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services" class="vvs-preloader-logo">
+    {% endif %}
+</div>
     </div>
     <div class="preloader-gutters">
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
-        <div class="bar">
-            <div class="inner-bar"></div>
-        </div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
+        <div class="bar"><div class="inner-bar"></div></div>
     </div>
 </div>
-<!-- =========================================================
-     HEADER
-========================================================= -->
+<!-- ENCABEZADO | HEADER -->
 <header class="header header-4 sticky-active">
     <div class="primary-header">
         <div class="container">
             <div class="primary-header-inner">
                 <div class="header-left-wrap">
-                    <!-- =================================================
-                             LOGO
-                        ================================================== -->
+                    <!-- LOGOTIPO | LOGO -->
                         <div class="header-logo">
                             <a href="{% url 'core:home' %}">
                                 {% if site_configuration and site_configuration.logo %}
                                     <img src="{{ site_configuration.logo.url }}"
-                                         alt="{{ site_configuration.company_name }}">
+                                         alt="{{ site_configuration.company_name }}" loading="eager" decoding="async">
                                 {% else %}
-                                    <img src="{% static 'antra/assets/img/logo/logo-2.png' %}"
-                                         alt="V&V Swiss Services">
+                                    <img src="{% static 'antra/assets/img/logo/logo-1.png' %}"
+                                         alt="V&V Swiss Services" loading="eager" decoding="async" width="321" height="61">
                                 {% endif %}
                             </a>
                         </div>
-       <!-- =================================================
-     MAIN MENU
-================================================== -->
+       <!-- MENÚ PRINCIPAL | MAIN MENU -->
 <div class="header-menu-wrap">
     <div class="mobile-menu-items">
         <ul>
-            <!-- =================================================
-                 ACCUEIL
-            ================================================== -->
+            <!-- INICIO | HOME -->
             <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "home" %} class="active"{% endif %}>
                 <a href="{% url 'core:home' %}">
                     {% trans "Accueil" %}
                 </a>
             </li>
-
-<!-- =================================================
-     SERVICES · CATEGORIES
-================================================= -->
+<!-- SERVICIOS · CATEGORÍAS | SERVICES · CATEGORIES -->
 <li class="menu-item-has-children{% if request.resolver_match.namespace == 'services' %} active{% endif %}">
     <a href="{% url 'services:list' %}">
         {% trans "Services" %}
     </a>
-
     {% if nav_service_categories %}
     <ul>
-
-        <!-- =================================================
-             TOUS LES SERVICES
-        ================================================== -->
+        <!-- TODOS LOS SERVICIOS | ALL SERVICES -->
         <li>
             <a href="{% url 'services:list' %}">
                 {% trans "Tous les services" %}
             </a>
         </li>
-
-        <!-- =================================================
-             CATÉGORIES
-        ================================================== -->
+        <!-- CATEGORÍAS | CATEGORIES -->
         {% for category in nav_service_categories %}
             {% with category_slug=category|localized:"slug" %}
                 {% if category_slug %}
@@ -114,38 +86,28 @@
                 {% endif %}
             {% endwith %}
         {% endfor %}
-
     </ul>
     {% endif %}
 </li>
-
-            <!-- =================================================
-                 RÉALISATIONS
-            ================================================== -->
+            <!-- PROYECTOS | PROJECTS -->
             <li{% if request.resolver_match.namespace == "projects" %} class="active"{% endif %}>
                 <a href="{% url 'projects:list' %}">
                     {% trans "Réalisations" %}
                 </a>
             </li>
-            <!-- =================================================
-                 À PROPOS
-            ================================================== -->
+            <!-- NOSOTROS | ABOUT US -->
             <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "about" %} class="active"{% endif %}>
                 <a href="{% url 'core:about' %}">
                     {% trans "À propos" %}
                 </a>
             </li>
-            <!-- =================================================
-                 PROFESSIONNELS
-            ================================================== -->
+            <!-- PROFESIONALES | PROFESSIONALS -->
             <li{% if request.resolver_match.namespace == "core" and request.resolver_match.url_name == "professionals" %} class="active"{% endif %}>
                 <a href="{% url 'core:professionals' %}">
                     {% trans "Professionnels" %}
                 </a>
             </li>
-   <!-- =================================================
-     LEGAL
-================================================== -->
+   <!-- LEGAL | LEGAL -->
 <li class="menu-item-has-children{% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'mentions_legales' or request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'protection_donnees' %} active{% endif %}">
     <a href="#">
         {% trans "Informations légales" %}
@@ -163,9 +125,13 @@
         </li>
     </ul>
 </li>
-            <!-- =================================================
-                 CONTACT
-            ================================================== -->
+            <!-- NOTICIAS Y CONSEJOS | NEWS & ADVICE -->
+            <li{% if request.resolver_match.namespace == "blog" %} class="active"{% endif %}>
+                <a href="{% url 'blog:list' %}">
+                    {% trans "Actualités & conseils" %}
+                </a>
+            </li>
+            <!-- CONTACTO | CONTACT -->
             <li{% if request.resolver_match.namespace == "contact" %} class="active"{% endif %}>
                 <a href="{% url 'contact:contact' %}">
                     {% trans "Contact" %}
@@ -175,14 +141,9 @@
     </div>
 </div>
                 </div>
-             <!-- =================================================
-     RIGHT HEADER
-================================================== -->
+             <!-- LADO DERECHO DEL ENCABEZADO | RIGHT HEADER -->
 <div class="header-right-wrap">
-
-<!-- =================================================
-     DESKTOP LANGUAGES
-================================================== -->
+<!-- IDIOMAS DE ESCRITORIO | DESKTOP LANGUAGES -->
 <div class="header-language">
     <form action="{% switch_language_url 'fr' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
@@ -200,10 +161,7 @@
         <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
 </div>
-<!-- =================================================
-     MOBILE HEADER LANGUAGES
-     Visible solamente en tablet y móvil
-================================================== -->
+<!-- IDIOMAS DEL ENCABEZADO MÓVIL | MOBILE HEADER LANGUAGES -->
 <div class="header-language-mobile">
     <form action="{% switch_language_url 'fr' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
@@ -221,16 +179,11 @@
         <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
 </div>
-
-                    <!-- =================================================
-     SEARCH
-================================================== -->
+                    <!-- BÚSQUEDA | SEARCH -->
 <div class="search-icon dl-search-icon" role="button" tabindex="0" aria-label="{% trans 'Ouvrir la recherche' %}">
     <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 </div>
-<!-- =================================================
-     SIDEBAR BUTTON
-================================================== -->
+<!-- BOTÓN DEL MENÚ LATERAL | SIDEBAR BUTTON -->
 <div class="sidebar-icon">
     <button class="sidebar-trigger open" type="button" aria-label="{% trans 'Ouvrir le menu' %}">
         <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i>
@@ -241,9 +194,7 @@
         </div>
     </div>
 </header>
-<!-- =========================================================
-     SEARCH POPUP
-========================================================= -->
+<!-- VENTANA DE BÚSQUEDA | SEARCH POPUP -->
 <div id="popup-search-box">
     <div class="box-inner-wrap d-flex align-items-center">
         <form id="site-search-form" action="#" method="get" role="search" aria-label="{% trans 'Recherche sur le site' %}">
@@ -254,9 +205,7 @@
         </button>
     </div>
 </div>
-<!-- =========================================================
-     SIDEBAR
-========================================================= -->
+<!-- MENÚ LATERAL | SIDEBAR -->
 <div id="sidebar-area" class="sidebar-area">
     <button class="sidebar-trigger close" type="button" aria-label="{% trans 'Fermer le menu' %}">
         <svg class="sidebar-close" xmlns="http://www.w3.org/2000/svg" width="16px" height="12.7px" viewBox="0 0 16 12.7">
@@ -267,27 +216,21 @@
         </svg>
     </button>
     <div class="side-menu-content">
-        <!-- =================================================
-             SIDEBAR LOGO
-        ================================================== -->
+        <!-- LOGO DEL MENÚ LATERAL | SIDEBAR LOGO -->
         <div class="side-menu-logo">
             <a href="{% url 'core:home' %}">
                 {% if site_configuration and site_configuration.white_logo %}
-                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}">
+                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}" loading="eager" decoding="async">
                 {% elif site_configuration and site_configuration.logo %}
-                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}">
+                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}" loading="eager" decoding="async">
                 {% else %}
-                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services">
+                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services" loading="eager" decoding="async" width="321" height="61">
                 {% endif %}
             </a>
         </div>
-        <!-- =================================================
-             MENU GENERATED BY ANTRA
-        ================================================== -->
+        <!-- MENÚ GENERADO POR ANTRA | MENU GENERATED BY ANTRA -->
         <div class="side-menu-wrap"></div>
-        <!-- =================================================
-             COMPANY
-        ================================================== -->
+        <!-- EMPRESA | COMPANY -->
         <div class="side-menu-about">
             <h4 class="title">
                 {% if site_configuration %}
@@ -297,20 +240,18 @@
                 {% endif %}
             </h4>
         </div>
-        <!-- =================================================
-     PRIVATE INBOX ACCESS
-================================================== -->
+        <!-- ACCESO PRIVADO A BANDEJA | PRIVATE INBOX ACCESS -->
         <div class="side-menu-contact">
             <ul class="side-menu-list">
                 {% if request.user.is_authenticated and request.user.is_staff %}
-                <!-- INBOX -->
+                <!-- BANDEJA DE ENTRADA | INBOX -->
                 <li>
                     <a href="{% url 'contact:inbox' %}">
                         <i class="fa-regular fa-envelope"></i>
                         {% trans "Boîte de réception" %}
                     </a>
                 </li>
-               <!-- LOGOUT -->
+               <!-- CERRAR SESIÓN | LOGOUT -->
 <li>
     <form action="{% url 'contact:inbox_logout' %}" method="post" class="side-menu-logout-form">
         {% csrf_token %}
@@ -321,7 +262,7 @@
     </form>
 </li>
                 {% else %}
-                <!-- LOGIN -->
+                <!-- INICIAR SESIÓN | LOGIN -->
                 <li>
                     <a href="{% url 'contact:inbox_login' %}">
                         <i class="fa-regular fa-user"></i>
@@ -331,13 +272,11 @@
                 {% endif %}
             </ul>
         </div>
-        <!-- =================================================
-             CONTACT
-        ================================================== -->
+        <!-- CONTACTO | CONTACT -->
         {% if site_configuration %}
         <div class="side-menu-contact">
             <ul class="side-menu-list">
-                <!-- ADDRESS -->
+                <!-- DIRECCIÓN | ADDRESS -->
                 {% if site_configuration.address %}
                 <li>
                     {{ site_configuration.address }}
@@ -346,7 +285,7 @@
                     {% if site_configuration.country %}<br>{% trans "Suisse" %}{% endif %}
                 </li>
                 {% endif %}
-                <!-- PHONE -->
+                <!-- TELÉFONO | PHONE -->
                 {% if site_configuration.phone %}
                 <li>
                     <a href="tel:{{ site_configuration.phone }}">
@@ -354,7 +293,7 @@
                     </a>
                 </li>
                 {% endif %}
-                <!-- EMAIL -->
+                <!-- CORREO ELECTRÓNICO | EMAIL -->
                 {% if site_configuration.email %}
                 <li>
                     <a class="mail" href="mailto:{{ site_configuration.email }}">
@@ -365,9 +304,7 @@
             </ul>
         </div>
         {% endif %}
-        <!-- =================================================
-             WHATSAPP
-        ================================================== -->
+        <!-- WHATSAPP | WHATSAPP -->
         {% if site_configuration and site_configuration.whatsapp %}
         <div class="side-menu-contact">
             <ul class="side-menu-list">
@@ -380,9 +317,7 @@
             </ul>
         </div>
         {% endif %}
-        <!-- =================================================
-             SOCIAL
-        ================================================== -->
+        <!-- REDES SOCIALES | SOCIAL -->
         {% if social_links %}
         <ul class="side-menu-social">
             {% for social_link in social_links %}
@@ -401,35 +336,27 @@
     </div>
 </div>
 <div id="sidebar-overlay"></div>
-<!-- =========================================================
-     MOBILE MENU
-========================================================= -->
+<!-- MENÚ MÓVIL | MOBILE MENU -->
 <div class="mobile-side-menu">
     <div class="side-menu-content">
-        <!-- =================================================
-             MOBILE HEADER
-        ================================================== -->
+        <!-- ENCABEZADO MÓVIL | MOBILE HEADER -->
         <div class="side-menu-head">
             <a href="{% url 'core:home' %}">
                 {% if site_configuration and site_configuration.white_logo %}
-                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}">
+                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name }}" loading="eager" decoding="async">
                 {% elif site_configuration and site_configuration.logo %}
-                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}">
+                <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name }}" loading="eager" decoding="async">
                 {% else %}
-                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services">
+                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services" loading="eager" decoding="async" width="321" height="61">
                 {% endif %}
             </a>
             <button class="mobile-side-menu-close" type="button" aria-label="{% trans 'Fermer le menu' %}">
                 <i class="fa-regular fa-xmark"></i>
             </button>
         </div>
-        <!-- =================================================
-             MOBILE MENU GENERATED BY ANTRA
-        ================================================== -->
+        <!-- MENÚ MÓVIL GENERADO POR ANTRA | MOBILE MENU GENERATED BY ANTRA -->
         <div class="side-menu-wrap"></div>
-        <!-- =================================================
-             MOBILE CONTACT
-        ================================================== -->
+        <!-- CONTACTO MÓVIL | MOBILE CONTACT -->
         {% if site_configuration %}
         <div class="side-menu-contact">
             <div class="side-menu-header">
@@ -438,7 +365,7 @@
                 </h3>
             </div>
             <ul class="side-menu-list">
-                <!-- ADDRESS -->
+                <!-- DIRECCIÓN | ADDRESS -->
                 {% if site_configuration.address %}
                 <li>
                     <i class="fas fa-map-marker-alt"></i>
@@ -450,7 +377,7 @@
                     </p>
                 </li>
                 {% endif %}
-                <!-- PHONE -->
+                <!-- TELÉFONO | PHONE -->
                 {% if site_configuration.phone %}
                 <li>
                     <i class="fas fa-phone"></i>
@@ -459,7 +386,7 @@
                     </a>
                 </li>
                 {% endif %}
-                <!-- EMAIL -->
+                <!-- CORREO ELECTRÓNICO | EMAIL -->
                 {% if site_configuration.email %}
                 <li>
                     <i class="fas fa-envelope-open-text"></i>
@@ -468,7 +395,7 @@
                     </a>
                 </li>
                 {% endif %}
-                <!-- WHATSAPP -->
+                <!-- WHATSAPP | WHATSAPP -->
                 {% if site_configuration.whatsapp %}
                 <li>
                     <i class="fa-brands fa-whatsapp"></i>
@@ -480,9 +407,7 @@
             </ul>
         </div>
         {% endif %}
-<!-- =================================================
-     MOBILE LANGUAGES
-================================================== -->
+<!-- IDIOMAS MÓVILES | MOBILE LANGUAGES -->
 <div class="mobile-language">
     <form action="{% switch_language_url 'fr' %}" method="get">
         <button type="submit"{% if CURRENT_LANGUAGE == "fr" %} class="active" aria-current="page"{% endif %}>FR</button>
@@ -500,17 +425,13 @@
         <button type="submit"{% if CURRENT_LANGUAGE == "en" %} class="active" aria-current="page"{% endif %}>EN</button>
     </form>
 </div>
-        <!-- =================================================
-             MOBILE QUOTE BUTTON
-        ================================================== -->
+        <!-- BOTÓN DE COTIZACIÓN MÓVIL | MOBILE QUOTE BUTTON -->
         <div class="header-btn-wrap">
             <a href="{% url 'contact:contact' %}" class="tl-primary-btn header-btn">
                 {% trans "Demander un devis" %}
             </a>
         </div>
-        <!-- =================================================
-             MOBILE SOCIAL
-        ================================================== -->
+        <!-- REDES SOCIALES MÓVILES | MOBILE SOCIAL -->
         {% if social_links %}
         <ul class="side-menu-social">
             {% for social_link in social_links %}

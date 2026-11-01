@@ -1,5 +1,8 @@
+﻿import re
+
 from django.db import models
-from django.utils.text import slugify
+from django.utils.html import strip_tags
+from django.utils.text import Truncator, slugify
 from django.utils.translation import get_language
 
 
@@ -20,22 +23,32 @@ class TimeStampedModel(models.Model):
 # ============================================================
 
 class MultilingualSEOModel(models.Model):
-    seo_title_es = models.CharField(max_length=160, blank=True)
-    seo_title_fr = models.CharField(max_length=160, blank=True)
-    seo_title_de = models.CharField(max_length=160, blank=True)
-    seo_title_it = models.CharField(max_length=160, blank=True)
-    seo_title_en = models.CharField(max_length=160, blank=True)
+    SEO_LANGUAGES = ("es", "fr", "de", "it", "en")
+    SEO_TITLE_MAX_LENGTH = 70
+    SEO_DESCRIPTION_MAX_LENGTH = 160
+    SEO_BRAND_NAME = "V&V Swiss Services"
 
-    meta_description_es = models.CharField(max_length=320, blank=True)
-    meta_description_fr = models.CharField(max_length=320, blank=True)
-    meta_description_de = models.CharField(max_length=320, blank=True)
-    meta_description_it = models.CharField(max_length=320, blank=True)
-    meta_description_en = models.CharField(max_length=320, blank=True)
+    seo_title_es = models.CharField(max_length=160, blank=True, default="")
+    seo_title_fr = models.CharField(max_length=160, blank=True, default="")
+    seo_title_de = models.CharField(max_length=160, blank=True, default="")
+    seo_title_it = models.CharField(max_length=160, blank=True, default="")
+    seo_title_en = models.CharField(max_length=160, blank=True, default="")
+
+    meta_description_es = models.CharField(max_length=320, blank=True, default="")
+    meta_description_fr = models.CharField(max_length=320, blank=True, default="")
+    meta_description_de = models.CharField(max_length=320, blank=True, default="")
+    meta_description_it = models.CharField(max_length=320, blank=True, default="")
+    meta_description_en = models.CharField(max_length=320, blank=True, default="")
 
     og_image = models.ImageField(
         upload_to="seo/",
         blank=True,
         null=True,
+        verbose_name="Imagen social",
+        help_text=(
+            "Opcional. Si se deja vacía, el sistema utilizará "
+            "automáticamente la imagen principal del contenido."
+        ),
     )
 
     is_indexable = models.BooleanField(default=True)
@@ -43,7 +56,125 @@ class MultilingualSEOModel(models.Model):
     class Meta:
         abstract = True
 
+    @staticmethod
+    def _clean_seo_text(value):
+        if not value:
+            return ""
 
+        value = strip_tags(str(value))
+        value = re.sub(r"\s+", " ", value).strip()
+
+        return value
+
+    def _get_seo_source(self, language, source_fields):
+        for source_field in source_fields:
+            field_name = f"{source_field}_{language}"
+
+            if not hasattr(self, field_name):
+                continue
+
+            value = self._clean_seo_text(
+                getattr(self, field_name, "")
+            )
+
+            if value:
+                return value
+
+        return ""
+
+    def _build_seo_title(self, value):
+        value = self._clean_seo_text(value)
+
+        if not value:
+            return ""
+
+        suffix = f" | {self.SEO_BRAND_NAME}"
+        available_length = (
+            self.SEO_TITLE_MAX_LENGTH
+            - len(suffix)
+        )
+
+        if available_length <= 0:
+            return Truncator(value).chars(
+                self.SEO_TITLE_MAX_LENGTH,
+                truncate="…",
+            )
+
+        title = Truncator(value).chars(
+            available_length,
+            truncate="…",
+        )
+
+        return f"{title}{suffix}"
+
+    def _build_meta_description(self, value):
+        value = self._clean_seo_text(value)
+
+        if not value:
+            return ""
+
+        return Truncator(value).chars(
+            self.SEO_DESCRIPTION_MAX_LENGTH,
+            truncate="…",
+        )
+
+    def autofill_seo(
+        self,
+        *,
+        title_sources,
+        description_sources,
+    ):
+        """
+        Completa automáticamente SEO por idioma.
+
+        Reglas:
+        - No traduce contenido.
+        - No copia FR hacia DE/IT/EN.
+        - Solo genera SEO si existe contenido en ese idioma.
+        - Nunca sobrescribe SEO escrito manualmente.
+        """
+
+        for language in self.SEO_LANGUAGES:
+            seo_title_field = f"seo_title_{language}"
+            meta_description_field = (
+                f"meta_description_{language}"
+            )
+
+            if not getattr(self, seo_title_field, ""):
+                title_source = self._get_seo_source(
+                    language,
+                    title_sources,
+                )
+
+                if title_source:
+                    setattr(
+                        self,
+                        seo_title_field,
+                        self._build_seo_title(
+                            title_source
+                        ),
+                    )
+
+            if not getattr(
+                self,
+                meta_description_field,
+                "",
+            ):
+                description_source = (
+                    self._get_seo_source(
+                        language,
+                        description_sources,
+                    )
+                )
+
+                if description_source:
+                    setattr(
+                        self,
+                        meta_description_field,
+                        self._build_meta_description(
+                            description_source
+                        ),
+                    )
 # ============================================================
 # SITE CONFIGURATION
 # Configuración general, contacto y datos legales
@@ -67,7 +198,11 @@ class SiteConfiguration(TimeStampedModel):
     # IDENTIDAD VISUAL
     # ========================================================
 
-    logo = models.ImageField(upload_to="site/")
+    logo = models.ImageField(
+        upload_to="site/",
+        blank = True,
+        null = True,
+    )
 
     white_logo = models.ImageField(
         upload_to="site/",
@@ -79,6 +214,30 @@ class SiteConfiguration(TimeStampedModel):
         upload_to="site/",
         blank=True,
         null=True,
+    )
+
+    preloader_background = models.ImageField(
+        upload_to="site/preloader/",
+        blank=True,
+        null=True,
+        verbose_name="Imagen de fondo del preloader",
+        help_text=(
+            "Imagen mostrada durante la transición/carga entre páginas. "
+            "Recomendado: formato horizontal 16:9, mínimo 1600 px de ancho."
+        ),
+    )
+
+    footer_background = models.ImageField(
+        "PIE DE PÁGINA · Imagen de fondo",
+        upload_to="site/footer/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen de fondo global del pie de página en todo el sitio. "
+            "Si se deja vacía o se usa Limpiar, se mostrará la imagen estática "
+            "antra/assets/img/bg-img/footer-bg.webp. "
+            "Recomendado: horizontal 16:9, mínimo 1600 px de ancho."
+        ),
     )
 
     # ========================================================
@@ -239,8 +398,8 @@ class SiteConfiguration(TimeStampedModel):
     )
 
     class Meta:
-        verbose_name = "Site configuration"
-        verbose_name_plural = "Site configuration"
+        verbose_name = '001 - General Configuration'
+        verbose_name_plural = '001 - General Configuration'
 
     def __str__(self):
         return self.company_name
@@ -263,9 +422,9 @@ class SocialLink(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '020 - Social Link'
+        verbose_name_plural = '020 - Social Links'
         ordering = ["order", "name"]
-        verbose_name = "Social link"
-        verbose_name_plural = "Social links"
 
     def __str__(self):
         return self.name
@@ -287,9 +446,9 @@ class BusinessHour(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '013 - Business Hour'
+        verbose_name_plural = '013 - Business Hours'
         ordering = ["order"]
-        verbose_name = "Business hour"
-        verbose_name_plural = "Business hours"
 
     def __str__(self):
         return f"{self.day_fr}: {self.hours}"
@@ -365,8 +524,8 @@ class AboutContent(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "About content"
-        verbose_name_plural = "About content"
+        verbose_name = '003 - About Us'
+        verbose_name_plural = '003 - About Us'
 
     def __str__(self):
         return self.intro_title_fr or "About V&V Swiss Services"
@@ -389,9 +548,9 @@ class ServiceArea(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '012 - Service Area'
+        verbose_name_plural = '012 - Service Areas'
         ordering = ["order", "name"]
-        verbose_name = "Service area"
-        verbose_name_plural = "Service areas"
 
     def __str__(self):
         return self.name
@@ -420,9 +579,9 @@ class ProcessStep(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '011 - Process Step'
+        verbose_name_plural = '011 - Work Process'
         ordering = ["number"]
-        verbose_name = "Process step"
-        verbose_name_plural = "Process steps"
 
     def __str__(self):
         return f"{self.number}. {self.title_fr}"
@@ -458,9 +617,9 @@ class TeamMember(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '005 - Team Member'
+        verbose_name_plural = '005 - Team'
         ordering = ["order", "name"]
-        verbose_name = "Team member"
-        verbose_name_plural = "Team members"
 
     def __str__(self):
         return self.name
@@ -543,9 +702,9 @@ class Insurance(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '006 - Insurance'
+        verbose_name_plural = '006 - Insurance'
         ordering = ["order", "name_fr"]
-        verbose_name = "Insurance"
-        verbose_name_plural = "Insurances"
 
     def __str__(self):
         return self.name_fr
@@ -581,9 +740,9 @@ class Certification(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '007 - Certification'
+        verbose_name_plural = '007 - Certifications'
         ordering = ["order", "name"]
-        verbose_name = "Certification"
-        verbose_name_plural = "Certifications"
 
     def __str__(self):
         return self.name
@@ -616,9 +775,9 @@ class CompanyValue(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '008 - Company Value'
+        verbose_name_plural = '008 - Company Values'
         ordering = ["order"]
-        verbose_name = "Company value"
-        verbose_name_plural = "Company values"
 
     def __str__(self):
         return self.title_fr
@@ -641,6 +800,8 @@ class Statistic(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '009 - Statistic'
+        verbose_name_plural = '009 - Statistics'
         ordering = ["order"]
 
     def __str__(self):
@@ -677,6 +838,8 @@ class Testimonial(TimeStampedModel):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = '010 - Testimonial'
+        verbose_name_plural = '010 - Testimonials'
         ordering = ["order", "-created_at"]
 
     def __str__(self):
@@ -698,9 +861,9 @@ class FAQCategory(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '014 - FAQ Category'
+        verbose_name_plural = '014 - FAQ Categories'
         ordering = ["order", "name_fr"]
-        verbose_name = "FAQ category"
-        verbose_name_plural = "FAQ categories"
 
     def __str__(self):
         return self.name_fr
@@ -733,9 +896,9 @@ class FAQ(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = '015 - FAQ'
+        verbose_name_plural = '015 - Frequently Asked Questions'
         ordering = ["order", "question_fr"]
-        verbose_name = "FAQ"
-        verbose_name_plural = "FAQs"
 
     def __str__(self):
         return self.question_fr
@@ -828,8 +991,8 @@ class InstitutionalPage(
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "Institutional page"
-        verbose_name_plural = "Institutional pages"
+        verbose_name = '019 - Institutional Page'
+        verbose_name_plural = '019 - Institutional Pages'
 
     def __str__(self):
         return self.title_fr
@@ -915,10 +1078,144 @@ class HomeContent(TimeStampedModel):
     subtitle_it = models.TextField(blank=True)
     subtitle_en = models.TextField(blank=True)
 
+    # ========================================================
+    # HOME · IMÁGENES ADMINISTRABLES
+    #
+    # Regla general:
+    # - Si se carga una imagen, se muestra la imagen de /media/.
+    # - Si queda vacía, el template usa su imagen original de /static/.
+    # ========================================================
+
     hero_image = models.ImageField(
-        upload_to="home/",
+        "HOME · 01 Hero · Imagen de respaldo",
+        upload_to="home/hero/",
         blank=True,
         null=True,
+        help_text=(
+            "Se utiliza en el Hero únicamente cuando la categoría del servicio "
+            "no tiene imagen propia. Respaldo estático: images/hero-img-1.webp."
+        ),
+    )
+
+    services_default_image = models.ImageField(
+        "HOME · 02 Servicios · Imagen de respaldo",
+        upload_to="home/services/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen de respaldo para las tarjetas de categorías/servicios cuando "
+            "la categoría no tiene imagen. Respaldo estático: project/project-img-1.png."
+        ),
+    )
+
+    about_image_primary = models.ImageField(
+        "HOME · 03 Empresa · Imagen principal",
+        upload_to="home/about/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Primera imagen de la sección Empresa / Experiencia. "
+            "Respaldo estático: images/about-img-4.webp."
+        ),
+    )
+
+    about_image_secondary = models.ImageField(
+        "HOME · 03 Empresa · Imagen secundaria",
+        upload_to="home/about/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Segunda imagen superpuesta de la sección Empresa / Experiencia. "
+            "Respaldo estático: images/about-img-5.webp."
+        ),
+    )
+
+    values_default_image = models.ImageField(
+        "HOME · 04 Valores · Imagen de respaldo",
+        upload_to="home/values/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Se usa cuando un valor de empresa no tiene imagen propia. "
+            "Respaldo estático: bg-img/banner-process-1.webp."
+        ),
+    )
+
+    skill_image = models.ImageField(
+        "HOME · 05 Savoir-faire · Imagen principal",
+        upload_to="home/skill/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen de la sección Notre savoir-faire. "
+            "Respaldo estático: images/skill-img-1.webp."
+        ),
+    )
+
+    before_fallback_image = models.ImageField(
+        "HOME · 06 Antes/Después · Imagen ANTES de respaldo",
+        upload_to="home/before-after/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Se utiliza si el registro Antes/Después no tiene imagen 'Antes'. "
+            "Respaldo estático actual: project/project-img-1.png."
+        ),
+    )
+
+    after_fallback_image = models.ImageField(
+        "HOME · 06 Antes/Después · Imagen DESPUÉS de respaldo",
+        upload_to="home/before-after/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Se utiliza si el registro Antes/Después no tiene imagen 'Después'. "
+            "Respaldo estático actual: project/project-img-1.png."
+        ),
+    )
+
+    testimonials_section_image = models.ImageField(
+        "HOME · 07 Testimonios · Imagen grande de sección",
+        upload_to="home/testimonials/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen grande situada junto al carrusel de testimonios. "
+            "Respaldo estático: testi/testi-img-2.webp."
+        ),
+    )
+
+    testimonial_avatar_default = models.ImageField(
+        "HOME · 07 Testimonios · Avatar de respaldo",
+        upload_to="home/testimonials/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Avatar utilizado cuando un testimonio no tiene fotografía propia. "
+            "Respaldo estático: testi/testi-author-1.png."
+        ),
+    )
+
+    contact_image = models.ImageField(
+        "HOME · 09 Contacto · Imagen principal",
+        upload_to="home/contact/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen de la sección de contacto del Home. "
+            "Respaldo estático: images/contact-img-1.png."
+        ),
+    )
+
+    blog_default_image = models.ImageField(
+        "HOME · 10 Blog · Imagen de respaldo",
+        upload_to="home/blog/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Se utiliza cuando un artículo no tiene imagen principal. "
+            "Respaldo estático actual: project/project-img-1.png."
+        ),
     )
 
     video_url = models.URLField(blank=True)
@@ -926,8 +1223,8 @@ class HomeContent(TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = "Home content"
-        verbose_name_plural = "Home content"
+        verbose_name = '002 - Home'
+        verbose_name_plural = '002 - Home'
 
     def __str__(self):
         return self.title_fr
@@ -1024,8 +1321,8 @@ class ProfessionalPage(TimeStampedModel):
     )
 
     class Meta:
-        verbose_name = "Professionals · Page"
-        verbose_name_plural = "Professionals · Page"
+        verbose_name = '016 - Professionals Page'
+        verbose_name_plural = '016 - Professionals'
 
     def __str__(self):
         return self.hero_title_fr or "Professionnels"
@@ -1167,9 +1464,9 @@ class ProfessionalBlock(TimeStampedModel):
     )
 
     class Meta:
+        verbose_name = '017 - Professionals Block'
+        verbose_name_plural = '017 - Professionals Blocks'
         ordering = ["order", "id"]
-        verbose_name = "Professionals · Block"
-        verbose_name_plural = "Professionals · Blocks"
 
     def __str__(self):
         return self.title_fr or f"Bloque {self.pk or ''}".strip()
@@ -1186,3 +1483,6 @@ class ProfessionalBlock(TimeStampedModel):
             return value
 
         return getattr(self, f"{field_name}_fr", "")
+
+
+from .visual_config import AboutPageConfiguration, ProfessionalPageConfiguration  # noqa: F401,E402

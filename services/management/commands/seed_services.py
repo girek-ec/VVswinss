@@ -274,12 +274,6 @@ def model_field_names(model):
     return {f.name for f in model._meta.get_fields() if getattr(f, "concrete", False)}
 
 
-def set_if_exists(values, model, **kwargs):
-    allowed = model_field_names(model)
-    for key, value in kwargs.items():
-        if key in allowed:
-            values[key] = value
-
 
 def build_language(service, lang):
     name, slug, focus, items = service[lang]
@@ -298,8 +292,6 @@ def build_language(service, lang):
         detail1_title = "Ce que comprend notre intervention"
         detail1_text = "Selon le projet, nous pouvons prendre en charge notamment les travaux suivants :"
         whatsapp = f"Bonjour V&V Swiss Services, je souhaite demander un devis pour le service « {name} ». Merci."
-        seo_title = f"{name} dans le canton de Vaud | V&V Swiss Services"
-        meta = f"{name} dans le canton de Vaud et en Suisse romande. {focus.capitalize()}. Demandez un devis à V&V Swiss Services."
     elif lang == "de":
         prefix = "Spezialisten für"
         suffix = "Sorgfältig und dauerhaft"
@@ -313,8 +305,6 @@ def build_language(service, lang):
         detail1_title = "Unsere Leistungen"
         detail1_text = "Je nach Projekt übernehmen wir unter anderem folgende Arbeiten:"
         whatsapp = f"Guten Tag V&V Swiss Services, ich möchte eine Offerte für « {name} » anfragen. Vielen Dank."
-        seo_title = f"{name} im Kanton Waadt | V&V Swiss Services"
-        meta = f"{name} im Kanton Waadt und in der Westschweiz. {focus.capitalize()}. Kostenlose Offerte bei V&V Swiss Services anfragen."
     elif lang == "it":
         prefix = "Specialisti in"
         suffix = "Lavori curati e durevoli"
@@ -328,8 +318,6 @@ def build_language(service, lang):
         detail1_title = "Cosa comprende il servizio"
         detail1_text = "In base al progetto possiamo occuparci, tra l’altro, dei seguenti lavori:"
         whatsapp = f"Buongiorno V&V Swiss Services, vorrei richiedere un preventivo per « {name} ». Grazie."
-        seo_title = f"{name} nel Canton Vaud | V&V Swiss Services"
-        meta = f"{name} nel Canton Vaud e nella Svizzera romanda. {focus.capitalize()}. Richiedete un preventivo a V&V Swiss Services."
     else:
         prefix = "Specialists in"
         suffix = "Careful, lasting workmanship"
@@ -343,8 +331,6 @@ def build_language(service, lang):
         detail1_title = "What the service includes"
         detail1_text = "Depending on the project, our work may include:"
         whatsapp = f"Hello V&V Swiss Services, I would like to request a quote for “{name}”. Thank you."
-        seo_title = f"{name} in Vaud | V&V Swiss Services"
-        meta = f"{name} in the canton of Vaud and French-speaking Switzerland. {focus.capitalize()}. Request a quote from V&V Swiss Services."
 
     values = {
         f"name_{lang}": name,
@@ -364,8 +350,6 @@ def build_language(service, lang):
         f"cta_text_{lang}": common["cta_text"],
         f"cta_button_{lang}": common["cta_button"],
         f"whatsapp_message_{lang}": whatsapp,
-        f"seo_title_{lang}": seo_title,
-        f"meta_description_{lang}": meta,
     }
     return values
 
@@ -434,7 +418,6 @@ def sync_media(service, images_root, overwrite=False):
           main.webp
           secondary.webp
           third.webp
-          og.webp                 (optional)
           gallery/
               01.webp
               02.webp
@@ -457,15 +440,6 @@ def sync_media(service, images_root, overwrite=False):
     ):
         changed |= save_image_field(service, field_name, folder / filename, overwrite=overwrite)
 
-    # MultilingualSEOModel is external to this file. If og_image exists, use it.
-    service_fields = model_field_names(Service)
-    if "og_image" in service_fields:
-        og_path = folder / "og.webp"
-        if og_path.exists():
-            changed |= save_image_field(service, "og_image", og_path, overwrite=overwrite)
-        elif getattr(service, "main_image", None) and not getattr(service, "og_image", None):
-            service.og_image = service.main_image.name
-            changed = True
 
     if changed:
         service.save()
@@ -501,7 +475,7 @@ def sync_media(service, images_root, overwrite=False):
 
 
 class Command(BaseCommand):
-    help = "Crea o actualiza los servicios de V&V Swiss Services según el brief, con traducciones, SEO, beneficios y multimedia opcional."
+    help = "Crea o actualiza los servicios de V&V Swiss Services según el brief, con traducciones, beneficios y multimedia opcional."
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -513,7 +487,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--overwrite-images",
             action="store_true",
-            help="Reemplaza main/secondary/third/og y recrea la galería si existen archivos locales.",
+            help="Reemplaza main/secondary/third y recrea la galería si existen archivos locales.",
         )
         parser.add_argument(
             "--deactivate-obsolete",
@@ -557,9 +531,7 @@ class Command(BaseCommand):
             for lang in ("fr", "de", "it", "en"):
                 defaults.update(build_language(spec, lang))
 
-            # SEO fields come from MultilingualSEOModel. Keep only fields that really exist.
             defaults = {k: v for k, v in defaults.items() if k in service_fields}
-            set_if_exists(defaults, Service, is_indexable=True)
 
             slug_fr = spec["fr"][1]
             valid_slugs.append(slug_fr)

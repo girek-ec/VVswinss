@@ -194,3 +194,5 @@ class ContactAttachmentAdmin(admin.ModelAdmin):
             return format_html('<a href="{}" target="_blank" rel="noopener">Abrir archivo</a>', obj.file.url)
         except ValueError:
             return "—"
+
+from . import visual_config_admin  # noqa: F401,E402

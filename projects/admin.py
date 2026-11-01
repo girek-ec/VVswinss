@@ -1181,3 +1181,5 @@ class InterventionAdmin(BaseProjectAdmin):
             },
         ),
     )
+
+from . import visual_config_admin  # noqa: F401,E402

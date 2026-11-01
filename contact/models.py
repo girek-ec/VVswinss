@@ -119,9 +119,9 @@ class ContactRequest(TimeStampedModel):
     # ========================================================
 
     class Meta:
+        verbose_name = '002 - Contact Request'
+        verbose_name_plural = '002 - Contact Requests'
         ordering = ["-created_at"]
-        verbose_name = _("Demande de contact")
-        verbose_name_plural = _("Demandes de contact")
 
     # ========================================================
     # STRING
@@ -142,9 +142,11 @@ class ContactAttachment(TimeStampedModel):
     file = models.FileField(upload_to="contact/attachments/%Y/%m/", verbose_name=_("Fichier"))
 
     class Meta:
+        verbose_name = '003 - Contact Attachment'
+        verbose_name_plural = '003 - Contact Attachments'
         ordering = ["created_at"]
-        verbose_name = _("Pièce jointe")
-        verbose_name_plural = _("Pièces jointes")
 
     def __str__(self):
         return self.file.name
+
+from .visual_config import ContactPageConfiguration  # noqa: F401,E402

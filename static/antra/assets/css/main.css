@@ -1,4 +1,5 @@
-@import "https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400..900&display=swap";
+﻿@import "https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400..900&display=swap";
+
 
 :root {
     --tl-ff-body: 'Golos Text', sans-serif;
@@ -187,7 +188,7 @@ ul {
 }
 
 /* ==========================================================
-   SELECCIÓN DE TEXTO
+   SELECCIÃ“N DE TEXTO
    Mantiene el color original del texto
    ========================================================== */
 
@@ -3102,15 +3103,15 @@ ul {
     background-image: none;
     font-family: "Font Awesome 6 Pro";
     font-size: 12px;
-    font-weight: 700;
-    content: "";
+    font-weight: 900;
+    content: "\f078";
     color: var(--tl-color-common-white);
     position: absolute;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
     transition: all .3s ease-in-out;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .header .primary-header-inner .header-menu-wrap ul .menu-item-has-children:hover:after {
@@ -3908,7 +3909,7 @@ ul {
 }
 
 .mean-bar .mean-nav.mean-nav > ul li a.mean-expand:before {
-    content: ""
+    content: "ï”"
 }
 
 .mean-bar .mean-nav.mean-nav > ul li a.mean-expand.mean-clicked:after {
@@ -15455,7 +15456,7 @@ ul {
     font-family: "Font Awesome 6 Pro";
     font-size: 14px;
     font-weight: 700;
-    content: "";
+    content: "ïƒ—";
     color: var(--tl-color-text-body);
     position: absolute;
     top: 63%;
@@ -18383,7 +18384,7 @@ blockquote .content .author {
 }
 
 
-/* Bloque específico del servicio */
+/* Bloque especÃ­fico del servicio */
 .service-field-group {
     position: relative !important;
     z-index: 9999 !important;
@@ -18404,7 +18405,7 @@ blockquote .content .author {
 }
 
 
-/* Cuando está abierto */
+/* Cuando estÃ¡ abierto */
 .service-field-group .nice-select.open {
     z-index: 99999 !important;
 }
@@ -19304,7 +19305,7 @@ blockquote .content .author {
 }
 
 
-/* Mostrar únicamente el select real */
+/* Mostrar Ãºnicamente el select real */
 select.vv-native-select {
     display: block !important;
     visibility: visible !important;
@@ -20355,7 +20356,7 @@ body.modal-open {
 }
 
 /* ============================================================
-   CONTACT PAGE · FINAL POLISHED OVERRIDE
+   CONTACT PAGE Â· FINAL POLISHED OVERRIDE
 ============================================================ */
 
 .contact-section .contact-page-area {
@@ -20609,4 +20610,17 @@ body.modal-open {
     .contact-map-wrap iframe {
         height: 380px;
     }
+}
+
+html,
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+.vvs-preloader,
+.vvs-preloader-brand,
+.vvs-preloader-content,
+.site-name{
+    overflow:hidden!important;
 }

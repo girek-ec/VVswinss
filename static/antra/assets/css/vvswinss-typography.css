@@ -1,0 +1,216 @@
+/* ==========================================================
+   V&V SWISS SERVICES · SISTEMA TIPOGRÁFICO UNIVERSAL
+   Cargado al final del <head> para tener prioridad sobre Antra
+   y sobre CSS específico de cada página.
+
+   REGLA PRINCIPAL:
+   Desde 1200px en adelante la tipografía NO vuelve a crecer.
+========================================================== */
+
+/* ==========================================================
+   01. ESCALA CENTRAL
+   Para ajustar toda la web, modifica primero estos valores.
+========================================================== */
+
+:root {
+    --vvs-font-body: 16px;
+    --vvs-font-subheading: 12px;
+
+    --vvs-font-hero: 56px;
+    --vvs-font-page-title: 48px;
+    --vvs-font-section-title: 44px;
+    --vvs-font-content-title: 32px;
+    --vvs-font-card-title: 26px;
+    --vvs-font-small-title: 20px;
+
+    --vvs-line-hero: 1.06;
+    --vvs-line-title: 1.12;
+    --vvs-line-content: 1.25;
+    --vvs-line-body: 1.65;
+}
+
+/* TABLET · 768px - 1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+    :root {
+        --vvs-font-hero: clamp(46px, 5vw, 52px);
+        --vvs-font-page-title: clamp(40px, 4.4vw, 44px);
+        --vvs-font-section-title: clamp(36px, 4vw, 40px);
+        --vvs-font-content-title: clamp(28px, 3vw, 30px);
+        --vvs-font-card-title: clamp(23px, 2.5vw, 25px);
+        --vvs-font-small-title: 19px;
+    }
+}
+
+/* MÓVIL · <= 767px */
+@media (max-width: 767px) {
+    :root {
+        --vvs-font-body: 15px;
+        --vvs-font-subheading: 11px;
+
+        --vvs-font-hero: clamp(34px, 9vw, 40px);
+        --vvs-font-page-title: clamp(32px, 8vw, 36px);
+        --vvs-font-section-title: clamp(29px, 7.5vw, 34px);
+        --vvs-font-content-title: clamp(25px, 6.5vw, 28px);
+        --vvs-font-card-title: clamp(21px, 5.5vw, 24px);
+        --vvs-font-small-title: 18px;
+    }
+}
+
+/* ==========================================================
+   02. TEXTO BASE
+========================================================== */
+
+body {
+    font-size: var(--vvs-font-body) !important;
+    line-height: var(--vvs-line-body);
+}
+
+/* ==========================================================
+   03. HERO / SLIDERS PRINCIPALES
+   Incluye el Hero real del Home (hero-content-4).
+========================================================== */
+
+.hero-wrap .hero-content .section-heading .section-title,
+.vvs-hero-slider .hero-wrap .hero-content.hero-content-4 .section-heading .section-title.title-2,
+.slider-content-wrap .section-heading .section-title,
+.slider-2 .slider-item .slider-content-wrap .section-heading .section-title,
+.slider-3 .slider-item .slider-content-wrap .section-heading .section-title,
+.hero-wrap-6 .hero-content-6 .section-heading .section-title,
+.hero-wrap-7 .hero-content-7 .section-heading .section-title {
+    font-size: var(--vvs-font-hero) !important;
+    line-height: var(--vvs-line-hero) !important;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   04. TÍTULO PRINCIPAL DE PÁGINAS INTERIORES
+========================================================== */
+
+.page-header .page-header-content .title,
+.legal-page-title {
+    font-size: var(--vvs-font-page-title) !important;
+    line-height: var(--vvs-line-title) !important;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   05. TÍTULOS GENERALES DE SECCIÓN
+   Esta es la regla universal para la mayoría de encabezados.
+========================================================== */
+
+.section-heading .section-title,
+.section-heading .section-title.title-2,
+.service-section .section-heading .section-title,
+.about-content .section-heading .section-title {
+    font-size: var(--vvs-font-section-title) !important;
+    line-height: var(--vvs-line-title) !important;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* En el Hero debe ganar el nivel HERO, no el de sección. */
+.hero-wrap .hero-content .section-heading .section-title,
+.vvs-hero-slider .hero-wrap .hero-content.hero-content-4 .section-heading .section-title.title-2,
+.slider-content-wrap .section-heading .section-title,
+.slider-2 .slider-item .slider-content-wrap .section-heading .section-title,
+.slider-3 .slider-item .slider-content-wrap .section-heading .section-title,
+.hero-wrap-6 .hero-content-6 .section-heading .section-title,
+.hero-wrap-7 .hero-content-7 .section-heading .section-title {
+    font-size: var(--vvs-font-hero) !important;
+}
+
+/* ==========================================================
+   06. TÍTULOS DE CONTENIDO / DETALLE
+========================================================== */
+
+.service-details-content .details-title,
+.project-details-wrap .details-title,
+.project-details-wrap .details-title-2,
+.team-details-content .details-title,
+.blog-details-content .details-title,
+.blog-details-content .details-title-2,
+.project-before-after-heading .details-title-2,
+.project-before-after-showcase .details-title-2 {
+    font-size: var(--vvs-font-content-title) !important;
+    line-height: var(--vvs-line-content) !important;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   07. TÍTULOS DE CARDS / BLOQUES REPETIBLES
+   NO usamos .title de forma genérica para no romper contadores.
+========================================================== */
+
+.service-item .service-top .title,
+.project-item .project-content .title,
+.project-item-2 .project-content .title,
+.project-item-3 .project-content .title,
+.project-item-5 .project-content .title,
+.post-card .post-content .title,
+.about-content-3 .about-items .about-item .title,
+.antra-swiper-wrapper .swiper-slide .banner-process-caption .banner-process-title,
+.banner-process-title {
+    font-size: var(--vvs-font-card-title) !important;
+    line-height: var(--vvs-line-content) !important;
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   08. TÍTULOS PEQUEÑOS / ACORDEONES
+========================================================== */
+
+.faq-content .faq-accordion .accordion-item .accordion-button,
+.faq-content-2 .faq-accordion .accordion-item .accordion-button {
+    font-size: var(--vvs-font-card-title) !important;
+    line-height: var(--vvs-line-content) !important;
+}
+
+.skill-left-content .skills-items .skills-item .title,
+.request-form-wrap .form-item .form-title,
+.contact-section .contact-page-area .request-form-wrap .form-title {
+    font-size: var(--vvs-font-small-title) !important;
+    line-height: 1.35 !important;
+}
+
+/* Los títulos de formulario ya funcionaban como etiquetas; no deben crecer demasiado. */
+.request-form-wrap .form-item .form-title,
+.contact-section .contact-page-area .request-form-wrap .form-title {
+    font-size: 16px !important;
+}
+
+/* ==========================================================
+   09. SUBHEADINGS
+========================================================== */
+
+.section-heading .sub-heading,
+.page-header .page-header-content .sub-title {
+    font-size: var(--vvs-font-subheading) !important;
+    line-height: 1.35 !important;
+}
+
+/* ==========================================================
+   10. PÁRRAFOS PRINCIPALES
+========================================================== */
+
+.section-heading p,
+.hero-wrap .hero-content.hero-content-4 .section-heading p,
+.about-content p,
+.service-item p,
+.project-item p,
+.post-card p {
+    font-size: var(--vvs-font-body) !important;
+    line-height: var(--vvs-line-body) !important;
+}
+
+/* ==========================================================
+   11. SALTOS MANUALES EN TABLET / MÓVIL
+   Evita composiciones rígidas cuando baja el ancho.
+========================================================== */
+
+@media (max-width: 1199px) {
+    .section-heading .section-title br,
+    .hero-wrap .hero-content .section-heading .section-title br,
+    .page-header .page-header-content .title br {
+        display: none;
+    }
+}

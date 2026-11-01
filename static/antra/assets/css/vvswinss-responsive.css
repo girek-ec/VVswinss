@@ -1,0 +1,629 @@
+/* ==========================================================
+   V&V SWISS SERVICES · RESPONSIVE GLOBAL
+   Cargado después de theme + typography.
+
+   Objetivo:
+   - Reducir espacios verticales excesivos de Antra.
+   - Mantener proporciones de imágenes y sliders.
+   - Evitar desbordes en tablet y móvil.
+   - No modificar lógica Django ni estructura funcional.
+========================================================== */
+
+/* ==========================================================
+   01. BASE RESPONSIVE SEGURA
+========================================================== */
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+.row > [class*="col-"] {
+    min-width: 0;
+}
+
+.section-heading,
+.section-heading-wrap,
+.hero-content,
+.project-content,
+.post-content,
+.request-content,
+.request-form-wrap {
+    min-width: 0;
+}
+
+.section-heading .section-title,
+.page-header .page-header-content .title,
+.details-title,
+.details-title-2 {
+    max-width: 100%;
+}
+
+/* Botones: nunca deben provocar scroll horizontal por textos largos. */
+.tl-primary-btn,
+.project-contact-btn,
+.project-modal-direct-btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+}
+
+/* ==========================================================
+   02. DESKTOP MEDIO · 1200px - 1599px
+   El header ya está en modo compacto, así que reducimos
+   ligeramente alturas/espacios sin alterar la composición.
+========================================================== */
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .pt-150,
+    .pt-145,
+    .pt-140,
+    .pt-135,
+    .pt-130 {
+        padding-top: 110px !important;
+    }
+
+    .pb-150,
+    .pb-145,
+    .pb-140,
+    .pb-135,
+    .pb-130 {
+        padding-bottom: 110px !important;
+    }
+
+    .hero-wrap .hero-img {
+        height: 680px;
+        max-width: 680px;
+    }
+
+    .about-img-wrap-3 {
+        height: 570px;
+    }
+
+    .about-img-wrap-3 .about-img-1 {
+        max-width: 420px;
+        height: 320px;
+    }
+
+    .about-img-wrap-3 .about-img-2 {
+        max-width: 385px;
+        height: 450px;
+    }
+
+    .testi-img-3,
+    .testi-carousel-3 {
+        height: 620px;
+    }
+
+    #vv-project-map {
+        height: 560px;
+    }
+}
+
+/* ==========================================================
+   03. TABLET / LAPTOP PEQUEÑO · 993px - 1199px
+========================================================== */
+
+@media (min-width: 993px) and (max-width: 1199px) {
+    .pt-150,
+    .pt-145,
+    .pt-140,
+    .pt-135,
+    .pt-130 {
+        padding-top: 82px !important;
+    }
+
+    .pb-150,
+    .pb-145,
+    .pb-140,
+    .pb-135,
+    .pb-130 {
+        padding-bottom: 82px !important;
+    }
+
+    .pt-120,
+    .pt-115,
+    .pt-110,
+    .pt-105,
+    .pt-100 {
+        padding-top: 70px !important;
+    }
+
+    .pb-120,
+    .pb-115,
+    .pb-110,
+    .pb-105,
+    .pb-100 {
+        padding-bottom: 70px !important;
+    }
+
+    /* El hero sigue en dos columnas en Bootstrap >= 992px. */
+    .hero-wrap.pt-130 {
+        padding-top: 105px !important;
+    }
+
+    .hero-wrap .hero-img {
+        height: 540px;
+        max-width: 100%;
+    }
+
+    .section-heading-wrap {
+        padding-top: 42px;
+        margin-bottom: 46px;
+    }
+
+    .about-img-wrap-3 {
+        height: 520px;
+    }
+
+    .about-img-wrap-3 .about-img-1 {
+        max-width: 78%;
+        height: 290px;
+    }
+
+    .about-img-wrap-3 .about-img-2 {
+        max-width: 72%;
+        height: 400px;
+    }
+
+    .about-img-wrap-3 .about-counter {
+        bottom: 45px;
+        left: 35px;
+    }
+
+    .testi-img-3,
+    .testi-carousel-3 {
+        height: 520px;
+    }
+
+    .before-after-fullwidth,
+    .before-after-fullwidth img {
+        height: 500px;
+        min-height: 500px;
+    }
+
+    #vv-project-map {
+        height: 520px;
+    }
+}
+
+/* ==========================================================
+   04. TABLET · 768px - 992px
+   Bootstrap apila muchas columnas en este punto.
+========================================================== */
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .pt-150,
+    .pt-145,
+    .pt-140,
+    .pt-135,
+    .pt-130 {
+        padding-top: 72px !important;
+    }
+
+    .pb-150,
+    .pb-145,
+    .pb-140,
+    .pb-135,
+    .pb-130 {
+        padding-bottom: 72px !important;
+    }
+
+    .pt-120,
+    .pt-115,
+    .pt-110,
+    .pt-105,
+    .pt-100 {
+        padding-top: 62px !important;
+    }
+
+    .pb-120,
+    .pb-115,
+    .pb-110,
+    .pb-105,
+    .pb-100 {
+        padding-bottom: 62px !important;
+    }
+
+    .hero-wrap.pt-130 {
+        padding-top: 110px !important;
+    }
+
+    .vvs-hero-slider.pb-100 {
+        padding-bottom: 62px !important;
+    }
+
+    .hero-wrap .hero-content {
+        margin-bottom: 32px;
+    }
+
+    .hero-wrap .hero-img {
+        height: 480px;
+        max-width: 100%;
+        margin-left: 0;
+    }
+
+    .section-heading-wrap {
+        padding-top: 0;
+        margin-bottom: 42px;
+        row-gap: 14px;
+    }
+
+    .section-heading {
+        margin-bottom: 42px;
+    }
+
+    .section-heading-wrap .section-heading {
+        margin-bottom: 0;
+    }
+
+    .about-img-wrap-3 {
+        height: 500px;
+        margin: 0 auto 42px;
+    }
+
+    .about-img-wrap-3 .about-img-1 {
+        max-width: 72%;
+        height: 285px;
+    }
+
+    .about-img-wrap-3 .about-img-2 {
+        max-width: 68%;
+        height: 385px;
+    }
+
+    .about-img-wrap-3 .about-counter {
+        bottom: 40px;
+        left: 30px;
+    }
+
+    .testi-img-3 {
+        height: 460px;
+    }
+
+    .testi-carousel-3 {
+        height: 500px;
+    }
+
+    .testi-carousel-wrap .testi-top-content {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+    }
+
+    .before-after-fullwidth,
+    .before-after-fullwidth img {
+        height: 460px;
+        min-height: 460px;
+    }
+
+    .contact-section .contact-page-area,
+    .request-wrap {
+        row-gap: 42px;
+    }
+
+    #vv-project-map {
+        height: 480px;
+    }
+
+    /* Professionals */
+    .professionals-page .professional-image {
+        height: 440px;
+    }
+}
+
+/* ==========================================================
+   05. MÓVIL · <= 767px
+========================================================== */
+
+@media (max-width: 767px) {
+    .container,
+    .container-2 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .pt-150,
+    .pt-145,
+    .pt-140,
+    .pt-135,
+    .pt-130,
+    .pt-125,
+    .pt-120 {
+        padding-top: 56px !important;
+    }
+
+    .pb-150,
+    .pb-145,
+    .pb-140,
+    .pb-135,
+    .pb-130,
+    .pb-125,
+    .pb-120 {
+        padding-bottom: 56px !important;
+    }
+
+    .pt-115,
+    .pt-110,
+    .pt-105,
+    .pt-100,
+    .pt-95,
+    .pt-90,
+    .pt-85,
+    .pt-80 {
+        padding-top: 48px !important;
+    }
+
+    .pb-115,
+    .pb-110,
+    .pb-105,
+    .pb-100,
+    .pb-95,
+    .pb-90,
+    .pb-85,
+    .pb-80 {
+        padding-bottom: 48px !important;
+    }
+
+    .mt-60,
+    .mt-55,
+    .mt-50 {
+        margin-top: 36px !important;
+    }
+
+    .mb-60,
+    .mb-55,
+    .mb-50 {
+        margin-bottom: 36px !important;
+    }
+
+    /* Mantiene aire suficiente debajo del header móvil. */
+    .hero-wrap.pt-130 {
+        padding-top: 105px !important;
+    }
+
+    .vvs-hero-slider.pb-100 {
+        padding-bottom: 48px !important;
+    }
+
+    .hero-wrap .hero-content {
+        margin-bottom: 28px;
+    }
+
+    .hero-wrap .hero-content .section-heading p {
+        margin-top: 22px;
+        margin-bottom: 32px;
+    }
+
+    .hero-wrap .hero-img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        margin-left: 0;
+    }
+
+    .section-heading-wrap {
+        padding-top: 0;
+        margin-bottom: 34px;
+        row-gap: 10px;
+    }
+
+    .section-heading {
+        margin-bottom: 34px;
+    }
+
+    .section-heading-wrap .section-heading {
+        margin-bottom: 0;
+    }
+
+    .section-heading .sub-heading {
+        margin-bottom: 13px;
+    }
+
+    /* Cards / grids */
+    .services-home-grid .row.gy-5,
+    .project-section-inner .row.gy-5 {
+        --bs-gutter-y: 30px;
+    }
+
+    /* About Home */
+    .about-img-wrap-3 {
+        height: 420px;
+        margin: 0 auto 36px;
+    }
+
+    .about-img-wrap-3 .about-img-1 {
+        max-width: 78%;
+        height: 235px;
+    }
+
+    .about-img-wrap-3 .about-img-2 {
+        max-width: 74%;
+        height: 315px;
+    }
+
+    .about-img-wrap-3 .about-counter {
+        bottom: 24px;
+        left: 16px;
+        padding: 18px 16px;
+    }
+
+    .about-content-3 .about-items {
+        margin: 30px 0 36px;
+        row-gap: 24px;
+    }
+
+    .about-content-3 .about-items .about-item {
+        width: 100%;
+    }
+
+    .about-content-3 .about-items .about-item .title::before {
+        width: 100%;
+    }
+
+    /* Skills */
+    .skill-section .skill-text {
+        pointer-events: none;
+    }
+
+    .skill-left-content {
+        margin-bottom: 32px;
+    }
+
+    /* Antes / después */
+    .before-after-fullwidth,
+    .before-after-fullwidth img {
+        height: 340px;
+        min-height: 340px;
+    }
+
+    /* Testimonios */
+    .testi-img-3 {
+        height: 340px;
+        margin-bottom: 30px;
+    }
+
+    .testi-carousel-3 {
+        height: 430px;
+    }
+
+    .testi-carousel-wrap .testi-top-content {
+        margin-bottom: 25px;
+        padding-bottom: 25px;
+        column-gap: 20px;
+        row-gap: 16px;
+    }
+
+    .testi-carousel-wrap .testi-top-content .right-content {
+        flex-basis: 100%;
+    }
+
+    /* Contacto */
+    .request-wrap {
+        padding-top: 40px;
+    }
+
+    .contact-section .contact-page-area {
+        row-gap: 40px;
+    }
+
+    .contact-section .contact-info-grid {
+        gap: 22px !important;
+    }
+
+    .request-form-wrap .form-item .form-control {
+        margin-bottom: 22px;
+    }
+
+    .project-contact-actions {
+        gap: 10px;
+        margin-top: 28px;
+    }
+
+    #vv-project-map {
+        height: 400px;
+    }
+
+    /* Footer */
+    .footer-section .footer-legal-list,
+    .footer-section .footer-language-list {
+        row-gap: 8px;
+    }
+
+    .footer-section .copyright-content {
+        align-items: flex-start !important;
+    }
+
+    /* Professionals */
+    .professionals-page .professional-image {
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .professionals-page .professional-cta-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* ==========================================================
+   06. MÓVIL PEQUEÑO · <= 479px
+========================================================== */
+
+@media (max-width: 479px) {
+    .container,
+    .container-2 {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .pt-150,
+    .pt-145,
+    .pt-140,
+    .pt-135,
+    .pt-130,
+    .pt-125,
+    .pt-120 {
+        padding-top: 48px !important;
+    }
+
+    .pb-150,
+    .pb-145,
+    .pb-140,
+    .pb-135,
+    .pb-130,
+    .pb-125,
+    .pb-120 {
+        padding-bottom: 48px !important;
+    }
+
+    .hero-wrap.pt-130 {
+        padding-top: 96px !important;
+    }
+
+    .hero-wrap .hero-img {
+        aspect-ratio: 1 / 1;
+    }
+
+    .section-heading-wrap {
+        margin-bottom: 30px;
+    }
+
+    .about-img-wrap-3 {
+        height: 370px;
+    }
+
+    .about-img-wrap-3 .about-img-1 {
+        height: 205px;
+    }
+
+    .about-img-wrap-3 .about-img-2 {
+        height: 275px;
+    }
+
+    .before-after-fullwidth,
+    .before-after-fullwidth img {
+        height: 300px;
+        min-height: 300px;
+    }
+
+    .testi-img-3 {
+        height: 300px;
+    }
+
+    .testi-carousel-3 {
+        height: 410px;
+    }
+
+    #vv-project-map {
+        height: 360px;
+    }
+
+    .tl-primary-btn,
+    .project-contact-btn,
+    .project-modal-direct-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

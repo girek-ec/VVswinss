@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-<!-- ============================================================
-     SEO · PAGE TITLE
-============================================================ -->
+<!-- SEO · TÍTULO DE PÁGINA | SEO · PAGE TITLE -->
 {% block title %}{% trans "Boîte de réception des demandes" %} | V&V Swiss Services{% endblock %}
 {% block content %}
-<!-- ============================================================
-     SECTION 01 · BOÎTE DE RÉCEPTION INTERNE
-============================================================ -->
+<!-- SECCIÓN 01 · BANDEJA INTERNA | SECTION 01 · INTERNAL INBOX -->
 <section class="vv-inbox-section">
     <div class="container container-2">
-        <!-- =================================================
-             HEADER
-        ================================================== -->
+        <!-- ENCABEZADO | HEADER -->
         <div class="vv-inbox-header">
             <div>
                 <span class="vv-inbox-kicker"><i class="fa-regular fa-inbox"></i> {% trans "Espace interne" %}</span>
@@ -25,9 +19,7 @@
                 <span>{% blocktrans count total=counters.all %}demande{% plural %}demandes{% endblocktrans %}</span>
             </div>
         </div>
-        <!-- =================================================
-             COUNTERS / STATUS SUMMARY
-        ================================================== -->
+        <!-- CONTADORES Y ESTADOS | COUNTERS AND STATUS SUMMARY -->
         <div class="row g-3 vv-stats-row">
             <div class="col-6 col-md-4 col-xl-2">
                 <a href="{% url 'contact:inbox' %}" class="vv-stat-card {% if not selected_status %}active{% endif %}">
@@ -66,9 +58,7 @@
                 </a>
             </div>
         </div>
-        <!-- =================================================
-             SEARCH / FILTERS
-        ================================================== -->
+        <!-- BÚSQUEDA Y FILTROS | SEARCH AND FILTERS -->
         <div class="vv-inbox-toolbar">
             <form method="get" class="row g-3 align-items-end">
                 <div class="col-lg-7">
@@ -95,9 +85,7 @@
                 </div>
             </form>
         </div>
-        <!-- =================================================
-             LIST HEADER
-        ================================================== -->
+        <!-- ENCABEZADO | HEADER -->
         <div class="vv-inbox-list-head d-none d-lg-grid">
             <span>{% trans "Client" %}</span>
             <span>{% trans "Projet" %}</span>
@@ -105,14 +93,12 @@
             <span>{% trans "Reçu" %}</span>
             <span></span>
         </div>
-        <!-- =================================================
-             REQUEST LIST
-        ================================================== -->
+        <!-- LISTA DE SOLICITUDES | REQUEST LIST -->
         <div class="vv-inbox-list">
             {% for item in page %}
                 <article class="vv-request-card">
                     <div class="vv-request-grid">
-                        <!-- CLIENT -->
+                        <!-- CLIENTE | CLIENT -->
                         <div class="vv-request-client">
                             <div class="vv-status-line">
                                 <span class="vv-status-badge vv-status-{{ item.status }}">{{ item.get_status_display }}</span>
@@ -126,7 +112,7 @@
                             <h2 class="vv-request-name"><a href="{% url 'contact:inbox_detail' item.pk %}">{{ item.name }}</a></h2>
                             {% if item.company %}<span class="vv-request-secondary">{{ item.company }}</span>{% endif %}
                         </div>
-                        <!-- PROJECT -->
+                        <!-- PROYECTO | PROJECT -->
                         <div class="vv-request-project">
                             {% if item.service %}
                                 <strong>{{ item.localized_service_name }}</strong>
@@ -141,14 +127,14 @@
                                 {% endif %}
                             </span>
                         </div>
-                        <!-- CONTACT -->
+                        <!-- CONTACTO | CONTACT -->
                         <div class="vv-request-contact">
                             {% if item.phone %}
                                 <a href="tel:{{ item.phone }}"><i class="fa-regular fa-phone"></i> {{ item.phone }}</a>
                             {% endif %}
                             <a href="mailto:{{ item.email }}"><i class="fa-regular fa-envelope"></i> {{ item.email }}</a>
                         </div>
-                        <!-- DATE -->
+                        <!-- FECHA | DATE -->
                         <div class="vv-request-date">
                             <span>{{ item.created_at|date:"d/m/Y" }}</span>
                             <small>{{ item.created_at|date:"H:i" }}</small>
@@ -156,7 +142,7 @@
                                 <span class="vv-visit-indicator"><i class="fa-regular fa-calendar-check"></i> {% trans "Visite demandée" %}</span>
                             {% endif %}
                         </div>
-                        <!-- ACTION -->
+                        <!-- ACCIÓN | ACTION -->
                         <div class="vv-request-action">
                             <a href="{% url 'contact:inbox_detail' item.pk %}" class="vv-circle-link" aria-label="{% blocktrans with name=item.name %}Voir la demande de {{ name }}{% endblocktrans %}" title="{% trans 'Voir le détail' %}">
                                 <i class="fa-regular fa-arrow-right"></i>
@@ -176,9 +162,7 @@
                 </div>
             {% endfor %}
         </div>
-        <!-- =================================================
-             PAGINATION
-        ================================================== -->
+        <!-- PAGINACIÓN | PAGINATION -->
         {% if page.has_other_pages %}
             <nav class="vv-pagination" aria-label="{% trans 'Pagination de la boîte de réception' %}">
                 <div>
@@ -196,7 +180,5 @@
         {% endif %}
     </div>
 </section>
-<!-- ============================================================
-     KEEP STATUS FILTER AS NATIVE SELECT
-============================================================ -->
+<!-- MANTENER FILTRO DE ESTADO COMO SELECT NATIVO | KEEP STATUS FILTER AS NATIVE SELECT -->
 {% endblock %}

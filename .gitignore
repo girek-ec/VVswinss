@@ -51,3 +51,7 @@ htmlcov/
 *.temp
 *.bak
 *.swp
+PREDEPLOY_REPORT.txt
+PREDEPLOY_ERRORS.txt
+_backup_admin_*/
+SEED_VV_ACTUAL.txt

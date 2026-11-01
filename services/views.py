@@ -3,7 +3,14 @@ from django.shortcuts import redirect, render
 from contact.forms import ContactRequestForm
 from core.utils import current_language, get_by_localized_slug
 
-from .models import Service, ServiceCategory
+from .models import Service, ServiceCategory, ServicePageConfiguration
+
+
+
+
+def _get_services_visuals():
+    """Configuración visual única de la sección Servicios."""
+    return ServicePageConfiguration.objects.order_by("pk").first()
 
 
 # ============================================================
@@ -98,6 +105,7 @@ def service_list(request):
     context = {
         "categories": categories,
         "services": services,
+        "services_visuals": _get_services_visuals(),
         "form": form,
     }
 
@@ -201,6 +209,17 @@ def category_detail(request, slug):
 
     form = ContactRequestForm()
 
+
+
+    # CONFIGURACIÓN VISUAL / VISUAL CONFIGURATION
+    service_page_config = (
+        ServicePageConfiguration.objects
+        .order_by("-updated_at")
+        .first()
+    )
+
+
+
     # ========================================================
     # CONTEXTO
     # ========================================================
@@ -214,6 +233,8 @@ def category_detail(request, slug):
         # Se mantiene también "services" para compatibilidad
         # con bloques reutilizados que puedan usar esta variable.
         "services": category_services,
+        "services_visuals": _get_services_visuals(),
+        "service_page_config": service_page_config,
 
         "form": form,
     }
@@ -315,6 +336,7 @@ def service_detail(request, slug):
     context = {
         "service": service,
         "related_services": related_services,
+        "services_visuals": _get_services_visuals(),
         "form": form,
     }
 
