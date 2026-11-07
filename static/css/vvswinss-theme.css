@@ -1581,3 +1581,33 @@ static/css/vvswinss-theme.css
         height: auto !important;
     }
 }
+
+
+/* HEADER · DEGRADADO SOLO DESKTOP Y TABLET | DESKTOP AND TABLET GRADIENT */
+@media (min-width: 768px) {
+    .header-4 {
+        --vv-menu-opacity-top: 0.94;
+        --vv-menu-opacity-bottom: 0.72;
+        --vv-menu-blur: 8px;
+    }
+
+    /* MENÚ INICIAL | INITIAL HEADER */
+    .header-4 .primary-header:not(.fixed) {
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, var(--vv-menu-opacity-top)) 0%,
+            rgba(255, 255, 255, var(--vv-menu-opacity-bottom)) 100%
+        );
+        -webkit-backdrop-filter: blur(var(--vv-menu-blur));
+        backdrop-filter: blur(var(--vv-menu-blur));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.045);
+    }
+
+    /* MENÚ AL DESPLAZARSE | STICKY HEADER */
+    .header-4 .primary-header.fixed {
+        background: #ffffff;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
