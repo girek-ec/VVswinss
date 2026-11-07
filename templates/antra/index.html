@@ -138,8 +138,8 @@
                             </h3>
 
                             <div class="icon">
-                                {% if service.main_image %}
-                                    <img src="{{ service.main_image.url }}" alt="{{ service|localized:'name' }}">
+                                {% if service.category.image %}
+                                    <img src="{{ service.category.image.url }}" alt="{{ service|localized:'name' }}">
                                 {% else %}
                                     <img src="{% static 'antra/assets/img/icon/service-icon-1.png' %}" alt="{{ service|localized:'name' }}">
                                 {% endif %}
@@ -274,8 +274,8 @@
                 <div class="feature-item-imgs">
                     <div class="feature-img">
 
-                        {% if first_service.main_image %}
-                            <img src="{{ first_service.main_image.url }}" alt="{{ first_service|localized:'name' }}" id="service-feature-image">
+                        {% if first_service.category.image %}
+                            <img src="{{ first_service.category.image.url }}" alt="{{ first_service|localized:'name' }}" id="service-feature-image">
                         {% else %}
                             <img src="{% static 'antra/assets/img/service/feature-img-1.png' %}" alt="{{ first_service|localized:'name' }}" id="service-feature-image">
                         {% endif %}
@@ -305,7 +305,7 @@
                     {% for service in featured_services %}
                         {% with service_slug=service|localized:"slug" service_summary=service|localized:"summary" service_subtitle=service|localized:"subtitle" %}
 
-                        <div class="feature-item" data-img="{% if service.main_image %}{{ service.main_image.url }}{% else %}{% static 'antra/assets/img/service/feature-img-1.png' %}{% endif %}" data-text="{% if service_summary %}{{ service_summary|striptags|escape }}{% elif service_subtitle %}{{ service_subtitle|striptags|escape }}{% else %}{% trans 'Des solutions professionnelles adaptées à votre bâtiment et à votre projet.' %}{% endif %}">
+                        <div class="feature-item" data-img="{% if service.category.image %}{{ service.category.image.url }}{% else %}{% static 'antra/assets/img/service/feature-img-1.png' %}{% endif %}" data-text="{% if service_summary %}{{ service_summary|striptags|escape }}{% elif service_subtitle %}{{ service_subtitle|striptags|escape }}{% else %}{% trans 'Des solutions professionnelles adaptées à votre bâtiment et à votre projet.' %}{% endif %}">
                             <span class="number">{{ forloop.counter|stringformat:"02d" }}</span>
 
                             <h3 class="title">

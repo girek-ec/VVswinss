@@ -1,57 +1,85 @@
+
 # ============================================================
-# VVswinss - Git Ignore
+# V&V SWISS SERVICES · GIT IGNORE
 # ============================================================
 
-# Python
+# PYTHON | PYTHON
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Virtual environments
+# ENTORNOS VIRTUALES | VIRTUAL ENVIRONMENTS
 .venv/
 venv/
 env/
 
-# Environment variables / secrets
+# VARIABLES DE ENTORNO Y SECRETOS | ENVIRONMENT AND SECRETS
 .env
 .env.*
 !.env.example
+!.env.production.example
 
-# Django
+# DJANGO | DJANGO
 db.sqlite3
 db.sqlite3-journal
 media/
 staticfiles/
 
-# Logs
+# REGISTROS | LOGS
 *.log
 
-# PyCharm / JetBrains
+# EDITORES | IDE SETTINGS
 .idea/
-
-# Visual Studio Code
 .vscode/
 
-# Windows
+# SISTEMAS OPERATIVOS | OPERATING SYSTEMS
 Thumbs.db
 Desktop.ini
-
-# macOS
 .DS_Store
 
-# Testing / coverage
+# PRUEBAS Y COBERTURA | TESTING AND COVERAGE
 .coverage
 htmlcov/
 .pytest_cache/
 .mypy_cache/
 
-# Temporary files
+# ARCHIVOS TEMPORALES Y RESPALDOS | TEMPORARY FILES AND BACKUPS
 *.tmp
 *.temp
-*.bak
+*.bak*
 *.swp
-PREDEPLOY_REPORT.txt
-PREDEPLOY_ERRORS.txt
+.vv-backups/
 _backup_admin_*/
 SEED_VV_ACTUAL.txt
+PREDEPLOY_REPORT.txt
+PREDEPLOY_ERRORS.txt
+django_backup_de.po
+
+# INFORMES DE AUDITORÍA | AUDIT REPORTS
+/auditoria_*.json
+/reports/
+
+# PAQUETES ANTIGUOS DE CORRECCIONES | OLD PATCH PACKAGES
+/VV_*/
+
+# EJECUTABLES TEMPORALES | TEMPORARY SCRIPTS
+/APLICAR*.py
+/APLICAR*.bat
+/VERIFICAR_STATIC.py
+/actualizar_fallbacks_vv.py
+/aplicar_correccion.py
+/aplicar_auditoria_seo_h1.py
+
+# COPIAS ACCIDENTALES DENTRO DE VVSWINSS | DUPLICATE NESTED COPIES
+/vvswinss/contact/
+/vvswinss/core/
+/vvswinss/templates/
+/vvswinss/vvswinss/
+
+# GENERADOR DUPLICADO | DUPLICATE SEED COMMAND
+/core/management/commands/seed_catalogo_vv.py
+
+# SELECTOR DE ICONOS ANTIGUO | LEGACY ICON PICKER
+/static/services/admin/fontawesome_icon_picker.js
+/services/static/services/admin/fontawesome_icon_picker.js

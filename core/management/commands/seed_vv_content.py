@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.files.base import ContentFile
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils.text import slugify
@@ -51,9 +52,9 @@ from services.models import (
     Service,
     ServiceBenefit,
     ServiceCategory,
-    ServiceImage,
-    ServicePageConfiguration,
+    ServicePageVisualConfiguration,
 )
+from services.management.commands.seed_catalogo_vv import seed_catalogo_vv
 
 from ._seed_vv_data import (
     ABOUT_CONTENT,
@@ -126,10 +127,12 @@ class Command(BaseCommand):
         self.stdout.write("=" * 72)
 
         with transaction.atomic():
-            services_summary = self.seed_services()
+            services_summary = seed_catalogo_vv()
             core_summary = self.seed_core()
+            # PROFESIONALES V2 · TABLAS UTILIZADAS POR LA WEB | ACTIVE PUBLIC PAGE
+            call_command("seed_professionals_v2", stdout=self.stdout)
             projects_summary = self.seed_projects(with_demo=with_demo)
-            blog_summary = self.seed_blog()
+            blog_summary = self.seed_blog(with_demo=with_demo)
             support_summary = self.seed_support_content(
                 with_demo=with_demo,
                 dry_run=dry_run,
@@ -148,8 +151,7 @@ class Command(BaseCommand):
         self.stdout.write(
             f"Services → Categories: {services_summary['categories']} · "
             f"Services: {services_summary['services']} · "
-            f"Benefits: {services_summary['benefits']} · "
-            f"Gallery fallbacks: {services_summary['images']}"
+            f"Benefits: {services_summary['benefits']}"
         )
         self.stdout.write(
             f"Core → Values: {core_summary['values']} · "
@@ -411,7 +413,7 @@ class Command(BaseCommand):
         # Keep one visual configuration row without touching images already
         # uploaded from Admin. New fields such as category_default_social_image
         # are therefore preserved automatically.
-        self.update_singleton(ServicePageConfiguration, {})
+        self.update_singleton(ServicePageVisualConfiguration, {})
 
         categories = {}
         for category in CATEGORY_DATA:
@@ -441,7 +443,7 @@ class Command(BaseCommand):
             )
             categories[names["fr"]] = (obj, category)
 
-        service_count = benefit_count = image_count = 0
+        service_count = benefit_count = 0
 
         for service_data in SERVICE_DATA:
             category_obj, category_data = categories[service_data["category"]]
@@ -524,37 +526,10 @@ class Command(BaseCommand):
                 )
                 benefit_count += 1
 
-            alt_values = {
-                "es": f"Imagen ilustrativa de {names['es']}",
-                "fr": f"Illustration du service {names['fr']}",
-                "de": f"Illustration der Dienstleistung {names['de']}",
-                "it": f"Immagine illustrativa del servizio {names['it']}",
-                "en": f"Illustrative image for {names['en']}",
-            }
-
-            image_field = ServiceImage._meta.get_field("image")
-            image_is_optional = (
-                image_field.blank
-                or image_field.null
-                or image_field.has_default()
-            )
-
-            if image_is_optional:
-                ServiceImage.objects.update_or_create(
-                    service=service,
-                    order=1,
-                    defaults=self.safe_values(
-                        ServiceImage,
-                        self.localized_fields("alt", alt_values),
-                    ),
-                )
-                image_count += 1
-
         return {
             "categories": len(categories),
             "services": service_count,
             "benefits": benefit_count,
-            "images": image_count,
         }
 
     # ------------------------------------------------------------------
@@ -815,8 +790,8 @@ class Command(BaseCommand):
                     "meta_description_it": summary["it"][:300],
                     "meta_description_en": summary["en"][:300],
                     "show_on_map": False,
-                    "is_featured": item["featured"],
-                    "is_published": True,
+                    "is_featured": False,
+                    "is_published": False,
                     "is_indexable": False,
                 },
             )
@@ -886,7 +861,7 @@ class Command(BaseCommand):
     # Phase 4 · Blog / Actualités & conseils
     # ------------------------------------------------------------------
 
-    def seed_blog(self):
+    def seed_blog(self, with_demo=False):
         self.update_singleton(BlogPageConfiguration, {})
 
         categories = {}
@@ -928,6 +903,13 @@ class Command(BaseCommand):
         post_count = 0
         section_count = 0
 
+        # BLOG · DATOS INICIALES SIN NOTICIAS FICTICIAS | NO FAKE POSTS BY DEFAULT
+        if not with_demo:
+            return {
+                "categories": len(BLOG_CATEGORIES), "tags": len(BLOG_TAGS),
+                "posts": 0, "sections": 0,
+            }
+
         for item in BLOG_POSTS:
             title = item["title"]
             excerpt = item["excerpt"]
@@ -962,9 +944,9 @@ class Command(BaseCommand):
                     "meta_description_de": excerpt["de"][:300],
                     "meta_description_it": excerpt["it"][:300],
                     "meta_description_en": excerpt["en"][:300],
-                    "is_indexable": True,
-                    "is_published": True,
-                    "is_featured": item["featured"],
+                    "is_indexable": False,
+                    "is_published": False,
+                    "is_featured": False,
                 },
             )
 

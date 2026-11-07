@@ -10,6 +10,35 @@
 {% block meta_description %}
     {% trans "Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, maçonnerie, plâtrerie, peinture et travaux du bâtiment." %}
 {% endblock %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!-- SEO · OPEN GRAPH Y TWITTER | SOCIAL SHARING -->
+{% block metas %}
+{% static 'antra/assets/img/project/VVS_placeholder_cuadrado.webp' as project_social_fallback %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&amp;V Swiss Services">
+<meta property="og:title" content="{% trans 'Réalisations' %} | V&amp;V Swiss Services">
+<meta property="og:description" content="{% trans 'Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, maçonnerie, plâtrerie, peinture et travaux du bâtiment.' %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'de' %}de_CH{% elif CURRENT_LANGUAGE == 'it' %}it_CH{% elif CURRENT_LANGUAGE == 'en' %}en_GB{% else %}fr_CH{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% trans 'Réalisations' %} | V&amp;V Swiss Services">
+<meta name="twitter:description" content="{% trans 'Découvrez les réalisations de V&V Swiss Services en rénovation, isolation, maçonnerie, plâtrerie, peinture et travaux du bâtiment.' %}">
+{% if project_visuals and project_visuals.header_background %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.header_background.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.header_background.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.header_background.url }}">
+{% elif project_visuals and project_visuals.default_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_visuals.default_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_social_fallback }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ project_social_fallback }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project_social_fallback }}">
+{% endif %}
+<meta property="og:image:alt" content="V&amp;V Swiss Services · {% trans 'Réalisations' %}">
+<meta name="twitter:image:alt" content="V&amp;V Swiss Services · {% trans 'Réalisations' %}">
+{% endblock %}
 {% block preload %}
 {% if page_images and project_visuals.header_background %}
 <link rel="preload" as="image" href="{{ project_visuals.header_background.url }}" fetchpriority="high">

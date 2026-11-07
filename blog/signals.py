@@ -7,27 +7,9 @@ from .models import Post, PostSection
 from .visual_config import BlogPageConfiguration
 
 
-@receiver(
-    pre_save,
-    sender=BlogPageConfiguration,
-    dispatch_uid="optimize_blog_page_configuration_images",
-)
+@receiver(pre_save, sender=BlogPageConfiguration, dispatch_uid="optimize_blog_page_configuration_images")
 def optimize_blog_page_configuration_images(sender, instance, **kwargs):
-    optimize_instance_image_fields(
-        instance,
-        (
-            "header_background",
-            "post_default_image",
-        ),
-        max_dimension=2200,
-        quality=82,
-    )
-
-    sync_social_image(
-        instance,
-        "post_default_image",
-        target_field_name="post_default_social_image",
-    )
+    optimize_instance_image_fields(instance, ("header_background",), max_dimension=2200, quality=82)
 
 
 @receiver(

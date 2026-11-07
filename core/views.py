@@ -1,3 +1,4 @@
+from django.templatetags.static import static
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -20,7 +21,8 @@ from .models import (
     Statistic,
     TeamMember,
     Testimonial,
-    ProfessionalPage
+    ProfessionalPage,
+    ProfessionalPageConfiguration,
 )
 
 
@@ -52,7 +54,7 @@ def home(request):
             "year": project.end_date.year if project.end_date else "",
             "latitude": float(project.latitude),
             "longitude": float(project.longitude),
-            "image": project.main_image.url if project.main_image else "",
+            "image": project.main_image.url if project.main_image else static("antra/assets/img/project/project-img-1.png"),
             "url": reverse("projects:detail", args=[project_slug]) if project_slug else "",
         })
 
@@ -62,7 +64,7 @@ def home(request):
         "hero_statistic": Statistic.objects.filter(is_active=True).order_by("order").first(),
         "statistics": Statistic.objects.filter(is_active=True).order_by("order")[:4],
         "featured_services": Service.objects.filter(is_active=True).select_related("category").order_by("order"),
-        "services": Service.objects.filter(is_active=True).select_related("category").prefetch_related("images").order_by("order", "name_fr"),
+        "services": Service.objects.filter(is_active=True).select_related("category").order_by("order", "name_fr"),
         "featured_projects": Project.objects.filter(is_published=True, is_featured=True).prefetch_related("services")[:6],
 
         # ========================================================
@@ -108,37 +110,14 @@ def about(request):
     return render(request, "core/about.html", context)
 
 
-
 # ============================================================
 # PROFESSIONALS
 # ============================================================
 
 def professionals(request):
-    professional_page = (
-        ProfessionalPage.objects
-        .filter(is_active=True)
-        .prefetch_related("blocks", "services")
-        .first()
-    )
-
-    featured_projects = (
-        Project.objects
-        .filter(
-            is_published=True,
-            is_featured=True,
-        )
-        .prefetch_related("services")
-        .order_by("-created_at")[:6]
-    )
-
-    context = {
-        "professional_page": professional_page,
-        "featured_projects": featured_projects,
-        "form": ContactRequestForm(),
-    }
-
-    return render(request, "core/professionals.html", context)
-
+    # COMPATIBILIDAD · LA LÓGICA AHORA RESIDE EN LA APP PROFESSIONALS.
+    from professionals.views import professionals as professionals_view
+    return professionals_view(request)
 
 
 # ============================================================

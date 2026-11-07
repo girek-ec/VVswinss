@@ -1,0 +1,30 @@
+{% comment %}SERVICES FONT AWESOME ICON PICKER | ENGLISH ONLY{% endcomment %}
+<div class="vv-fa-picker" data-vv-fa-picker>
+    <div class="vv-fa-selection">
+        <span class="vv-fa-preview" aria-hidden="true"><i class="{{ widget.value|default:'fa-solid fa-icons' }}" data-vv-fa-preview></i></span>
+        <span class="vv-fa-caption">
+            <span class="vv-fa-heading">Selected icon</span>
+            <span class="vv-fa-current" data-vv-fa-current>{{ widget.value|default:'None' }}</span>
+        </span>
+        <button type="button" class="vv-fa-open" data-vv-fa-toggle aria-expanded="false">Choose icon</button>
+    </div>
+    <input type="text" name="{{ widget.name }}" {% if widget.value is not None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} data-vv-fa-value placeholder="e.g. fa-solid fa-house-chimney" autocomplete="off">
+    <div class="vv-fa-panel" data-vv-fa-panel hidden>
+        <div class="vv-fa-controls">
+            <input type="search" class="vv-fa-search" data-vv-fa-search placeholder="Search: house, painting, insulation..." aria-label="Search icons">
+            <button type="button" class="vv-fa-clear" data-vv-fa-clear>Remove icon</button>
+        </div>
+        <div class="vv-fa-filters" data-vv-fa-filters>
+            <button type="button" class="vv-fa-filter is-active" data-vv-fa-category="all" aria-pressed="true">All</button>
+            {% for category in widget.categories %}<button type="button" class="vv-fa-filter" data-vv-fa-category="{{ category }}" aria-pressed="false">{{ category }}</button>{% endfor %}
+        </div>
+        <div class="vv-fa-grid" data-vv-fa-grid>
+            {% for icon in widget.catalog %}
+                <button type="button" class="vv-fa-option" data-vv-fa-option data-vv-fa-icon="{{ icon.css }}" data-vv-fa-group="{{ icon.category }}" data-vv-fa-terms="{{ icon.label }} {{ icon.css }} {{ icon.keywords }}" title="{{ icon.label }} · {{ icon.css }}" aria-label="Select {{ icon.label }}">
+                    <i class="{{ icon.css }}" aria-hidden="true"></i><span>{{ icon.label }}</span>
+                </button>
+            {% endfor %}
+        </div>
+        <div class="vv-fa-empty" data-vv-fa-empty hidden>No matching icons. Try a different search or enter the CSS class manually.</div>
+    </div>
+</div>

@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import (
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
+from django.templatetags.static import static
 from django.shortcuts import (
     get_object_or_404,
     redirect,
@@ -203,7 +204,7 @@ def contact(request):
             "year": project.end_date.year if project.end_date else "",
             "latitude": float(project.latitude),
             "longitude": float(project.longitude),
-            "image": project.main_image.url if project.main_image else "",
+            "image": project.main_image.url if project.main_image else static("antra/assets/img/project/project-img-1.png"),
             "url": reverse("projects:detail", args=[project_slug]) if project_slug else "",
         })
 

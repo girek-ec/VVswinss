@@ -1,4 +1,4 @@
-﻿import re
+import re
 
 from django.db import models
 from django.utils.html import strip_tags
@@ -1086,27 +1086,6 @@ class HomeContent(TimeStampedModel):
     # - Si queda vacía, el template usa su imagen original de /static/.
     # ========================================================
 
-    hero_image = models.ImageField(
-        "HOME · 01 Hero · Imagen de respaldo",
-        upload_to="home/hero/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza en el Hero únicamente cuando la categoría del servicio "
-            "no tiene imagen propia. Respaldo estático: images/hero-img-1.webp."
-        ),
-    )
-
-    services_default_image = models.ImageField(
-        "HOME · 02 Servicios · Imagen de respaldo",
-        upload_to="home/services/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Imagen de respaldo para las tarjetas de categorías/servicios cuando "
-            "la categoría no tiene imagen. Respaldo estático: project/project-img-1.png."
-        ),
-    )
 
     about_image_primary = models.ImageField(
         "HOME · 03 Empresa · Imagen principal",
@@ -1130,16 +1109,6 @@ class HomeContent(TimeStampedModel):
         ),
     )
 
-    values_default_image = models.ImageField(
-        "HOME · 04 Valores · Imagen de respaldo",
-        upload_to="home/values/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se usa cuando un valor de empresa no tiene imagen propia. "
-            "Respaldo estático: bg-img/banner-process-1.webp."
-        ),
-    )
 
     skill_image = models.ImageField(
         "HOME · 05 Savoir-faire · Imagen principal",
@@ -1152,27 +1121,6 @@ class HomeContent(TimeStampedModel):
         ),
     )
 
-    before_fallback_image = models.ImageField(
-        "HOME · 06 Antes/Después · Imagen ANTES de respaldo",
-        upload_to="home/before-after/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza si el registro Antes/Después no tiene imagen 'Antes'. "
-            "Respaldo estático actual: project/project-img-1.png."
-        ),
-    )
-
-    after_fallback_image = models.ImageField(
-        "HOME · 06 Antes/Después · Imagen DESPUÉS de respaldo",
-        upload_to="home/before-after/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza si el registro Antes/Después no tiene imagen 'Después'. "
-            "Respaldo estático actual: project/project-img-1.png."
-        ),
-    )
 
     testimonials_section_image = models.ImageField(
         "HOME · 07 Testimonios · Imagen grande de sección",
@@ -1185,16 +1133,6 @@ class HomeContent(TimeStampedModel):
         ),
     )
 
-    testimonial_avatar_default = models.ImageField(
-        "HOME · 07 Testimonios · Avatar de respaldo",
-        upload_to="home/testimonials/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Avatar utilizado cuando un testimonio no tiene fotografía propia. "
-            "Respaldo estático: testi/testi-author-1.png."
-        ),
-    )
 
     contact_image = models.ImageField(
         "HOME · 09 Contacto · Imagen principal",
@@ -1207,16 +1145,6 @@ class HomeContent(TimeStampedModel):
         ),
     )
 
-    blog_default_image = models.ImageField(
-        "HOME · 10 Blog · Imagen de respaldo",
-        upload_to="home/blog/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza cuando un artículo no tiene imagen principal. "
-            "Respaldo estático actual: project/project-img-1.png."
-        ),
-    )
 
     video_url = models.URLField(blank=True)
 
@@ -1228,6 +1156,17 @@ class HomeContent(TimeStampedModel):
 
     def __str__(self):
         return self.title_fr
+
+    # WEBP · IMÁGENES PROPIAS DEL HOME | HOME-ONLY IMAGE OPTIMIZATION
+    def save(self, *args, **kwargs):
+        from .image_utils import optimize_instance_image_fields
+        optimize_instance_image_fields(
+            self,
+            ("about_image_primary", "about_image_secondary", "skill_image", "testimonials_section_image", "contact_image"),
+            max_dimension=2200,
+            quality=82,
+        )
+        super().save(*args, **kwargs)
 
 
 # ============================================================

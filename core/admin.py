@@ -1,6 +1,6 @@
-﻿from django.contrib import admin
+from django.contrib import admin
 from django.utils.html import format_html
-from .visual_config import AboutPageConfiguration
+from django.templatetags.static import static
 
 from .models import (
     AboutContent,
@@ -26,118 +26,76 @@ from .models import (
 # ============================================================
 # SITE CONFIGURATION
 # ============================================================
-
+# SITE CONFIGURATION | CONFIGURACIÓN GENERAL
+# CONFIGURACIÓN GENERAL | SITE CONFIGURATION
 @admin.register(SiteConfiguration)
 class SiteConfigurationAdmin(admin.ModelAdmin):
     list_display = ("company_name", "legal_name", "city", "canton", "country", "phone", "email", "is_active")
     list_filter = ("is_active", "country", "canton")
     search_fields = ("company_name", "legal_name", "uid_number", "city", "canton", "country", "email", "phone")
-    readonly_fields = (
-        "footer_background_preview",
-        "created_at",
-        "updated_at",
-    )
-
+    readonly_fields = ("preloader_background_preview", "footer_background_preview", "created_at", "updated_at")
     fieldsets = (
-        ("Empresa", {
-            "fields": ("company_name", "logo", "white_logo", "favicon")
-        }),
-
+        ("Empresa", {"fields": ("company_name", "logo", "white_logo", "favicon")}),
         ("Preloader / Transición de páginas", {
-            "fields": (
-                "preloader_background",
-            ),
-            "description": (
-                "Imagen de fondo mostrada mientras se carga o cambia de página. "
-                "Se recomienda una imagen horizontal 16:9."
-            ),
+            "fields": ("preloader_background", "preloader_background_preview"),
+            "description": "Imagen personalizada opcional. Si no se carga, la web utiliza la imagen predeterminada de static/. Recomendado: formato 16:9, mínimo 1600 px.",
         }),
-
         ("Pie de página · Fondo global", {
-            "fields": (
-                "footer_background",
-                "footer_background_preview",
-            ),
-            "description": (
-                "Imagen de fondo que aparece detrás de todo el pie de página. "
-                "Si no se carga ninguna imagen, se mantiene automáticamente "
-                "static/antra/assets/img/bg-img/footer-bg.webp. "
-                "Recomendado: fotografía horizontal 16:9 de al menos 1600 px."
-            ),
+            "fields": ("footer_background", "footer_background_preview"),
+            "description": "Imagen personalizada opcional. Sin ella, la web utiliza static/antra/assets/img/bg-img/footer-bg.webp.",
         }),
-
-        ("🇪🇸 Español · Referencia interna", {
-            "fields": ("slogan_es",)
-        }),
-
-        ("🇫🇷 Français · Principal", {
-            "fields": ("slogan_fr",)
-        }),
-
-        ("🇩🇪 Deutsch", {
-            "fields": ("slogan_de",)
-        }),
-
-        ("🇮🇹 Italiano", {
-            "fields": ("slogan_it",)
-        }),
-
-        ("🇬🇧 English", {
-            "fields": ("slogan_en",)
-        }),
-
-        ("Contacto", {
-            "fields": ("phone", "whatsapp", "email")
-        }),
-
-        ("Ubicación", {
-            "fields": ("address", "postal_code", "city", "canton", "country", "latitude", "longitude")
-        }),
-
+        ("🇪🇸 Español · Referencia interna", {"fields": ("slogan_es",)}),
+        ("🇫🇷 Français · Principal", {"fields": ("slogan_fr",)}),
+        ("🇩🇪 Deutsch", {"fields": ("slogan_de",)}),
+        ("🇮🇹 Italiano", {"fields": ("slogan_it",)}),
+        ("🇬🇧 English", {"fields": ("slogan_en",)}),
+        ("Contacto", {"fields": ("phone", "whatsapp", "email")}),
+        ("Ubicación", {"fields": ("address", "postal_code", "city", "canton", "country", "latitude", "longitude")}),
         ("Información legal · Mentions légales / Impressum", {
-            "fields": ("legal_name", "legal_form", "uid_number", "vat_number", "commercial_register", "legal_representative", "insurance_info")
+            "fields": ("legal_name", "legal_form", "uid_number", "vat_number", "commercial_register", "legal_representative", "insurance_info"),
         }),
-
         ("Protección de datos · nLPD", {
             "fields": ("privacy_email",),
-            "description": "Datos utilizados como referencia de contacto para solicitudes relacionadas con la protección de datos personales."
+            "description": "Datos utilizados como referencia de contacto para solicitudes relacionadas con la protección de datos personales.",
         }),
-
         ("Alojamiento web · Hébergement", {
             "fields": ("hosting_provider", "hosting_address", "hosting_country"),
-            "description": "Información del proveedor donde se encuentra alojado el sitio web y, cuando corresponda, los datos asociados al servicio."
+            "description": "Información del proveedor de alojamiento web y, cuando corresponda, los datos asociados al servicio.",
         }),
-
-        ("Estado", {
-            "fields": ("is_active",)
-        }),
-
-        ("Sistema", {
-            "classes": ("collapse",),
-            "fields": ("created_at", "updated_at")
-        }),
+        ("Estado", {"fields": ("is_active",)}),
+        ("Sistema", {"classes": ("collapse",), "fields": ("created_at", "updated_at")}),
     )
 
-# ============================================================
-# SOCIAL LINKS
-# ============================================================
+    # VISTA PREVIA PERSONALIZADA O ESTÁTICA | CUSTOM OR STATIC PREVIEW
+    def _background_preview(self, obj, field_name, fallback_path):
+        field = getattr(obj, field_name, None) if obj else None
+        image_url = static(fallback_path)
+        label = "Imagen predeterminada · STATIC"
+        if field:
+            try:
+                image_url = field.url
+                label = "Imagen personalizada · MEDIA"
+            except (ValueError, AttributeError):
+                pass
+        return format_html(
+            '<div style="display:flex;flex-direction:column;gap:10px;">'
+            '<img src="{}" alt="Vista previa" style="max-width:520px;width:100%;'
+            'height:auto;max-height:260px;object-fit:cover;border-radius:8px;'
+            'border:1px solid #ddd;">'
+            '<span style="font-size:12px;color:#666;">{}</span>'
+            '</div>', image_url, label,
+        )
+
+    @admin.display(description="Vista previa · Fondo del preloader")
+    def preloader_background_preview(self, obj):
+        return self._background_preview(obj, "preloader_background", "antra/assets/img/bg-img/preloader-default.webp")
 
     @admin.display(description="Vista previa · Fondo del pie de página")
     def footer_background_preview(self, obj):
-        if not obj or not obj.footer_background:
-            return "Sin imagen cargada · se utilizará el fondo estático del footer."
-
-        try:
-            return format_html(
-                '<img src="{}" style="max-width:520px;max-height:260px;'
-                'width:auto;height:auto;object-fit:contain;border-radius:8px;'
-                'border:1px solid #ddd;background:#111;padding:4px;" />',
-                obj.footer_background.url,
-            )
-        except (ValueError, AttributeError):
-            return "Sin imagen cargada · se utilizará el fondo estático del footer."
+        return self._background_preview(obj, "footer_background", "antra/assets/img/bg-img/footer-bg.webp")
 
 
+# REDES SOCIALES | SOCIAL LINKS
 @admin.register(SocialLink)
 class SocialLinkAdmin(admin.ModelAdmin):
     list_display = ("name", "url", "order", "is_active")
@@ -447,7 +405,7 @@ class InsuranceAdmin(admin.ModelAdmin):
             ),
             "description": (
                 "Si no se carga una imagen propia, se mostrará automáticamente "
-                "la imagen por defecto configurada en «Configuración visual · About»."
+                "la imagen estática predeterminada de seguros."
             ),
         }),
         ("🇪🇸 Español · Referencia interna", {
@@ -478,18 +436,17 @@ class InsuranceAdmin(admin.ModelAdmin):
         }),
     )
 
+
+    # IMAGEN EFECTIVA DEL SEGURO | EFFECTIVE INSURANCE IMAGE
     @staticmethod
     def _get_effective_image(obj):
         if obj and obj.image:
-            return obj.image, False
+            try:
+                return obj.image.url, False
+            except (ValueError, AttributeError, OSError):
+                pass
+        return static("antra/assets/img/images/VVS_placeholder_horizontal.webp"), True
 
-        config = AboutPageConfiguration.objects.first()
-        default_image = getattr(config, "insurance_default_image", None) if config else None
-
-        if default_image:
-            return default_image, True
-
-        return None, False
 
     @admin.display(description="Imagen")
     def image_preview_list(self, obj):
@@ -505,9 +462,9 @@ class InsuranceAdmin(admin.ModelAdmin):
                 '<img src="{}" style="height:55px;width:80px;'
                 'object-fit:cover;border-radius:6px;border:{};" '
                 'title="{}" />',
-                image.url,
+                image,
                 border,
-                "Imagen por defecto de About" if is_default else "Imagen propia",
+                "Imagen predeterminada de STATIC" if is_default else "Imagen propia",
             )
         except (ValueError, AttributeError):
             return "—"
@@ -524,7 +481,7 @@ class InsuranceAdmin(admin.ModelAdmin):
 
         try:
             label = (
-                "IMAGEN POR DEFECTO · Configuración visual · About"
+                "IMAGEN PREDETERMINADA · STATIC"
                 if is_default
                 else "IMAGEN PROPIA · Insurance"
             )
@@ -537,7 +494,7 @@ class InsuranceAdmin(admin.ModelAdmin):
                 'border:1px solid #ddd;padding:4px;background:#f7f7f7;" />'
                 '</div>',
                 label,
-                image.url,
+                image,
             )
         except (ValueError, AttributeError):
             return "—"
@@ -794,18 +751,11 @@ class HomeContentAdmin(admin.ModelAdmin):
     search_fields = ("title_es", "title_fr", "title_de", "title_it", "title_en")
 
     readonly_fields = (
-        "hero_image_preview",
-        "services_default_image_preview",
         "about_image_primary_preview",
         "about_image_secondary_preview",
-        "values_default_image_preview",
         "skill_image_preview",
-        "before_fallback_image_preview",
-        "after_fallback_image_preview",
         "testimonials_section_image_preview",
-        "testimonial_avatar_default_preview",
         "contact_image_preview",
-        "blog_default_image_preview",
         "created_at",
         "updated_at",
     )
@@ -835,29 +785,6 @@ class HomeContentAdmin(admin.ModelAdmin):
             "classes": ("collapse",),
         }),
 
-        ("HOME · 01 · HERO", {
-            "description": (
-                "Imagen de respaldo del Hero. Las categorías conservan prioridad: "
-                "si una categoría tiene su propia imagen, esa imagen se mostrará. "
-                "Si no la tiene, se usará esta; y si esta también está vacía, "
-                "se mostrará images/hero-img-1.webp."
-            ),
-            "fields": (
-                "hero_image",
-                "hero_image_preview",
-            ),
-        }),
-
-        ("HOME · 02 · SERVICIOS / CATEGORÍAS", {
-            "description": (
-                "Imagen de respaldo de las tarjetas de categorías del Home. "
-                "Solo aparece cuando una categoría no tiene imagen propia."
-            ),
-            "fields": (
-                "services_default_image",
-                "services_default_image_preview",
-            ),
-        }),
 
         ("HOME · 03 · EMPRESA / EXPERIENCIA", {
             "description": (
@@ -872,16 +799,6 @@ class HomeContentAdmin(admin.ModelAdmin):
             ),
         }),
 
-        ("HOME · 04 · VALORES", {
-            "description": (
-                "Imagen de respaldo para un valor empresarial que no tenga una "
-                "imagen propia configurada en Company Value."
-            ),
-            "fields": (
-                "values_default_image",
-                "values_default_image_preview",
-            ),
-        }),
 
         ("HOME · 05 · SAVOIR-FAIRE", {
             "description": (
@@ -893,29 +810,14 @@ class HomeContentAdmin(admin.ModelAdmin):
             ),
         }),
 
-        ("HOME · 06 · ÚLTIMA REALIZACIÓN · ANTES / DESPUÉS", {
-            "description": (
-                "Imágenes de respaldo del comparador Antes/Después. "
-                "Las imágenes cargadas en el propio proyecto tienen prioridad."
-            ),
-            "fields": (
-                "before_fallback_image",
-                "before_fallback_image_preview",
-                "after_fallback_image",
-                "after_fallback_image_preview",
-            ),
-        }),
 
         ("HOME · 07 · TESTIMONIOS", {
             "description": (
-                "Imagen grande de la sección y avatar de respaldo para testimonios "
-                "sin fotografía."
+                "Imagen grande propia de la sección de testimonios."
             ),
             "fields": (
                 "testimonials_section_image",
                 "testimonials_section_image_preview",
-                "testimonial_avatar_default",
-                "testimonial_avatar_default_preview",
             ),
         }),
 
@@ -929,15 +831,6 @@ class HomeContentAdmin(admin.ModelAdmin):
             ),
         }),
 
-        ("HOME · 10 · BLOG / ACTUALIDAD", {
-            "description": (
-                "Imagen utilizada cuando una entrada del blog no tiene main_image."
-            ),
-            "fields": (
-                "blog_default_image",
-                "blog_default_image_preview",
-            ),
-        }),
 
         ("Multimedia adicional", {
             "fields": ("video_url",),
@@ -971,13 +864,6 @@ class HomeContentAdmin(admin.ModelAdmin):
         except (ValueError, AttributeError):
             return "Sin imagen cargada · se utilizará el respaldo de /static/."
 
-    @admin.display(description="Vista previa · Hero")
-    def hero_image_preview(self, obj):
-        return self._render_home_preview(obj.hero_image if obj else None)
-
-    @admin.display(description="Vista previa · Servicios")
-    def services_default_image_preview(self, obj):
-        return self._render_home_preview(obj.services_default_image if obj else None)
 
     @admin.display(description="Vista previa · Empresa principal")
     def about_image_primary_preview(self, obj):
@@ -987,57 +873,30 @@ class HomeContentAdmin(admin.ModelAdmin):
     def about_image_secondary_preview(self, obj):
         return self._render_home_preview(obj.about_image_secondary if obj else None)
 
-    @admin.display(description="Vista previa · Valores")
-    def values_default_image_preview(self, obj):
-        return self._render_home_preview(obj.values_default_image if obj else None)
 
     @admin.display(description="Vista previa · Savoir-faire")
     def skill_image_preview(self, obj):
         return self._render_home_preview(obj.skill_image if obj else None)
 
-    @admin.display(description="Vista previa · Antes")
-    def before_fallback_image_preview(self, obj):
-        return self._render_home_preview(obj.before_fallback_image if obj else None)
-
-    @admin.display(description="Vista previa · Después")
-    def after_fallback_image_preview(self, obj):
-        return self._render_home_preview(obj.after_fallback_image if obj else None)
 
     @admin.display(description="Vista previa · Testimonios")
     def testimonials_section_image_preview(self, obj):
         return self._render_home_preview(obj.testimonials_section_image if obj else None)
 
-    @admin.display(description="Vista previa · Avatar de testimonio")
-    def testimonial_avatar_default_preview(self, obj):
-        return self._render_home_preview(
-            obj.testimonial_avatar_default if obj else None,
-            max_width=160,
-            max_height=160,
-        )
 
     @admin.display(description="Vista previa · Contacto")
     def contact_image_preview(self, obj):
         return self._render_home_preview(obj.contact_image if obj else None)
 
-    @admin.display(description="Vista previa · Blog")
-    def blog_default_image_preview(self, obj):
-        return self._render_home_preview(obj.blog_default_image if obj else None)
 
     @admin.display(description="Imágenes Home")
     def home_images_status(self, obj):
         image_fields = (
-            "hero_image",
-            "services_default_image",
             "about_image_primary",
             "about_image_secondary",
-            "values_default_image",
             "skill_image",
-            "before_fallback_image",
-            "after_fallback_image",
             "testimonials_section_image",
-            "testimonial_avatar_default",
             "contact_image",
-            "blog_default_image",
         )
         loaded = sum(bool(getattr(obj, field_name, None)) for field_name in image_fields)
         return f"{loaded}/{len(image_fields)} personalizadas"
@@ -1140,6 +999,10 @@ class ProfessionalBlockInline(admin.StackedInline):
 
 @admin.register(ProfessionalPage)
 class ProfessionalPageAdmin(admin.ModelAdmin):
+    # ADMIN ANTIGUO · SE CONSERVA SU URL Y SUS INLINES, PERO NO DUPLICA EL MENÚ
+    def get_model_perms(self, request):
+        return {}
+
     inlines = (ProfessionalBlockInline,)
 
     list_display = ("hero_title_fr", "is_active", "updated_at")
@@ -1198,6 +1061,10 @@ class ProfessionalPageAdmin(admin.ModelAdmin):
 
 @admin.register(ProfessionalBlock)
 class ProfessionalBlockAdmin(admin.ModelAdmin):
+    # ADMIN ANTIGUO · CONSERVADO PARA COMPATIBILIDAD CON ENLACES DIRECTOS
+    def get_model_perms(self, request):
+        return {}
+
     list_display = ("title_fr", "page", "layout", "order", "is_active")
     list_editable = ("order", "is_active")
     list_filter = ("layout", "is_active")
@@ -1236,3 +1103,11 @@ class ProfessionalBlockAdmin(admin.ModelAdmin):
 
 
 from . import visual_config_admin  # noqa: F401,E402
+
+# PROFESSIONALS · OCULTAR MODELOS HISTÓRICOS | HIDE LEGACY ADMIN MENUS
+# Las URL administrativas antiguas siguen accesibles a usuarios autorizados.
+# Los registros y migraciones históricos permanecen sin cambios.
+from core.visual_config import ProfessionalPageConfiguration as LegacyProfessionalPageConfiguration
+for _legacy_prof_model in (ProfessionalPage, ProfessionalBlock, LegacyProfessionalPageConfiguration):
+    if admin.site.is_registered(_legacy_prof_model):
+        admin.site.get_model_admin(_legacy_prof_model).get_model_perms = lambda request: {}

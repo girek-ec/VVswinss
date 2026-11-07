@@ -4,7 +4,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from services.models import Service, ServiceBenefit, ServiceCategory, ServiceImage
+from services.models import Service, ServiceBenefit, ServiceCategory
 
 
 # ============================================================
@@ -411,67 +411,9 @@ def save_image_field(instance, field_name, path, overwrite=False):
 
 
 def sync_media(service, images_root, overwrite=False):
-    """
-    Expected optional structure:
-
-      <images_root>/<service.slug_fr>/
-          main.webp
-          secondary.webp
-          third.webp
-          gallery/
-              01.webp
-              02.webp
-              ...
-
-    If a file/folder is missing, it is simply skipped.
-    """
-    if not images_root:
-        return 0
-
-    folder = Path(images_root) / service.slug_fr
-    if not folder.exists():
-        return 0
-
-    changed = False
-    for field_name, filename in (
-        ("main_image", "main.webp"),
-        ("secondary_image", "secondary.webp"),
-        ("third_image", "third.webp"),
-    ):
-        changed |= save_image_field(service, field_name, folder / filename, overwrite=overwrite)
-
-
-    if changed:
-        service.save()
-
-    gallery = folder / "gallery"
-    gallery_count = 0
-    if gallery.exists():
-        files = sorted(
-            p for p in gallery.iterdir()
-            if p.is_file() and p.suffix.lower() in {".webp", ".jpg", ".jpeg", ".png"}
-        )
-        if overwrite:
-            service.images.all().delete()
-
-        for idx, path in enumerate(files, start=1):
-            if not overwrite and service.images.filter(order=idx).exists():
-                continue
-            image = ServiceImage(
-                service=service,
-                order=idx,
-                alt_es=service.name_es,
-                alt_fr=service.name_fr,
-                alt_de=service.name_de,
-                alt_it=service.name_it,
-                alt_en=service.name_en,
-            )
-            with path.open("rb") as fh:
-                image.image.save(path.name, File(fh), save=False)
-            image.save()
-            gallery_count += 1
-
-    return gallery_count
+    # SERVICIOS SIN GALERÍA | SERVICES USE ICONS, NOT UPLOADED PHOTOS
+    # Compatibilidad con --images-dir de versiones anteriores.
+    return 0
 
 
 class Command(BaseCommand):
@@ -482,7 +424,7 @@ class Command(BaseCommand):
             "--images-dir",
             type=str,
             default=None,
-            help="Carpeta raíz opcional con imágenes organizadas por slug_fr del servicio.",
+            help="Opción obsoleta: se ignora. Los servicios usan iconos.",
         )
         parser.add_argument(
             "--overwrite-images",
@@ -565,6 +507,6 @@ class Command(BaseCommand):
         self.stdout.write("\n" + "-" * 88)
         self.stdout.write(self.style.SUCCESS(
             f"Proceso completado · {created_count} creados · {updated_count} actualizados · "
-            f"{disabled_count} antiguos desactivados · {gallery_count} imágenes de galería añadidas."
+            f"{disabled_count} antiguos desactivados · {gallery_count} imágenes de galería añadidas (deshabilitado)."
         ))
         self.stdout.write("-" * 88 + "\n")

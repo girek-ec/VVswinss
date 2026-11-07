@@ -49,9 +49,6 @@ IMAGE_FIELDS = {
         "secondary_image",
         "third_image",
     ),
-    "services.ServiceImage": (
-        "image",
-    ),
 
     # PROJECTS
     "projects.Project": (

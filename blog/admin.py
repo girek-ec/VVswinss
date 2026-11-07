@@ -4,7 +4,6 @@ from django.templatetags.static import static
 from django.utils.html import format_html
 
 from .models import BlogCategory, BlogTag, Post, PostSection
-from .visual_config import BlogPageConfiguration
 
 
 BLOG_STATIC_FALLBACK = "antra/assets/img/images/VVS_placeholder_horizontal.webp"
@@ -21,44 +20,19 @@ def image_url_if_exists(image):
     return None
 
 
-def blog_defaults():
-    return BlogPageConfiguration.objects.order_by("pk").first()
-
-
 def effective_post_image(obj):
     own = image_url_if_exists(getattr(obj, "main_image", None))
-    if own:
-        return own, "Imagen propia"
-
-    config = blog_defaults()
-    default = image_url_if_exists(
-        getattr(config, "post_default_image", None) if config else None
-    )
-    if default:
-        return default, "Imagen por defecto del Blog"
-
-    return static(BLOG_STATIC_FALLBACK), "Fallback estático"
+    return (own, "Imagen propia") if own else (static(BLOG_STATIC_FALLBACK), "Imagen predeterminada · STATIC")
 
 
 def effective_post_social_image(obj):
-    own_social = image_url_if_exists(getattr(obj, "og_image", None))
-    if own_social:
-        return own_social, "Open Graph propio/automático"
-
-    config = blog_defaults()
-    default_social = image_url_if_exists(
-        getattr(config, "post_default_social_image", None) if config else None
-    )
-    if default_social:
-        return default_social, "Open Graph por defecto · 1200 × 630"
-
-    default_normal = image_url_if_exists(
-        getattr(config, "post_default_image", None) if config else None
-    )
-    if default_normal:
-        return default_normal, "Fallback visual del Blog"
-
-    return static(BLOG_STATIC_FALLBACK), "Fallback estático"
+    own = image_url_if_exists(getattr(obj, "og_image", None))
+    if own:
+        return own, "Open Graph propio/automático"
+    main = image_url_if_exists(getattr(obj, "main_image", None))
+    if main:
+        return main, "Imagen propia del artículo"
+    return static(BLOG_STATIC_FALLBACK), "Imagen predeterminada · STATIC"
 
 
 def render_preview(url, label, width=500, height=280):
@@ -240,7 +214,7 @@ class PostAdmin(admin.ModelAdmin):
                 {
                     "description": (
                         "Si no se carga una imagen propia, el sitio y el Admin muestran "
-                        "automáticamente la imagen por defecto configurada para el Blog."
+                        "automáticamente la imagen predeterminada de static/."
                     ),
                     "fields": ("main_image", "image_preview_large"),
                 },
@@ -279,7 +253,7 @@ class PostAdmin(admin.ModelAdmin):
                     {
                         "description": (
                             "Si existe imagen principal, og_image se genera automáticamente "
-                            "en JPEG 1200 × 630. Si no existe, se usa el social por defecto del Blog."
+                            "en JPEG 1200 × 630. Si no existe, se muestra la imagen propia o el recurso de static/."
                         ),
                         "fields": tuple(extra_fields) + ("og_image_effective_preview",),
                     },
@@ -335,18 +309,11 @@ class PostAdmin(admin.ModelAdmin):
 
     @admin.display(description="SEO social")
     def og_status(self, obj):
-        own = image_url_if_exists(getattr(obj, "og_image", None))
-        if own:
-            return "Propio / automático"
-
-        config = blog_defaults()
-        default = image_url_if_exists(
-            getattr(config, "post_default_social_image", None) if config else None
-        )
-        if default:
-            return "Por defecto"
-
-        return "Fallback"
+        if image_url_if_exists(getattr(obj, "og_image", None)):
+            return "Generada automáticamente"
+        if image_url_if_exists(getattr(obj, "main_image", None)):
+            return "Imagen del artículo"
+        return "STATIC"
 
     def save_model(self, request, obj, form, change):
         if not obj.author_id:
@@ -372,3 +339,6 @@ class PostAdmin(admin.ModelAdmin):
 
 # CONFIGURACIÓN VISUAL · REGISTRO ADMIN
 from . import visual_config_admin  # noqa: E402,F401
+
+# BLOG · VISUAL PREVIEWS | VISTAS PREVIAS DE CONFIGURACIÓN VISUAL
+from . import admin_visual_previews  # noqa: F401,E402

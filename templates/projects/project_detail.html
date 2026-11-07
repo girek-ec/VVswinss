@@ -152,58 +152,34 @@
     <div class="container container-2">
         <div class="project-details-wrap">
             <!-- TÍTULO DEL PROYECTO | PROJECT TITLE -->
-            <h1
+            <h2
                 class="details-title"
                 style="text-align: center!important;"
             >
                 {{ project|localized:"title" }}
-            </h1>
-            <!-- ANTES / DESPUÉS | BEFORE / AFTER -->
-            {% if project.before_after.all %}
-                <section class="project-before-after-showcase pt-10 pb-80">
-                    <div class="container-fluid px-0">
-                        <div class="project-before-after-heading text-center mb-50">
-                            <h4 class="details-title-2">
-                                {% trans "Avant et après" %}
-                            </h4>
-                        </div>
-                        {% with comparison=project.before_after.all.0 %}
-                            {% if comparison %}
-                                <div class="project-before-after-full">
-                                    <div class="twentytwenty-container before-after-fullwidth">
-                                        {% if comparison.before_image %}
-                                            <img
-                                                src="{{ comparison.before_image.url }}"
-                                                alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
-                                                loading="eager"
-                                                decoding="async">
-                                        {% else %}
-                                            <img
-                                                src="{% static 'antra/assets/img/home/before-default.webp' %}"
-                                                alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
-                                                loading="eager"
-                                                decoding="async">
-                                        {% endif %}
-                                        {% if comparison.after_image %}
-                                            <img
-                                                src="{{ comparison.after_image.url }}"
-                                                alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
-                                                loading="eager"
-                                                decoding="async">
-                                        {% else %}
-                                            <img
-                                                src="{% static 'antra/assets/img/home/after-default.webp' %}"
-                                                alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
-                                                loading="eager"
-                                                decoding="async">
-                                        {% endif %}
-                                    </div>
+            </h2>
+            <!-- ANTES / DESPUÉS · SOLO CON DOS FOTOGRAFÍAS | BEFORE / AFTER · BOTH IMAGES REQUIRED -->
+            {% for comparison in project.before_after.all %}
+                {% if comparison.before_image and comparison.after_image %}
+                    <section class="project-before-after-showcase pt-10 pb-80">
+                        <div class="container-fluid px-0">
+                            <div class="project-before-after-heading text-center mb-50">
+                                <h4 class="details-title-2">{% trans "Avant et après" %}</h4>
+                            </div>
+                            <div class="project-before-after-full">
+                                <div class="twentytwenty-container before-after-fullwidth">
+                                    <img src="{{ comparison.before_image.url }}"
+                                         alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
+                                         loading="eager" decoding="async">
+                                    <img src="{{ comparison.after_image.url }}"
+                                         alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
+                                         loading="eager" decoding="async">
                                 </div>
-                            {% endif %}
-                        {% endwith %}
-                    </div>
-                </section>
-            {% endif %}
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
             <!-- INFORMACIÓN DEL PROYECTO | PROJECT INFORMATION -->
             <div class="project-details-meta">
                 <!-- TIPO DE PROYECTO | PROJECT TYPE -->

@@ -462,13 +462,7 @@
                     {% cycle 'antra/assets/img/professionals/01_maconnerie.webp' 'antra/assets/img/professionals/02_isolation.webp' 'antra/assets/img/professionals/03_platrerie.webp' 'antra/assets/img/professionals/04_peinture.webp' as service_fallback silent %}
                     <div class="banner-process-img">
                         <div class="process-img">
-                            {% if service.main_image %}
-                                <img src="{{ service.main_image.url }}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
-                            {% elif page_images and professional_visuals.service_default_image %}
-                                <img src="{{ professional_visuals.service_default_image.url }}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
-                            {% else %}
-                                <img src="{% static service_fallback %}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
-                            {% endif %}
+                            <img src="{% static service_fallback %}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
                         </div>
                     </div>
                 {% endfor %}
@@ -513,13 +507,12 @@
                 <div class="swiper-slide">
                     <div class="project-item">
                         <div class="project-img">
-                            {% cycle 'antra/assets/img/professionals/01_projet_exterieur.webp' 'antra/assets/img/professionals/02_projet_interieur.webp' 'antra/assets/img/professionals/03_projet_cuisine.webp' 'antra/assets/img/professionals/04_projet_residentiel.webp' 'antra/assets/img/professionals/05_projet_architecture.webp' as project_fallback silent %}
                             {% if project.main_image %}
                                 <img src="{{ project.main_image.url }}" alt="{{ project_title }}" loading="lazy" decoding="async" fetchpriority="low">
                             {% elif page_images and professional_visuals.project_default_image %}
                                 <img src="{{ professional_visuals.project_default_image.url }}" alt="{{ project_title }}" loading="lazy" decoding="async" fetchpriority="low">
                             {% else %}
-                                <img src="{% static project_fallback %}" alt="{{ project_title }}" loading="lazy" decoding="async" fetchpriority="low">
+                                <img src="{% static 'antra/assets/img/professionals/03_remise_en_etat.webp' %}" alt="{{ project_title }}" loading="lazy" decoding="async" fetchpriority="low">
                             {% endif %}
                             {% if project_slug %}
                                 <ul>

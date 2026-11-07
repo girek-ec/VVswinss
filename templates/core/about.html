@@ -7,7 +7,7 @@
 {% block content %}
 <!-- SECCIÓN 01 · ENCABEZADO DE PÁGINA | PAGE HEADER -->
 <section class="page-header">
-    {% if page_images and about_visuals.header_background %}
+    {% if about_visuals and about_visuals.header_background %}
     <div class="bg-img" data-background="{{ about_visuals.header_background.url }}" style="background-image: url('{{ about_visuals.header_background.url }}');"></div>
     {% else %}
     <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image: url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"></div>
@@ -59,8 +59,6 @@
                         <div class="counter-img">
                             {% if about_content and about_content.image %}
                             <img src="{{ about_content.image.url }}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low">
-                            {% elif page_images and about_visuals.intro_image %}
-                            <img src="{{ about_visuals.intro_image.url }}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low">
                             {% else %}
                             <img src="{% static 'antra/assets/img/images/about-img-2.png' %}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low" width="350" height="420">
                             {% endif %}
@@ -132,11 +130,7 @@
                         {% if member.photo %}
 <img src="{{ member.photo.url }}" alt="{{ member.name }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
-{% if page_images and about_visuals.team_default_image %}
-<img src="{{ about_visuals.team_default_image.url }}" alt="{{ member.name }}" loading="lazy" decoding="async" fetchpriority="low">
-{% else %}
 <img src="{% static 'antra/assets/img/team/team-img-1.png' %}" alt="{{ member.name }}" loading="lazy" decoding="async" fetchpriority="low" width="420" height="510">
-{% endif %}
                         {% endif %}
                         <!-- ACCIONES DE CONTACTO | CONTACT ACTIONS -->
                         {% if member.email or member.phone %}
@@ -189,8 +183,6 @@
 <div class="video-area-wrap">
     {% if about_content.video_image %}
         <div class="video-bg" data-background="{{ about_content.video_image.url }}"></div>
-    {% elif page_images and about_visuals.video_background %}
-        <div class="video-bg" data-background="{{ about_visuals.video_background.url }}"></div>
     {% else %}
         <div class="video-bg" data-background="{% static 'antra/assets/img/bg-img/video-bg-3.webp' %}"></div>
     {% endif %}
@@ -222,7 +214,7 @@
                     <div class="about-img-1">
                         {% if about_content.mission_image %}
                         <img src="{{ about_content.mission_image.url }}" alt="{% trans 'Notre mission' %}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% elif page_images and about_visuals.mission_primary_image %}
+                        {% elif about_visuals and about_visuals.mission_primary_image %}
                         <img src="{{ about_visuals.mission_primary_image.url }}" alt="{% trans 'Notre mission' %}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
 <img src="{% static 'antra/assets/img/images/about-img-4.webp' %}" alt="{% trans 'Notre mission' %}" loading="lazy" decoding="async" fetchpriority="low" width="1254" height="1254">
@@ -231,7 +223,7 @@
                     <div class="about-img-2">
                         {% if about_content.mission_image_secondary %}
                         <img src="{{ about_content.mission_image_secondary.url }}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low">
-                        {% elif page_images and about_visuals.mission_secondary_image %}
+                        {% elif about_visuals and about_visuals.mission_secondary_image %}
                         <img src="{{ about_visuals.mission_secondary_image.url }}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
                         <img src="{% static 'antra/assets/img/images/about-img-5.webp' %}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low" width="1448" height="1086">
@@ -266,7 +258,7 @@
 <!-- SECCIÓN | SECTION -->
 {% if about_content %}
 <section class="service-section-3 pt-130 pb-130 overflow-hidden">
-    {% if page_images and about_visuals.vision_background %}
+    {% if about_visuals and about_visuals.vision_background %}
     <div class="bg-img" data-background="{{ about_visuals.vision_background.url }}"></div>
     {% else %}
     <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/service-bg-1.png' %}"></div>
@@ -286,7 +278,7 @@
             </div>
             <div class="col-lg-6">
   <div class="skill-img slide-anim" data-delay="0.3" data-offset="100" data-direction="right">
-                    {% if page_images and about_visuals.vision_image %}
+                    {% if about_visuals and about_visuals.vision_image %}
                     <img src="{{ about_visuals.vision_image.url }}" alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}" loading="lazy" decoding="async" fetchpriority="low">
                     {% else %}
                     <img src="{% static 'antra/assets/img/images/skill-img-1.webp' %}" alt="{% trans 'Travaux de rénovation V&V Swiss Services' %}" loading="lazy" decoding="async" fetchpriority="low" width="1448" height="1086">
@@ -340,11 +332,7 @@
                         {% if value.image %}
                         <img src="{{ value.image.url }}" alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
-{% if page_images and about_visuals.value_default_image %}
-                        <img src="{{ about_visuals.value_default_image.url }}" alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% else %}
                         <img src="{% static 'antra/assets/img/bg-img/banner-process-1.webp' %}" alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="1920" height="820">
-                        {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -417,12 +405,14 @@
 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
             </div>
             <div class="modal-body">
-                <!-- IMAGEN | IMAGE -->
-                {% if insurance.image %}
+                <!-- IMAGEN DEL MODELO O STATIC | MODEL IMAGE OR STATIC FALLBACK -->
                 <div class="insurance-modal-image">
+                    {% if insurance.image %}
                     <img src="{{ insurance.image.url }}" alt="{{ insurance|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
+                    {% else %}
+                    <img src="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" alt="{{ insurance|localized:'name' }}" loading="lazy" decoding="async" fetchpriority="low">
+                    {% endif %}
                 </div>
-                {% endif %}
                 <!-- DESCRIPCIÓN | DESCRIPTION -->
                 {% with insurance_description=insurance|localized:"description" %}
                 {% if insurance_description %}
@@ -530,11 +520,7 @@
                         {% if first_certification.image %}
                         <img src="{{ first_certification.image.url }}" alt="{{ first_certification.name }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
-{% if page_images and about_visuals.certification_default_image %}
-                        <img src="{{ about_visuals.certification_default_image.url }}" alt="{{ first_certification.name }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% else %}
                         <img src="{% static 'antra/assets/img/service/VVS_service.webp' %}" alt="{{ first_certification.name }}" loading="lazy" decoding="async" fetchpriority="low" width="720" height="520">
-                        {% endif %}
                         {% endif %}
                         <div class="img-content">
                             <p>
@@ -553,7 +539,7 @@
             <div class="col-lg-6">
                 <div class="feature-item-list feature-item-list-1">
                     {% for certification in certifications %}
-<div class="feature-item" {% if certification.image %}data-img="{{ certification.image.url }}" {% else %}data-img="{% if page_images and about_visuals.certification_default_image %}{{ about_visuals.certification_default_image.url }}{% else %}{% static 'antra/assets/img/service/VVS_service.webp' %}{% endif %}" {% endif %} data-text="{% if certification.issuer %}{{ certification.issuer|escape }}{% else %}{{ certification.name|escape }}{% endif %}">
+<div class="feature-item" {% if certification.image %}data-img="{{ certification.image.url }}" {% else %}data-img="{% static 'antra/assets/img/service/VVS_service.webp' %}" {% endif %} data-text="{% if certification.issuer %}{{ certification.issuer|escape }}{% else %}{{ certification.name|escape }}{% endif %}">
                         <span class="number">
                             {{ forloop.counter|stringformat:"02d" }}
                         </span>
@@ -584,12 +570,14 @@
 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Fermer' %}"></button>
             </div>
             <div class="modal-body">
-                <!-- IMAGEN | IMAGE -->
-                {% if certification.image %}
+                <!-- IMAGEN DEL MODELO O STATIC | MODEL IMAGE OR STATIC FALLBACK -->
                 <div class="certification-modal-image">
+                    {% if certification.image %}
                     <img src="{{ certification.image.url }}" alt="{{ certification.name }}" loading="lazy" decoding="async" fetchpriority="low">
+                    {% else %}
+                    <img src="{% static 'antra/assets/img/service/VVS_service.webp' %}" alt="{{ certification.name }}" loading="lazy" decoding="async" fetchpriority="low">
+                    {% endif %}
                 </div>
-                {% endif %}
                 <!-- ISSUER -->
                 {% if certification.issuer %}
                 <div class="certification-modal-description">
@@ -665,7 +653,7 @@
 <!-- SECCIÓN 10 · PROYECTOS / REALIZACIONES | PROJECTS / PORTFOLIO -->
 {% if featured_projects %}
 <section class="gallary-section-2 pb-130 overflow-hidden">
-    {% if page_images and about_visuals.projects_background %}
+    {% if about_visuals and about_visuals.projects_background %}
     <div class="bg-img" data-background="{{ about_visuals.projects_background.url }}"></div>
     {% else %}
     <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/gallary-bg-1.webp' %}"></div>
@@ -692,11 +680,7 @@
                                         {% if project.main_image %}
                                         <img src="{{ project.main_image.url }}" alt="{{ project|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                                         {% else %}
-{% if page_images and about_visuals.project_default_image %}
-                                        <img src="{{ about_visuals.project_default_image.url }}" alt="{{ project|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
-                                        {% else %}
                                         <img src="{% static 'antra/assets/img/images/gallary-img-1.png' %}" alt="{{ project|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="330" height="360">
-                                        {% endif %}
                                         {% endif %}
                                     </a>
                                 </div>

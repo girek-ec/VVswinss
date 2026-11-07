@@ -6,9 +6,8 @@ from .models import (
     Service,
     ServiceBenefit,
     ServiceCategory,
-    ServiceImage,
-    ServicePageConfiguration,
 )
+from .fontawesome_icon_picker import FontAwesomeIconPickerMixin
 
 
 # ============================================================
@@ -54,7 +53,7 @@ class FontAwesomeAdminMediaMixin:
 # INLINE · SERVICE BENEFITS
 # ============================================================
 
-class ServiceBenefitInline(FontAwesomeAdminMediaMixin, admin.StackedInline):
+class ServiceBenefitInline(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin.StackedInline):
     model = ServiceBenefit
     extra = 0
     show_change_link = True
@@ -85,7 +84,7 @@ class ServiceBenefitInline(FontAwesomeAdminMediaMixin, admin.StackedInline):
         }),
     )
 
-    @admin.display(description="Vista previa del icono")
+    @admin.display(description="Icon preview")
     def icon_preview(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=28)
 
@@ -94,216 +93,8 @@ class ServiceBenefitInline(FontAwesomeAdminMediaMixin, admin.StackedInline):
 # INLINE · SERVICE IMAGES
 # ============================================================
 
-class ServiceImageInline(admin.StackedInline):
-    model = ServiceImage
-    extra = 0
-    show_change_link = True
-    readonly_fields = ("image_preview",)
-
-    fieldsets = (
-        ("Imagen", {
-            "fields": ("image", "image_preview", "order"),
-        }),
-        ("Español · referencia interna", {
-            "fields": ("alt_es",),
-            "classes": ("collapse",),
-        }),
-        ("Français · langue principale", {
-            "fields": ("alt_fr",),
-        }),
-        ("Deutsch", {
-            "fields": ("alt_de",),
-            "classes": ("collapse",),
-        }),
-        ("Italiano", {
-            "fields": ("alt_it",),
-            "classes": ("collapse",),
-        }),
-        ("English", {
-            "fields": ("alt_en",),
-            "classes": ("collapse",),
-        }),
-    )
-
-    @admin.display(description="Vista previa")
-    def image_preview(self, obj):
-        if obj and obj.image:
-            return format_html(
-                '<img src="{}" style="max-height:140px;max-width:220px;object-fit:cover;border-radius:6px;" />',
-                obj.image.url,
-            )
-        return "—"
 
 
-
-# ============================================================
-# SERVICE PAGE CONFIGURATION ADMIN
-# ============================================================
-
-@admin.register(ServicePageConfiguration)
-class ServicePageConfigurationAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "image_status", "updated_at")
-
-    readonly_fields = (
-        "category_default_image_preview",
-        "category_default_social_image_preview",
-        "list_cta_background_preview",
-        "method_background_preview",
-        "page_header_background_preview",
-        "sidebar_cta_background_preview",
-        "detail_default_image_preview",
-        "secondary_default_image_preview",
-        "third_default_image_preview",
-        "gallery_default_image_preview",
-        "created_at",
-        "updated_at",
-    )
-
-    fieldsets = (
-        ("01 · Página principal · Categorías", {
-            "description": (
-                "Respaldo visual cuando una categoría no tiene imagen propia."
-            ),
-            "fields": (
-                "category_default_image",
-                "category_default_image_preview",
-                "category_default_social_image_preview",
-            ),
-        }),
-        ("02 · Página principal · CTA", {
-            "description": (
-                "Fondo general del bloque de llamada a la acción. "
-                "Ya no depende de la imagen secundaria del primer servicio."
-            ),
-            "fields": (
-                "list_cta_background",
-                "list_cta_background_preview",
-            ),
-        }),
-        ("03 · Página principal · Método / Savoir-faire", {
-            "description": (
-                "Imagen general de la sección Método de trabajo. "
-                "Ya no depende de la tercera imagen del primer servicio."
-            ),
-            "fields": (
-                "method_background",
-                "method_background_preview",
-            ),
-        }),
-        ("04 · Categorías y servicios · Encabezado", {
-            "description": (
-                "Fondo de respaldo de los encabezados interiores. "
-                "Cada categoría y servicio puede tener su propio hero_image."
-            ),
-            "fields": (
-                "page_header_background",
-                "page_header_background_preview",
-            ),
-        }),
-        ("05 · Categorías y servicios · CTA lateral", {
-            "fields": (
-                "sidebar_cta_background",
-                "sidebar_cta_background_preview",
-            ),
-        }),
-        ("06 · Detalle · Imágenes de respaldo", {
-            "fields": (
-                "detail_default_image",
-                "detail_default_image_preview",
-                "secondary_default_image",
-                "secondary_default_image_preview",
-                "third_default_image",
-                "third_default_image_preview",
-                "gallery_default_image",
-                "gallery_default_image_preview",
-            ),
-        }),
-        ("Sistema", {
-            "classes": ("collapse",),
-            "fields": ("created_at", "updated_at"),
-        }),
-    )
-
-    def has_add_permission(self, request):
-        if ServicePageConfiguration.objects.exists():
-            return False
-        return super().has_add_permission(request)
-
-    @staticmethod
-    def _preview(field, max_width=420, max_height=230):
-        if not field:
-            return "Sin imagen cargada · se utilizará el respaldo de /static/."
-        try:
-            return format_html(
-                '<img src="{}" style="max-width:{}px;max-height:{}px;'
-                'width:auto;height:auto;object-fit:contain;border-radius:8px;'
-                'border:1px solid #ddd;padding:4px;background:#f7f7f7;" />',
-                field.url,
-                max_width,
-                max_height,
-            )
-        except (ValueError, AttributeError):
-            return "Sin imagen cargada · se utilizará el respaldo de /static/."
-
-    @admin.display(description="Vista previa · Categorías")
-    def category_default_image_preview(self, obj):
-        return self._preview(obj.category_default_image if obj else None)
-
-    @admin.display(description="Vista previa · SEO social automático")
-    def category_default_social_image_preview(self, obj):
-        return self._preview(
-            obj.category_default_social_image if obj else None,
-            max_width=420,
-            max_height=230,
-        )
-
-    @admin.display(description="Vista previa · CTA principal")
-    def list_cta_background_preview(self, obj):
-        return self._preview(obj.list_cta_background if obj else None)
-
-    @admin.display(description="Vista previa · Método / Savoir-faire")
-    def method_background_preview(self, obj):
-        return self._preview(obj.method_background if obj else None)
-
-    @admin.display(description="Vista previa · Encabezados")
-    def page_header_background_preview(self, obj):
-        return self._preview(obj.page_header_background if obj else None)
-
-    @admin.display(description="Vista previa · CTA lateral")
-    def sidebar_cta_background_preview(self, obj):
-        return self._preview(obj.sidebar_cta_background if obj else None)
-
-    @admin.display(description="Vista previa · Detalle principal")
-    def detail_default_image_preview(self, obj):
-        return self._preview(obj.detail_default_image if obj else None)
-
-    @admin.display(description="Vista previa · Secundaria")
-    def secondary_default_image_preview(self, obj):
-        return self._preview(obj.secondary_default_image if obj else None)
-
-    @admin.display(description="Vista previa · Tercera")
-    def third_default_image_preview(self, obj):
-        return self._preview(obj.third_default_image if obj else None)
-
-    @admin.display(description="Vista previa · Galería")
-    def gallery_default_image_preview(self, obj):
-        return self._preview(obj.gallery_default_image if obj else None)
-
-    @admin.display(description="Imágenes personalizadas")
-    def image_status(self, obj):
-        fields = (
-            "category_default_image",
-            "list_cta_background",
-            "method_background",
-            "page_header_background",
-            "sidebar_cta_background",
-            "detail_default_image",
-            "secondary_default_image",
-            "third_default_image",
-            "gallery_default_image",
-        )
-        loaded = sum(bool(getattr(obj, name, None)) for name in fields)
-        return f"{loaded}/{len(fields)}"
 
 
 # ============================================================
@@ -312,7 +103,7 @@ class ServicePageConfigurationAdmin(admin.ModelAdmin):
 # ============================================================
 
 @admin.register(ServiceCategory)
-class ServiceCategoryAdmin(admin.ModelAdmin):
+class ServiceCategoryAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
         "image_preview_list",
         "icon_preview_list",
@@ -429,7 +220,7 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         ("Imágenes e icono", {
             "description": (
                 "Hero = encabezado panorámico. Imagen principal = tarjeta/listado y fotografía principal del contenido. "
-                "Si un campo queda vacío, la vista previa muestra automáticamente la imagen de respaldo que utilizará el sitio."
+                "Si un campo queda vacío, se muestra la imagen predeterminada ubicada en static/."
             ),
             "fields": (
                 "hero_image",
@@ -443,7 +234,7 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         ("SEO social", {
             "description": (
                 "Imagen utilizada al compartir esta categoría en redes sociales. "
-                "Si no existe una imagen social propia, la vista previa muestra la imagen social global de respaldo."
+                "Si no existe una imagen social propia, se muestra la imagen predeterminada de static/."
             ),
             "fields": (
                 "og_image",
@@ -460,198 +251,92 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-    @staticmethod
-    def _services_visuals():
-        return (
-            ServicePageConfiguration.objects
-            .order_by("-updated_at")
-            .first()
-        )
-
+    # VISTA PREVIA / PREVIEW · IMAGEN PROPIA O STATIC
     @staticmethod
     def _field_url(field):
-        if not field:
-            return None
-        try:
-            return field.url
-        except (ValueError, AttributeError):
-            return None
+        if field:
+            try:
+                return field.url
+            except (ValueError, AttributeError):
+                pass
+        return None
 
     @staticmethod
     def _preview_card(url, source_label, max_width=420, max_height=220):
-        if not url:
-            return "—"
         return format_html(
             '<div style="display:inline-flex;flex-direction:column;gap:7px;">'
             '<img src="{}" style="max-width:{}px;max-height:{}px;width:auto;height:auto;'
             'object-fit:cover;border-radius:7px;border:1px solid #ddd;background:#f7f7f7;" />'
-            '<span style="display:inline-block;width:max-content;padding:3px 8px;border-radius:999px;'
-            'font-size:11px;font-weight:600;background:#eef3ee;color:#245c24;">{}</span>'
-            '</div>',
-            url,
-            max_width,
-            max_height,
-            source_label,
+            '<span style="font-size:11px;font-weight:600;color:#245c24;">{}</span>'
+            '</div>', url, max_width, max_height, source_label,
         )
 
-    @admin.display(description="Icono")
+    @admin.display(description="Icon")
     def icon_preview_list(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=22)
 
-    @admin.display(description="Vista previa del icono")
+    @admin.display(description="Icon preview")
     def icon_preview(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=34)
 
-    @admin.display(description="Vista previa · Hero efectivo")
+    @admin.display(description="Vista previa · Hero")
     def hero_image_preview(self, obj):
-        if not obj:
-            return "—"
-
-        own_hero = self._field_url(obj.hero_image)
-        if own_hero:
-            return self._preview_card(own_hero, "Imagen propia · Hero")
-
-        visuals = self._services_visuals()
-
-        if visuals:
-            global_header = self._field_url(visuals.page_header_background)
-            if global_header:
-                return self._preview_card(global_header, "Respaldo global · Encabezado")
-
-        own_image = self._field_url(obj.image)
-        if own_image:
-            return self._preview_card(own_image, "Imagen propia · Principal")
-
-        if visuals:
-            global_category = self._field_url(visuals.category_default_image)
-            if global_category:
-                return self._preview_card(global_category, "Respaldo global · Categorías")
-
+        url = self._field_url(obj.hero_image) if obj else None
         return self._preview_card(
-            static("antra/assets/img/bg-img/page-header-bg.webp"),
-            "Respaldo estático · Encabezado",
+            url or static("antra/assets/img/bg-img/page-header-bg.webp"),
+            "Imagen propia · Hero" if url else "Predeterminada · STATIC",
         )
 
-    @admin.display(description="Imagen")
+
+    # CATEGORÍA · RESPALDO ESTÁTICO FIJO | CATEGORY · FIXED STATIC FALLBACK
+    @admin.display(description="Image")
     def image_preview_list(self, obj):
-        if not obj:
-            return "—"
-
-        own_image = self._field_url(obj.image)
-        if own_image:
-            return format_html(
-                '<img src="{}" title="Imagen propia" '
-                'style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
-                own_image,
-            )
-
-        visuals = self._services_visuals()
-        if visuals:
-            fallback = self._field_url(visuals.category_default_image)
-            if fallback:
-                return format_html(
-                    '<img src="{}" title="Respaldo global" '
-                    'style="height:55px;width:80px;object-fit:cover;border-radius:5px;opacity:.82;" />',
-                    fallback,
-                )
-
+        url = self._field_url(obj.image) if obj else None
+        default_url = static("antra/assets/img/service/VVS_service.webp")
         return format_html(
-            '<img src="{}" title="Respaldo estático" '
-            'style="height:55px;width:80px;object-fit:cover;border-radius:5px;opacity:.72;" />',
-            static("antra/assets/img/service/VVS_service.webp"),
+            '<img src="{}" title="{}" style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
+            url or default_url,
+            "Uploaded category image" if url else "Default · static/service/VVS_service.webp",
         )
 
-    @admin.display(description="Vista previa · Imagen efectiva")
+    @admin.display(description="Image preview · Main / Static")
     def image_preview(self, obj):
-        if not obj:
-            return "—"
-
-        own_image = self._field_url(obj.image)
-        if own_image:
-            return self._preview_card(own_image, "Imagen propia · Principal", 420, 240)
-
-        own_hero = self._field_url(obj.hero_image)
-        if own_hero:
-            return self._preview_card(own_hero, "Imagen propia · Hero", 420, 240)
-
-        visuals = self._services_visuals()
-
-        if visuals:
-            global_category = self._field_url(visuals.category_default_image)
-            if global_category:
-                return self._preview_card(
-                    global_category,
-                    "Respaldo global · Categorías",
-                    420,
-                    240,
-                )
-
-            detail_default = self._field_url(visuals.detail_default_image)
-            if detail_default:
-                return self._preview_card(
-                    detail_default,
-                    "Respaldo global · Detalle",
-                    420,
-                    240,
-                )
-
-        return self._preview_card(
-            static("antra/assets/img/service/VVS_service.webp"),
-            "Respaldo estático · Servicios",
-            420,
-            240,
+        url = self._field_url(obj.image) if obj else None
+        default_url = static("antra/assets/img/service/VVS_service.webp")
+        static_card = self._preview_card(
+            default_url,
+            "Default image · static/antra/assets/img/service/VVS_service.webp",
+            420, 240,
+        )
+        if not url:
+            return static_card
+        return format_html(
+            '<div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:15px">{}{}</div>',
+            self._preview_card(url, "Uploaded category image", 420, 240),
+            static_card,
         )
 
-    @admin.display(description="Vista previa · Open Graph efectivo")
+
+    @admin.display(description="Vista previa · Imagen social")
     def og_image_preview(self, obj):
-        if not obj:
-            return "—"
-
-        own_og = self._field_url(obj.og_image)
-        if own_og:
-            return self._preview_card(
-                own_og,
-                "Imagen social propia · 1200 × 630",
-                420,
-                221,
-            )
-
-        visuals = self._services_visuals()
-        if visuals:
-            social_default = self._field_url(
-                getattr(visuals, "category_default_social_image", None)
-            )
-            if social_default:
-                return self._preview_card(
-                    social_default,
-                    "Respaldo social global · 1200 × 630",
-                    420,
-                    221,
-                )
-
+        url = self._field_url(obj.og_image) if obj else None
         return self._preview_card(
-            static("antra/assets/img/service/VVS_service.webp"),
-            "Respaldo estático · Servicios",
-            420,
-            221,
+            url or current_social_fallback_url(),
+            "Imagen social propia" if url else "Predeterminada · STATIC",
+            420, 221,
         )
-
 
 # ============================================================
 # SERVICE ADMIN
 # ============================================================
 
 @admin.register(Service)
-class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
+class ServiceAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
         "icon_preview_list",
         "name_es",
         "name_fr",
         "category",
-        "hero_image_preview_list",
-        "main_image_preview_list",
-        "secondary_image_preview_list",
-        "third_image_preview_list",
         "is_featured",
         "order",
         "is_active",
@@ -716,10 +401,6 @@ class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
 
     readonly_fields = (
         "icon_preview",
-        "hero_image_preview",
-        "main_image_preview",
-        "secondary_image_preview",
-        "third_image_preview",
         "created_at",
         "updated_at",
     )
@@ -728,7 +409,6 @@ class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
 
     inlines = (
         ServiceBenefitInline,
-        ServiceImageInline,
     )
 
     fieldsets = (
@@ -848,22 +528,6 @@ class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
             ),
             "classes": ("collapse",),
         }),
-        ("Multimedia", {
-            "description": (
-                "Hero = encabezado panorámico. Principal/secundaria/tercera = "
-                "contenido interior del servicio."
-            ),
-            "fields": (
-                "hero_image",
-                "hero_image_preview",
-                "main_image",
-                "main_image_preview",
-                "secondary_image",
-                "secondary_image_preview",
-                "third_image",
-                "third_image_preview",
-            ),
-        }),
         ("WhatsApp", {
             "description": "Activa o desactiva el botón de WhatsApp en este servicio. El texto específico del mensaje se configura dentro de cada idioma.",
             "fields": ("whatsapp_enabled",),
@@ -877,85 +541,23 @@ class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
         }),
     )
 
-    @admin.display(description="Icono")
+    @admin.display(description="Icon")
     def icon_preview_list(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=22)
 
-    @admin.display(description="Vista previa del icono")
+    @admin.display(description="Icon preview")
     def icon_preview(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=34)
 
-    @admin.display(description="Hero")
-    def hero_image_preview_list(self, obj):
-        if obj and obj.hero_image:
-            return format_html(
-                '<img src="{}" style="height:55px;width:90px;object-fit:cover;border-radius:5px;" />',
-                obj.hero_image.url,
-            )
-        return "—"
+    # IMAGE PREVIEWS | VISTA PREVIA DE IMÁGENES
 
-    @admin.display(description="Principal")
-    def main_image_preview_list(self, obj):
-        if obj and obj.main_image:
-            return format_html(
-                '<img src="{}" style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
-                obj.main_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Secundaria")
-    def secondary_image_preview_list(self, obj):
-        if obj and obj.secondary_image:
-            return format_html(
-                '<img src="{}" style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
-                obj.secondary_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Tercera")
-    def third_image_preview_list(self, obj):
-        if obj and obj.third_image:
-            return format_html(
-                '<img src="{}" style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
-                obj.third_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Vista previa · Hero")
-    def hero_image_preview(self, obj):
-        if obj and obj.hero_image:
-            return format_html(
-                '<img src="{}" style="max-height:220px;max-width:420px;object-fit:cover;border-radius:6px;" />',
-                obj.hero_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Vista previa · imagen principal")
-    def main_image_preview(self, obj):
-        if obj and obj.main_image:
-            return format_html(
-                '<img src="{}" style="max-height:220px;max-width:360px;object-fit:cover;border-radius:6px;" />',
-                obj.main_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Vista previa · imagen secundaria")
-    def secondary_image_preview(self, obj):
-        if obj and obj.secondary_image:
-            return format_html(
-                '<img src="{}" style="max-height:220px;max-width:360px;object-fit:cover;border-radius:6px;" />',
-                obj.secondary_image.url,
-            )
-        return "—"
 
-    @admin.display(description="Vista previa · tercera imagen")
-    def third_image_preview(self, obj):
-        if obj and obj.third_image:
-            return format_html(
-                '<img src="{}" style="max-height:220px;max-width:360px;object-fit:cover;border-radius:6px;" />',
-                obj.third_image.url,
-            )
-        return "—"
+
 
 
 # ============================================================
@@ -963,7 +565,7 @@ class ServiceAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
 # ============================================================
 
 @admin.register(ServiceBenefit)
-class ServiceBenefitAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
+class ServiceBenefitAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
         "icon_preview_list",
         "title_es",
@@ -1029,7 +631,7 @@ class ServiceBenefitAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     )
 
 
-    @admin.display(description="Icono")
+    @admin.display(description="Icon")
     def icon_preview_list(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=22)
 
@@ -1039,78 +641,6 @@ class ServiceBenefitAdmin(FontAwesomeAdminMediaMixin, admin.ModelAdmin):
 # SERVICE IMAGE ADMIN
 # ============================================================
 
-@admin.register(ServiceImage)
-class ServiceImageAdmin(admin.ModelAdmin):
-    list_display = (
-        "image_preview_list",
-        "service",
-        "alt_es",
-        "alt_fr",
-        "order",
-    )
-
-    list_display_links = (
-        "image_preview_list",
-        "service",
-    )
-
-    list_filter = ("service",)
-    list_editable = ("order",)
-
-    search_fields = (
-        "service__name_es",
-        "service__name_fr",
-        "service__name_de",
-        "service__name_it",
-        "service__name_en",
-        "alt_es",
-        "alt_fr",
-        "alt_de",
-        "alt_it",
-        "alt_en",
-    )
-
-    readonly_fields = ("image_preview",)
-
-    fieldsets = (
-        ("Imagen", {
-            "fields": ("service", "image", "image_preview", "order"),
-        }),
-        ("Español · referencia interna", {
-            "fields": ("alt_es",),
-            "classes": ("collapse",),
-        }),
-        ("Français · langue principale", {
-            "fields": ("alt_fr",),
-        }),
-        ("Deutsch", {
-            "fields": ("alt_de",),
-            "classes": ("collapse",),
-        }),
-        ("Italiano", {
-            "fields": ("alt_it",),
-            "classes": ("collapse",),
-        }),
-        ("English · British English", {
-            "fields": ("alt_en",),
-            "classes": ("collapse",),
-        }),
-    )
-
-    @admin.display(description="Imagen")
-    def image_preview_list(self, obj):
-        if obj and obj.image:
-            return format_html(
-                '<img src="{}" style="height:55px;width:80px;object-fit:cover;border-radius:5px;" />',
-                obj.image.url,
-            )
-        return "—"
-
-    @admin.display(description="Vista previa")
-    def image_preview(self, obj):
-        if obj and obj.image:
-            return format_html(
-                '<img src="{}" style="max-height:220px;max-width:360px;object-fit:cover;border-radius:6px;" />',
-                obj.image.url,
-            )
-        return "—"
+# SERVICES · REGISTER VISUAL ADMIN | REGISTRAR CONFIGURACIÓN VISUAL
+from .visual_config_admin import current_social_fallback_url
+from . import visual_config_admin  # Register Services Visual Configuration

@@ -1,9 +1,8 @@
+
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
 {% load i18n_fields %}
-{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' as blog_fallback_image %}
-{% get_current_language as CURRENT_LANGUAGE %}
 
 <!-- SEO · TÍTULO / TITLE -->
 {% block title %}
@@ -36,10 +35,10 @@
 
 <!-- SEO · OPEN GRAPH + X / OPEN GRAPH + X -->
 {% block metas %}
+{% get_current_language as CURRENT_LANGUAGE %}
 {% with seo_title=post|localized:"seo_title" meta_description=post|localized:"meta_description" %}
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="V&V Swiss Services">
-
 {% if seo_title %}
 <meta property="og:title" content="{{ seo_title }}">
 <meta name="twitter:title" content="{{ seo_title }}">
@@ -47,7 +46,6 @@
 <meta property="og:title" content="{{ post|localized:'title' }} | V&V Swiss Services">
 <meta name="twitter:title" content="{{ post|localized:'title' }} | V&V Swiss Services">
 {% endif %}
-
 {% if meta_description %}
 <meta property="og:description" content="{{ meta_description }}">
 <meta name="twitter:description" content="{{ meta_description }}">
@@ -58,9 +56,7 @@
 <meta property="og:description" content="{% trans 'Conseils, recommandations et actualités de V&V Swiss Services sur la rénovation et les travaux du bâtiment.' %}">
 <meta name="twitter:description" content="{% trans 'Conseils, recommandations et actualités de V&V Swiss Services sur la rénovation et les travaux du bâtiment.' %}">
 {% endif %}
-
 <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
-
 {% if CURRENT_LANGUAGE == "de" %}
 <meta property="og:locale" content="de_CH">
 {% elif CURRENT_LANGUAGE == "it" %}
@@ -71,6 +67,7 @@
 <meta property="og:locale" content="fr_CH">
 {% endif %}
 
+<!-- SEO · IMAGEN SOCIAL Y RESPALDO | SOCIAL IMAGE AND FALLBACK -->
 {% if post.og_image %}
 <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}">
 <meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}">
@@ -84,18 +81,14 @@
 <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
 <meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
 {% else %}
-<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_fallback_image }}">
-<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_fallback_image }}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}">
 {% endif %}
-
 <meta property="og:image:alt" content="{{ post|localized:'title' }}">
-
 {% if post.published_at %}
 <meta property="article:published_time" content="{{ post.published_at|date:'c' }}">
 {% endif %}
-
 <meta name="twitter:card" content="summary_large_image">
-
 {% if post.og_image %}
 <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}">
 {% elif post.main_image %}
@@ -103,9 +96,8 @@
 {% elif blog_visuals and blog_visuals.post_default_image %}
 <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
 {% else %}
-<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_fallback_image }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}">
 {% endif %}
-
 <meta name="twitter:image:alt" content="{{ post|localized:'title' }}">
 {% endwith %}
 {% endblock %}
@@ -113,7 +105,11 @@
 {% block content %}
 <!-- SECCIÓN 01 · ENCABEZADO DE PÁGINA | SECTION 01 · PAGE HEADER -->
 <section class="page-header">
+    {% if blog_visuals and blog_visuals.header_background %}
+    <div class="bg-img" data-background="{{ blog_visuals.header_background.url }}" style="background-image: url('{{ blog_visuals.header_background.url }}');"></div>
+    {% else %}
     <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image: url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"></div>
+    {% endif %}
     <div class="overlay"></div>
     <div class="container">
         <div class="page-header-content">
@@ -127,6 +123,7 @@
     </div>
 </section>
 <!-- FIN ENCABEZADO DE PÁGINA | END PAGE HEADER -->
+
 <!-- SECCIÓN 02 · DETALLE DEL BLOG | SECTION 02 · BLOG DETAILS -->
 <section class="blog-details pt-150 pb-150 overflow-hidden">
     <div class="container container-2">
@@ -169,15 +166,18 @@
                             <h3 class="title">{{ post|localized:"title" }}</h3>
                         </div>
                     </div>
+
+                    <!-- IMAGEN PRINCIPAL Y RESPALDO | MAIN POST IMAGE AND FALLBACK -->
                     <div class="blog-details-img mb-30">
                         {% if post.main_image %}
-                            <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high">
+                            <img src="{{ post.main_image.url }}" data-fallback="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" onerror="this.onerror=null;this.src=this.dataset.fallback;" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high">
                         {% elif blog_visuals and blog_visuals.post_default_image %}
-                            <img src="{{ blog_visuals.post_default_image.url }}" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high">
+                            <img src="{{ blog_visuals.post_default_image.url }}" data-fallback="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" onerror="this.onerror=null;this.src=this.dataset.fallback;" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high">
                         {% else %}
-                            <img src="{{ blog_fallback_image }}" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high" width="930" height="520">
+                            <img src="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" alt="{{ post|localized:'title' }}" loading="eager" decoding="async" fetchpriority="high" width="930" height="520">
                         {% endif %}
                     </div>
+
                     <div class="blog-details-content">
                         {% if post|localized:"content" %}
                             <p class="mb-30">{{ post|localized:"content"|linebreaksbr }}</p>
@@ -264,6 +264,7 @@
                             {% endif %}
                         {% endfor %}
                     </div>
+
                     <!-- ETIQUETAS | TAGS -->
                     {% if post.tags.all %}
                         <div class="tags">
@@ -284,6 +285,7 @@
                             </ul>
                         </div>
                     {% endif %}
+
                     <!-- COMPARTIR ARTÍCULO | SHARE ARTICLE -->
 {% with share_url=request.build_absolute_uri share_title=post|localized:"title" %}
 <div class="blog-share mt-40 mb-40">
@@ -298,9 +300,7 @@
            class="project-contact-btn"
            aria-label="{% trans 'Partager sur WhatsApp' %}">
             <i class="fa-brands fa-whatsapp"></i>
-            <span>
-                WhatsApp
-            </span>
+            <span>WhatsApp</span>
         </a>
         <!-- FACEBOOK · COMPARTIR | FACEBOOK · SHARE -->
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}"
@@ -309,9 +309,7 @@
            class="project-contact-btn"
            aria-label="{% trans 'Partager sur Facebook' %}">
             <i class="fa-brands fa-facebook-f"></i>
-            <span>
-                Facebook
-            </span>
+            <span>Facebook</span>
         </a>
         <!-- X / TWITTER · COMPARTIR | X / TWITTER · SHARE -->
         <a href="https://twitter.com/intent/tweet?text={{ share_title|urlencode }}&url={{ share_url|urlencode }}"
@@ -320,9 +318,7 @@
            class="project-contact-btn"
            aria-label="{% trans 'Partager sur X' %}">
             <i class="fa-brands fa-x-twitter"></i>
-            <span>
-                X
-            </span>
+            <span>X</span>
         </a>
         <!-- LINKEDIN · COMPARTIR | LINKEDIN · SHARE -->
         <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url|urlencode }}"
@@ -331,18 +327,14 @@
            class="project-contact-btn"
            aria-label="{% trans 'Partager sur LinkedIn' %}">
             <i class="fa-brands fa-linkedin-in"></i>
-            <span>
-                LinkedIn
-            </span>
+            <span>LinkedIn</span>
         </a>
         <!-- CORREO ELECTRÓNICO · COMPARTIR | EMAIL · SHARE -->
         <a href="mailto:?subject={{ share_title|urlencode }}&body={{ share_title|urlencode }}%0A%0A{{ share_url|urlencode }}"
            class="project-contact-btn"
            aria-label="{% trans 'Partager par e-mail' %}">
             <i class="fa-regular fa-envelope"></i>
-            <span>
-                {% trans "E-mail" %}
-            </span>
+            <span>{% trans "E-mail" %}</span>
         </a>
         <!-- COPIAR ENLACE | COPY LINK -->
         <button type="button"
@@ -351,13 +343,12 @@
                 data-label="{% trans 'Copier le lien' %}"
                 data-copied="{% trans 'Lien copié' %}">
             <i class="fa-regular fa-link"></i>
-            <span>
-                {% trans "Copier le lien" %}
-            </span>
+            <span>{% trans "Copier le lien" %}</span>
         </button>
     </div>
 </div>
 {% endwith %}
+
                     <!-- COMENTARIOS | COMMENTS -->
                     {% if post_comments %}
                         <div class="comments-area">
@@ -388,6 +379,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
+
                     <!-- FORMULARIO DE COMENTARIOS | COMMENT FORM -->
                     {% if comment_form %}
                         <div class="form-wrap pt-70">
@@ -435,6 +427,7 @@
                     {% endif %}
                 </div>
             </div>
+
             <!-- WIDGETS LATERALES | SIDEBAR WIDGETS -->
             <div class="col-lg-4">
                 <!-- BÚSQUEDA | SEARCH -->
@@ -449,6 +442,7 @@
                         </form>
                     </div>
                 </div>
+
                 <!-- CATEGORÍAS | CATEGORIES -->
                 <div class="sidebar-widget">
                     <h3 class="widget-title">{% trans "Catégories" %}</h3>
@@ -468,6 +462,7 @@
                         {% endfor %}
                     </ul>
                 </div>
+
                 <!-- ARTÍCULOS RECIENTES | RECENT POSTS -->
                 <div class="sidebar-widget">
                     <h3 class="widget-title">{% trans "Articles récents" %}</h3>
@@ -475,12 +470,13 @@
                         {% with related_slug=related_post|localized:"slug" %}
                             <div class="sidebar-post">
                                 {% if related_slug %}<a href="{% url 'blog:detail' related_slug %}">{% endif %}
+                                <!-- ARTÍCULO RECIENTE Y RESPALDO | RECENT POST IMAGE AND FALLBACK -->
                                 {% if related_post.main_image %}
-                                    <img src="{{ related_post.main_image.url }}" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
+                                    <img src="{{ related_post.main_image.url }}" data-fallback="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" onerror="this.onerror=null;this.src=this.dataset.fallback;" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                                 {% elif blog_visuals and blog_visuals.post_default_image %}
-                                    <img src="{{ blog_visuals.post_default_image.url }}" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
+                                    <img src="{{ blog_visuals.post_default_image.url }}" data-fallback="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" onerror="this.onerror=null;this.src=this.dataset.fallback;" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                                 {% else %}
-                                    <img src="{{ blog_fallback_image }}" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="110" height="100">
+                                    <img src="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" alt="{{ related_post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="110" height="100">
                                 {% endif %}
                                 {% if related_slug %}</a>{% endif %}
                                 <div class="post-content">
@@ -503,6 +499,7 @@
                         <p>{% trans "Aucun autre article disponible pour le moment." %}</p>
                     {% endfor %}
                 </div>
+
                 <!-- ETIQUETAS | TAGS -->
                 <div class="sidebar-widget sticky-widget">
                     <h3 class="widget-title">{% trans "Tags" %}</h3>
@@ -532,6 +529,7 @@
 </section>
 <!-- SECCIÓN 02 · DETALLE DEL BLOG | SECTION 02 · BLOG DETAILS -->
 {% endblock %}
+
 {% block extra_js %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {

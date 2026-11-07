@@ -2,9 +2,37 @@
 {% load static %}
 {% load i18n %}
 {% load i18n_fields %}
-{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' as blog_fallback_image %}
 {% block title %}{% trans "Conseils & actualités" %} | V&V Swiss Services{% endblock %}
 {% block meta_description %}{% trans "Découvrez les conseils, recommandations et actualités de V&V Swiss Services sur la rénovation, l’isolation, la peinture, les finitions et les travaux du bâtiment en Suisse romande." %}{% endblock %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!-- SEO · OPEN GRAPH Y TWITTER | SOCIAL SHARING -->
+{% block metas %}
+{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' as blog_social_fallback %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&amp;V Swiss Services">
+<meta property="og:title" content="{% trans 'Conseils & actualités' %} | V&amp;V Swiss Services">
+<meta property="og:description" content="{% trans 'Découvrez les conseils, recommandations et actualités de V&V Swiss Services sur la rénovation, l’isolation, la peinture, les finitions et les travaux du bâtiment en Suisse romande.' %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'de' %}de_CH{% elif CURRENT_LANGUAGE == 'it' %}it_CH{% elif CURRENT_LANGUAGE == 'en' %}en_GB{% else %}fr_CH{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% trans 'Conseils & actualités' %} | V&amp;V Swiss Services">
+<meta name="twitter:description" content="{% trans 'Découvrez les conseils, recommandations et actualités de V&V Swiss Services sur la rénovation, l’isolation, la peinture, les finitions et les travaux du bâtiment en Suisse romande.' %}">
+{% if blog_visuals and blog_visuals.header_background %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.header_background.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.header_background.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.header_background.url }}">
+{% elif blog_visuals and blog_visuals.post_default_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_visuals.post_default_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_social_fallback }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_social_fallback }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_social_fallback }}">
+{% endif %}
+<meta property="og:image:alt" content="V&amp;V Swiss Services · {% trans 'Conseils & actualités' %}">
+<meta name="twitter:image:alt" content="V&amp;V Swiss Services · {% trans 'Conseils & actualités' %}">
+{% endblock %}
 {% block content %}
 <!-- SECCIÓN 01 · ENCABEZADO DE PÁGINA | SECTION 01 · PAGE HEADER -->
 <section class="page-header">
@@ -85,22 +113,22 @@
                         {% if post_slug %}
                         <a href="{% url 'blog:detail' post_slug %}">
                             {% if post.main_image %}
-                            <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="{{ post.main_image.url }}" onerror="this.onerror=null;this.src='{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}';" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                             {% elif blog_visuals and blog_visuals.post_default_image %}
-                            <img src="{{ blog_visuals.post_default_image.url }}"
+                            <img src="{{ blog_visuals.post_default_image.url }}" onerror="this.onerror=null;this.src='{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}';"
                                  alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                             {% else %}
-                            <img src="{{ blog_fallback_image }}"
+                            <img src="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}"
                                  alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="450" height="320">
                             {% endif %}
                         </a>
                         {% else %}
                         {% if post.main_image %}
-                        <img src="{{ post.main_image.url }}" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
+                        <img src="{{ post.main_image.url }}" onerror="this.onerror=null;this.src='{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}';" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% elif blog_visuals and blog_visuals.post_default_image %}
-                        <img src="{{ blog_visuals.post_default_image.url }}" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
+                        <img src="{{ blog_visuals.post_default_image.url }}" onerror="this.onerror=null;this.src='{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}';" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
-                        <img src="{{ blog_fallback_image }}" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="450" height="320">
+                        <img src="{% static 'antra/assets/img/images/VVS_placeholder_horizontal.webp' %}" alt="{{ post|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="450" height="320">
                         {% endif %}
                         {% endif %}
                         <!-- CATEGORÍA | CATEGORY -->

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.templatetags.static import static
 from django.utils.html import format_html
 
+
 from .models import (
     BeforeAfter,
     BuildingType,
@@ -1227,4 +1228,7 @@ class InterventionAdmin(BaseProjectAdmin):
         ),
     )
 
+
+# PROJECTS · VISUAL CONFIGURATION | CONFIGURACIÓN VISUAL
 from . import visual_config_admin  # noqa: F401,E402
+from . import admin_visual_previews  # noqa: F401,E402

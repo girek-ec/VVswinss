@@ -37,134 +37,6 @@ def generate_unique_slug(instance, field_name, value):
 
 
 
-# ============================================================
-# SERVICE PAGE CONFIGURATION
-# Configuración visual global de la sección Servicios.
-# Centraliza imágenes generales y fallbacks administrables.
-# ============================================================
-
-class ServicePageConfiguration(TimeStampedModel):
-
-    category_default_image = models.ImageField(
-        "SERVICIOS · Categorías · Imagen de respaldo",
-        upload_to="services/page/categories/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza en la página principal de Servicios cuando una categoría "
-            "no tiene imagen propia. Fallback static: "
-            "antra/assets/img/service/feature-img-1.png."
-        ),
-    )
-
-    category_default_social_image = models.ImageField(
-        "SERVICIOS · Categorías · Imagen social automática",
-        upload_to="seo/defaults/services/",
-        blank=True,
-        null=True,
-        editable=False,
-        help_text=(
-            "Versión social 1200 x 630 generada automáticamente desde "
-            "category_default_image. No se carga manualmente."
-        ),
-    )
-
-    list_cta_background = models.ImageField(
-        "SERVICIOS · CTA principal · Fondo",
-        upload_to="services/page/cta/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Fondo del bloque 'Un projet à réaliser ?'. "
-            "Fallback static: antra/assets/img/bg-img/cta-bg-1.webp."
-        ),
-    )
-
-    method_background = models.ImageField(
-        "SERVICIOS · Método / Savoir-faire · Imagen",
-        upload_to="services/page/method/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Imagen grande de la sección Método de trabajo / Savoir-faire. "
-            "Fallback static: antra/assets/img/bg-img/testi-bg.webp."
-        ),
-    )
-
-    page_header_background = models.ImageField(
-        "SERVICIOS · Encabezados interiores · Fondo de respaldo",
-        upload_to="services/page/headers/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Fondo de respaldo para encabezados de categorías y servicios cuando "
-            "no existe hero_image específica. Fallback static: "
-            "antra/assets/img/bg-img/page-header-bg.webp."
-        ),
-    )
-
-    sidebar_cta_background = models.ImageField(
-        "SERVICIOS · CTA lateral · Fondo",
-        upload_to="services/page/sidebar-cta/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Fondo del bloque lateral de contacto en categorías y servicios. "
-            "Fallback static: antra/assets/img/bg-img/service-cta-bg-2.png."
-        ),
-    )
-
-    detail_default_image = models.ImageField(
-        "SERVICIOS · Detalle · Imagen principal de respaldo",
-        upload_to="services/page/detail/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Imagen de respaldo del contenido principal de una categoría o servicio. "
-            "Fallback static: antra/assets/img/service/service-details-img-1.png."
-        ),
-    )
-
-    secondary_default_image = models.ImageField(
-        "SERVICIOS · Detalle · Imagen secundaria de respaldo",
-        upload_to="services/page/detail/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Respaldo cuando un servicio no tiene secondary_image. "
-            "Si queda vacío, se utiliza service-details-img-1.png."
-        ),
-    )
-
-    third_default_image = models.ImageField(
-        "SERVICIOS · Detalle · Tercera imagen de respaldo",
-        upload_to="services/page/detail/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Respaldo cuando un servicio no tiene third_image. "
-            "Si queda vacío, se utiliza service-details-img-1.png."
-        ),
-    )
-
-    gallery_default_image = models.ImageField(
-        "SERVICIOS · Galería · Imagen de respaldo",
-        upload_to="services/page/gallery/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Se utiliza cuando existe un registro de galería pero su imagen fue "
-            "limpiada. Si queda vacío, se utiliza service-details-img-1.png."
-        ),
-    )
-
-    class Meta:
-        verbose_name = '001 - Services Visual Configuration'
-        verbose_name_plural = '001 - Services Visual Configuration'
-
-    def __str__(self):
-        return "Configuración visual · Servicios"
-
 
 # ============================================================
 # SERVICE CATEGORY
@@ -230,7 +102,7 @@ class ServiceCategory(
         null=True,
         help_text=(
             "Imagen panorámica para el encabezado de la página de esta categoría. "
-            "Si queda vacía, se utiliza la configuración visual global de Servicios."
+            "Si queda vacía, se utiliza static/antra/assets/img/bg-img/page-header-bg.webp."
         ),
     )
 
@@ -542,35 +414,9 @@ class Service(TimeStampedModel):
     # MEDIA
     # ========================================================
 
-    hero_image = models.ImageField(
-        "Hero / encabezado panorámico",
-        upload_to="services/hero/",
-        blank=True,
-        null=True,
-        help_text=(
-            "Imagen panorámica exclusiva del encabezado de este servicio. "
-            "No reutiliza la imagen principal del contenido."
-        ),
-    )
 
-    main_image = models.ImageField(
-        "Imagen principal del contenido",
-        upload_to="services/main/",
-        blank=True,
-        null=True,
-    )
 
-    secondary_image = models.ImageField(
-        upload_to="services/secondary/",
-        blank=True,
-        null=True,
-    )
 
-    third_image = models.ImageField(
-        upload_to="services/third/",
-        blank=True,
-        null=True,
-    )
 
     icon = models.CharField(
         max_length=100,
@@ -860,42 +706,5 @@ class ServiceBenefit(TimeStampedModel):
     def __str__(self):
         return self.title_fr
 
-
-# ============================================================
-# SERVICE IMAGE
-# Galería opcional.
-# Además de:
-# main_image
-# secondary_image
-# third_image
-# ============================================================
-
-class ServiceImage(TimeStampedModel):
-
-    service = models.ForeignKey(
-        Service,
-        on_delete=models.CASCADE,
-        related_name="images",
-    )
-
-    image = models.ImageField(
-        upload_to="services/gallery/",
-        blank=True,
-        null=True,
-    )
-
-    alt_es = models.CharField(max_length=180, blank=True)
-    alt_fr = models.CharField(max_length=180, blank=True)
-    alt_de = models.CharField(max_length=180, blank=True)
-    alt_it = models.CharField(max_length=180, blank=True)
-    alt_en = models.CharField(max_length=180, blank=True)
-
-    order = models.PositiveIntegerField(default=0)
-
-    class Meta:
-        verbose_name = '005 - Service Image'
-        verbose_name_plural = '005 - Images / Gallery'
-        ordering = ["order"]
-
-    def __str__(self):
-        return f"Image - {self.service}"
+# SERVICES · PAGE VISUAL MODEL | MODELO VISUAL DE PÁGINA
+from .visual_config import ServicePageVisualConfiguration

@@ -1,16 +1,13 @@
+from .visual_config import ServicePageVisualConfiguration, resolved_service_image_url
 from django.shortcuts import redirect, render
 
 from contact.forms import ContactRequestForm
 from core.utils import current_language, get_by_localized_slug
 
-from .models import Service, ServiceCategory, ServicePageConfiguration
+from .models import Service, ServiceCategory
 
 
 
-
-def _get_services_visuals():
-    """Configuración visual única de la sección Servicios."""
-    return ServicePageConfiguration.objects.order_by("pk").first()
 
 
 # ============================================================
@@ -102,10 +99,16 @@ def service_list(request):
     # CONTEXTO
     # ========================================================
 
+    # SERVICES · VISUAL CONFIGURATION | CONFIGURACIÓN VISUAL ADMINISTRABLE
+    service_visuals = ServicePageVisualConfiguration.objects.order_by("pk").first()
     context = {
         "categories": categories,
+        "service_visuals": service_visuals,
+        "service_category_fallback_url": resolved_service_image_url(service_visuals, "category_default_image"),
+        "service_cta_background_url": resolved_service_image_url(service_visuals, "cta_background"),
+        "service_work_method_image_url": resolved_service_image_url(service_visuals, "work_method_image"),
+        "service_social_image_url": resolved_service_image_url(service_visuals, "social_default_image"),
         "services": services,
-        "services_visuals": _get_services_visuals(),
         "form": form,
     }
 
@@ -186,7 +189,6 @@ def category_detail(request, slug):
         .select_related("category")
         .prefetch_related(
             "benefits",
-            "images",
         )
         .order_by(
             "order",
@@ -211,15 +213,6 @@ def category_detail(request, slug):
 
 
 
-    # CONFIGURACIÓN VISUAL / VISUAL CONFIGURATION
-    service_page_config = (
-        ServicePageConfiguration.objects
-        .order_by("-updated_at")
-        .first()
-    )
-
-
-
     # ========================================================
     # CONTEXTO
     # ========================================================
@@ -233,8 +226,6 @@ def category_detail(request, slug):
         # Se mantiene también "services" para compatibilidad
         # con bloques reutilizados que puedan usar esta variable.
         "services": category_services,
-        "services_visuals": _get_services_visuals(),
-        "service_page_config": service_page_config,
 
         "form": form,
     }
@@ -267,7 +258,6 @@ def service_detail(request, slug):
         .select_related("category")
         .prefetch_related(
             "benefits",
-            "images",
         )
     )
 
@@ -336,7 +326,6 @@ def service_detail(request, slug):
     context = {
         "service": service,
         "related_services": related_services,
-        "services_visuals": _get_services_visuals(),
         "form": form,
     }
 

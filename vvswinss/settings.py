@@ -83,10 +83,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # VVswiss
     "core",
+    "about.apps.AboutConfig",
+    "faq.apps.FaqConfig",
     "services",
     "projects",
     "blog",
     "contact",
+    "professionals.apps.ProfessionalsConfig",
 ]
 
 # ============================================================

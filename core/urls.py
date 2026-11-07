@@ -3,6 +3,8 @@ from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
 from . import views
+from about import views as about_views
+from professionals import views as professional_views
 
 
 app_name = "core"
@@ -14,12 +16,12 @@ urlpatterns = [
     # ============================================================
     # ENTREPRISE
     # ============================================================
-    path(_("a-propos/"), views.about, name="about"),
+    path(_("a-propos/"), about_views.about, name="about"),
 
     # ============================================================
     # PROFESSIONNELS
     # ============================================================
-    path(_("professionnels/"), views.professionals, name="professionals"),
+    path(_("professionnels/"), professional_views.professionals, name="professionals"),
 
     # ============================================================
     # INFORMATIONS LÉGALES

@@ -8,6 +8,25 @@
 {% block meta_description %}
     {% trans "Découvrez les services de rénovation intérieure et extérieure, isolation thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien immobilier de V&V Swiss Services." %}
 {% endblock %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!-- SEO · OPEN GRAPH Y TWITTER | SOCIAL SHARING -->
+{% block metas %}
+{% static 'antra/assets/img/service/VVS_service.webp' as category_social_fallback %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&amp;V Swiss Services">
+<meta property="og:title" content="{% trans 'Services' %} | V&amp;V Swiss Services">
+<meta property="og:description" content="{% trans 'Découvrez les services de rénovation intérieure et extérieure, isolation thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien immobilier de V&V Swiss Services.' %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'de' %}de_CH{% elif CURRENT_LANGUAGE == 'it' %}it_CH{% elif CURRENT_LANGUAGE == 'en' %}en_GB{% else %}fr_CH{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% trans 'Services' %} | V&amp;V Swiss Services">
+<meta name="twitter:description" content="{% trans 'Découvrez les services de rénovation intérieure et extérieure, isolation thermique, maçonnerie, plâtrerie, peinture, finitions, nettoyage de fin de chantier et entretien immobilier de V&V Swiss Services.' %}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_image_url|default:category_social_fallback }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_image_url|default:category_social_fallback }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_image_url|default:category_social_fallback }}">
+<meta property="og:image:alt" content="V&amp;V Swiss Services · {% trans 'Services' %}">
+<meta name="twitter:image:alt" content="V&amp;V Swiss Services · {% trans 'Services' %}">
+{% endblock %}
 {% block content %}
 <!-- SECCIÓN 05 · CATEGORÍAS DE SERVICIOS / LISTA DINÁMICA | SERVICE CATEGORIES / DYNAMIC LIST -->
 {% if categories %}
@@ -32,12 +51,12 @@
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="section-heading section-heading-2 mb-0">
-                    <h2 class="section-title title-2">
+                    <h1 class="section-title title-2">
                         {% trans "Des solutions adaptées à" %}
                         <span>
                             {% trans "chaque projet de rénovation" %}
                         </span>
-                    </h2>
+                    </h1>
                     <p class="mb-0">
                         {% trans "Découvrez nos principales catégories de services pour vos projets de rénovation, d’isolation, de construction, de finition et d’entretien immobilier." %}
                     </p>
@@ -47,48 +66,56 @@
         <!-- SECCIÓN heading · ENCABEZADO DE SECCIÓN | SECTION HEADING -->
         <!-- CONTENIDO DE CATEGORÍAS | CATEGORIES CONTENT -->
         <div class="row">
-            <!-- IMAGEN DE CATEGORÍA ACTIVA | ACTIVE CATEGORY IMAGE -->
-            <div class="col-lg-6">
-                {% with first_category=categories|first %}
-                    <div class="feature-item-imgs">
-                        <div class="feature-img">
-                            {% if first_category.image %}
-                                <img src="{{ first_category.image.url }}"
-                                     alt="{{ first_category|localized:'name' }}"
-                                     id="service-feature-image" loading="eager" decoding="async" fetchpriority="high">
-                            {% elif services_visuals and services_visuals.category_default_image %}
-                                <img src="{{ services_visuals.category_default_image.url }}"
-                                     alt="{{ first_category|localized:'name' }}"
-                                     id="service-feature-image" loading="eager" decoding="async" fetchpriority="high">
-                            {% else %}
-                                <img src="{% static 'antra/assets/img/service/renovacion_moderna_con_vista_al_lago.webp' %}"
-                                     alt="{{ first_category|localized:'name' }}"
-                                     id="service-feature-image" loading="eager" decoding="async" fetchpriority="high" width="720" height="520">
-                            {% endif %}
-                            <div class="img-content">
-                                <p id="service-feature-text">
-                                    {% with first_description=first_category|localized:"description" %}
-                                        {% if first_description %}
-                                            {{ first_description|striptags }}
-                                        {% else %}
-                                            {% trans "Des solutions professionnelles adaptées à votre bâtiment et à votre projet." %}
-                                        {% endif %}
-                                    {% endwith %}
-                                </p>
+            <!-- IMAGEN PRINCIPAL DE CATEGORÍA | MAIN CATEGORY IMAGE -->
+                <div class="col-lg-6">
+                    {% with first_category=categories|first %}
+                        <div class="feature-item-imgs">
+                            <div class="feature-img">
+                                {% if first_category.image %}
+                                    <img src="{{ first_category.image.url }}"
+                                         alt="{{ first_category|localized:'name' }}"
+                                         id="service-feature-image"
+                                         loading="eager"
+                                         decoding="async"
+                                         fetchpriority="high"
+                                         width="720"
+                                         height="520">
+                                {% else %}
+                                    <img src="{% static 'antra/assets/img/service/VVS_service.webp' %}"
+                                         alt="{{ first_category|localized:'name' }}"
+                                         id="service-feature-image"
+                                         loading="eager"
+                                         decoding="async"
+                                         fetchpriority="high"
+                                         width="720"
+                                         height="520">
+                                {% endif %}
+                                <div class="img-content">
+                                    <p id="service-feature-text">
+                                        {% with first_description=first_category|localized:"description" %}
+                                            {% if first_description %}
+                                                {{ first_description|striptags }}
+                                            {% else %}
+                                                {% trans "Des solutions professionnelles adaptées à votre bâtiment et à votre projet." %}
+                                            {% endif %}
+                                        {% endwith %}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endwith %}
-            </div>
+                    {% endwith %}
+                </div>
+
+
+
+
             <!-- LISTA DE CATEGORÍAS | CATEGORIES LIST -->
             <div class="col-lg-6">
                 <div class="feature-item-list feature-item-list-1">
                     {% for category in categories %}
                         {% with category_slug=category|localized:"slug" category_description=category|localized:"description" %}
                             <div class="feature-item"
-                                 data-img="{% if category.image %}{{ category.image.url }}{% elif services_visuals and services_visuals.category_default_image %}{{ services_visuals.category_default_image.url }}{% else %}{% static 'antra/assets/img/service/renovacion_moderna_con_vista_al_lago.webp' %}{% endif %}"
-                                 data-text="{% if category_description %}{{ category_description|striptags|escape }}{% else %}{% trans 'Des solutions professionnelles adaptées à votre bâtiment et à votre projet.' %}{% endif %}">
-                                <!-- NÚMERO | NUMBER -->
+                                    data-img="{% if category.image %}{{ category.image.url }}{% else %}{% static 'antra/assets/img/service/VVS_service.webp' %}{% endif %}"                                <!-- NÚMERO | NUMBER -->
                                 <span class="number">
                                     {{ forloop.counter|stringformat:"02d" }}
                                 </span>
@@ -122,13 +149,7 @@
 <!-- ./ feature-section -->
 <!-- SECCIÓN 03 · CTA / SOLICITUD DE PRESUPUESTO | CTA / QUOTE REQUEST -->
 <section class="cta-section-3 pt-150 pb-10">
-    {% if services_visuals and services_visuals.list_cta_background %}
-        <div class="cta-bg"
-             data-background="{{ services_visuals.list_cta_background.url }}"></div>
-    {% else %}
-        <div class="cta-bg"
-             data-background="{% static 'antra/assets/img/service/terraza_minimalista_frente_al_lago_alpino.webp' %}"></div>
-    {% endif %}
+    <div class="cta-bg" data-background="{{ service_cta_background_url }}"></div>
     <div class="container">
         <div class="cta-wrap-3 text-center fade-wrapper">
             <div class="section-heading text-center white-content fade-top">
@@ -245,13 +266,7 @@
 <!-- SECCIÓN 06 · MÉTODO DE TRABAJO / COMPROMISOS | WORK METHOD / COMMITMENTS -->
 <section class="testimonial-section-4">
     <div class="testi-bg">
-        {% if services_visuals and services_visuals.method_background %}
-            <img src="{{ services_visuals.method_background.url }}"
-                 alt="{% trans 'Savoir-faire V&V Swiss Services' %}" loading="lazy" decoding="async" fetchpriority="low">
-        {% else %}
-            <img src="{% static 'antra/assets/img/service/interior_alpino_en_renovacion.webp' %}"
-                 alt="{% trans 'Savoir-faire V&V Swiss Services' %}" loading="lazy" decoding="async" fetchpriority="low" width="895" height="950">
-        {% endif %}
+        <img src="{{ service_work_method_image_url }}" alt="{% trans 'Savoir-faire V&V Swiss Services' %}" loading="lazy" decoding="async" fetchpriority="low" width="895" height="950">
     </div>
     <div class="container container-2">
         <div class="row">

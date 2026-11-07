@@ -8,30 +8,57 @@
 {% block meta_description %}
 {% with meta_description=service|localized:"meta_description" summary=service|localized:"summary" subtitle=service|localized:"subtitle" %}{% if meta_description %}{{ meta_description }}{% elif summary %}{{ summary|striptags|truncatechars:160 }}{% elif subtitle %}{{ subtitle|striptags|truncatechars:160 }}{% else %}{% trans "Découvrez ce service professionnel proposé par V&V Swiss Services en Suisse romande." %}{% endif %}{% endwith %}
 {% endblock %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<!-- SEO · OPEN GRAPH Y TWITTER | SOCIAL SHARING -->
+{% block metas %}
+{% static 'antra/assets/img/service/VVS_service.webp' as service_social_fallback %}
+{% with seo_title=service|localized:'seo_title' seo_description=service|localized:'meta_description' service_summary=service|localized:'summary' service_subtitle=service|localized:'subtitle' %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&amp;V Swiss Services">
+{% if seo_title %}
+<meta property="og:title" content="{{ seo_title }}">
+<meta name="twitter:title" content="{{ seo_title }}">
+{% else %}
+<meta property="og:title" content="{{ service|localized:'name' }} | V&amp;V Swiss Services">
+<meta name="twitter:title" content="{{ service|localized:'name' }} | V&amp;V Swiss Services">
+{% endif %}
+{% if seo_description %}
+<meta property="og:description" content="{{ seo_description }}">
+<meta name="twitter:description" content="{{ seo_description }}">
+{% elif service_summary %}
+<meta property="og:description" content="{{ service_summary|striptags|truncatechars:160 }}">
+<meta name="twitter:description" content="{{ service_summary|striptags|truncatechars:160 }}">
+{% elif service_subtitle %}
+<meta property="og:description" content="{{ service_subtitle|striptags|truncatechars:160 }}">
+<meta name="twitter:description" content="{{ service_subtitle|striptags|truncatechars:160 }}">
+{% else %}
+<meta property="og:description" content="{% trans 'Découvrez ce service professionnel proposé par V&V Swiss Services en Suisse romande.' %}">
+<meta name="twitter:description" content="{% trans 'Découvrez ce service professionnel proposé par V&V Swiss Services en Suisse romande.' %}">
+{% endif %}
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'de' %}de_CH{% elif CURRENT_LANGUAGE == 'it' %}it_CH{% elif CURRENT_LANGUAGE == 'en' %}en_GB{% else %}fr_CH{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+{% if service.og_image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service.og_image.url }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ service.og_image.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service.og_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_fallback }}">
+<meta property="og:image:secure_url" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_fallback }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_social_fallback }}">
+{% endif %}
+<meta property="og:image:alt" content="{{ service|localized:'name' }}">
+<meta name="twitter:image:alt" content="{{ service|localized:'name' }}">
+{% endwith %}
+{% endblock %}
 {% block preload %}
-    {% if service.hero_image %}
-    <link rel="preload" as="image" href="{{ service.hero_image.url }}" fetchpriority="high">
-    {% elif service.category.hero_image %}
-    <link rel="preload" as="image" href="{{ service.category.hero_image.url }}" fetchpriority="high">
-    {% elif services_visuals and services_visuals.page_header_background %}
-    <link rel="preload" as="image" href="{{ services_visuals.page_header_background.url }}" fetchpriority="high">
-    {% else %}
     <link rel="preload" as="image" href="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" fetchpriority="high">
-    {% endif %}
 {% endblock %}
 {% block content %}
 {% with service_name=service|localized:"name" service_subtitle=service|localized:"subtitle" hero_prefix=service|localized:"hero_title_prefix" hero_suffix=service|localized:"hero_title_suffix" service_summary=service|localized:"summary" service_content=service|localized:"content" detail_1_title=service|localized:"detail_1_title" detail_1_text=service|localized:"detail_1_text" detail_2_title=service|localized:"detail_2_title" detail_2_text=service|localized:"detail_2_text" cta_title=service|localized:"cta_title" cta_text=service|localized:"cta_text" category_slug=service.category|localized:"slug" %}
 <!-- SECCIÓN 01 · ENCABEZADO DE PÁGINA | PAGE HEADER -->
 <section class="page-header">
-    {% if service.hero_image %}
-    <div class="bg-img" data-background="{{ service.hero_image.url }}" style="background-image: url('{{ service.hero_image.url }}');"></div>
-    {% elif service.category.hero_image %}
-    <div class="bg-img" data-background="{{ service.category.hero_image.url }}" style="background-image: url('{{ service.category.hero_image.url }}');"></div>
-    {% elif services_visuals and services_visuals.page_header_background %}
-    <div class="bg-img" data-background="{{ services_visuals.page_header_background.url }}" style="background-image: url('{{ services_visuals.page_header_background.url }}');"></div>
-    {% else %}
-    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image: url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"></div>
-    {% endif %}
+    <div class="bg-img" data-background="{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}" style="background-image:url('{% static 'antra/assets/img/bg-img/page-header-bg.webp' %}');"></div>
     <div class="overlay"></div>
     <div class="container">
         <div class="page-header-content">
@@ -62,11 +89,9 @@
                         </ul>
                     </div>
                     <div class="service-details-cta">
-                        {% if services_visuals and services_visuals.sidebar_cta_background %}
-                        <div class="cta-bg" data-background="{{ services_visuals.sidebar_cta_background.url }}"></div>
-                        {% else %}
+
                         <div class="cta-bg" data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}"></div>
-                        {% endif %}
+
                         <div class="icon">
                             {% if site_configuration and site_configuration.white_logo %}<img src="{{ site_configuration.white_logo.url }}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low">{% else %}<img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services" loading="lazy" decoding="async" fetchpriority="low" width="321" height="61">{% endif %}
                         </div>
@@ -78,30 +103,22 @@
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="service-details-content scroll-content">
-                    <div class="service-details-img">
-                        {% if service.main_image %}
-                        <img src="{{ service.main_image.url }}" alt="{{ service_name }}" loading="eager" decoding="async" fetchpriority="high">
-                        {% elif services_visuals and services_visuals.detail_default_image %}
-                        <img src="{{ services_visuals.detail_default_image.url }}" alt="{{ service_name }}" loading="eager" decoding="async" fetchpriority="high">
-                        {% else %}
-                        <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}" alt="{{ service_name }}" loading="eager" decoding="async" fetchpriority="high" width="930" height="520">
-                        {% endif %}
+                    <!-- ICONO DEL SERVICIO | SERVICE ICON -->
+                    <div class="service-details-feature-icon mb-30" aria-hidden="true">
+                        <span class="d-inline-flex align-items-center justify-content-center" style="width:84px;height:84px;border-radius:12px;background:#0a4c03;color:#fff;">
+                            <i class="{% if service.icon %}{{ service.icon }}{% else %}fa-solid fa-screwdriver-wrench{% endif %}" style="font-size:35px;line-height:1;"></i>
+                        </span>
                     </div>
-                    <h1 class="details-title">
+
+
+                    <h2 class="details-title">
                         {% if hero_prefix %}<span>{{ hero_prefix }}</span> {% endif %}{{ service_name }}{% if hero_suffix %} <span>{{ hero_suffix }}</span>{% endif %}
-                    </h1>
+                    </h2>
                     {% if service_subtitle %}<p class="mb-30">{{ service_subtitle }}</p>{% endif %}
                     {% if service_summary %}<div class="mb-30">{{ service_summary|linebreaks }}</div>{% endif %}
                     {% if service_content %}<div class="mb-50">{{ service_content|linebreaks }}</div>{% endif %}
-                    <div class="service-details-img mb-50">
-                        {% if service.secondary_image %}
-                        <img src="{{ service.secondary_image.url }}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% elif services_visuals and services_visuals.secondary_default_image %}
-                        <img src="{{ services_visuals.secondary_default_image.url }}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% else %}
-                        <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low" width="930" height="520">
-                        {% endif %}
-                    </div>
+
+
                     {% if detail_1_title or detail_1_text or service.get_detail_1_items %}
                     <div class="mb-50">
                         {% if detail_1_title %}<h2 class="details-title">{{ detail_1_title }}</h2>{% endif %}
@@ -113,15 +130,8 @@
                         {% endif %}
                     </div>
                     {% endif %}
-                    <div class="service-details-img mb-50">
-                        {% if service.third_image %}
-                        <img src="{{ service.third_image.url }}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% elif services_visuals and services_visuals.third_default_image %}
-                        <img src="{{ services_visuals.third_default_image.url }}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% else %}
-                        <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}" alt="{{ service_name }}" loading="lazy" decoding="async" fetchpriority="low" width="930" height="520">
-                        {% endif %}
-                    </div>
+
+
                     {% if detail_2_title or detail_2_text or service.get_detail_2_items %}
                     <div class="mb-50">
                         {% if detail_2_title %}<h2 class="details-title">{{ detail_2_title }}</h2>{% endif %}
@@ -144,29 +154,7 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                    {% if service.images.all %}
-                    <div class="row mt-50">
-                        {% for image in service.images.all %}
-                        <div class="col-md-6 mb-30">
-                            <div class="service-details-img">
-                                {% if image.image %}
-                                <img src="{{ image.image.url }}"
-                                     alt="{% if image|localized:'alt' %}{{ image|localized:'alt' }}{% else %}{{ service_name }}{% endif %}"
-                                     loading="lazy" decoding="async" fetchpriority="low">
-                                {% elif services_visuals and services_visuals.gallery_default_image %}
-                                <img src="{{ services_visuals.gallery_default_image.url }}"
-                                     alt="{% if image|localized:'alt' %}{{ image|localized:'alt' }}{% else %}{{ service_name }}{% endif %}"
-                                     loading="lazy" decoding="async" fetchpriority="low">
-                                {% else %}
-                                <img src="{% static 'antra/assets/img/service/service-details-img-1.png' %}"
-                                     alt="{% if image|localized:'alt' %}{{ image|localized:'alt' }}{% else %}{{ service_name }}{% endif %}"
-                                     loading="lazy" decoding="async" fetchpriority="low" width="930" height="520">
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+
                 </div>
             </div>
         </div>

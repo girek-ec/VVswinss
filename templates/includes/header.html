@@ -3,24 +3,29 @@
 {% load i18n_fields %}
 {% load language_nav %}
 {% get_current_language as CURRENT_LANGUAGE %}
-<!-- PRECARGADOR | PRELOADER -->
+
+<!-- PRELOADER / TRANSICIÓN DE PÁGINAS | PAGE TRANSITION -->
 <div class="preloader overflow-hidden vvs-preloader">
-    <div
-        class="site-name vvs-preloader-brand"
-        {% if site_configuration and site_configuration.preloader_background %}
-            style="background-image: url('{{ site_configuration.preloader_background.url }}');"
-        {% endif %}
-    >
+    <div class="site-name vvs-preloader-brand"
+         {% if site_configuration and site_configuration.preloader_background %}
+         style="background-image: url('{{ site_configuration.preloader_background.url }}');"
+         {% else %}
+         style="background-image: url('{% static 'antra/assets/img/bg-img/preloader-default.webp' %}');"
+         {% endif %}>
         <div class="vvs-preloader-overlay"></div>
         <div class="vvs-preloader-content">
-    {% if site_configuration and site_configuration.white_logo %}
-        <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name|default:'V&V Swiss Services' }}" class="vvs-preloader-logo">
-    {% elif site_configuration and site_configuration.logo %}
-        <img src="{{ site_configuration.logo.url }}" alt="{{ site_configuration.company_name|default:'V&V Swiss Services' }}" class="vvs-preloader-logo">
-    {% else %}
-        <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="V&V Swiss Services" class="vvs-preloader-logo">
-    {% endif %}
-</div>
+            {% if site_configuration and site_configuration.white_logo %}
+                <img src="{{ site_configuration.white_logo.url }}" alt="{{ site_configuration.company_name|default:'V&V Swiss Services' }}" class="vvs-preloader-logo">
+            {% else %}
+                <span>
+                    {% if site_configuration %}
+                        {{ site_configuration.company_name }}
+                    {% else %}
+                        V&V Swiss Services
+                    {% endif %}
+                </span>
+            {% endif %}
+        </div>
     </div>
     <div class="preloader-gutters">
         <div class="bar"><div class="inner-bar"></div></div>
@@ -33,6 +38,7 @@
         <div class="bar"><div class="inner-bar"></div></div>
     </div>
 </div>
+
 <!-- ENCABEZADO | HEADER -->
 <header class="header header-4 sticky-active">
     <div class="primary-header">
@@ -333,6 +339,25 @@
             {% endfor %}
         </ul>
         {% endif %}
+        <!-- DESARROLLADO POR | DEVELOPED BY -->
+        <span style="font-size:13px;opacity:.85;color:#ffffff; margin-top: 50px!important; padding-top: 50px!important; display: block; text-align: center;">
+                        {% if CURRENT_LANGUAGE == "de" %}
+                            Website entwickelt von
+                        {% elif CURRENT_LANGUAGE == "it" %}
+                            Sito sviluppato da
+                        {% elif CURRENT_LANGUAGE == "en" %}
+                            Website developed by
+                        {% else %}
+                            Développé par
+                        {% endif %}
+
+                        <a href="https://benitez-ec.com/girekstudio/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style="color:#ffffff;font-weight:600;text-decoration:none;">
+                            GIREKSTUDIO
+                        </a>
+        </span>
     </div>
 </div>
 <div id="sidebar-overlay"></div>

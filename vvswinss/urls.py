@@ -1,13 +1,19 @@
-from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path, re_path
-from django.views.static import serve
+from contact.private_media import serve_private_contact_attachment, serve_public_media
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
+
+    # ADJUNTOS DE CONTACTO · ACCESO PRIVADO | STAFF-ONLY CONTACT ATTACHMENTS
+    re_path(
+        r"^media/contact/attachments/(?P<path>.*)$",
+        serve_private_contact_attachment,
+        name="private_contact_attachment",
+    ),
 
     # ========================================================
     # MEDIA
@@ -19,8 +25,7 @@ urlpatterns = [
     # ========================================================
     re_path(
         r"^media/(?P<path>.*)$",
-        serve,
-        {"document_root": settings.MEDIA_ROOT},
+        serve_public_media,
     ),
 ]
 

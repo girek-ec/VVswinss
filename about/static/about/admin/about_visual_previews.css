@@ -1,0 +1,7 @@
+/* ABOUT · THUMBNAILS | ABOUT · IMAGE PREVIEWS */
+.vv-about-saved-image{width:170px;max-width:100%;max-height:125px;object-fit:contain;border:1px solid var(--hairline-color,#d8dfe5);background:#f5f7fa;border-radius:5px;padding:3px;vertical-align:middle}
+.vv-about-list-images{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.vv-about-list-image{width:72px;height:53px;object-fit:cover;border:1px solid var(--hairline-color,#d8dfe5);border-radius:4px;background:#f5f7fa}
+.vv-about-selected-preview{margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--body-fg,#333);font-size:12px}
+.vv-about-selected-preview[hidden]{display:none}
+.vv-about-selected-image{width:170px;max-width:100%;max-height:125px;object-fit:contain;border:1px solid #8aaabb;background:#f5f7fa;border-radius:5px;padding:3px}

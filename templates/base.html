@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load i18n_fields %}
+{% load vv_seo %}
 {% get_current_language as CURRENT_LANGUAGE %}
 
 <html class="no-js" lang="{{ CURRENT_LANGUAGE|default:'fr' }}">
@@ -25,6 +26,11 @@
     <!-- SEO · CANONICAL -->
     {% block canonical %}
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    {% endblock %}
+
+    <!-- SEO · HREFLANG MULTILINGÜE | MULTILINGUAL ALTERNATE URLS -->
+    {% block hreflang %}
+    {% vv_hreflang request %}
     {% endblock %}
 
     <!-- SEO · OPEN GRAPH / TWITTER / PAGE-SPECIFIC META -->

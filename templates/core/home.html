@@ -5,12 +5,33 @@
 {% load i18n_fields %}
 {% block title %}{% trans "Rénovation et travaux du bâtiment" %} | V&V Swiss Services{% endblock %}
 {% block meta_description %}{% trans "V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande." %}{% endblock %}
+
+<!-- HOME · SOCIAL SHARING | OPEN GRAPH / TWITTER CARDS -->
+{% block metas %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="V&amp;V Swiss Services">
+<meta property="og:title" content="{% trans 'Rénovation et travaux du bâtiment' %} | V&amp;V Swiss Services">
+<meta property="og:description" content="{% trans 'V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande.' %}">
+<meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+<meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'de' %}de_CH{% elif CURRENT_LANGUAGE == 'it' %}it_CH{% elif CURRENT_LANGUAGE == 'en' %}en_GB{% else %}fr_CH{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% trans 'Rénovation et travaux du bâtiment' %} | V&amp;V Swiss Services">
+<meta name="twitter:description" content="{% trans 'V&V Swiss Services accompagne vos projets de rénovation, isolation, façades, maçonnerie, plâtrerie, peinture, finitions et entretien immobilier en Suisse romande.' %}">
+{% if service_categories.0.image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_categories.0.image.url }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ service_categories.0.image.url }}">
+{% else %}
+{% static 'antra/assets/img/home/hero-default.webp' as social_image_fallback %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ social_image_fallback }}">
+<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ social_image_fallback }}">
+{% endif %}
+<meta property="og:image:alt" content="V&amp;V Swiss Services · {% trans 'Rénovation et travaux du bâtiment' %}">
+{% endblock %}
+
 {% block preload %}
 {% with first_category=service_categories.0 %}
     {% if first_category and first_category.image %}
     <link rel="preload" as="image" href="{{ first_category.image.url }}" fetchpriority="high">
-    {% elif home and home.hero_image %}
-    <link rel="preload" as="image" href="{{ home.hero_image.url }}" fetchpriority="high">
     {% else %}
     <link rel="preload" as="image" href="{% static 'antra/assets/img/home/hero-default.webp' %}" fetchpriority="high">
     {% endif %}
@@ -42,6 +63,8 @@
 </style>
 {% endblock %}
 {% block content %}
+<!-- SEO · TÍTULO PRINCIPAL | MAIN PAGE HEADING -->
+<h1 class="visually-hidden">{% trans "Rénovation et travaux du bâtiment" %} | V&amp;V Swiss Services</h1>
 <!-- SECCIÓN 01 · HERO / SLIDER DE CATEGORÍAS | HERO / CATEGORY SLIDER -->
 <div class="vvs-hero-slider swiper pb-100">
     <div class="swiper-wrapper">
@@ -94,10 +117,6 @@
                             <div class="hero-img">
                                 {% if category.image %}
                                 <img src="{{ category.image.url }}" alt="{{ category_name }}"
-                                     {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy" fetchpriority="low"{% endif %}
-                                     decoding="async">
-                                {% elif home and home.hero_image %}
-                                <img src="{{ home.hero_image.url }}" alt="{{ category_name }}"
                                      {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy" fetchpriority="low"{% endif %}
                                      decoding="async">
                                 {% else %}
@@ -164,10 +183,6 @@
                                href="{% url 'services:list' %}?category={{ category_slug|urlencode }}">
                                 {% if category.image %}
                                     <img src="{{ category.image.url }}"
-                                         class="service-square-img"
-                                         alt="{{ category_name }}" loading="lazy" decoding="async" fetchpriority="low">
-                                {% elif home and home.services_default_image %}
-                                    <img src="{{ home.services_default_image.url }}"
                                          class="service-square-img"
                                          alt="{{ category_name }}" loading="lazy" decoding="async" fetchpriority="low">
                                 {% else %}
@@ -323,9 +338,6 @@
                     <div class="process-img">
                         {% if value.image %}
                         <img src="{{ value.image.url }}" alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
-                        {% elif home and home.values_default_image %}
-                        <img src="{{ home.values_default_image.url }}"
-                             alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low">
                         {% else %}
                         <img src="{% static 'antra/assets/img/home/values-default.webp' %}"
                              alt="{{ value|localized:'title' }}" loading="lazy" decoding="async" fetchpriority="low" width="1920" height="820">
@@ -417,7 +429,7 @@
 </section>
 <!-- SECCIÓN | SECTION -->
 <!-- SECCIÓN 06 · ÚLTIMA REALIZACIÓN / ANTES Y DESPUÉS | LATEST PROJECT / BEFORE AND AFTER -->
-{% if home_before_after_item %}
+{% if home_before_after_item and home_before_after_item.before_image and home_before_after_item.after_image %}
 {% with project=home_before_after_item.project project_slug=home_before_after_item.project|localized:"slug" %}
 <section class="project-before-after-showcase pt-50 pb-80 overflow-hidden">
     <div class="container container-2">
@@ -480,10 +492,6 @@
                 <img src="{{ home_before_after_item.before_image.url }}"
                      alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
                      loading="lazy" decoding="async" fetchpriority="low">
-                {% elif home and home.before_fallback_image %}
-                <img src="{{ home.before_fallback_image.url }}"
-                     alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
-                     loading="lazy" decoding="async" fetchpriority="low">
                 {% else %}
                 <img src="{% static 'antra/assets/img/home/before-default.webp' %}"
                      alt="{% trans 'Avant' %} - {{ project|localized:'title' }}"
@@ -492,10 +500,6 @@
                 {% endif %}
                 {% if home_before_after_item.after_image %}
                 <img src="{{ home_before_after_item.after_image.url }}"
-                     alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
-                     loading="lazy" decoding="async" fetchpriority="low">
-                {% elif home and home.after_fallback_image %}
-                <img src="{{ home.after_fallback_image.url }}"
                      alt="{% trans 'Après' %} - {{ project|localized:'title' }}"
                      loading="lazy" decoding="async" fetchpriority="low">
                 {% else %}
@@ -615,9 +619,6 @@
                                             <div class="author-img">
                                                 {% if testimonial.photo %}
                                                     <img src="{{ testimonial.photo.url }}"
-                                                         alt="{{ testimonial.name }}" loading="lazy" decoding="async" fetchpriority="low">
-                                                {% elif home and home.testimonial_avatar_default %}
-                                                    <img src="{{ home.testimonial_avatar_default.url }}"
                                                          alt="{{ testimonial.name }}" loading="lazy" decoding="async" fetchpriority="low">
                                                 {% else %}
                                                     <img src="{% static 'antra/assets/img/testi/testi-author-1.png' %}"
@@ -865,10 +866,6 @@
                             <a href="{% url 'blog:detail' post_slug %}">
                                 {% if post.main_image %}
                                 <img src="{{ post.main_image.url }}"
-                                     alt="{{ post|localized:'title' }}"
-                                     loading="lazy" decoding="async" fetchpriority="low">
-                                {% elif home and home.blog_default_image %}
-                                <img src="{{ home.blog_default_image.url }}"
                                      alt="{{ post|localized:'title' }}"
                                      loading="lazy" decoding="async" fetchpriority="low">
                                 {% else %}

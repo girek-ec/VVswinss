@@ -1,0 +1,45 @@
+# V&V SWISS SERVICES · CONTEXTO DOCKER | DOCKER BUILD CONTEXT
+# Se conservan: apps Django, migrations, locale, templates y static.
+# Se excluyen: secretos, archivos de clientes, respaldos, herramientas de desarrollo.
+.git/
+.gitignore
+.github/
+.idea/
+.vscode/
+.venv/
+venv/
+env/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example
+!.env.production.example
+media/
+staticfiles/
+.vv-backups/
+_backup_admin_*/
+VV_*/
+*.bak
+*.bak-*
+*.swp
+*.tmp
+*.temp
+*.log
+*.zip
+*.bat
+APLICAR*.py
+aplicar_correccion.py
+actualizar_fallbacks_vv.py
+VERIFICAR_STATIC.py
+django_backup_de.po
+/auditoria_*.json
+/reports/
+/PREDEPLOY_REPORT.txt
+/PREDEPLOY_ERRORS.txt
+/SEED_VV_ACTUAL.txt
