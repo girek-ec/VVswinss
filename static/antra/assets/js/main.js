@@ -186,51 +186,138 @@
       }
     });
 
-    // Mobile Menu Js
-    if ($(".mobile-menu-items").length) {
+    // NAVEGACION RESPONSIVE V&V | RESPONSIVE NAVIGATION
+    // El panel lateral recibe una copia de los enlaces Django antes de inicializar MeanMenu.
+    const $vvSourceNav = $(".header-4 .header-menu-wrap .mobile-menu-items > ul").first();
+    const $vvDesktopTarget = $("#sidebar-area .side-menu-wrap").first();
+    if ($vvSourceNav.length && $vvDesktopTarget.length) {
+      const $vvNav = $vvSourceNav.clone(false, false).addClass("vv-sidebar-nav");
+      $vvDesktopTarget.empty().append($vvNav);
+      // IDIOMAS DISPONIBLES EN EL PANEL LATERAL | LANGUAGE SWITCHING IN SIDEBAR
+      const $vvLanguageForms = $(".header-4 .header-language").first().clone(false, false)
+        .removeClass("header-language").addClass("vv-sidebar-language");
+      if ($vvLanguageForms.length) $vvDesktopTarget.append($vvLanguageForms);
+      const lang = document.documentElement.lang || "fr";
+      const labels = {
+        fr: "Afficher le sous-menu : ",
+        de: "Untermenü anzeigen: ",
+        it: "Mostra il sottomenu: ",
+        en: "Show submenu: ",
+      };
+      $vvNav.find("li.menu-item-has-children").each(function (index) {
+        const $item = $(this);
+        const $submenu = $item.children("ul").first();
+        const $link = $item.children("a").first();
+        if (!$submenu.length || !$link.length) return;
+        const submenuId = "vv-sidebar-submenu-" + (index + 1);
+        $submenu.attr("id", submenuId);
+        const $toggle = $("<button>", {
+          type: "button",
+          "class": "vv-submenu-toggle",
+          "aria-label": (labels[lang] || labels.fr) + $link.text().trim(),
+          "aria-controls": submenuId,
+          "aria-expanded": "false",
+        }).html('<i class="fa-solid fa-chevron-down" aria-hidden="true"></i>');
+        $link.after($toggle);
+        if ($item.hasClass("active")) {
+          $item.addClass("is-expanded");
+          $toggle.attr("aria-expanded", "true");
+        }
+      });
+      $vvDesktopTarget.on("click.vvSidebarSubmenu", ".vv-submenu-toggle", function () {
+        const $item = $(this).closest("li.menu-item-has-children");
+        const open = !$item.hasClass("is-expanded");
+        $item.toggleClass("is-expanded", open);
+        $(this).attr("aria-expanded", String(open));
+      });
+      $vvDesktopTarget.on("click.vvSidebarParent", '.vv-sidebar-nav li.menu-item-has-children > a[href="#"]', function (event) {
+        event.preventDefault();
+        $(this).siblings(".vv-submenu-toggle").first().trigger("click");
+      });
+    }
+
+    // MENU MOVIL · MEANMENU | MOBILE MENU · DEDICATED TARGET
+    // El contenedor móvil es único: nunca escribir en el panel lateral de escritorio.
+    if ($(".mobile-menu-items").length && $(".mobile-side-menu .side-menu-wrap").length) {
       $(".mobile-menu-items").meanmenu({
-        meanMenuContainer: ".side-menu-wrap",
+        meanMenuContainer: ".mobile-side-menu .side-menu-wrap",
         meanScreenWidth: "992",
         meanMenuCloseSize: "30px",
         meanExpand: ['<i class="fa-solid fa-caret-down"></i>'],
       });
-
-      // V&V ? En m?vil, el nombre del padre abre/cierra el submen?.
-      $(".side-menu-wrap")
-        .off(
-          "click.vvParentMenu",
-          ".mean-nav li.menu-item-has-children > a:not(.mean-expand)",
-        )
-        .on(
-          "click.vvParentMenu",
-          ".mean-nav li.menu-item-has-children > a:not(.mean-expand)",
-          function (event) {
-            const $expand = $(this).siblings("a.mean-expand").first();
-
-            if (!$expand.length) {
-              return;
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-            $expand.trigger("click");
-          },
-        );
+      $(".mobile-side-menu .side-menu-wrap")
+        .off("click.vvParentMenu", ".mean-nav li.menu-item-has-children > a:not(.mean-expand)")
+        .on("click.vvParentMenu", ".mean-nav li.menu-item-has-children > a:not(.mean-expand)", function (event) {
+          const $expand = $(this).siblings("a.mean-expand").first();
+          if (!$expand.length) return;
+          event.preventDefault();
+          event.stopPropagation();
+          $expand.trigger("click");
+        });
     }
 
-    // Mobile Sidemenu
-    $(".mobile-side-menu-toggle").on("click", function () {
-      $(".mobile-side-menu, .mobile-side-menu-overlay").toggleClass("is-open");
+    // CONTROL UNIFICADO DE PANELES | UNIFIED SIDEBAR AND MOBILE CONTROLS
+    function vvCloseNavigation() {
+      $("body").removeClass("open-sidebar vv-menu-open");
+      $(".mobile-side-menu, .mobile-side-menu-overlay").removeClass("is-open");
+      $(".header-4 .sidebar-trigger.open, .mobile-side-menu-toggle").attr("aria-expanded", "false");
+      $("#sidebar-area, .mobile-side-menu").attr("aria-hidden", "true");
+      $("#sidebar-area, .mobile-side-menu").prop("inert", true);
+    }
+    function vvOpenNavigation() {
+      vvCloseNavigation();
+      $("body").addClass("vv-menu-open");
+      if (window.matchMedia("(max-width: 992px)").matches) {
+        $(".mobile-side-menu, .mobile-side-menu-overlay").addClass("is-open");
+        $(".mobile-side-menu").attr("aria-hidden", "false");
+        $(".mobile-side-menu").prop("inert", false);
+      } else {
+        $("body").addClass("open-sidebar");
+        $("#sidebar-area").attr("aria-hidden", "false");
+        $("#sidebar-area").prop("inert", false);
+      }
+      $(".header-4 .sidebar-trigger.open").attr("aria-expanded", "true");
+    }
+    // ÚNICO BOTÓN PARA PANEL DESKTOP O PANEL MÓVIL | SINGLE RESPONSIVE TRIGGER
+    $(".mobile-side-menu").attr("id", "vv-mobile-navigation");
+    function vvSyncNavigationTarget() {
+      const mobile = window.matchMedia("(max-width: 992px)").matches;
+      $(".header-4 .sidebar-trigger.open").attr("aria-controls", mobile ? "vv-mobile-navigation" : "sidebar-area");
+    }
+    vvSyncNavigationTarget();
+    vvCloseNavigation();
+    $(document).on("click.vvNavigation", ".header-4 .sidebar-trigger.open", function (event) {
+      event.preventDefault();
+      if ($("body").hasClass("vv-menu-open")) vvCloseNavigation();
+      else vvOpenNavigation();
     });
-
-    $(".mobile-side-menu-close, .mobile-side-menu-overlay").on(
-      "click",
-      function () {
-        $(".mobile-side-menu, .mobile-side-menu-overlay").removeClass(
-          "is-open",
-        );
-      },
-    );
+    $(document).on("click.vvNavigation", ".sidebar-trigger.close, #sidebar-overlay, .mobile-side-menu-close, .mobile-side-menu-overlay", function (event) {
+      event.preventDefault();
+      vvCloseNavigation();
+    });
+    $(".mobile-side-menu-toggle").on("click.vvNavigation", function (event) {
+      event.preventDefault();
+      if ($("body").hasClass("vv-menu-open")) vvCloseNavigation();
+      else vvOpenNavigation();
+    });
+    $(document).on("keydown.vvNavigation", function (event) {
+      if (event.key === "Escape" && $("body").hasClass("vv-menu-open")) {
+        vvCloseNavigation();
+        $(".header-4 .sidebar-trigger.open:visible").first().trigger("focus");
+      }
+    });
+    // Cuando cambia el breakpoint se cierra el panel anterior; el siguiente clic
+    // abre automáticamente el panel correcto con los mismos enlaces.
+    const vvMobileBreakpoint = window.matchMedia("(max-width: 992px)");
+    function vvOnNavigationBreakpointChange() {
+      vvCloseNavigation();
+      vvSyncNavigationTarget();
+    }
+    if (vvMobileBreakpoint.addEventListener) {
+      vvMobileBreakpoint.addEventListener("change", vvOnNavigationBreakpointChange);
+    } else if (vvMobileBreakpoint.addListener) {
+      vvMobileBreakpoint.addListener(vvOnNavigationBreakpointChange);
+    }
 
     // Popup Search Box
     $(function () {
@@ -250,25 +337,6 @@
         $("#popup-search-box").removeClass("toggled");
       });
     });
-
-    // Popup Sidebox
-    function sideBox() {
-      $("body").removeClass("open-sidebar");
-      $(document).on("click", ".sidebar-trigger", function (e) {
-        e.preventDefault();
-        $("body").toggleClass("open-sidebar");
-      });
-      $(document).on(
-        "click",
-        ".sidebar-trigger.close, #sidebar-overlay",
-        function (e) {
-          e.preventDefault();
-          $("body.open-sidebar").removeClass("open-sidebar");
-        },
-      );
-    }
-
-    sideBox();
 
     // Venobox Video
 
@@ -1054,7 +1122,7 @@
 
     // Home 2 project stack: `pin` + scrub on small viewports causes layout overflow (horizontal scroll)
     const mmHome2Projects = gsap.matchMedia();
-    mmHome2Projects.add("(min-width: 992px)", () => {
+    mmHome2Projects.add("(min-width: 1024px)", () => {
       gsap.utils
         .toArray(".project-item-wrap-2 .project-item-2")
         .forEach((element, index, array) => {

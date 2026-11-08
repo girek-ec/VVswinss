@@ -51,141 +51,139 @@ canvas {
 }
 
 /* ==========================================================
-   02. DESKTOP MEDIO · 1200px - 1599px
-   El header ya está en modo compacto, así que reducimos
-   ligeramente alturas/espacios sin alterar la composición.
+   02. LAPTOP / DESKTOP MEDIO · 1200px - 1599px
+   Reduce tamaños sin alterar la composición ni el header.
 ========================================================== */
-
-@media (min-width: 1200px) and (max-width: 1599px) {
-    .pt-150,
-    .pt-145,
-    .pt-140,
-    .pt-135,
-    .pt-130 {
-        padding-top: 110px !important;
+@media (min-width: 1200px) and (max-width: 1699.98px) {
+    /* ESPACIADOS GENERALES | SECTION SPACING */
+    .pt-150, .pt-145, .pt-140, .pt-135, .pt-130 {
+        padding-top: 88px !important;
     }
-
-    .pb-150,
-    .pb-145,
-    .pb-140,
-    .pb-135,
-    .pb-130 {
-        padding-bottom: 110px !important;
+    .pb-150, .pb-145, .pb-140, .pb-135, .pb-130 {
+        padding-bottom: 88px !important;
     }
-
+    .pt-125, .pt-120, .pt-115, .pt-110, .pt-105, .pt-100 {
+        padding-top: 76px !important;
+    }
+    .pb-125, .pb-120, .pb-115, .pb-110, .pb-105, .pb-100 {
+        padding-bottom: 76px !important;
+    }
+    /* TÍTULOS Y CABECERAS | TYPOGRAPHY */
+    .section-heading .section-title {
+        font-size: clamp(38px, 3.5vw, 52px);
+        line-height: 1.16;
+    }
+    .hero-wrap .hero-content .section-heading .section-title {
+        font-size: clamp(48px, 4.2vw, 62px);
+        line-height: 1.12;
+    }
+    .page-header .page-header-content .title {
+        font-size: clamp(44px, 3.9vw, 58px);
+        line-height: 1.12;
+    }
+    .details-title, .details-title-2 {
+        font-size: clamp(30px, 2.7vw, 38px);
+        line-height: 1.2;
+    }
+    .section-heading-wrap {
+        margin-bottom: 38px;
+    }
+    /* IMÁGENES Y BLOQUES VISUALES | VISUAL BLOCKS */
     .hero-wrap .hero-img {
-        height: 680px;
-        max-width: 680px;
+        height: 580px;
+        max-width: 580px;
     }
-
     .about-img-wrap-3 {
-        height: 570px;
+        height: 500px;
     }
-
     .about-img-wrap-3 .about-img-1 {
-        max-width: 420px;
-        height: 320px;
+        max-width: 390px;
+        height: 280px;
     }
-
     .about-img-wrap-3 .about-img-2 {
-        max-width: 385px;
-        height: 450px;
+        max-width: 350px;
+        height: 395px;
     }
-
-    .testi-img-3,
-    .testi-carousel-3 {
-        height: 620px;
+    .testi-img-3, .testi-carousel-3 {
+        height: 540px;
     }
-
     #vv-project-map {
-        height: 560px;
+        height: 480px;
     }
 }
 
 /* ==========================================================
-   03. TABLET / LAPTOP PEQUEÑO · 993px - 1199px
+   03. LAPTOP PEQUEÑA · 993px - 1199px
+   Mantiene el layout de Bootstrap >= 992px.
 ========================================================== */
-
 @media (min-width: 993px) and (max-width: 1199px) {
-    .pt-150,
-    .pt-145,
-    .pt-140,
-    .pt-135,
-    .pt-130 {
-        padding-top: 82px !important;
-    }
-
-    .pb-150,
-    .pb-145,
-    .pb-140,
-    .pb-135,
-    .pb-130 {
-        padding-bottom: 82px !important;
-    }
-
-    .pt-120,
-    .pt-115,
-    .pt-110,
-    .pt-105,
-    .pt-100 {
+    /* ESPACIADOS GENERALES | SECTION SPACING */
+    .pt-150, .pt-145, .pt-140, .pt-135, .pt-130 {
         padding-top: 70px !important;
     }
-
-    .pb-120,
-    .pb-115,
-    .pb-110,
-    .pb-105,
-    .pb-100 {
+    .pb-150, .pb-145, .pb-140, .pb-135, .pb-130 {
         padding-bottom: 70px !important;
     }
-
-    /* El hero sigue en dos columnas en Bootstrap >= 992px. */
-    .hero-wrap.pt-130 {
-        padding-top: 105px !important;
+    .pt-120, .pt-115, .pt-110, .pt-105, .pt-100 {
+        padding-top: 60px !important;
     }
-
+    .pb-120, .pb-115, .pb-110, .pb-105, .pb-100 {
+        padding-bottom: 60px !important;
+    }
+    /* TÍTULOS Y CABECERAS | TYPOGRAPHY */
+    .section-heading .section-title {
+        font-size: clamp(34px, 3.4vw, 42px);
+        line-height: 1.17;
+    }
+    .hero-wrap .hero-content .section-heading .section-title {
+        font-size: clamp(42px, 4.5vw, 50px);
+        line-height: 1.12;
+    }
+    .page-header .page-header-content .title {
+        font-size: clamp(42px, 4.3vw, 50px);
+        line-height: 1.13;
+    }
+    .details-title, .details-title-2 {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+    /* HERO Y DISTRIBUCIÓN | HERO & LAYOUT */
+    .hero-wrap.pt-130 {
+        padding-top: 98px !important;
+    }
     .hero-wrap .hero-img {
-        height: 540px;
+        height: 490px;
         max-width: 100%;
     }
-
     .section-heading-wrap {
-        padding-top: 42px;
-        margin-bottom: 46px;
+        padding-top: 28px;
+        margin-bottom: 36px;
     }
-
+    /* IMÁGENES Y BLOQUES VISUALES | VISUAL BLOCKS */
     .about-img-wrap-3 {
-        height: 520px;
+        height: 470px;
     }
-
     .about-img-wrap-3 .about-img-1 {
         max-width: 78%;
-        height: 290px;
+        height: 260px;
     }
-
     .about-img-wrap-3 .about-img-2 {
         max-width: 72%;
-        height: 400px;
+        height: 365px;
     }
-
     .about-img-wrap-3 .about-counter {
-        bottom: 45px;
-        left: 35px;
+        bottom: 40px;
+        left: 30px;
     }
-
-    .testi-img-3,
-    .testi-carousel-3 {
-        height: 520px;
+    .testi-img-3, .testi-carousel-3 {
+        height: 470px;
     }
-
-    .before-after-fullwidth,
-    .before-after-fullwidth img {
-        height: 500px;
-        min-height: 500px;
+    .before-after-fullwidth, .before-after-fullwidth img {
+        height: 470px;
+        min-height: 470px;
     }
-
     #vv-project-map {
-        height: 520px;
+        height: 450px;
     }
 }
 
@@ -723,4 +721,295 @@ canvas {
     .vv-category-sidebar .service-details-left-content {
         max-width: 100%;
     }
+}
+
+
+/* 07. NAVEGACIÓN FINAL · V&V | FINAL V&V RESPONSIVE NAVIGATION */
+/* 0–992: menú móvil · desde 993: ocho enlaces horizontales + panel lateral. */
+/* Se mantienen las URL, los idiomas y los submenús originales del header Django. */
+.header.header-4 .primary-header-inner{display:flex;align-items:center;flex-wrap:nowrap;justify-content:space-between;gap:clamp(8px,1vw,16px);width:100%;min-width:0;}
+.header.header-4 .primary-header-inner .header-left-wrap{display:flex;align-items:center;flex:1 1 auto;min-width:0;column-gap:clamp(8px,1vw,24px);}
+.header.header-4 .primary-header-inner .header-menu-wrap{flex:1 1 auto;min-width:0;}
+.header.header-4 .primary-header-inner .header-right-wrap{display:flex;align-items:center;flex:0 0 auto;min-width:0;gap:clamp(6px,.7vw,12px);margin-left:auto;}
+.header.header-4 .primary-header-inner .header-logo{flex:0 0 auto;}
+.header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul{display:flex;align-items:center;flex-wrap:nowrap;justify-content:center;min-width:0;}
+.header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li{display:inline-block;flex:0 0 auto;}
+.header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>a{white-space:nowrap;line-height:1.25;}
+.header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>ul{top:100%;z-index:105;}
+/* PANTALLA GRANDE · DESDE 1700px | ORIGINAL DESKTOP DESIGN */
+@media(min-width:1700px){
+    .header.header-4 .primary-header-inner .header-menu-wrap{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li{display:inline-block!important;margin:0 clamp(4px,.45vw,10px);}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>a{font-size:clamp(13px,.82vw,16px);padding:30px 0;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile{display:none!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .search-icon{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon{display:flex!important;}
+}
+/* LAPTOP GRANDE · 1400–1699px | EIGHT LINKS IN ONE ROW */
+@media(min-width:1400px) and (max-width:1699.98px){
+    .header.header-4 .primary-header-inner .header-menu-wrap{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li{display:inline-block!important;margin:0 clamp(3px,.34vw,6px);}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>a{font-size:clamp(12px,.81vw,14px);padding:25px 0;}
+    .header.header-4 .primary-header-inner .header-logo img{max-width:clamp(112px,8.2vw,139px);}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language,
+    .header.header-4 .primary-header-inner .header-right-wrap .header-contact,
+    .header.header-4 .primary-header-inner .header-right-wrap .search-icon{display:none!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile,
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon .sidebar-trigger{width:45px;height:45px;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile{margin:0!important;}
+}
+/* LAPTOP PEQUEÑA Y ESTÁNDAR · 993–1399px | EIGHT LINKS IN TWO LEVELS */
+/* Dos filas: permite ocho enlaces reales sin solaparlos ni hacer el texto ilegible. */
+@media(min-width:993px) and (max-width:1399.98px){
+    .header.header-4 .primary-header-inner{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;gap:0 12px;padding:7px 0 4px;}
+    .header.header-4 .primary-header-inner .header-left-wrap{display:contents!important;}
+    .header.header-4 .primary-header-inner .header-logo{grid-column:1;grid-row:1;display:block!important;justify-self:start;min-width:0;}
+    .header.header-4 .primary-header-inner .header-menu-wrap{grid-column:1/-1;grid-row:2;display:flex!important;justify-content:center;align-items:center;width:100%;min-width:0;max-width:100%;padding:0 clamp(12px,1.5vw,22px);}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items{width:100%;min-width:0;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul{display:flex!important;justify-content:space-between;align-items:center;width:100%;gap:clamp(3px,.5vw,8px);}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li{display:inline-block!important;margin:0!important;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>a{font-size:clamp(12px,1.1vw,14px);letter-spacing:0;padding:13px 0 15px;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>.menu-item-has-children>a{padding-right:13px;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>.menu-item-has-children:after{right:1px;width:6px;height:6px;border-width:1.5px;}
+    .header.header-4 .primary-header-inner .header-menu-wrap .mobile-menu-items>ul>li>ul{top:100%;}
+    .header.header-4 .primary-header-inner .header-logo img{max-width:clamp(125px,12vw,150px);}
+    .header.header-4 .primary-header-inner .header-right-wrap{grid-column:2;grid-row:1;display:flex!important;justify-self:end;gap:8px;margin-left:0;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language,
+    .header.header-4 .primary-header-inner .header-right-wrap .header-contact,
+    .header.header-4 .primary-header-inner .header-right-wrap .search-icon{display:none!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile,
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile{gap:3px!important;margin:0!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile>form>button{font-size:13px!important;padding:2px!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon .sidebar-trigger{width:42px;height:42px;}
+}
+/* TABLETS Y CELULARES · HASTA 992px | ONLY MOBILE NAVIGATION */
+@media(max-width:992px){
+    .header.header-4 .primary-header-inner .header-menu-wrap,
+    .header.header-4 .primary-header-inner .header-right-wrap .header-contact,
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language,
+    .header.header-4 .primary-header-inner .header-right-wrap .search-icon{display:none!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile,
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon{display:flex!important;}
+    .header.header-4 .primary-header-inner .header-left-wrap{flex:1 1 auto;min-width:0;column-gap:0;}
+    .header.header-4 .primary-header-inner .header-right-wrap{flex:0 0 auto;gap:6px;}
+    .header.header-4 .primary-header-inner .header-right-wrap .header-language-mobile{margin:0!important;}
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon .sidebar-trigger{width:44px;height:44px;}
+}
+@media(max-width:479px){
+    .header.header-4 .primary-header-inner .header-logo img{max-width:112px;}
+    .header.header-4 .primary-header-inner .header-right-wrap .sidebar-icon .sidebar-trigger{width:39px;height:39px;}
+}
+
+/* 08. LAPTOP · TÍTULOS, CABECERAS Y TARJETAS | LAPTOP TYPOGRAPHY AND SPACING */
+@media (min-width:1200px) and (max-width:1599.98px) {
+    .hero-wrap .hero-content .section-heading .section-title {
+        font-size:clamp(52px,4.2vw,64px);
+        line-height:1.09;
+    }
+    .hero-wrap .hero-content .section-heading p {
+        margin-top:20px;
+        margin-bottom:32px;
+    }
+    .hero-wrap .hero-content.hero-content-4 .section-heading p {
+        margin-top:24px;
+    }
+    .section-heading .section-title.title-2,
+    .service-section .section-heading .section-title,
+    .about-content .section-heading .section-title {
+        font-size:clamp(38px,3.5vw,52px);
+        line-height:1.13;
+    }
+    .page-header .page-header-content {
+        padding:112px 0 76px;
+    }
+    .heading-space {
+        margin-bottom:42px;
+    }
+    .process-section {
+        padding-top:88px;
+        padding-bottom:88px;
+    }
+    .project-section-inner .project-item .project-content .title,
+    .services-home-grid .project-item .project-content .title {
+        font-size:clamp(21px,1.7vw,25px);
+        line-height:1.2;
+    }
+    .project-section-inner .project-item .project-content,
+    .services-home-grid .project-item .project-content {
+        margin-top:16px;
+    }
+}
+/* 09. LAPTOP PEQUEÑA · TÍTULOS | SMALL LAPTOP TYPOGRAPHY */
+@media (min-width:993px) and (max-width:1199.98px) {
+    .hero-wrap .hero-content .section-heading .section-title {
+        font-size:clamp(42px,4.5vw,52px);
+        line-height:1.1;
+    }
+    .hero-wrap .hero-content .section-heading p {
+        margin-top:20px;
+        margin-bottom:28px;
+    }
+    .section-heading .section-title.title-2,
+    .service-section .section-heading .section-title,
+    .about-content .section-heading .section-title {
+        font-size:clamp(34px,3.6vw,43px);
+        line-height:1.16;
+    }
+    .page-header .page-header-content {
+        padding:110px 0 70px;
+    }
+    .process-section {
+        padding-top:70px;
+        padding-bottom:70px;
+    }
+}
+/* 10. TABLET · EVITAR TÍTULOS DESPROPORCIONADOS | TABLET HEADING LIMIT */
+@media (min-width:768px) and (max-width:992.98px) {
+    .hero-wrap .hero-content .section-heading .section-title {
+        font-size:clamp(40px,5.3vw,52px);
+        line-height:1.12;
+    }
+    .page-header .page-header-content .title {
+        font-size:clamp(40px,5.2vw,52px);
+    }
+}
+
+
+/* 12. MENU LATERAL COMPLETO · SUBMENUS ACCESIBLES | DESKTOP SIDEBAR NAV */
+#sidebar-area .side-menu-content {width:100%;min-width:0;}
+#sidebar-area .side-menu-wrap {margin:0 0 32px;}
+#sidebar-area .vv-sidebar-nav,
+#sidebar-area .vv-sidebar-nav ul {list-style:none;margin:0;padding:0;}
+#sidebar-area .vv-sidebar-nav li {position:relative;border-bottom:1px solid rgba(255,255,255,.17);}
+#sidebar-area .vv-sidebar-nav li>a {display:block;padding:13px 40px 13px 0;color:#fff;font-family:var(--tl-ff-body);font-size:16px;font-weight:600;line-height:1.35;overflow-wrap:break-word;}
+#sidebar-area .vv-sidebar-nav li.active>a,
+#sidebar-area .vv-sidebar-nav li>a:hover,
+#sidebar-area .vv-sidebar-nav li>a:focus-visible {color:#b6ecb4;}
+#sidebar-area .vv-sidebar-nav li>ul {display:none;padding:0 0 12px 16px;}
+#sidebar-area .vv-sidebar-nav li.is-expanded>ul {display:block;}
+#sidebar-area .vv-sidebar-nav li>ul li {border-bottom:0;}
+#sidebar-area .vv-sidebar-nav li>ul a {padding:8px 20px 8px 0;font-size:14px;font-weight:500;}
+#sidebar-area .vv-submenu-toggle {position:absolute;top:3px;right:0;display:inline-flex;align-items:center;justify-content:center;width:36px;height:39px;padding:0;border:0;border-radius:6px;background:transparent;color:#fff;cursor:pointer;}
+#sidebar-area .vv-submenu-toggle i {transition:transform .2s ease;}
+#sidebar-area .vv-submenu-toggle[aria-expanded="true"] i {transform:rotate(180deg);}
+#sidebar-area .vv-submenu-toggle:focus-visible {outline:2px solid #b6ecb4;outline-offset:2px;}
+body.vv-menu-open {overflow:hidden;}
+/* 13. MENU MOVIL · NO DUPLICAR CON EL SIDEBAR | MOBILE DRAWER */
+@media (max-width:992px) {
+    .mobile-side-menu.is-open {z-index:1005;}
+    .mobile-side-menu-overlay.is-open {z-index:1004;}
+    .mobile-side-menu .side-menu-wrap {margin-bottom:30px;}
+    .mobile-side-menu .mean-nav.mean-nav>ul {display:block!important;}
+    .mobile-side-menu .mean-nav.mean-nav>ul li a {overflow-wrap:break-word;}
+}
+
+/* IDIOMAS EN PANEL LATERAL | SIDEBAR LANGUAGE FALLBACK */
+#sidebar-area{z-index:1003;}
+#sidebar-area .vv-sidebar-language{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:0 0 24px;}
+#sidebar-area .vv-sidebar-language form{display:inline-flex;margin:0;}
+#sidebar-area .vv-sidebar-language button{display:inline-flex;align-items:center;padding:6px 8px;background:transparent;border:1px solid rgba(255,255,255,.22);border-radius:6px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;}
+#sidebar-area .vv-sidebar-language button.active,
+#sidebar-area .vv-sidebar-language button:hover{background:rgba(255,255,255,.16);border-color:#fff;}
+#sidebar-area .vv-sidebar-language span{color:#fff;opacity:.6;}
+@media (max-width:575px){.mobile-side-menu .side-menu-wrap{margin-bottom:20px;}}
+
+
+
+
+/* MENÚ HORIZONTAL · SEPARACIÓN DE FLECHAS | DESKTOP SUBMENU ARROWS */
+@media (min-width:993px) {
+    .header-4 .header-menu-wrap .mobile-menu-items > ul > li.menu-item-has-children > a {
+        padding-right:25px!important;
+    }
+    .header-4 .header-menu-wrap .mobile-menu-items > ul > li.menu-item-has-children::after {
+        right:5px!important;
+        top:50%!important;
+        transform:translateY(-60%) rotate(45deg)!important;
+        pointer-events:none!important;
+    }
+}
+
+
+
+/* IDIOMAS DEL HEADER · VERDE Y GRIS | HEADER LANGUAGE COLORS */
+.header.header-4 .header-language-mobile > form > button {
+    color:#0a4c03!important;
+    opacity:.85!important;
+}
+.header.header-4 .header-language-mobile > form > button:hover {
+    color:#2e7d32!important;
+    opacity:1!important;
+}
+.header.header-4 .header-language-mobile > form > button.active,
+.header.header-4 .header-language-mobile > form > button[aria-current="page"] {
+    color:#72777f!important;
+    opacity:1!important;
+}
+.header.header-4 .header-language-mobile > span {
+    color:#8a9096!important;
+}
+
+/* MENÚ NEGRO · TABLETS Y CELULARES | DARK MOBILE MENU */
+@media (max-width:992px) {
+    .mobile-side-menu,
+    #sidebar-area {
+        background-color:#1c1c1d!important;
+        color:#fff!important;
+    }
+    .mobile-side-menu .mean-bar,
+    .mobile-side-menu .mean-nav,
+    .mobile-side-menu .mean-nav ul {
+        background-color:transparent!important;
+    }
+    .mobile-side-menu .mean-bar .mean-nav.mean-nav > ul li:not(:last-of-type) {
+        border-bottom-color:rgba(255,255,255,.2)!important;
+    }
+    .mobile-side-menu .mean-bar .mean-nav.mean-nav > ul li > a,
+    .mobile-side-menu .mean-bar .mean-nav.mean-nav > ul li > a.mean-expand,
+    .mobile-side-menu .side-menu-list li,
+    .mobile-side-menu .side-menu-list li a,
+    .mobile-side-menu .side-menu-list li p,
+    .mobile-side-menu .side-menu-header h3,
+    .mobile-side-menu .side-menu-social li a,
+    .mobile-side-menu .side-menu-head .mobile-side-menu-close,
+    #sidebar-area .side-menu-contact .side-menu-list li,
+    #sidebar-area .side-menu-contact .side-menu-list li a,
+    #sidebar-area .sidebar-trigger.close {
+        color:#fff!important;
+    }
+    .mobile-side-menu .mean-bar .mean-nav.mean-nav > ul li.active > a:not(.mean-expand),
+    .mobile-side-menu .mean-bar .mean-nav.mean-nav > ul li > a:not(.mean-expand):hover {
+        color:#8bd18f!important;
+    }
+    .mobile-side-menu .side-menu-head .mobile-side-menu-close {
+        border-color:rgba(255,255,255,.35)!important;
+    }
+    .mobile-side-menu .header-btn-wrap .header-btn {
+        color:#fff!important;
+    }
+}
+
+/* IDIOMAS DEL MENÚ DESPLEGABLE | DRAWER LANGUAGE COLORS */
+.mobile-side-menu .mobile-language > form > button,
+#sidebar-area .vv-sidebar-language > form > button {
+    color:#80ce86!important;
+    opacity:1!important;
+}
+.mobile-side-menu .mobile-language > form > button:hover,
+#sidebar-area .vv-sidebar-language > form > button:hover {
+    color:#a4e4a8!important;
+}
+.mobile-side-menu .mobile-language > form > button.active,
+.mobile-side-menu .mobile-language > form > button[aria-current="page"],
+#sidebar-area .vv-sidebar-language > form > button.active,
+#sidebar-area .vv-sidebar-language > form > button[aria-current="page"] {
+    color:#b0b5bc!important;
+    font-weight:800!important;
+}
+.mobile-side-menu .mobile-language > span,
+#sidebar-area .vv-sidebar-language > span {
+    color:#a3a9af!important;
 }

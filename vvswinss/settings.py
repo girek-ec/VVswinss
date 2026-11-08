@@ -7,6 +7,10 @@ Django 5.2 LTS.
 
 from pathlib import Path
 import environ
+import mimetypes
+
+# REGISTRO MIME WEBP | WEBP MIME TYPE REGISTRATION
+mimetypes.add_type("image/webp", ".webp", strict=True)
 
 # ============================================================
 # BASE
