@@ -313,6 +313,7 @@ canvas {
     }
 }
 
+
 /* ==========================================================
    05. MÓVIL · <= 767px
 ========================================================== */
@@ -625,5 +626,101 @@ canvas {
     .project-modal-direct-btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+
+
+/* CATEGORÍAS · COLUMNA IZQUIERDA RESPONSIVE | CATEGORY SIDEBAR RESPONSIVE */
+.vv-category-sidebar,
+.vv-category-sidebar .service-details-left-content {
+    min-width: 0;
+    max-width: 100%;
+}
+/* TABLETS Y MÓVILES | TABLET AND MOBILE */
+@media (max-width:991.98px) {
+    .vv-category-sidebar .service-details-left-content {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+/* TELÉFONOS · CENTRADO DE CATEGORÍAS Y CONTACTO | MOBILE SIDEBAR CENTERING */
+@media (max-width:767.98px) {
+    .vv-category-sidebar {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .vv-category-sidebar .service-details-left-content {
+        width: 100%;
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .vv-category-sidebar .service-category-list {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .vv-category-sidebar .service-category-list .list-title {
+        text-align: center;
+    }
+    .vv-category-sidebar .service-category-list ul {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+    }
+    .vv-category-sidebar .service-category-list ul li {
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .vv-category-sidebar .service-category-list ul li a {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+    .vv-category-sidebar .service-details-cta {
+        width: 100%;
+        max-width: 440px;
+        margin-left: auto!important;
+        margin-right: auto!important;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .vv-category-sidebar .service-details-cta .icon {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .vv-category-sidebar .service-details-cta .icon img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .vv-category-sidebar .service-details-cta .mail {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        text-align: center;
+    }
+}
+/* TELÉFONOS PEQUEÑOS | SMALL PHONES */
+@media (max-width:575.98px) {
+    .vv-category-sidebar .service-details-left-content {
+        max-width: 100%;
     }
 }

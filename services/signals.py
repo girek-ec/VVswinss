@@ -9,6 +9,9 @@ def optimize_service_category_images(sender, instance, **kwargs):
     optimize_instance_image_fields(instance, ("hero_image", "image"), max_dimension=2200, quality=82)
 
 # SERVICIOS · OPTIMIZACIÓN AUTOMÁTICA | SERVICE IMAGE OPTIMIZATION
+@receiver(pre_save, sender=Service, dispatch_uid="optimize_service_main_image")
+def optimize_service_main_image(sender, instance, **kwargs):
+    optimize_instance_image_fields(instance, ("image",), max_dimension=2200, quality=82)
 
 # GALERÍA · OPTIMIZACIÓN AUTOMÁTICA | GALLERY IMAGE OPTIMIZATION
 

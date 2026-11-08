@@ -411,12 +411,18 @@ class Service(TimeStampedModel):
     )
 
     # ========================================================
-    # MEDIA
+    # MEDIA · IMAGEN PRINCIPAL | MAIN SERVICE IMAGE
     # ========================================================
-
-
-
-
+    image = models.ImageField(
+        "Imagen principal del servicio",
+        upload_to="services/images/",
+        blank=True,
+        null=True,
+        help_text=(
+            "Imagen de la tarjeta de servicio. Se optimiza automáticamente a WebP. "
+            "Si no se carga, se utiliza la imagen predeterminada de static/."
+        ),
+    )
 
     icon = models.CharField(
         max_length=100,
@@ -439,6 +445,12 @@ class Service(TimeStampedModel):
 
     def __str__(self):
         return self.name_fr
+
+    # SERVICIO · IMAGEN ESTÁTICA DE RESPALDO | SERVICE STATIC IMAGE FALLBACK
+    @property
+    def static_image_url(self):
+        from .service_image_catalog import service_image_static_url
+        return service_image_static_url(self)
 
     # ========================================================
     # LOCALIZED HELPER

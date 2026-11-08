@@ -116,64 +116,73 @@
 <section class="service-details pt-130 pb-130">
     <div class="container container-2">
         <div class="row pin-inner">
-            <!-- COLUMNA IZQUIERDA | LEFT COLUMN -->
-            <div class="col-lg-4 col-md-12">
-                <div class="service-details-left-content pin-box">
-                    <!-- LISTA DE CATEGORÍAS | CATEGORY LIST -->
-                    <div class="service-category-list">
-                        <h3 class="list-title">{% trans "Nos catégories" %}</h3>
-                        <ul>
-                            {% for item in categories %}
-                            {% with item_slug=item|localized:"slug" %}
-                            {% if item_slug %}
-                            <li class="{% if item.pk == category.pk %}active{% endif %}">
-                                <a href="{% url 'services:category_detail' item_slug %}">{{ item|localized:"name" }}</a>
-                            </li>
-                            {% endif %}
-                            {% endwith %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <!-- ./ categories -->
-                    <!-- CTA DE CONTACTO | CONTACT CTA -->
-                    <div class="service-details-cta">
 
-                        <div class="cta-bg" data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}"></div>
-
-                        <div class="icon">
-                            {% if site_configuration and site_configuration.white_logo %}
-                                <img src="{{ site_configuration.white_logo.url }}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low">
-                            {% elif site_configuration and site_configuration.logo %}
-                                <img src="{{ site_configuration.logo.url }}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low">
-                            {% else %}
-                                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low" width="321" height="61">
-                            {% endif %}
-                        </div>
-                        <span>{% trans "Besoin d’aide ?" %}</span>
-                        {% if site_configuration.phone %}
-                        <a class=" mail" href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
-                        {% endif %}
-                        {% if site_configuration.email %}
-                        <a class="mail" href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
-                        {% endif %}
-                    </div>
-                    <!-- CTA | CTA -->
-                </div>
+<!-- COLUMNA IZQUIERDA | LEFT COLUMN -->
+<div class="col-lg-4 col-md-12 vv-category-sidebar">
+    <div class="service-details-left-content pin-box">
+        <!-- LISTA DE CATEGORÍAS | CATEGORY LIST -->
+        <div class="service-category-list">
+            <h3 class="list-title">{% trans "Nos catégories" %}</h3>
+            <ul>
+                {% for item in categories %}
+                {% with item_slug=item|localized:"slug" %}
+                {% if item_slug %}
+                <li class="{% if item.pk == category.pk %}active{% endif %}">
+                    <a href="{% url 'services:category_detail' item_slug %}">{{ item|localized:"name" }}</a>
+                </li>
+                {% endif %}
+                {% endwith %}
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- ./ LISTA DE CATEGORÍAS | CATEGORY LIST -->
+        <!-- CTA DE CONTACTO | CONTACT CTA -->
+        <div class="service-details-cta" style="margin-bottom:50px!important;">
+            <div class="cta-bg" data-background="{% static 'antra/assets/img/bg-img/service-cta-bg-2.png' %}"></div>
+            <div class="icon">
+                {% if site_configuration and site_configuration.white_logo %}
+                <img src="{{ site_configuration.white_logo.url }}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low">
+                {% elif site_configuration and site_configuration.logo %}
+                <img src="{{ site_configuration.logo.url }}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low">
+                {% else %}
+                <img src="{% static 'antra/assets/img/logo/logo-2.png' %}" alt="{% trans 'Contact' %}" loading="lazy" decoding="async" fetchpriority="low" width="321" height="61">
+                {% endif %}
             </div>
-            <!-- ./ left -->
+            <span>{% trans "Besoin d’aide ?" %}</span>
+            {% if site_configuration.phone %}
+            <a class="mail" href="tel:{{ site_configuration.phone }}">{{ site_configuration.phone }}</a>
+            {% endif %}
+            {% if site_configuration.email %}
+            <a class="mail" href="mailto:{{ site_configuration.email }}">{{ site_configuration.email }}</a>
+            {% endif %}
+        </div>
+        <!-- ./ CTA DE CONTACTO | CONTACT CTA -->
+    </div>
+</div>
+<!-- ./ COLUMNA IZQUIERDA | LEFT COLUMN -->
+
+
             <!-- COLUMNA DERECHA | RIGHT COLUMN -->
-            <div class="col-lg-8 col-md-12">
-                <div class="service-details-content scroll-content">
+            <div class="col-lg-8 col-md-12 vv-category-right">
+
+
+            <!-- SERVICIOS DE LA CATEGORÍA · PROCESS ANTRA | CATEGORY SERVICES PROCESS -->
+            {% if category_services %}
+            <section class="process-section overflow-hidden bg-white" style="padding-top: 5px!important; border-radius:25px 25px 0 0;">
+                <div class="bg-shape" data-background="{% static 'antra/assets/img/shapes/process-shape-1.png' %}"></div>
+                <div class="container container-2">
+
+
                     <!-- IMAGEN PRINCIPAL DE LA CATEGORÍA | CATEGORY MAIN IMAGE -->
-                    <div class="service-details-img">
+                    <div class="service-details-img" style="margin-top:10px!important; margin-bottom:10px!important; border-radius:25px; overflow:hidden;">
                         {% if category.image %}
-                        <img src="{{ category.image.url }}" alt="{{ category|localized:'name' }}" loading="eager" decoding="async" fetchpriority="high">
+                        <img src="{{ category.image.url }}" alt="{{ category|localized:'name' }}" loading="eager" decoding="async" fetchpriority="high" style="display:block; width:100%; height:auto; border-radius:25px;">
                         {% else %}
-                        <img src="{% static 'antra/assets/img/service/renovacion_moderna_con_vista_al_lago.webp' %}" alt="{{ category|localized:'name' }}" loading="eager" decoding="async" fetchpriority="high">
+                        <img src="{% static 'antra/assets/img/service/renovacion_moderna_con_vista_al_lago.webp' %}" alt="{{ category|localized:'name' }}" loading="eager" decoding="async" fetchpriority="high" style="display:block; width:100%; height:auto; border-radius:25px;">
                         {% endif %}
                     </div>
-                    <!-- TÍTULO | TITLE -->
-                    <h2 class="details-title">{{ category|localized:"name" }}</h2>
+
+
                     <!-- DESCRIPCIÓN DE LA CATEGORÍA | CATEGORY DESCRIPTION -->
                     {% with category_description=category|localized:"description" %}
                     {% if category_description %}
@@ -182,98 +191,78 @@
                     <p>{% trans "Découvrez les prestations professionnelles proposées dans cette catégorie et choisissez le service adapté à votre projet." %}</p>
                     {% endif %}
                     {% endwith %}
-                    <!-- SERVICIOS DE LA CATEGORÍA | CATEGORY SERVICES -->
-                    <h2 class="details-title">{% trans "Services de cette catégorie" %}</h2>
-                    <p>{% trans "Découvrez les prestations disponibles dans cette catégorie." %}</p>
-                    {% if category_services %}
-                    <div class="service-details-items">
+                    <div class="heading-space align-items-end">
+                        <div class="section-heading mb-0">
+                            <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Nos prestations" %}</h4>
+                            <h2 class="section-title title-2">{% trans "Découvrez nos" %} <span>{{ category|localized:"name" }}</span> {% trans "pour votre projet." %}</h2>
+                        </div>
+                        <div class="process-desc">
+                            {% with category_description=category|localized:"description" %}
+                            {% if category_description %}
+                            <p class="mb-0">{{ category_description|striptags|truncatewords:45 }}</p>
+                            {% else %}
+                            <p class="mb-0">{% trans "Découvrez les prestations professionnelles proposées dans cette catégorie et choisissez le service adapté à votre projet." %}</p>
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                    <div class="row gy-xl-0 gy-4 process-wrap">
                         {% for service in category_services %}
-                        {% with service_summary=service|localized:"summary" service_subtitle=service|localized:"subtitle" %}
-                        <div class="service-details-item">
-                            <div class="icon">
-                                {% if service.icon %}
-                                <i class="{{ service.icon }}" style="color: #ffffff !important;"></i>
-                                {% else %}
-                                <i class="fa-solid fa-screwdriver-wrench" style="color:#fff!important" aria-hidden="true"></i>
-                                {% endif %}
-                            </div>
-                            <div class="content">
-                                <h3 class="title">{{ service|localized:"name" }}</h3>
-                                {% if service_summary %}
-                                <p>{{ service_summary|striptags|truncatewords:30 }}</p>
-                                {% elif service_subtitle %}
-                                <p>{{ service_subtitle|striptags|truncatewords:30 }}</p>
-                                {% endif %}
+                        {% with service_summary=service|localized:"summary" service_subtitle=service|localized:"subtitle" service_slug=service|localized:"slug" %}
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                            <div class="process-item">
+                                <div class="process-thumb">
+                                    {% if service.image %}
+                                    <img src="{{ service.image.url }}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async">
+                                    {% else %}
+                                    <img src="{{ service.static_image_url }}" alt="{{ service|localized:'name' }}" loading="lazy" decoding="async">
+                                    {% endif %}
+                                </div>
+                                <div class="process-content">
+                                    <h3 class="title">
+                                        <span>{{ forloop.counter|stringformat:"02d" }}</span>.
+                                        {% if service.icon %}
+                                        <i class="{{ service.icon }}" style="display:inline-block;color:rgb(20 18 27 / 0.18)!important;font-size:22px;margin:0 8px;vertical-align:middle;" aria-hidden="true"></i>
+                                        {% else %}
+                                        <i class="fa-solid fa-screwdriver-wrench" style="display:inline-block;color:rgb(20 18 27 / 0.18)!important;font-size:22px;margin:0 8px;vertical-align:middle;" aria-hidden="true"></i>
+                                        {% endif %}
+                                        {% if service_slug %}
+                                        {{ service|localized:"name" }}
+                                        {% else %}
+                                        {{ service|localized:"name" }}
+                                        {% endif %}
+                                    </h3>
+                                    {% if service_summary %}
+                                    <p>{{ service_summary|striptags|truncatewords:25 }}</p>
+                                    {% elif service_subtitle %}
+                                    <p>{{ service_subtitle|striptags|truncatewords:25 }}</p>
+                                    {% endif %}
+
+
+                                </div>
+
+                                <span class="number">{{ forloop.counter|stringformat:"02d" }}</span>
                             </div>
                         </div>
                         {% endwith %}
                         {% endfor %}
                     </div>
-                    {% else %}
-                    <div class="service-category-empty">
-                        <p>{% trans "Aucun service n’est actuellement disponible dans cette catégorie." %}</p>
+                    <div class="process-text">
+                        <h5 class="bottom-text">{% trans "Un projet de rénovation à réaliser ?" %} <a href="{% url 'contact:contact' %}">{% trans "Parlons de votre projet" %}</a></h5>
                     </div>
-                    {% endif %}
-                    <!-- COMPROMISOS | COMMITMENTS -->
-                    <div class="service-details-list-wrap">
-                        <ul>
-                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Solutions adaptées aux besoins du bâtiment" %}</li>
-                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Accompagnement personnalisé du projet" %}</li>
-                        </ul>
-                        <ul>
-                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Travail professionnel et finitions soignées" %}</li>
-                            <li><i class="fa-sharp fa-solid fa-circle-check"></i> {% trans "Intervention adaptée à chaque situation" %}</li>
-                        </ul>
-                    </div>
-                    <!-- COMPROMISOS | COMMITMENTS -->
-                    <!-- SECTION 03 · CONTACT -->
-<section class="newsletter-section pt-130 pb-130 overflow-hidden tl-bg-color">
-    <div class="bg-shape">
-        <img src="{% static 'antra/assets/img/shapes/newsletter-shape.png' %}" alt="{% trans 'Projet de rénovation' %}" loading="lazy" decoding="async" fetchpriority="low" width="1920" height="505">
-    </div>
-    <div class="container">
-        <div class="newsletter-wrap">
-            <div class="section-heading text-center">
-                <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">{% trans "Besoin d’un conseil ?" %}</h4>
-                <h2 class="section-title cursor-effect">
-                    {% trans "Parlez-nous de" %}
-                    <span>{% trans "votre projet et de" %}<br>{% trans "vos besoins" %}</span>
-                </h2>
-                <p>{% trans "Présentez-nous votre projet et notre équipe vous aidera à identifier les prestations adaptées à vos besoins." %}</p>
-            </div>
-            {% trans "Bonjour, je souhaite obtenir des informations concernant un projet et demander un devis." as contact_message %}
-            {% trans "Demande concernant un projet" as email_subject %}
-            <div class="project-contact-actions">
-                <button type="button" class="project-contact-btn project-contact-whatsapp" data-bs-toggle="modal" data-bs-target="#contactProjectModal">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span>{% trans "Envoyer un message" %}</span>
-                </button>
-                {% if site_configuration.whatsapp %}
-                <a href="https://wa.me/{{ site_configuration.whatsapp }}?text={{ contact_message|urlencode }}" target="_blank" rel="noopener noreferrer" class="project-contact-btn project-contact-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                {% endif %}
-                {% if site_configuration.email %}
-                <a href="mailto:{{ site_configuration.email }}?subject={{ email_subject|urlencode }}&body={{ contact_message|urlencode }}" class="project-contact-btn">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span>{% trans "E-mail" %}</span>
-                </a>
-                {% endif %}
-                {% if site_configuration.phone %}
-                <a href="tel:{{ site_configuration.phone }}" class="project-contact-btn">
-                    <i class="fa-regular fa-phone"></i>
-                    <span>{% trans "Appeler" %}</span>
-                </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ./ newsletter-section -->
                 </div>
+            </section>
+            {% else %}
+            <div class="service-category-empty">
+                <p>{% trans "Aucun service n’est actuellement disponible dans cette catégorie." %}</p>
             </div>
-            <!-- ./ right -->
+            {% endif %}
+            <!-- ./ SERVICIOS DE LA CATEGORÍA | CATEGORY SERVICES -->
+
+            </div>
+            <!-- ./ COLUMNA DERECHA | RIGHT COLUMN -->
+
+                        <!-- ./ right -->
         </div>
     </div>
 </section>

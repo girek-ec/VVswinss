@@ -333,6 +333,7 @@ class ServiceCategoryAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixi
 @admin.register(Service)
 class ServiceAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin.ModelAdmin):
     list_display = (
+        "image_preview_list",
         "icon_preview_list",
         "name_es",
         "name_fr",
@@ -400,6 +401,7 @@ class ServiceAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin
     }
 
     readonly_fields = (
+        "image_preview",
         "icon_preview",
         "created_at",
         "updated_at",
@@ -414,6 +416,14 @@ class ServiceAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin
     fieldsets = (
         ("Configuración general", {
             "fields": ("category", "icon", "icon_preview"),
+        }),
+        ("Imagen principal · Servicio | Main service image", {
+            "description": (
+                "Suba la imagen principal del servicio. Los archivos nuevos se convierten "
+                "automáticamente a WebP. Si no se carga una imagen, se muestra el "
+                "respaldo de static/ también en la web pública."
+            ),
+            "fields": ("image", "image_preview"),
         }),
         ("Español · referencia interna", {
             "description": "Este idioma se utiliza únicamente como referencia interna en Django Admin. No se publica como idioma del sitio.",
@@ -548,6 +558,48 @@ class ServiceAdmin(FontAwesomeIconPickerMixin, FontAwesomeAdminMediaMixin, admin
     @admin.display(description="Icon preview")
     def icon_preview(self, obj):
         return render_icon_preview(getattr(obj, "icon", ""), size=34)
+
+    # IMAGEN PRINCIPAL · PREVIEWS CON STATIC | MAIN SERVICE IMAGE PREVIEWS
+    @staticmethod
+    def _service_image_source(obj):
+        image = getattr(obj, "image", None) if obj else None
+        if image:
+            try:
+                return image.url, True
+            except (AttributeError, ValueError):
+                pass
+        return obj.static_image_url if obj else static("antra/assets/img/service/VVS_service.webp"), False
+
+    @admin.display(description="Imagen")
+    def image_preview_list(self, obj):
+        url, uploaded = self._service_image_source(obj)
+        return format_html(
+            '<a href="{}" target="_blank" rel="noopener noreferrer" title="{}">'
+            '<img src="{}" alt="{}" loading="lazy" '
+            'style="display:block;width:85px;height:60px;object-fit:cover;'
+            'border-radius:6px;border:1px solid #ddd;background:#f7f7f7"></a>',
+            url,
+            "Imagen cargada" if uploaded else "Imagen predeterminada · STATIC",
+            url,
+            obj.name_fr,
+        )
+
+    @admin.display(description="Vista previa · Imagen del servicio")
+    def image_preview(self, obj):
+        url, uploaded = self._service_image_source(obj)
+        return format_html(
+            '<div style="display:inline-flex;flex-direction:column;gap:7px;">'
+            '<a href="{}" target="_blank" rel="noopener noreferrer">'
+            '<img src="{}" alt="{}" loading="lazy" '
+            'style="display:block;width:320px;max-width:100%;height:200px;object-fit:cover;'
+            'border-radius:7px;border:1px solid #ddd;background:#f7f7f7;"></a>'
+            '<span style="font-size:12px;font-weight:600;color:#245c24">{}</span>'
+            '</div>',
+            url,
+            url,
+            obj.name_fr if obj else "Service",
+            "Imagen del servicio" if uploaded else "Predeterminada · STATIC · VVS_service.webp",
+        )
 
     # IMAGE PREVIEWS | VISTA PREVIA DE IMÁGENES
 
